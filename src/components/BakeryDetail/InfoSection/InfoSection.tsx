@@ -1,4 +1,5 @@
 import React from 'react';
+import { BakeryDetailTabScreenProps } from '@/router';
 import { bindHook } from '@/utils';
 import styled from '@emotion/native';
 import { ClockIcon, EarthIcon, FileTextIcon, MapPinIcon, PhoneIcon } from '@shared/Icons';
@@ -6,55 +7,38 @@ import Divider from '../Divider';
 import InfoRow from './InfoRow';
 import { useInfoSection } from './useInfoSection';
 
-export type BakeryInfo = {
-  address: string;
-  //avgRating: number;
-  bakeryId: number;
-  //menusCount: number;
-  bakeryName: string;
-  basicInfoList: string[]; /// ['PET']
-  businessHour: string;
-  //flagType: 'NONE';
-  //flagsCount: number;
-  //imgPath: string;
-  //menuReviewsCount: number;
-  //personalRating: number;
-  //ratingCount: number;
-  telNumber: string;
-  websiteUrlList: string[];
-};
-
-type InfoProps = {
-  info: BakeryInfo;
-};
-
-const InfoSection: React.FC<InfoProps> = bindHook(useInfoSection, ({ info, facilities }) => (
-  <Container>
-    <Divider />
-    <BakeryInformation>
-      <InfoRow icon={<MapPinIcon />} text={info.address} />
-      <InfoRow icon={<ClockIcon />} text={info.businessHour} />
-      <InfoRow icon={<EarthIcon />} text={info.websiteUrlList[0]} />
-      <InfoRow icon={<PhoneIcon />} text={info.telNumber} />
-      <EditBtn>
-        <FileTextIcon />
-        <BtnText>빵집 정보 수정하기</BtnText>
-      </EditBtn>
-    </BakeryInformation>
-    <Divider />
-    <FacilityInfo>
-      <Title>시설정보</Title>
-      <Facilityies>
-        {facilities?.map(facility => (
-          <Item key={facility.category}>
-            {<facility.icon strokeColor={'orange'} />}
-            <FacilityText>{facility.text}</FacilityText>
-          </Item>
-        ))}
-      </Facilityies>
-    </FacilityInfo>
-  </Container>
-));
+const InfoSection: React.FC<BakeryDetailTabScreenProps<'BakeryDetailInfo'>> = bindHook(
+  useInfoSection,
+  ({ bakeryInfo, facilities }) => {
+    return (
+      <Container>
+        <Divider />
+        <BakeryInformation>
+          <InfoRow icon={<MapPinIcon />} text={bakeryInfo.address} />
+          <InfoRow icon={<ClockIcon />} text={bakeryInfo.businessHour} />
+          <InfoRow icon={<EarthIcon />} text={bakeryInfo.websiteUrlList[0]} />
+          <InfoRow icon={<PhoneIcon />} text={bakeryInfo.telNumber} />
+          <EditBtn>
+            <FileTextIcon />
+            <BtnText>빵집 정보 수정하기</BtnText>
+          </EditBtn>
+        </BakeryInformation>
+        <Divider />
+        <FacilityInfo>
+          <Title>시설정보</Title>
+          <Facilityies>
+            {facilities?.map(facility => (
+              <Item key={facility.category}>
+                {<facility.icon strokeColor={'orange'} />}
+                <FacilityText>{facility.text}</FacilityText>
+              </Item>
+            ))}
+          </Facilityies>
+        </FacilityInfo>
+      </Container>
+    );
+  }
+);
 
 export { InfoSection };
 

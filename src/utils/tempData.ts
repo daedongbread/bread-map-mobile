@@ -1,4 +1,4 @@
-const bakeryMenu = [
+const bakeryMenu: BakeryMenu[] = [
   {
     name: '오리지날 크루아상',
     price: 4200,
@@ -10,28 +10,28 @@ const bakeryMenu = [
     rating: 4,
   },
   {
-    name: '잠봉뵈르',
+    name: '잠봉뵈르1',
     price: 9000,
     rating: 4.8,
   },
   {
-    name: '잠봉뵈르',
-    price: 9000,
+    name: '잠봉뵈르3',
+    price: 6230,
     rating: 4.8,
   },
   {
-    name: '잠봉뵈르',
-    price: 9000,
+    name: '잠봉뵈르4',
+    price: 9070,
     rating: 4.8,
   },
   {
-    name: '잠봉뵈르',
-    price: 9000,
+    name: '잠봉뵈르5',
+    price: 8040,
     rating: 4.8,
   },
 ];
 
-const reviews = [
+const bakeryReviews: BakeryReview[] = [
   {
     breadCategoryId: 1,
     contents: '항상 남부터미널 오면 꼭 방문해서 몇개씩 사갑니다. 넘 맛나요~ㅎㅎㅎ 또 먹구싶다',
@@ -109,7 +109,7 @@ const reviews = [
     memberName: '으에',
     menuId: 4,
     menuName: '오리지널 크루아상',
-    menuReviewId: 4,
+    menuReviewId: 5,
     rating: 4.3,
   },
   {
@@ -125,7 +125,7 @@ const reviews = [
     memberName: '으에',
     menuId: 4,
     menuName: '오리지널 크루아상',
-    menuReviewId: 4,
+    menuReviewId: 6,
     rating: 4.3,
   },
   {
@@ -141,12 +141,12 @@ const reviews = [
     memberName: '으에',
     menuId: 4,
     menuName: '오리지널 크루아상',
-    menuReviewId: 4,
+    menuReviewId: 7,
     rating: 4.3,
   },
 ];
 
-const info = {
+const bakeryInfo: BakeryInfo = {
   address: '서울 서초구 서초중앙로 18',
   bakeryId: 5,
   bakeryName: '루엘드파리',
@@ -156,4 +156,42 @@ const info = {
   websiteUrlList: ['https://smartstore.naver.com/ruelledeparis'],
 };
 
-export { bakeryMenu, reviews, info };
+type BakeryMenu = {
+  name: string;
+  price: number;
+  rating: number;
+};
+
+type BakeryReview = {
+  breadCategoryId: number;
+  contents: string;
+  imgPathList: string[];
+  lastModifiedDateTime: string;
+  memberId: number;
+  memberName: string;
+  menuId: number;
+  menuName: string;
+  menuReviewId: number;
+  rating: number;
+};
+
+type BakeryInfo = {
+  address: string;
+  //avgRating: number;
+  bakeryId: number;
+  //menusCount: number;
+  bakeryName: string;
+  basicInfoList: string[]; /// ['PET']
+  businessHour: string;
+  //flagType: 'NONE';
+  //flagsCount: number;
+  //imgPath: string;
+  //menuReviewsCount: number;
+  //personalRating: number;
+  //ratingCount: number;
+  telNumber: string;
+  websiteUrlList: string[];
+};
+
+export { bakeryMenu, bakeryReviews, bakeryInfo };
+export type { BakeryMenu, BakeryReview, BakeryInfo };
