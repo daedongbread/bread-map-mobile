@@ -2,9 +2,16 @@ import React from 'react';
 import { Platform } from 'react-native';
 import MapView, { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import { MapBottomSheet, BakeryMarker } from '@/components/Home';
+import { RootStackParamList, RootStackScreenProps } from '@/router';
+import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
 import styled from '@emotion/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Home = () => (
+export type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
+
+const Home: React.FC<RootStackScreenProps<'Home'>> = ({ route, navigation }) => (
   <MapContainer>
     <Map
       provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
@@ -24,7 +31,17 @@ const Home = () => (
         }}
       />
     </Map>
-    <MapBottomSheet start={50} />
+    <MapBottomSheet
+      start={50}
+      moveFn={() => {
+        navigation.navigate('BakeryDetail', {
+          screen: 'BakeryDetailHome',
+          params: {
+            ...bakeryData,
+          },
+        });
+      }}
+    />
   </MapContainer>
 );
 

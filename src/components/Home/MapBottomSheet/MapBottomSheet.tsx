@@ -7,7 +7,7 @@ import { bindHook, resizePixel } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useMapButtonSheet } from './useMapBottomSheet';
 
-const MapBottomSheet = bindHook(useMapButtonSheet, ({ bottomSheetRef, snapPoints, handleSheetChanges }) => (
+const MapBottomSheet = bindHook(useMapButtonSheet, ({ moveFn, bottomSheetRef, snapPoints, handleSheetChanges }) => (
   <BottomSheet
     handleIndicatorStyle={styles.handleIndicatorStyle}
     style={styles.bottomSheetContainer}
@@ -18,7 +18,7 @@ const MapBottomSheet = bindHook(useMapButtonSheet, ({ bottomSheetRef, snapPoints
   >
     <LogOutButton />
     <SafeAreaView style={styles.contentsContainer}>
-      <Example />
+      <Example moveFn={moveFn} />
     </SafeAreaView>
   </BottomSheet>
 ));

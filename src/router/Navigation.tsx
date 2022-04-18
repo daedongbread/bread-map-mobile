@@ -1,71 +1,69 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Router, Scene, Stack } from 'react-native-router-flux';
-import { Header, HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
-import { BakeryInfo } from '@/components/BakeryDetail/InfoSection/InfoSection'; // Type
-import { MenuItem } from '@/components/BakeryDetail/MenuSection/MenuSection'; // Type
-import { MenuReview } from '@/components/BakeryDetail/ReviewSection/ReviewSection'; // Type
+import { HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
 import { Home } from '@/pages';
+import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
+import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Route } from '@react-navigation/routers';
+import { RootStackParamList } from '.';
 
-type NavigationProps = {
-  data: {
-    bakeryMenu: MenuItem[];
-    reviews: MenuReview[];
-    info: BakeryInfo;
-  };
+const Tab = createMaterialTopTabNavigator();
+
+const BakeryDetailTabNavigator = () => (
+  <BakeryDetailProvider>
+    <Tab.Navigator
+      tabBarPosition="top"
+      backBehavior="history"
+      screenOptions={{
+        tabBarStyle: { marginHorizontal: 20, elevation: 0, shadowOffset: { width: 0, height: 0 } },
+        tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
+        tabBarLabelStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Tab.Screen name="BakeryDetailHome" component={HomeSection} options={{ title: '홈' }} />
+      <Tab.Screen name="BakeryDetailMenu" component={MenuSection} options={{ title: '메뉴' }} />
+      <Tab.Screen name="BakeryDetailReview" component={ReviewSection} options={{ title: '리뷰' }} />
+      <Tab.Screen name="bakeryDetailInfo" component={InfoSection} options={{ title: '정보' }} />
+    </Tab.Navigator>
+  </BakeryDetailProvider>
+);
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
+
+const getHeaderTitle = (route: Partial<Route<string>>) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Header title';
+
+  switch (routeName) {
+    case 'BakeryDetailHome':
+    default:
+      return bakeryData.bakeryInfo.bakeryName;
+  }
 };
 
-const Navigation = ({ data }: NavigationProps) => (
-  <Router>
-    <Stack key="root" lightbox>
-      <Scene key="home" initial={true} component={Home} title="Home" />
-      <Scene key="bakeryDetailHeader" navBar={() => <Header bakeryName={data.info.bakeryName} />}>
-        <Scene
-          key="bakeryDetailTab"
-          tabs={true}
-          tabBarPosition={'top'}
-          tabBarStyle={styles.tabBarStyle}
-          labelStyle={styles.tabFontStyle}
-          indicatorStyle={styles.tabStyle}
-          hideTabBar={false}
-          wrap={false}
-          headerMode="none"
-        >
-          <Scene key="bakeryDetailHome" title="홈" component={() => <HomeSection />} hideNavBar />
-          <Scene
-            key="bakeryDetailReview"
-            title="리뷰"
-            component={() => <ReviewSection reviews={data.reviews} />}
-            hideNavBar
-          />
-          <Scene
-            key="bakeryDetailMenu"
-            title="메뉴"
-            component={() => <MenuSection bakeryMenu={data.bakeryMenu} />}
-            hideNavBar
-          />
-          <Scene key="bakeryDetailInfo" title="정보" component={() => <InfoSection info={data.info} />} hideNavBar />
-        </Scene>
-      </Scene>
-    </Stack>
-  </Router>
+const Navigation = () => (
+  <NavigationContainer theme={navigationTheme}>
+    <RootStack.Navigator initialRouteName="Home">
+      <RootStack.Screen name="Home" component={Home} />
+      <RootStack.Screen
+        name="BakeryDetail"
+        component={BakeryDetailTabNavigator}
+        options={({ route }) => ({ headerTitle: getHeaderTitle(route) })}
+      />
+    </RootStack.Navigator>
+  </NavigationContainer>
 );
 
 export { Navigation };
 
-const styles = StyleSheet.create({
-  tabBarStyle: {
-    backgroundColor: theme.color.white,
+const navigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
   },
-  tabFontStyle: {
-    color: theme.color.black,
-    fontWeight: 'bold',
-  },
-  tabStyle: {
-    backgroundColor: theme.color.primary500,
-  },
-  contentStyle: {
-    backgroundColor: theme.color.white,
-  },
-});
+};
