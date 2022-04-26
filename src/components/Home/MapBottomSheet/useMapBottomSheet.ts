@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 
-const useMapButtonSheet = () => {
+const useMapButtonSheet = ({ moveFn }: { moveFn: () => void }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const snapPoints = useMemo(() => ['25%', '50%', '85%'], []);
@@ -11,7 +11,7 @@ const useMapButtonSheet = () => {
     index;
   }, []);
 
-  return { bottomSheetRef, snapPoints, handleSheetChanges };
+  return { moveFn, bottomSheetRef, snapPoints, handleSheetChanges };
 };
 
 export { useMapButtonSheet };

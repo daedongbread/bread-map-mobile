@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/native';
 
 type InfoRowProps = {
-  icon: SVGElement;
+  icon: React.ReactNode;
   text: string;
 };
 

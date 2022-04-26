@@ -1,5 +1,7 @@
 import React from 'react';
 import { SvgProps } from 'react-native-svg';
+import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
+import { BakeryDetailTabScreenProps } from '@/router';
 import type { InfoIconProps } from '@shared/Icons';
 import { InfoParkingIcon, InfoWifiIcon, InfoDeliveryIcon, InfoPetIcon, InfoShippingIcon } from '@shared/Icons';
 
@@ -40,38 +42,17 @@ const facilityList: FacilityItem[] = [
   },
 ];
 
-type BakeryInfo = {
-  address: string;
-  //avgRating: number;
-  bakeryId: number;
-  //menusCount: number;
-  bakeryName: string;
-  basicInfoList: string[]; /// ['PET']
-  businessHour: string;
-  //flagType: 'NONE';
-  //flagsCount: number;
-  //imgPath: string;
-  //menuReviewsCount: number;
-  //personalRating: number;
-  //ratingCount: number;
-  telNumber: string;
-  websiteUrlList: string[];
-};
-
-type UseInfoProps = {
-  info: BakeryInfo;
-};
-
-export const useInfoSection = ({ info }: UseInfoProps) => {
+export const useInfoSection = ({ route }: BakeryDetailTabScreenProps<'BakeryDetailInfo'>) => {
+  const { bakery } = useBakeryDetail();
   const [facilities, setFacilities] = React.useState<FacilityItem[] | null>(null);
 
   React.useEffect(() => {
-    const filtered = facilityList.filter(facility => info.basicInfoList?.includes(facility.category));
+    const filtered = facilityList.filter(facility => bakery?.bakeryInfo.basicInfoList?.includes(facility.category));
     setFacilities(filtered);
-  }, [info]);
+  }, [bakery]);
 
   return {
-    info,
+    bakeryInfo: bakery?.bakeryInfo!,
     facilities,
   };
 };
