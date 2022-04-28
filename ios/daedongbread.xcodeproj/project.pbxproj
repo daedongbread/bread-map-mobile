@@ -12,9 +12,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2F0A7624A9FCC0831EC2C5A5 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */; };
 		34C180C8281833AB0013BE2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		34F9A63228183BE20041F6D9 /* launch_screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F9A62F28183BE20041F6D9 /* launch_screen@2x.png */; };
-		34F9A63328183BE20041F6D9 /* launch_screen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F9A63028183BE20041F6D9 /* launch_screen@3x.png */; };
-		34F9A63428183BE20041F6D9 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F9A63128183BE20041F6D9 /* launch_screen.png */; };
 		4A28C381A688CC5C6D269FA4 /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */; };
 /* End PBXBuildFile section */
 
@@ -40,9 +37,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = daedongbread/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = daedongbread/main.m; sourceTree = "<group>"; };
 		2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.release.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.release.xcconfig"; sourceTree = "<group>"; };
-		34F9A62F28183BE20041F6D9 /* launch_screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch_screen@2x.png"; path = "../../../../Downloads/ImageSets/ios/launch_screen@2x.png"; sourceTree = "<group>"; };
-		34F9A63028183BE20041F6D9 /* launch_screen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch_screen@3x.png"; path = "../../../../Downloads/ImageSets/ios/launch_screen@3x.png"; sourceTree = "<group>"; };
-		34F9A63128183BE20041F6D9 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = ../../../../Downloads/ImageSets/ios/launch_screen.png; sourceTree = "<group>"; };
 		420D214427CB688700F392B7 /* daedongbread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbread.entitlements; path = daedongbread/daedongbread.entitlements; sourceTree = "<group>"; };
 		49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.debug.xcconfig"; sourceTree = "<group>"; };
 		700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +86,6 @@
 		13B07FAE1A68108700A75B9A /* daedongbread */ = {
 			isa = PBXGroup;
 			children = (
-				346B3CF828182E4500B0F74D /* images.xcassets */,
 				420D214427CB688700F392B7 /* daedongbread.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -112,16 +105,6 @@
 				1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		346B3CF828182E4500B0F74D /* images.xcassets */ = {
-			isa = PBXGroup;
-			children = (
-				34F9A63128183BE20041F6D9 /* launch_screen.png */,
-				34F9A62F28183BE20041F6D9 /* launch_screen@2x.png */,
-				34F9A63028183BE20041F6D9 /* launch_screen@3x.png */,
-			);
-			name = images.xcassets;
 			sourceTree = "<group>";
 		};
 		6C09964EC338E41AEDB73134 /* Pods */ = {
@@ -261,9 +244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				34C180C8281833AB0013BE2F /* LaunchScreen.storyboard in Resources */,
-				34F9A63228183BE20041F6D9 /* launch_screen@2x.png in Resources */,
-				34F9A63428183BE20041F6D9 /* launch_screen.png in Resources */,
-				34F9A63328183BE20041F6D9 /* launch_screen@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
