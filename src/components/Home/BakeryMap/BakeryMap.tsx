@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
 import { BakeryMarker } from '@/components/Home';
+import { BakeryMapSearch } from '@/components/Home/BakeryMapSearch/BakeryMapSearch';
 import { Coordinate } from '@/containers/Home/BakeryMapContainer';
 
-import { theme } from '@/styles/theme';
-import { resizePixel } from '@/utils';
-import { FlagIcon, NavigationIcon, SearchIcon } from '@shared/Icons';
+import { FlagIcon, NavigationIcon } from '@shared/Icons';
 
 const MIN_ZOOM_LEVEL = 17;
 const MAX_ZOOM_LEVEL = 25;
@@ -62,19 +61,7 @@ export const BakeryMap: React.FC<Props> = ({
       </MapView>
 
       <View style={styles.overlayWrapper}>
-        <View style={styles.searchInputWrapper}>
-          <View style={styles.searchIconWrapper}>
-            <SearchIcon />
-          </View>
-
-          <TextInput
-            value={searchValue}
-            onChangeText={onChangeSearch}
-            placeholder={'빵집을 검색해보세요'}
-            placeholderTextColor={theme.color.gray500}
-            style={styles.searchTextInput}
-          />
-        </View>
+        <BakeryMapSearch searchValue={searchValue} onChangeSearch={onChangeSearch} />
 
         <View style={styles.iconsWrapper}>
           <View style={styles.iconWrapper}>
@@ -102,26 +89,6 @@ const styles = StyleSheet.create({
     top: 60,
     paddingHorizontal: 20,
     position: 'absolute',
-  },
-  searchInputWrapper: {
-    backgroundColor: 'white',
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    flexDirection: 'row',
-    borderRadius: 8,
-    shadowOffset: {
-      width: 4,
-      height: 6,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
-  },
-  searchIconWrapper: {
-    marginRight: 10,
-  },
-  searchTextInput: {
-    fontSize: resizePixel(14),
-    fontWeight: 'bold',
   },
   iconsWrapper: {
     flex: 1,
