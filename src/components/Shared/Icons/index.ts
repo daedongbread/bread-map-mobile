@@ -21,3 +21,6 @@ export { Quote } from './Quote';
 export { DaebbangFlag } from './DaebbangFlag';
 export { GoogleLogo } from './GoogleLogo';
 export { AppleLogo } from './AppleLogo';
+export { SearchIcon } from './SearchIcon';
+export { FlagIcon } from './FlagIcon';
+export { NavigationIcon } from './NavigationIcon';
