@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Platform } from 'react-native';
 import { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 
-import { BakeryMap } from '@/components/Home/BakeryMap';
+import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
 export type Coordinate = {
