@@ -11,6 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2F0A7624A9FCC0831EC2C5A5 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */; };
+		34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
+		34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
+		34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
+		34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		4A28C381A688CC5C6D269FA4 /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */; };
 /* End PBXBuildFile section */
 
@@ -36,11 +40,12 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = daedongbread/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = daedongbread/main.m; sourceTree = "<group>"; };
 		2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.release.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.release.xcconfig"; sourceTree = "<group>"; };
+		34269DC6281DF22400EBFF95 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = daedongbread/Images.xcassets/LaunchScreen.imageset/launch_screen.png; sourceTree = "<group>"; };
+		34C35D3E281E1BC500872416 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		420D214427CB688700F392B7 /* daedongbread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbread.entitlements; path = daedongbread/daedongbread.entitlements; sourceTree = "<group>"; };
 		49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.debug.xcconfig"; sourceTree = "<group>"; };
 		700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7674A39203926E0AD5CCC4D6 /* Pods-daedongbread-daedongbreadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.release.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = daedongbread/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CCDC8F28F9B28A82B903047 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -90,8 +95,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				34C35D3E281E1BC500872416 /* Launch Screen.storyboard */,
 			);
 			name = daedongbread;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				34269DC6281DF22400EBFF95 /* launch_screen.png */,
 				13B07FAE1A68108700A75B9A /* daedongbread */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* daedongbreadTests */,
@@ -235,6 +241,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */,
+				34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +250,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */,
+				34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,7 +584,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -639,7 +649,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
