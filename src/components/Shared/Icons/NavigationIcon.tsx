@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-//TODO: ZoomOutIcon? SearchIcon?
 export const NavigationIcon: React.FC<SvgProps> = props => (
   <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
     <Path

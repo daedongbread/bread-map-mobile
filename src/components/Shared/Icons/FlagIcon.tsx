@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps, Mask } from 'react-native-svg';
 
-//TODO: ZoomOutIcon? SearchIcon?
 export const FlagIcon: React.FC<SvgProps> = props => (
   <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
     <Path d="M4.37939 3.50269V21.5027" stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
