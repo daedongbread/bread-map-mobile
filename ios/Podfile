@@ -7,9 +7,9 @@ rn_maps_path = '../node_modules/react-native-maps'
 platform :ios, '11.0'
 
 target 'daedongbread' do
-  pod 'react-native-google-maps', :path => rn_maps_path 
-  pod 'GoogleMaps' 
-  pod 'Google-Maps-iOS-Utils' 
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
   config = use_native_modules!
 
   use_react_native!(
@@ -17,6 +17,8 @@ target 'daedongbread' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   target 'daedongbreadTests' do
     inherit! :complete
@@ -27,7 +29,7 @@ target 'daedongbread' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  
+
   use_flipper!({ 'Flipper' => '0.96.0', 'Flipper-Folly' => '~> 2.6', 'Flipper-RSocket' => '~> 1.4' })
     post_install do |installer|
       react_native_post_install(installer)
