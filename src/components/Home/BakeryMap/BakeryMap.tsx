@@ -42,7 +42,7 @@ export const BakeryMap: React.FC<Props> = ({
   }, [activeMarkerId, selectMarker]);
 
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.container}>
       <MapView
         provider={provider}
         initialRegion={initialRegion}
@@ -60,15 +60,15 @@ export const BakeryMap: React.FC<Props> = ({
         ))}
       </MapView>
 
-      <View style={styles.overlayWrapper}>
+      <View style={styles.overlayContainer}>
         <BakeryMapSearch searchValue={searchValue} onChangeSearch={onChangeSearch} />
 
         <View style={styles.iconsWrapper}>
-          <View style={styles.iconWrapper}>
+          <View style={styles.iconButton}>
             <FlagIcon onPress={onPressFlagIcon} />
           </View>
 
-          <View style={[styles.iconWrapper, styles.iconGap]}>
+          <View style={[styles.iconButton, styles.iconGap]}>
             <NavigationIcon onPress={onPressNavigationIcon} />
           </View>
         </View>
@@ -78,13 +78,13 @@ export const BakeryMap: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     flex: 1,
   },
   map: {
     flex: 1,
   },
-  overlayWrapper: {
+  overlayContainer: {
     width: '100%',
     top: 60,
     paddingHorizontal: 20,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginTop: 20,
   },
-  iconWrapper: {
+  iconButton: {
     borderRadius: 44,
     backgroundColor: 'white',
     width: 44,
