@@ -7,8 +7,8 @@ import styled from '@emotion/native';
 
 const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
 
-const Home: React.FC<RootStackScreenProps<'Home'>> = ({ route, navigation }) => (
-  <MapWrapper>
+const Home: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) => (
+  <HomeContainer>
     <BakeryMapContainer />
     <MapBottomSheet
       moveFn={() => {
@@ -20,12 +20,12 @@ const Home: React.FC<RootStackScreenProps<'Home'>> = ({ route, navigation }) => 
         });
       }}
     />
-  </MapWrapper>
+  </HomeContainer>
 );
 
 export { Home };
 
-const MapWrapper = styled.View`
+const HomeContainer = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.color.primary500};
 `;

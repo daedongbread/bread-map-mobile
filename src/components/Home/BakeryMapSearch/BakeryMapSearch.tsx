@@ -12,7 +12,7 @@ type Props = {
 
 export const BakeryMapSearch: React.FC<Props> = ({ searchValue, onChangeSearch }) => {
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.container}>
       <View style={styles.searchIconWrapper}>
         <SearchIcon />
       </View>
@@ -29,7 +29,7 @@ export const BakeryMapSearch: React.FC<Props> = ({ searchValue, onChangeSearch }
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     backgroundColor: 'white',
     paddingVertical: 14,
     paddingHorizontal: 18,
