@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
+import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
 export type Coordinate = {
@@ -47,16 +48,26 @@ export const BakeryMapContainer: React.FC = () => {
   const onPressNavigationIcon = useCallback(() => {}, []);
 
   return (
-    <BakeryMap
-      provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
-      initialRegion={initialRegion}
-      markerCoordinates={markerCoordinates}
-      onPressMarker={onPressMarker}
-      searchValue={searchValue}
-      onChangeSearch={setSearchValue}
-      onPressFlagIcon={onPressFlagIcon}
-      onPressNavigationIcon={onPressNavigationIcon}
-      selectMarker={selectMarker}
-    />
+    <View style={styles.container}>
+      <BakeryMap
+        provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
+        initialRegion={initialRegion}
+        markerCoordinates={markerCoordinates}
+        onPressMarker={onPressMarker}
+        selectMarker={selectMarker}
+      />
+      <BakeryMapOverlay
+        searchValue={searchValue}
+        onChangeSearch={setSearchValue}
+        onPressFlagIcon={onPressFlagIcon}
+        onPressNavigationIcon={onPressNavigationIcon}
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
