@@ -1,25 +1,15 @@
 import React from 'react';
-import { MapBottomSheet } from '@/components/Home';
-import { BakeryMapContainer } from '@/containers/Home/BakeryMapContainer';
+
+import { BakeryBottomSheetContainer, BakeryMapContainer } from '@/containers/Home';
+
 import { RootStackScreenProps } from '@/router';
-import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
+
 import styled from '@emotion/native';
 
-const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
-
-const Home: React.FC<RootStackScreenProps<'Home'>> = ({ navigation }) => (
+const Home: React.FC<RootStackScreenProps<'Home'>> = () => (
   <HomeContainer>
     <BakeryMapContainer />
-    <MapBottomSheet
-      moveFn={() => {
-        navigation.navigate('BakeryDetail', {
-          screen: 'BakeryDetailHome',
-          params: {
-            ...bakeryData,
-          },
-        });
-      }}
-    />
+    <BakeryBottomSheetContainer />
   </HomeContainer>
 );
 
