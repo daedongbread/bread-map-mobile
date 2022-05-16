@@ -19,7 +19,7 @@ const BakeryDetail = () => (
   <Container>
     {/* <MenuSection bakeryMenu={bakeryMenu} /> */}
     {/* <ReviewSection reviews={reviews} /> */}
-    <InfoSection />
+    <InfoSection  />
   </Container>
 );
 
