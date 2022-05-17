@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
+import { BakeryEntity } from '@/apis';
+import { BakeryCard } from '@/components/Home/BakeryCard';
 import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
 
 import { theme } from '@/styles/theme';
@@ -15,21 +17,32 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   onClickBakery: (id: string) => void;
   activeTab: TabItem;
   onPressTab: (item: TabItem) => void;
+  bakeryList: Array<BakeryEntity>;
 };
 
-const BakeryBottomSheet: React.FC<Props> = ({ onChange, activeTab, onPressTab }) => {
-  const snapPoints = useMemo(() => ['25%', '50%', '85%'], []);
+const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab }) => {
+  const snapPoints = useMemo(() => ['35%', '60%'], []);
+  const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
+
+  const handleBottomSheetChange = (index: number) => {
+    setBottomSheetIndex(index);
+  };
+
+  const renderItem = useCallback(({ item }: { item: BakeryEntity }) => {
+    return <BakeryCard bakery={item} />;
+  }, []);
 
   return (
     <BottomSheet
       style={styles.bottomSheetContainer}
       handleIndicatorStyle={styles.handleIndicatorStyle}
-      enableContentPanningGesture={false}
       snapPoints={snapPoints}
-      onChange={onChange}
+      enableContentPanningGesture={bottomSheetIndex !== 1}
+      onChange={handleBottomSheetChange}
     >
-      <SafeAreaView style={styles.contentsContainer}>
+      <SafeAreaView style={[styles.contentsContainer]}>
         <Header activeTab={activeTab} onPress={onPressTab} />
+        <FlatList data={bakeryList} renderItem={renderItem} />
       </SafeAreaView>
     </BottomSheet>
   );
