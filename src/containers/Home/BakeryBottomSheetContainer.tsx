@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { BakeryBottomSheet } from '@/components/Home/BakeryBottomSheet';
-import { bakeryInfo, bakeryMenu, bakeryReviews } from '@/utils';
+import { bakeryInfo, bakeryMenu, bakeryReviews, bakeryList } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 
 const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
@@ -25,15 +25,13 @@ const BakeryBottomSheetContainer: React.VFC = () => {
       },
     });
   }, [navigate]);
-  //
-  // const handleSheetChanges = useCallback((index: number) => {}, []);
 
   return (
     <BakeryBottomSheet
-      // onChange={handleSheetChanges}
       onClickBakery={onClickBakery}
       activeTab={activeTab}
       onPressTab={onPressTab}
+      bakeryList={bakeryList}
     />
   );
 };
