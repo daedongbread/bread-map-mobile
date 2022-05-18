@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BakeryEntity } from '@/apis';
+import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import styled from '@emotion/native';
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 import { BakeryThumbnail } from '../BakeryThumbnail';
 
@@ -12,38 +12,38 @@ type BakeryCardProps = {
 };
 
 const BakeryCard = ({ bakery }: BakeryCardProps) => (
-  <BakeryCardContainer style={styles.bakeryCardContainer}>
+  <View style={styles.bakeryCardContainer}>
     <BakeryThumbnail src={`${bakery.imgPath}`} />
-    <BakeryInfoContainer style={styles.bakeryInfoContainer}>
-      <BakeryName style={styles.bakeryName}>{bakery.bakeryName}</BakeryName>
-      <CountItemsWrap style={styles.countItemsWrap}>
-        <CountItem style={styles.countItem}>
+    <View style={styles.bakeryInfoContainer}>
+      <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
+      <View style={styles.countItemsWrap}>
+        <View style={styles.countItem}>
           <CircleFlag />
           <Text style={styles.countItemText}>{bakery.flagsCount}</Text>
-        </CountItem>
-        <CountItem style={styles.countItem}>
+        </View>
+        <View style={styles.countItem}>
           <CircleStar />
           <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
-        </CountItem>
-        <CountItem style={styles.countItem}>
+        </View>
+        <View style={styles.countItem}>
           <CirclePencil />
           <Text style={styles.countItemText}>{bakery.menuReviewsCount}</Text>
-        </CountItem>
-      </CountItemsWrap>
+        </View>
+      </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {bakery.menuReviewList.map((review, idx) => (
-          <ReviewView key={'' + review.breadCategoryId + '_' + idx} style={styles.reviewView}>
-            <ReviewContent>
+          <View key={`${review.breadCategoryId}_${idx}`} style={styles.reviewView}>
+            <View style={styles.reviewContent}>
               <Quote />
               <Text style={styles.countItemText} numberOfLines={2}>
                 {review.contents}
               </Text>
-            </ReviewContent>
-          </ReviewView>
+            </View>
+          </View>
         ))}
       </ScrollView>
-    </BakeryInfoContainer>
-  </BakeryCardContainer>
+    </View>
+  </View>
 );
 
 export { BakeryCard };
@@ -51,22 +51,29 @@ export { BakeryCard };
 const styles = StyleSheet.create(
   resizePixels({
     bakeryCardContainer: {
+      flexDirection: 'row',
       marginBottom: 20,
     },
     bakeryInfoContainer: {
       marginLeft: 8,
       flex: 1,
+      alignItems: 'flex-start',
+      overflow: 'hidden',
     },
     bakeryName: {
       fontSize: 16,
       marginVertical: 4,
+      fontWeight: 'bold',
     },
     countItemsWrap: {
       marginBottom: 8,
       height: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     countItem: {
       marginRight: 8,
+      flexDirection: 'row',
     },
     countItemText: {
       fontSize: 12,
@@ -77,37 +84,11 @@ const styles = StyleSheet.create(
       width: 195,
       marginRight: 8,
       borderRadius: 8,
+      backgroundColor: theme.color.gray200,
+      justifyContent: 'center',
+    },
+    reviewContent: {
+      flexDirection: 'row',
     },
   })
 );
-
-const BakeryCardContainer = styled.View`
-  flex-direction: row;
-`;
-
-const BakeryName = styled.Text`
-  font-weight: bold;
-`;
-
-const BakeryInfoContainer = styled.View`
-  align-items: flex-start;
-  overflow: hidden;
-`;
-
-const CountItemsWrap = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const CountItem = styled.View`
-  flex-direction: row;
-`;
-
-const ReviewView = styled.View`
-  background-color: ${({ theme }) => theme.color.gray200};
-  justify-content: center;
-`;
-
-const ReviewContent = styled.View`
-  flex-direction: row;
-`;
