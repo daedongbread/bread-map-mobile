@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BakeryEntity } from '@/apis';
@@ -11,42 +11,44 @@ type BakeryCardProps = {
   bakery: BakeryEntity;
 };
 
-const BakeryCard = ({ bakery }: BakeryCardProps) => (
-  <View style={styles.bakeryCardContainer}>
-    <BakeryThumbnail src={`${bakery.imgPath}`} />
-    <View style={styles.bakeryInfoContainer}>
-      <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
-      <View style={styles.countItemsWrap}>
-        <View style={styles.countItem}>
-          <CircleFlag />
-          <Text style={styles.countItemText}>{numberFormat(bakery.flagsCount)}</Text>
-        </View>
-        <View style={styles.countItem}>
-          <CircleStar />
-          <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
-        </View>
-        <View style={styles.countItem}>
-          <CirclePencil />
-          <Text style={styles.countItemText}>{numberFormat(bakery.menuReviewsCount)}</Text>
-        </View>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {bakery.menuReviewList.map((review, idx) => (
-          <View key={`${review.breadCategoryId}_${idx}`} style={styles.reviewView}>
-            <View style={styles.reviewContent}>
-              <Quote />
-              <Text style={styles.countItemText} numberOfLines={2}>
-                {review.contents}
-              </Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
-  </View>
-);
+export const BakeryCard = memo(({ bakery }: BakeryCardProps) => {
+  const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
 
-export { BakeryCard };
+  return (
+    <View style={styles.bakeryCardContainer}>
+      <BakeryThumbnail source={source} />
+      <View style={styles.bakeryInfoContainer}>
+        <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
+        <View style={styles.countItemsWrap}>
+          <View style={styles.countItem}>
+            <CircleFlag />
+            <Text style={styles.countItemText}>{numberFormat(bakery.flagsCount)}</Text>
+          </View>
+          <View style={styles.countItem}>
+            <CircleStar />
+            <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
+          </View>
+          <View style={styles.countItem}>
+            <CirclePencil />
+            <Text style={styles.countItemText}>{numberFormat(bakery.menuReviewsCount)}</Text>
+          </View>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {bakery.menuReviewList.map((review, idx) => (
+            <View key={`${review.breadCategoryId}_${idx}`} style={styles.reviewView}>
+              <View style={styles.reviewContent}>
+                <Quote />
+                <Text style={styles.countItemText} numberOfLines={2}>
+                  {review.contents}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </View>
+  );
+});
 
 const styles = StyleSheet.create(
   resizePixels({
