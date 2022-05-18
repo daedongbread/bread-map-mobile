@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BakeryEntity } from '@/apis';
 import { theme } from '@/styles/theme';
-import { resizePixels } from '@/utils';
+import { numberFormat, resizePixels } from '@/utils';
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 import { BakeryThumbnail } from '../BakeryThumbnail';
 
@@ -19,7 +19,7 @@ const BakeryCard = ({ bakery }: BakeryCardProps) => (
       <View style={styles.countItemsWrap}>
         <View style={styles.countItem}>
           <CircleFlag />
-          <Text style={styles.countItemText}>{bakery.flagsCount}</Text>
+          <Text style={styles.countItemText}>{numberFormat(bakery.flagsCount)}</Text>
         </View>
         <View style={styles.countItem}>
           <CircleStar />
@@ -27,7 +27,7 @@ const BakeryCard = ({ bakery }: BakeryCardProps) => (
         </View>
         <View style={styles.countItem}>
           <CirclePencil />
-          <Text style={styles.countItemText}>{bakery.menuReviewsCount}</Text>
+          <Text style={styles.countItemText}>{numberFormat(bakery.menuReviewsCount)}</Text>
         </View>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -64,19 +64,21 @@ const styles = StyleSheet.create(
       fontSize: 16,
       marginVertical: 4,
       fontWeight: 'bold',
+      color: theme.color.gray900,
     },
     countItemsWrap: {
       marginBottom: 8,
       height: 20,
       flexDirection: 'row',
-      alignItems: 'center',
     },
     countItem: {
       marginRight: 8,
       flexDirection: 'row',
+      alignItems: 'center',
     },
     countItemText: {
       fontSize: 12,
+      marginLeft: 4,
     },
     reviewView: {
       paddingHorizontal: 10,
