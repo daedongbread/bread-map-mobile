@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
@@ -12,7 +12,7 @@ type Props = {
   onPress: (tab: 'distance' | 'popularity') => void;
 };
 
-const Header: React.FC<Props> = ({ activeTab, onPress }) => {
+export const Header: React.FC<Props> = memo(({ activeTab, onPress }) => {
   const tabItems = [
     { value: 'distance' as const, label: '거리순' },
     { value: 'popularity' as const, label: '인기순' },
@@ -30,7 +30,7 @@ const Header: React.FC<Props> = ({ activeTab, onPress }) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -47,5 +47,3 @@ const styles = StyleSheet.create({
     marginHorizontal: -4,
   },
 });
-
-export { Header };
