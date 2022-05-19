@@ -10,7 +10,7 @@ export const resizePixel = (x: number) => {
   return (x / DESIGN_WIDTH) * SCREEN_WIDTH;
 };
 
-const NO_RESIZE_STYLE = ['flex'];
+const NO_RESIZE_STYLE = ['flex', 'fontWeight'];
 
 export const resizePixels = <T extends NamedStyles<T> | NamedStyles<any>>(styleObject: T | NamedStyles<T>): T => {
   let data = {} as any;
