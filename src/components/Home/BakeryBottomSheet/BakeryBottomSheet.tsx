@@ -20,7 +20,7 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   bakeryList: Array<BakeryEntity>;
 };
 
-const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab }) => {
+export const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab }) => {
   const snapPoints = useMemo(() => ['35%', '60%'], []);
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
 
@@ -42,7 +42,12 @@ const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab 
     >
       <SafeAreaView style={[styles.contentsContainer]}>
         <Header activeTab={activeTab} onPress={onPressTab} />
-        <FlatList data={bakeryList} renderItem={renderItem} />
+        <FlatList
+          data={bakeryList}
+          renderItem={renderItem}
+          scrollEnabled={bottomSheetIndex !== 0}
+          showsVerticalScrollIndicator={false}
+        />
       </SafeAreaView>
     </BottomSheet>
   );
@@ -59,5 +64,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export { BakeryBottomSheet };

@@ -1,21 +1,22 @@
 import React from 'react';
 
+import { StyleSheet, View } from 'react-native';
 import { BakeryBottomSheetContainer, BakeryMapContainer } from '@/containers/Home';
 
 import { RootStackScreenProps } from '@/router';
 
-import styled from '@emotion/native';
+import { theme } from '@/styles/theme';
 
-const Home: React.FC<RootStackScreenProps<'Home'>> = () => (
-  <HomeContainer>
+export const Home: React.FC<RootStackScreenProps<'Home'>> = () => (
+  <View style={styles.container}>
     <BakeryMapContainer />
     <BakeryBottomSheetContainer />
-  </HomeContainer>
+  </View>
 );
 
-export { Home };
-
-const HomeContainer = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.color.primary500};
-`;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.color.primary500,
+  },
+});
