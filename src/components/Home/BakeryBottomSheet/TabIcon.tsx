@@ -13,7 +13,7 @@ type TabIconProps = {
   onPress: (item: TabItem) => void;
 };
 
-const TabIcon: React.FC<TabIconProps> = ({ value, activeTab, onPress, children }) => {
+export const TabIcon: React.FC<TabIconProps> = ({ value, activeTab, onPress, children }) => {
   const isActive = activeTab === value;
 
   const handlePress = () => onPress(value);
@@ -62,5 +62,3 @@ const styles = StyleSheet.create({
     color: theme.color.gray400,
   },
 });
-
-export { TabIcon };

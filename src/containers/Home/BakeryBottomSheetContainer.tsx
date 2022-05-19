@@ -7,7 +7,7 @@ const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
 
 export type TabItem = 'distance' | 'popularity';
 
-const BakeryBottomSheetContainer: React.VFC = () => {
+export const BakeryBottomSheetContainer: React.VFC = () => {
   const { navigate } = useNavigation();
 
   const [activeTab, setActiveTab] = useState<TabItem>('distance');
@@ -35,5 +35,3 @@ const BakeryBottomSheetContainer: React.VFC = () => {
     />
   );
 };
-
-export { BakeryBottomSheetContainer };
