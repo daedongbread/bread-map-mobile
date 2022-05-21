@@ -13,6 +13,7 @@
 		2F0A7624A9FCC0831EC2C5A5 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */; };
 		34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
 		34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
+		34A0CCCF2838B345003C329D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		4A28C381A688CC5C6D269FA4 /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */; };
@@ -250,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34A0CCCF2838B345003C329D /* Images.xcassets in Resources */,
 				34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */,
 				34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */,
 			);
@@ -496,6 +498,7 @@
 			baseConfigurationReference = 49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbread.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -527,6 +530,7 @@
 			baseConfigurationReference = 2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbread.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
