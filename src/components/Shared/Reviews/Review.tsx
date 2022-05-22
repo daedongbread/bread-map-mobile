@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import styled from '@emotion/native';
-import { Rating } from '../Rating';
+import { BreadRating } from '../Rating';
 
 type MenuReview = {
   breadCategoryId: number;
@@ -39,7 +39,7 @@ const Review: React.FC<ReviewProps> = ({ review }) => (
       </Reviewer>
       <ReviewRating>
         <Name>{review?.menuName}</Name>
-        <Rating rating={review?.rating} textPosition={'right'} />
+        <BreadRating rating={review?.rating} />
       </ReviewRating>
       <ReviewText>{review?.contents}</ReviewText>
     </ReviewContent>

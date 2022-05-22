@@ -1,5 +1,13 @@
 import React from 'react';
-import { HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
+import {
+  Home as BakeryHome,
+  Information,
+  MenuList,
+  MenuReviewList,
+  ReviewDetail,
+  ReviewList,
+  ReviewReport,
+} from '@/components/BakeryDetail';
 import { Home } from '@/pages';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
@@ -8,25 +16,48 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Route } from '@react-navigation/routers';
-import { RootStackParamList } from '.';
+import { BakeryReviewStackParamList } from './types';
+import { RootStackParamList, BakeryMenuStackParamList } from '.';
+
+const MenuStack = createNativeStackNavigator<BakeryMenuStackParamList>();
+const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
+
+const BakeryMenuStack = () => (
+  <MenuStack.Navigator initialRouteName="BakeryMenus">
+    <MenuStack.Screen name="BakeryMenus" options={{ headerShown: false }} component={MenuList} />
+    <MenuStack.Screen name="BakeryMenuReviews" options={{ headerShown: false }} component={MenuReviewList} />
+  </MenuStack.Navigator>
+);
+
+const BakeryReviewStack = () => (
+  <ReviewStack.Navigator initialRouteName="BakeryReviews">
+    <ReviewStack.Screen name="BakeryReviews" options={{ headerShown: false }} component={ReviewList} />
+    <ReviewStack.Screen name="BakeryDetail" options={{ headerShown: false }} component={ReviewDetail} />
+    <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={ReviewReport} />
+  </ReviewStack.Navigator>
+);
 
 const Tab = createMaterialTopTabNavigator();
 
+// TODO: 홈 화면에서 탭바 위치가 변경되는 부분 구현 필요, getHeaderTitle 방식 생각해보기
 const BakeryDetailTabNavigator = () => (
   <BakeryDetailProvider>
     <Tab.Navigator
-      tabBarPosition="top"
       backBehavior="history"
       screenOptions={{
-        tabBarStyle: { marginHorizontal: 20, elevation: 0, shadowOffset: { width: 0, height: 0 } },
+        tabBarStyle: {
+          marginHorizontal: 20,
+          elevation: 0,
+          shadowOffset: { width: 0, height: 0 },
+        },
         tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
         tabBarLabelStyle: { fontWeight: 'bold' },
       }}
     >
-      <Tab.Screen name="BakeryDetailHome" component={HomeSection} options={{ title: '홈' }} />
-      <Tab.Screen name="BakeryDetailMenu" component={MenuSection} options={{ title: '메뉴' }} />
-      <Tab.Screen name="BakeryDetailReview" component={ReviewSection} options={{ title: '리뷰' }} />
-      <Tab.Screen name="bakeryDetailInfo" component={InfoSection} options={{ title: '정보' }} />
+      <Tab.Screen name="BakeryDetailHome" component={BakeryHome} options={{ title: '홈' }} />
+      <Tab.Screen name="BakeryDetailMenu" component={BakeryMenuStack} options={{ title: '메뉴' }} />
+      <Tab.Screen name="BakeryDetailReview" component={BakeryReviewStack} options={{ title: '리뷰' }} />
+      <Tab.Screen name="bakeryDetailInfo" component={Information} options={{ title: '정보' }} />
     </Tab.Navigator>
   </BakeryDetailProvider>
 );
