@@ -1,1 +1,2 @@
-export { Rating } from './Rating';
+export { BakeryRating } from './BakeryRating';
+export { BreadRating } from './BreadRating';

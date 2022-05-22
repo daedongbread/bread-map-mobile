@@ -1,6 +1,9 @@
+import { MenuItem } from '@/components/BakeryDetail/Menu/MenuList';
 import { BakeryInfo, BakeryMenu, BakeryReview } from '@/utils';
 import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import type { StackScreenProps } from '@react-navigation/stack';
 
 // ** Main route types **
@@ -11,7 +14,7 @@ export type RootStackParamList = {
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 
-// ** BakeryDetail tab route types **
+// ** BakeryDetail tab (base) route types **
 export type Bakery = {
   bakeryMenu: BakeryMenu[];
   bakeryReviews: BakeryReview[];
@@ -20,8 +23,8 @@ export type Bakery = {
 
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: Bakery;
-  BakeryDetailMenu: Bakery['bakeryMenu'];
-  BakeryDetailReview: Bakery['bakeryReviews'];
+  BakeryDetailMenu: NavigatorScreenParams<BakeryMenuStackParamList>;
+  BakeryDetailReview: NavigatorScreenParams<BakeryReviewStackParamList>;
   BakeryDetailInfo: Bakery['bakeryInfo'];
 };
 
@@ -29,6 +32,28 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
   MaterialTopTabScreenProps<BakeryDetailTabParamList, T>,
   RootStackScreenProps<keyof RootStackParamList>
 >;
+
+export type BakeryDetailTabNavigationProps = NativeStackNavigationProp<BakeryDetailTabParamList>;
+
+// ** BakeryDetail tab (menu) route types **
+export type BakeryMenuStackParamList = {
+  BakeryMenus: Bakery; // 단일 값으로 할지 고민
+  BakeryMenuReviews: {
+    info: BakeryInfo;
+    menu: MenuItem;
+    reviews: BakeryReview[];
+  };
+};
+
+// ** BakeryDetail tab (review) route types **
+export type BakeryReviewStackParamList = {
+  BakeryReviews: Bakery;
+  BakeryDetail: {
+    info: BakeryInfo;
+    review: BakeryReview;
+  };
+  BakeryReport: Bakery;
+};
 
 // ** Golobal **
 declare global {

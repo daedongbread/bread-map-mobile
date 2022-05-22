@@ -1,29 +1,23 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BakeryReview } from '@/utils';
 import Review from './Review';
 
-type MenuReview = {
-  breadCategoryId: number;
-  contents: string;
-  imgPathList: string[];
-  lastModifiedDateTime: string;
-  memberId: number;
-  memberName: string;
-  menuId: number;
-  menuName: string;
-  menuReviewId: number;
-  rating: number;
-};
-
 type ReviewsProps = {
-  reviews: MenuReview[];
+  reviews: BakeryReview[];
+  onPress: (review: BakeryReview) => void;
 };
 
-const Reviews: React.FC<ReviewsProps> = ({ reviews }) => (
+const Reviews: React.FC<ReviewsProps> = ({ reviews, onPress }) => (
   <FlatList
     data={reviews}
     keyExtractor={review => review.menuReviewId.toString()}
-    renderItem={({ item }) => <Review review={item} />}
+    renderItem={({ item }) => (
+      <TouchableOpacity onPress={() => onPress(item)}>
+        <Review review={item} />
+      </TouchableOpacity>
+    )}
   />
 );
 
