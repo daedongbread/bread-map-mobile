@@ -1,23 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Reviews } from '@/components/Shared/Reviews';
-import { BakeryDetailTabNavigationProps } from '@/router/types';
-import { BakeryInfo, BakeryReview } from '@/utils';
+import { BakeryDetailTabNavigationProps, BakeryMenuStackParamList } from '@/router/types';
+import { BakeryReview } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
-import { MenuItem } from './MenuList';
 
 // 메뉴에 대한 정보가 있어야해서, 페이지가 있어야함
 // 메뉴의 리뷰 상세페이지로 이동 가능 (ReviewDetail)
-type Props = {
-  info: BakeryInfo;
-  menu: MenuItem;
-  reviews: BakeryReview[];
-};
+// type Props = {
+//   info: BakeryInfo;
+//   menu: MenuItem;
+//   reviews: BakeryReview[];
+// };
+
+type Props = NativeStackScreenProps<BakeryMenuStackParamList, 'BakeryMenuReviews'>;
 
 // TODO: nested된 navigation의 타입을 입히기 어려워 Props로 대체함
-const MenuReviewList: React.FC<Props> = ({ info, menu, reviews }) => {
+const MenuReviewList: React.FC<Props> = ({ route }) => {
+  const {
+    params: { info, menu, reviews },
+  } = route;
+
   const navigation = useNavigation<BakeryDetailTabNavigationProps>();
 
   const onPress = (review: BakeryReview) => {
