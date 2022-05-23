@@ -1,9 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { memo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BakeryEntity } from '@/apis';
-import { resizePixels } from '@/utils';
-import styled from '@emotion/native';
+import { theme } from '@/styles/theme';
+import { numberFormat, resizePixels } from '@/utils';
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 import { BakeryThumbnail } from '../BakeryThumbnail';
 
@@ -11,65 +11,76 @@ type BakeryCardProps = {
   bakery: BakeryEntity;
 };
 
-const BakeryCard = ({ bakery }: BakeryCardProps) => (
-  <BakeryCardContainer style={styles.bakeryCardContainer}>
-    <BakeryThumbnail src={`${bakery.imgPath}`} />
-    <BakeryInfoContainer style={styles.bakeryInfoContainer}>
-      <BakeryName style={styles.bakeryName}>{bakery.bakeryName}</BakeryName>
-      <CountItemsWrap style={styles.countItemsWrap}>
-        <CountItem style={styles.countItem}>
-          <CircleFlag />
-          <Text style={styles.countItemText}>{bakery.flagsCount}</Text>
-        </CountItem>
-        <CountItem style={styles.countItem}>
-          <CircleStar />
-          <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
-        </CountItem>
-        <CountItem style={styles.countItem}>
-          <CirclePencil />
-          <Text style={styles.countItemText}>{bakery.menuReviewsCount}</Text>
-        </CountItem>
-      </CountItemsWrap>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {bakery.menuReviewList.map((review, idx) => (
-          <ReviewView key={'' + review.breadCategoryId + '_' + idx} style={styles.reviewView}>
-            <ReviewContent>
-              <Quote />
-              <Text style={styles.countItemText} numberOfLines={2}>
-                {review.contents}
-              </Text>
-            </ReviewContent>
-          </ReviewView>
-        ))}
-      </ScrollView>
-    </BakeryInfoContainer>
-  </BakeryCardContainer>
-);
+export const BakeryCard = memo(({ bakery }: BakeryCardProps) => {
+  const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
 
-export { BakeryCard };
+  return (
+    <View style={styles.bakeryCardContainer}>
+      <BakeryThumbnail source={source} />
+      <View style={styles.bakeryInfoContainer}>
+        <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
+        <View style={styles.countItemsWrap}>
+          <View style={styles.countItem}>
+            <CircleFlag />
+            <Text style={styles.countItemText}>{numberFormat(bakery.flagsCount)}</Text>
+          </View>
+          <View style={styles.countItem}>
+            <CircleStar />
+            <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
+          </View>
+          <View style={styles.countItem}>
+            <CirclePencil />
+            <Text style={styles.countItemText}>{numberFormat(bakery.menuReviewsCount)}</Text>
+          </View>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {bakery.menuReviewList.map((review, idx) => (
+            <View key={`${review.breadCategoryId}_${idx}`} style={styles.reviewView}>
+              <View style={styles.reviewContent}>
+                <Quote />
+                <Text style={styles.countItemText} numberOfLines={2}>
+                  {review.contents}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </View>
+  );
+});
 
 const styles = StyleSheet.create(
   resizePixels({
     bakeryCardContainer: {
+      flexDirection: 'row',
       marginBottom: 20,
     },
     bakeryInfoContainer: {
       marginLeft: 8,
       flex: 1,
+      alignItems: 'flex-start',
+      overflow: 'hidden',
     },
     bakeryName: {
       fontSize: 16,
       marginVertical: 4,
+      fontWeight: 'bold',
+      color: theme.color.gray900,
     },
     countItemsWrap: {
       marginBottom: 8,
       height: 20,
+      flexDirection: 'row',
     },
     countItem: {
       marginRight: 8,
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     countItemText: {
       fontSize: 12,
+      marginLeft: 4,
     },
     reviewView: {
       paddingHorizontal: 10,
@@ -77,37 +88,11 @@ const styles = StyleSheet.create(
       width: 195,
       marginRight: 8,
       borderRadius: 8,
+      backgroundColor: theme.color.gray200,
+      justifyContent: 'center',
+    },
+    reviewContent: {
+      flexDirection: 'row',
     },
   })
 );
-
-const BakeryCardContainer = styled.View`
-  flex-direction: row;
-`;
-
-const BakeryName = styled.Text`
-  font-weight: bold;
-`;
-
-const BakeryInfoContainer = styled.View`
-  align-items: flex-start;
-  overflow: hidden;
-`;
-
-const CountItemsWrap = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const CountItem = styled.View`
-  flex-direction: row;
-`;
-
-const ReviewView = styled.View`
-  background-color: ${({ theme }) => theme.color.gray200};
-  justify-content: center;
-`;
-
-const ReviewContent = styled.View`
-  flex-direction: row;
-`;

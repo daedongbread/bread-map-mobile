@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     },
     shadowColor: 'black',
     shadowOpacity: 0.1,
+    alignItems: 'center',
   },
   searchIconWrapper: {
     marginRight: 10,
@@ -48,5 +49,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: resizePixel(14),
     fontWeight: 'bold',
+    margin: 0,
+    padding: 0,
   },
 });

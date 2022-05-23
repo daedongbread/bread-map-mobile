@@ -1,15 +1,26 @@
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { bindHook, resizePixel } from '@/utils';
-import { useBakeryThumbnail } from './useBakeryThumbnail';
+import React, { memo, useState } from 'react';
+import { Image, ImageProps, StyleSheet, View } from 'react-native';
+import { resizePixel } from '@/utils';
 
-const BakeryThumbnail = bindHook(useBakeryThumbnail, ({ source, onError }) => (
-  <View style={{ width: resizePixel(108), height: resizePixel(108) }}>
-    <Image source={source} onError={onError} style={style.BakeryThumbnailImage} />
-  </View>
-));
+import defaultThumbnail from '@shared/Images/thumbnail.png';
 
-export { BakeryThumbnail };
+type Props = {
+  source?: ImageProps['source'];
+};
+
+export const BakeryThumbnail: React.FC<Props> = memo(({ source = defaultThumbnail }) => {
+  const [imgSource, setImgSource] = useState<ImageProps['source']>(source);
+
+  const onError = () => {
+    setImgSource(defaultThumbnail);
+  };
+
+  return (
+    <View style={{ width: resizePixel(108), height: resizePixel(108) }}>
+      <Image source={imgSource} onError={onError} style={style.BakeryThumbnailImage} />
+    </View>
+  );
+});
 
 const style = StyleSheet.create({
   BakeryThumbnailImage: {

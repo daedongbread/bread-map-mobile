@@ -30,7 +30,7 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
   RootStackScreenProps<keyof RootStackParamList>
 >;
 
-// ** Golobal **
+// ** Global **
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
