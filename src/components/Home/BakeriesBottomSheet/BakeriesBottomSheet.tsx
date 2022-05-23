@@ -18,9 +18,10 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   activeTab: TabItem;
   onPressTab: (item: TabItem) => void;
   bakeryList: Array<BakeryEntity>;
+  onPressSave: (bakery: BakeryEntity) => void;
 };
 
-export const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab }) => {
+export const BakeriesBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab, onPressSave }) => {
   const snapPoints = useMemo(() => ['35%', '60%'], []);
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
 
@@ -28,9 +29,12 @@ export const BakeryBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPr
     setBottomSheetIndex(index);
   };
 
-  const renderItem = useCallback(({ item }: { item: BakeryEntity }) => {
-    return <BakeryCard bakery={item} />;
-  }, []);
+  const renderItem = useCallback(
+    ({ item }: { item: BakeryEntity }) => {
+      return <BakeryCard bakery={item} onPressSave={onPressSave} />;
+    },
+    [onPressSave]
+  );
 
   return (
     <BottomSheet
