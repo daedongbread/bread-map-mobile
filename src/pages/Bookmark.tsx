@@ -7,7 +7,7 @@ import { RootStackScreenProps } from '@/router';
 import { theme } from '@/styles/theme';
 import { Text } from '@shared/Text';
 
-export const Bookmark: React.FC<RootStackScreenProps<'StoreBakery'>> = ({ route }) => {
+export const Bookmark: React.FC<RootStackScreenProps<'Bookmark'>> = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text>{route.params.bakeryId}</Text>
