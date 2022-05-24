@@ -20,7 +20,8 @@ const AuthProvider: FC = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ login, logOut, isLogin: Boolean(user?.token) }}>
-      {user?.token ? children : <Auth />}
+      {/*{user?.token ? children : <Auth />}*/}
+      {children}
     </AuthContext.Provider>
   );
 };

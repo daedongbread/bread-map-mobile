@@ -48,7 +48,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
     const bakeryId = selectBakery?.bakeryId;
     if (bakeryId) {
       onClose();
-      navigate('StoreBakery', { bakeryId });
+      navigate('Bookmark', { bakeryId });
     }
   };
 
