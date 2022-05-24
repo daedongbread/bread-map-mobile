@@ -1,6 +1,7 @@
 import React from 'react';
 import { HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
 import { Home } from '@/pages';
+import { Bookmark } from '@/pages/Bookmark';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
@@ -54,6 +55,7 @@ const Navigation = () => (
         component={BakeryDetailTabNavigator}
         options={({ route }) => ({ headerTitle: getHeaderTitle(route) })}
       />
+      <RootStack.Screen name={'Bookmark'} component={Bookmark} />
     </RootStack.Navigator>
   </NavigationContainer>
 );

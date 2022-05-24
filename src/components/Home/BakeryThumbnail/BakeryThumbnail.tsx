@@ -16,14 +16,18 @@ export const BakeryThumbnail: React.FC<Props> = memo(({ source = defaultThumbnai
   };
 
   return (
-    <View style={{ width: resizePixel(108), height: resizePixel(108) }}>
-      <Image source={imgSource} onError={onError} style={style.BakeryThumbnailImage} />
+    <View style={styles.wrapper}>
+      <Image source={imgSource} onError={onError} style={styles.image} />
     </View>
   );
 });
 
-const style = StyleSheet.create({
-  BakeryThumbnailImage: {
+const styles = StyleSheet.create({
+  wrapper: {
+    width: resizePixel(108),
+    height: resizePixel(108),
+  },
+  image: {
     width: '100%',
     height: '100%',
     borderRadius: resizePixel(15),

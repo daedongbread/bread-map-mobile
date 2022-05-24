@@ -7,6 +7,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
 export type RootStackParamList = {
   Home: undefined;
   BakeryDetail: NavigatorScreenParams<BakeryDetailTabParamList>;
+  Bookmark: BookmarkStackParamList;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
@@ -23,6 +24,10 @@ export type BakeryDetailTabParamList = {
   BakeryDetailMenu: Bakery['bakeryMenu'];
   BakeryDetailReview: Bakery['bakeryReviews'];
   BakeryDetailInfo: Bakery['bakeryInfo'];
+};
+
+export type BookmarkStackParamList = {
+  bakeryId: number;
 };
 
 export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList> = CompositeScreenProps<

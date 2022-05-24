@@ -1,22 +1,36 @@
 import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { BakeryEntity } from '@/apis';
-import { theme } from '@/styles/theme';
-import { numberFormat, resizePixels } from '@/utils';
-import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
-import { BakeryThumbnail } from '../BakeryThumbnail';
 
-type BakeryCardProps = {
+import { BakeryEntity } from '@/apis';
+
+import { BakeryThumbnail } from '@/components/Home/BakeryThumbnail';
+
+import { theme } from '@/styles/theme';
+
+import { numberFormat, resizePixels } from '@/utils';
+
+import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
+
+type Props = {
   bakery: BakeryEntity;
+  onPressSave: (bakery: BakeryEntity) => void;
 };
 
-export const BakeryCard = memo(({ bakery }: BakeryCardProps) => {
+export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressSave }) => {
   const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
+
+  const handleImagePress = () => {
+    onPressSave(bakery);
+  };
 
   return (
     <View style={styles.bakeryCardContainer}>
-      <BakeryThumbnail source={source} />
+      <TouchableWithoutFeedback onPress={handleImagePress}>
+        <View>
+          <BakeryThumbnail source={source} />
+        </View>
+      </TouchableWithoutFeedback>
       <View style={styles.bakeryInfoContainer}>
         <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
         <View style={styles.countItemsWrap}>
