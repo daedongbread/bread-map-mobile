@@ -2,8 +2,8 @@ import * as React from 'react';
 import Svg, { Circle, Mask, Path, SvgProps } from 'react-native-svg';
 
 export const CircleFlag: React.FC<SvgProps> = props => (
-  <Svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" {...props}>
-    <Circle cx="8" cy="8" r="8" fill="#FF6E40" />
+  <Svg width="16" height="16" viewBox="0 0 16 16" color={'#FF6E40'} {...props}>
+    <Circle cx="8" cy="8" r="8" fill="currentColor" />
     <Path d="M4.95837 4.48315V11.9832" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
     <Mask id="path-3-inside-1_2593_9101" fill="white">
       <Path d="M4.5415 4.42334C4.5415 4.1098 4.87467 3.90971 5.1595 4.04079C6.14985 4.49652 6.76259 4.5517 8.25871 4.5517C9.64264 4.5517 10.0817 4.3597 10.8498 4.10723C11.2384 3.97951 11.6248 4.27671 11.6248 4.68574V8.32811C11.6248 8.59383 11.501 8.84921 11.2655 8.97238C10.6032 9.31885 9.59187 9.56653 8.25871 9.56653C6.84284 9.56653 5.79736 9.41613 4.89347 8.96856C4.66987 8.85785 4.5415 8.62259 4.5415 8.37309V4.42334Z" />

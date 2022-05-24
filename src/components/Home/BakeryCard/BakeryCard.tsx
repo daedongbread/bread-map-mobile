@@ -17,22 +17,32 @@ type Props = {
   onPressSave: (bakery: BakeryEntity) => void;
 };
 
+const BOOKMARK_ICON_SIZE = 28;
+
 export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressSave }) => {
   const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
+
+  const defaultBookmarkIconColor = 'rgba(34, 34, 34, 0.6)';
 
   const handleImagePress = () => {
     onPressSave(bakery);
   };
 
   return (
-    <View style={styles.bakeryCardContainer}>
-      <TouchableWithoutFeedback onPress={handleImagePress}>
-        <View>
-          <BakeryThumbnail source={source} />
-        </View>
-      </TouchableWithoutFeedback>
-      <View style={styles.bakeryInfoContainer}>
-        <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
+    <View style={styles.cardContainer}>
+      <View style={styles.bookmarkIconWrapper}>
+        <BakeryThumbnail source={source} />
+        <TouchableWithoutFeedback onPress={handleImagePress}>
+          <CircleFlag
+            style={styles.bookmarkIcon}
+            width={BOOKMARK_ICON_SIZE}
+            height={BOOKMARK_ICON_SIZE}
+            color={defaultBookmarkIconColor}
+          />
+        </TouchableWithoutFeedback>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{bakery.bakeryName}</Text>
         <View style={styles.countItemsWrap}>
           <View style={styles.countItem}>
             <CircleFlag />
@@ -66,17 +76,25 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressSave }) => {
 
 const styles = StyleSheet.create(
   resizePixels({
-    bakeryCardContainer: {
+    cardContainer: {
       flexDirection: 'row',
       marginBottom: 20,
     },
-    bakeryInfoContainer: {
+    bookmarkIconWrapper: {
+      position: 'relative',
+    },
+    bookmarkIcon: {
+      position: 'absolute',
+      right: 6,
+      bottom: 6,
+    },
+    infoContainer: {
       marginLeft: 8,
       flex: 1,
       alignItems: 'flex-start',
       overflow: 'hidden',
     },
-    bakeryName: {
+    name: {
       fontSize: 16,
       marginVertical: 4,
       fontWeight: 'bold',
