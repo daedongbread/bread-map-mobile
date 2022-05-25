@@ -45,6 +45,8 @@ export type BakeryMenuStackParamList = {
   };
 };
 
+export type BakeryMenuStackNavigationProps = NativeStackNavigationProp<BakeryMenuStackParamList>;
+
 // ** BakeryDetail tab (review) route types **
 export type BakeryReviewStackParamList = {
   BakeryReviews: Bakery;

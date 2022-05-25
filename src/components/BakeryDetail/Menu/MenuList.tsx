@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Menus } from '@/components/Shared/Menu';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { BakeryDetailTabScreenProps } from '@/router';
-import { BakeryDetailTabNavigationProps } from '@/router/types';
+import { BakeryMenuStackNavigationProps } from '@/router/types';
 import { BakeryReview } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from '../Divider';
@@ -18,20 +18,17 @@ export type MenuItem = {
 const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = () => {
   const { bakery } = useBakeryDetail();
 
-  const navigation = useNavigation<BakeryDetailTabNavigationProps>();
+  const navigation = useNavigation<BakeryMenuStackNavigationProps>();
 
   const onPress = (menu: MenuItem, reviews: BakeryReview[]) => {
     if (!bakery) {
       return;
     }
 
-    navigation.push('BakeryDetailMenu', {
-      screen: 'BakeryMenuReviews',
-      params: {
-        info: bakery.bakeryInfo,
-        menu,
-        reviews,
-      },
+    navigation.push('BakeryMenuReviews', {
+      info: bakery.bakeryInfo,
+      menu,
+      reviews,
     });
   };
 
