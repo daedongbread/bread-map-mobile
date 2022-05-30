@@ -55,7 +55,7 @@ const Navigation = () => (
         component={BakeryDetailTabNavigator}
         options={({ route }) => ({ headerTitle: getHeaderTitle(route) })}
       />
-      <RootStack.Screen name={'Bookmark'} component={Bookmark} />
+      <RootStack.Screen name="Bookmark" component={Bookmark} />
     </RootStack.Navigator>
   </NavigationContainer>
 );

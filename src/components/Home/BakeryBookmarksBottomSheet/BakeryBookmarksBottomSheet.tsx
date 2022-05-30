@@ -23,8 +23,8 @@ type List = {
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
   list: Array<List>;
-  bakery: BakeryEntity;
-  onPressNewList: () => void;
+  bakery?: BakeryEntity | null;
+  onPressNewBookmark: () => void;
   onClose: () => void;
   onSave: () => void;
 };
@@ -46,8 +46,8 @@ const renderItem = ({ item }: { item: List }) => {
 };
 
 export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
-  ({ bakery, list, onPressNewList, onClose, onSave }) => {
-    const { bakeryName } = bakery;
+  ({ bakery, list, onPressNewBookmark, onClose, onSave }) => {
+    const bakeryName = bakery?.bakeryName || '';
 
     const bakeryRef = useRef<BottomSheet>(null);
 
@@ -55,7 +55,10 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
       bakeryRef.current?.close();
     };
 
-    const ListHeaderComponent = useCallback(() => <StoreListHeader onPress={onPressNewList} />, [onPressNewList]);
+    const ListHeaderComponent = useCallback(
+      () => <StoreListHeader onPress={onPressNewBookmark} />,
+      [onPressNewBookmark]
+    );
 
     useEffect(() => {
       if (bakery) {
@@ -64,7 +67,7 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
     }, [bakery]);
 
     return (
-      <Modal visible={true} transparent statusBarTranslucent>
+      <Modal visible={!!bakery} transparent statusBarTranslucent>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
             <View style={styles.background} />
