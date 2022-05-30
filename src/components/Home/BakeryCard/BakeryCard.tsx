@@ -1,24 +1,48 @@
 import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { BakeryEntity } from '@/apis';
-import { theme } from '@/styles/theme';
-import { numberFormat, resizePixels } from '@/utils';
-import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
-import { BakeryThumbnail } from '../BakeryThumbnail';
 
-type BakeryCardProps = {
+import { BakeryEntity } from '@/apis';
+
+import { BakeryThumbnail } from '@/components/Home/BakeryThumbnail';
+
+import { theme } from '@/styles/theme';
+
+import { numberFormat, resizePixels } from '@/utils';
+
+import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
+
+type Props = {
   bakery: BakeryEntity;
+  onPressSave: (bakery: BakeryEntity) => void;
 };
 
-export const BakeryCard = memo(({ bakery }: BakeryCardProps) => {
+const BOOKMARK_ICON_SIZE = 28;
+
+export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressSave }) => {
   const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
 
+  const defaultBookmarkIconColor = 'rgba(34, 34, 34, 0.6)';
+
+  const handleImagePress = () => {
+    onPressSave(bakery);
+  };
+
   return (
-    <View style={styles.bakeryCardContainer}>
-      <BakeryThumbnail source={source} />
-      <View style={styles.bakeryInfoContainer}>
-        <Text style={styles.bakeryName}>{bakery.bakeryName}</Text>
+    <View style={styles.cardContainer}>
+      <View style={styles.bookmarkIconWrapper}>
+        <BakeryThumbnail source={source} />
+        <TouchableWithoutFeedback onPress={handleImagePress}>
+          <CircleFlag
+            style={styles.bookmarkIcon}
+            width={BOOKMARK_ICON_SIZE}
+            height={BOOKMARK_ICON_SIZE}
+            color={defaultBookmarkIconColor}
+          />
+        </TouchableWithoutFeedback>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{bakery.bakeryName}</Text>
         <View style={styles.countItemsWrap}>
           <View style={styles.countItem}>
             <CircleFlag />
@@ -52,17 +76,25 @@ export const BakeryCard = memo(({ bakery }: BakeryCardProps) => {
 
 const styles = StyleSheet.create(
   resizePixels({
-    bakeryCardContainer: {
+    cardContainer: {
       flexDirection: 'row',
       marginBottom: 20,
     },
-    bakeryInfoContainer: {
+    bookmarkIconWrapper: {
+      position: 'relative',
+    },
+    bookmarkIcon: {
+      position: 'absolute',
+      right: 6,
+      bottom: 6,
+    },
+    infoContainer: {
       marginLeft: 8,
       flex: 1,
       alignItems: 'flex-start',
       overflow: 'hidden',
     },
-    bakeryName: {
+    name: {
       fontSize: 16,
       marginVertical: 4,
       fontWeight: 'bold',
