@@ -14,25 +14,25 @@ import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 
 type Props = {
   bakery: BakeryEntity;
-  onPressSave: (bakery: BakeryEntity) => void;
+  onPressIcon: (bakery: BakeryEntity) => void;
 };
 
 const BOOKMARK_ICON_SIZE = 28;
 
-export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressSave }) => {
+export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
   const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
 
   const defaultBookmarkIconColor = 'rgba(34, 34, 34, 0.6)';
 
-  const handleImagePress = () => {
-    onPressSave(bakery);
+  const handleIconPress = () => {
+    onPressIcon(bakery);
   };
 
   return (
     <View style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
         <BakeryThumbnail source={source} />
-        <TouchableWithoutFeedback onPress={handleImagePress}>
+        <TouchableWithoutFeedback onPress={handleIconPress}>
           <CircleFlag
             style={styles.bookmarkIcon}
             width={BOOKMARK_ICON_SIZE}

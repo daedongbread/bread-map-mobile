@@ -40,15 +40,15 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
     setSelectBakery(null);
   };
 
-  const onPressSave = (bakery: BakeryEntity) => {
+  const onPressIcon = (bakery: BakeryEntity) => {
     setSelectBakery(bakery);
   };
 
-  const onPressNewStore = () => {
+  const onPressNewBookmark = () => {
     const bakeryId = selectBakery?.bakeryId;
     if (bakeryId) {
-      onClose();
       navigate('Bookmark', { bakeryId });
+      // onClose();
     }
   };
 
@@ -64,18 +64,16 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
         activeTab={activeTab}
         onPressTab={onPressTab}
         bakeryList={bakeryList}
-        onPressSave={onPressSave}
+        onPressIcon={onPressIcon}
       />
 
-      {selectBakery ? (
-        <BakeryBookmarksBottomSheet
-          list={list}
-          bakery={selectBakery}
-          onPressNewList={onPressNewStore}
-          onClose={onClose}
-          onSave={() => {}}
-        />
-      ) : null}
+      <BakeryBookmarksBottomSheet
+        list={list}
+        bakery={selectBakery}
+        onPressNewBookmark={onPressNewBookmark}
+        onClose={onClose}
+        onSave={() => {}}
+      />
     </>
   );
 };
