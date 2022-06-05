@@ -50,12 +50,14 @@ export type BakeryMenuStackNavigationProps = NativeStackNavigationProp<BakeryMen
 // ** BakeryDetail tab (review) route types **
 export type BakeryReviewStackParamList = {
   BakeryReviews: Bakery;
-  BakeryDetail: {
+  BakeryReviewDetail: {
     info: BakeryInfo;
     review: BakeryReview;
   };
   BakeryReport: Bakery;
 };
+
+export type BakeryReviewStackNavigationProps = NativeStackNavigationProp<BakeryReviewStackParamList>;
 
 // ** Golobal **
 declare global {
