@@ -32,7 +32,7 @@ const BakeryMenuStack = () => (
 const BakeryReviewStack = () => (
   <ReviewStack.Navigator initialRouteName="BakeryReviews">
     <ReviewStack.Screen name="BakeryReviews" options={{ headerShown: false }} component={ReviewList} />
-    <ReviewStack.Screen name="BakeryDetail" options={{ headerShown: false }} component={ReviewDetail} />
+    <ReviewStack.Screen name="BakeryReviewDetail" options={{ headerShown: false }} component={ReviewDetail} />
     <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={ReviewReport} />
   </ReviewStack.Navigator>
 );
