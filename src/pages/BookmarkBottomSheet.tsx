@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal, StyleSheet } from 'react-native';
 
-import { BakeryBookmarkBottomSheetContainer } from '@/containers/Home/BakeryBookmarksBottomSheetContainer';
+import { BakeryBookmarkBottomSheetContainer } from '@/containers/BookmarkBottomSheet';
 import { HomeStackScreenProps } from '@/router/types';
 import { useIsFocused } from '@react-navigation/native';
 

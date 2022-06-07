@@ -11,6 +11,7 @@ import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Route } from '@react-navigation/routers';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Text } from '@shared/Text';
 import { RootStackParamList } from '.';
 
 const Tab = createMaterialTopTabNavigator();
@@ -63,7 +64,16 @@ const HomeStack = () => {
           cardOverlayEnabled: false,
         }}
       />
-      <Stack.Screen name="Bookmark" component={Bookmark} options={{ presentation: 'card' }} />
+      <Stack.Screen
+        name="Bookmark"
+        component={Bookmark}
+        options={{
+          presentation: 'card',
+          headerTitle: () => <Text presets={['subtitle2', 'bold']}>새 리스트</Text>,
+          headerBackTitleVisible: false,
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
