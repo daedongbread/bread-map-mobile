@@ -28,7 +28,7 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   const onPressNewBookmark = () => {
     if (bakeryId) {
-      push('Bookmark', { bakeryId, name });
+      push('Bookmark');
     }
   };
 

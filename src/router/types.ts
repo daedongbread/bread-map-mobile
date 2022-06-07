@@ -15,7 +15,7 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScre
 export type HomeStackParamList = {
   Home: undefined;
   BookmarkBottomSheet: BookmarkParamList;
-  Bookmark: BookmarkParamList;
+  Bookmark: undefined;
 };
 
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
