@@ -2,12 +2,11 @@ import React from 'react';
 
 import { StyleSheet, View } from 'react-native';
 
-import { RootStackScreenProps } from '@/router';
-
+import { HomeStackScreenProps } from '@/router/types';
 import { theme } from '@/styles/theme';
 import { Text } from '@shared/Text';
 
-export const Bookmark: React.FC<RootStackScreenProps<'Bookmark'>> = ({ route }) => {
+export const Bookmark: React.FC<HomeStackScreenProps<'Bookmark'>> = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text>{route.params.bakeryId}</Text>

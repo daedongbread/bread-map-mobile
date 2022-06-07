@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { FlatList, Modal, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import { SvgProps } from 'react-native-svg';
-
-import { BakeryEntity } from '@/apis';
 
 import { resizePixels } from '@/utils';
 
@@ -23,7 +21,7 @@ type List = {
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
   list: Array<List>;
-  bakery?: BakeryEntity | null;
+  bakery?: { id: number; name: string } | null;
   onPressNewBookmark: () => void;
   onClose: () => void;
   onSave: () => void;
@@ -47,7 +45,7 @@ const renderItem = ({ item }: { item: List }) => {
 
 export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
   ({ bakery, list, onPressNewBookmark, onClose, onSave }) => {
-    const bakeryName = bakery?.bakeryName || '';
+    const bakeryName = bakery?.name || '';
 
     const bakeryRef = useRef<BottomSheet>(null);
 
@@ -67,20 +65,18 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
     }, [bakery]);
 
     return (
-      <Modal visible={!!bakery} transparent statusBarTranslucent>
-        <View style={styles.overlay}>
-          <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
-            <View style={styles.background} />
-          </TouchableWithoutFeedback>
-          <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose} style={styles.bottomSheetContainer}>
-            <View>
-              <Header name={bakeryName} />
-              <FlatList data={list} renderItem={renderItem} ListHeaderComponent={ListHeaderComponent} />
-              <Footer onClose={onCloseBottomSheet} onSave={onSave} />
-            </View>
-          </BottomSheet>
-        </View>
-      </Modal>
+      <View style={styles.overlay}>
+        <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
+          <View style={styles.background} />
+        </TouchableWithoutFeedback>
+        <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose} style={styles.bottomSheetContainer}>
+          <View>
+            <Header name={bakeryName} />
+            <FlatList data={list} renderItem={renderItem} ListHeaderComponent={ListHeaderComponent} />
+            <Footer onClose={onCloseBottomSheet} onSave={onSave} />
+          </View>
+        </BottomSheet>
+      </View>
     );
   }
 );
@@ -90,7 +86,6 @@ const styles = StyleSheet.create(
     overlay: {
       flex: 1,
       justifyContent: 'flex-end',
-      backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
     background: {
       flex: 1,
