@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
 
@@ -15,6 +15,8 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
     params: { bakeryId, name },
   } = useRoute<HomeStackScreenProps<'BookmarkBottomSheet'>['route']>();
 
+  const [selectBookmark, setSelectBookmark] = useState<number>();
+
   const onClose = () => {
     goBack();
   };
@@ -27,8 +29,8 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   };
 
   const list = [
-    { id: 1, icon: CircleFlag, text: '가고싶어요', isSelect: true },
-    { id: 2, icon: HeartIcon, text: '가봤어요', isSelect: false },
+    { id: 1, icon: CircleFlag, text: '가고싶어요' },
+    { id: 2, icon: HeartIcon, text: '가봤어요' },
   ];
 
   return (
@@ -37,6 +39,8 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
       bakery={{ id: bakeryId, name }}
       onPressNewBookmark={onPressNewBookmark}
       onClose={onClose}
+      selectBookmarkId={selectBookmark}
+      onClick={setSelectBookmark}
       onSave={() => {}}
     />
   );
