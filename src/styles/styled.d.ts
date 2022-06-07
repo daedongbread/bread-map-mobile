@@ -25,6 +25,7 @@ declare module '@emotion/react' {
       primary400: string;
       primary500: string;
       overLay: string;
+      red: string;
     };
     windowSize: {
       width: number;
