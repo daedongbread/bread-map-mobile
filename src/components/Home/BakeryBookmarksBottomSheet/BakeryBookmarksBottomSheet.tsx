@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { FlatList, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 import { SvgProps } from 'react-native-svg';
 
@@ -14,37 +14,45 @@ import { Header } from './Header';
 import { StoreListHeader } from './StoreListHeader';
 
 type List = {
+  id: number;
   icon: React.FC<SvgProps>;
   text: string;
-  isSelect: boolean;
 };
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
   list: Array<List>;
   bakery?: { id: number; name: string } | null;
   onPressNewBookmark: () => void;
+  selectBookmarkId?: number;
   onClose: () => void;
+  onClick: (id: number) => void;
   onSave: () => void;
 };
 
 const snapPoints = ['40%'];
 
-const renderItem = ({ item }: { item: List }) => {
+type RenderItemProps = {
+  item: List;
+  isSelected: boolean;
+  onClick: (id: number) => void;
+};
+
+const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) => {
   return (
-    <View style={styles.itemContainer}>
-      <View style={styles.iconWrapper}>
-        <item.icon width={32} height={32} />
+    <Pressable onPress={() => onClick(item.id)}>
+      <View style={styles.itemContainer}>
+        <View style={styles.iconWrapper}>
+          <item.icon width={32} height={32} />
+        </View>
+        <Text presets={['body1', 'bold']}>{item.text}</Text>
+        <View style={styles.checkboxWrapper}>{isSelected ? <Text>Selected</Text> : <Text> unSelect</Text>}</View>
       </View>
-      <Text presets={['body1', 'bold']}>{item.text}</Text>
-      <View style={styles.checkboxWrapper}>
-        {item.isSelect ? <Text>Selected check-box</Text> : <Text> unSelect check-box</Text>}
-      </View>
-    </View>
+    </Pressable>
   );
 };
 
 export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
-  ({ bakery, list, onPressNewBookmark, onClose, onSave }) => {
+  ({ bakery, list, onPressNewBookmark, selectBookmarkId, onClose, onClick, onSave }) => {
     const bakeryName = bakery?.name || '';
 
     const bakeryRef = useRef<BottomSheet>(null);
@@ -72,7 +80,13 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
         <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose} style={styles.bottomSheetContainer}>
           <View>
             <Header name={bakeryName} />
-            <FlatList data={list} renderItem={renderItem} ListHeaderComponent={ListHeaderComponent} />
+            <FlatList
+              data={list}
+              renderItem={({ item }) => (
+                <RenderItem item={item} isSelected={item.id === selectBookmarkId} onClick={onClick} />
+              )}
+              ListHeaderComponent={ListHeaderComponent}
+            />
             <Footer onClose={onCloseBottomSheet} onSave={onSave} />
           </View>
         </BottomSheet>
