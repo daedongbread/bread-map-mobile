@@ -9,11 +9,16 @@ import { CircleFlag, HeartIcon } from '@shared/Icons';
 
 export type TabItem = 'distance' | 'popularity';
 
+type ScreenProps = HomeStackScreenProps<'BookmarkBottomSheet'>;
+
+type Navigation = ScreenProps['navigation'];
+type Route = ScreenProps['route'];
+
 export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
-  const { push, goBack } = useNavigation<HomeStackScreenProps<'BookmarkBottomSheet'>['navigation']>();
+  const { push, goBack } = useNavigation<Navigation>();
   const {
     params: { bakeryId, name },
-  } = useRoute<HomeStackScreenProps<'BookmarkBottomSheet'>['route']>();
+  } = useRoute<Route>();
 
   const [selectBookmark, setSelectBookmark] = useState<number>();
 
@@ -24,7 +29,6 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   const onPressNewBookmark = () => {
     if (bakeryId) {
       push('Bookmark', { bakeryId, name });
-      // onClose();
     }
   };
 
