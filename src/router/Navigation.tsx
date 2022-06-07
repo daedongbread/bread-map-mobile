@@ -2,6 +2,7 @@ import React from 'react';
 import { HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
 import { Home } from '@/pages';
 import { Bookmark } from '@/pages/Bookmark';
+import { BookmarkBottomSheet } from '@/pages/BookmarkBottomSheet';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
@@ -9,6 +10,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Route } from '@react-navigation/routers';
+import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from '.';
 
 const Tab = createMaterialTopTabNavigator();
@@ -46,16 +48,35 @@ const getHeaderTitle = (route: Partial<Route<string>>) => {
   }
 };
 
+const Stack = createStackNavigator();
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="BookmarkBottomSheet"
+        component={BookmarkBottomSheet}
+        options={{
+          headerShown: false,
+          presentation: 'transparentModal',
+          cardOverlayEnabled: false,
+        }}
+      />
+      <Stack.Screen name="Bookmark" component={Bookmark} options={{ presentation: 'card' }} />
+    </Stack.Navigator>
+  );
+};
+
 const Navigation = () => (
   <NavigationContainer theme={navigationTheme}>
-    <RootStack.Navigator initialRouteName="Home">
-      <RootStack.Screen name="Home" component={Home} />
+    <RootStack.Navigator initialRouteName="HomeStack">
+      <RootStack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }} />
       <RootStack.Screen
         name="BakeryDetail"
         component={BakeryDetailTabNavigator}
         options={({ route }) => ({ headerTitle: getHeaderTitle(route) })}
       />
-      <RootStack.Screen name="Bookmark" component={Bookmark} />
     </RootStack.Navigator>
   </NavigationContainer>
 );
