@@ -1,24 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { BakeryDetailTabScreenProps } from '@/router';
 import { theme } from '@/styles/theme';
 import {
-  ClockIcon,
-  EarthIcon,
-  FileTextIcon,
   InfoDeliveryIcon,
   InfoIconProps,
   InfoParkingIcon,
   InfoPetIcon,
   InfoShippingIcon,
   InfoWifiIcon,
-  MapPinIcon,
-  PhoneIcon,
 } from '@shared/Icons';
 import { Divider } from '../Divider';
-import InfoRow from './InfoRow';
 
 type FacilityCategory = 'PARKING' | 'WIFI' | 'DELIVERY' | 'PET' | 'SHIPPING';
 type FacilityText = '주차 가능' | '와이파이' | '배달' | '반려동물' | '택배';
@@ -71,17 +65,6 @@ const Information: React.FC<BakeryDetailTabScreenProps<'BakeryDetailInfo'>> = ()
 
   return (
     <View style={styles.container}>
-      <Divider />
-      <View style={styles.informationContainer}>
-        <InfoRow icon={<MapPinIcon />} text={bakery?.bakeryInfo.address!} />
-        <InfoRow icon={<ClockIcon />} text={bakery?.bakeryInfo.businessHour!} />
-        <InfoRow icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteUrlList[0]!} />
-        <InfoRow icon={<PhoneIcon />} text={bakery?.bakeryInfo.telNumber!} />
-        <TouchableOpacity style={styles.button}>
-          <FileTextIcon />
-          <Text style={styles.buttonText}>빵집 정보 수정하기</Text>
-        </TouchableOpacity>
-      </View>
       <Divider />
       <View style={styles.facilitiesContainer}>
         <Text style={styles.title}>시설정보</Text>

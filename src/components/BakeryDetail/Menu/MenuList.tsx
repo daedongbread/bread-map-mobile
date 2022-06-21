@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Menus } from '@/components/Shared/Menu';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { BakeryDetailTabScreenProps } from '@/router';
@@ -14,7 +14,7 @@ export type MenuItem = {
   price: number;
   rating: number;
 };
-
+// 다른부분들도 헤더탭부분 렌더링 변경하기
 const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = () => {
   const { bakery } = useBakeryDetail();
 
@@ -33,15 +33,17 @@ const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = () =>
   };
 
   return (
-    bakery && (
-      <View style={styles.container}>
-        <Divider />
-        <TabHeader title={'메뉴'} totalCount={bakery.bakeryMenu.length || 0} addBtnText={'메뉴 입력'} />
-        <View style={styles.content}>
-          <Menus bakery={bakery} onPress={onPress} />
-        </View>
-      </View>
-    )
+    <SafeAreaView style={styles.container}>
+      <Divider />
+
+      {bakery && bakery.bakeryMenu.length > 0 && (
+        <Menus
+          headerComponent={<TabHeader title={'메뉴'} totalCount={bakery?.bakeryMenu.length || 0} />}
+          bakery={bakery!}
+          onPress={onPress}
+        />
+      )}
+    </SafeAreaView>
   );
 };
 
@@ -50,8 +52,5 @@ export { MenuList };
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-  },
-  content: {
-    paddingHorizontal: 20,
   },
 });

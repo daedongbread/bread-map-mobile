@@ -1,17 +1,19 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { BakeryInfo, BakeryReview } from '@/utils';
+import { BakeryReviewStackParamList } from '@/router/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-// TODO: nested된 navigation의 타입을 입히기 어려워 Props로 대체함
+type Props = NativeStackScreenProps<BakeryReviewStackParamList, 'BakeryReviewDetail'>;
+const ReviewDetail: React.FC<Props> = ({ route }) => {
+  const {
+    params: { info, review },
+  } = route;
 
-type Props = {
-  info: BakeryInfo;
-  review: BakeryReview;
-};
-const ReviewDetail: React.FC<Props> = ({ info, review }) => {
   return (
     <View>
-      <Text>Review Detail</Text>
+      <Text>
+        Review Detail {info.bakeryName} {review.contents}
+      </Text>
     </View>
   );
 };

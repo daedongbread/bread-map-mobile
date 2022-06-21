@@ -1,24 +1,30 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BakeryReview } from '@/utils';
+import { FlatList, StyleSheet } from 'react-native';
+import { BakeryReview, resizePixels } from '@/utils';
 import Review from './Review';
 
 type ReviewsProps = {
+  headerComponent?: React.ReactElement;
   reviews: BakeryReview[];
   onPress: (review: BakeryReview) => void;
 };
 
-const Reviews: React.FC<ReviewsProps> = ({ reviews, onPress }) => (
+const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) => (
   <FlatList
+    ListHeaderComponent={headerComponent}
+    ListHeaderComponentStyle={styles.header}
     data={reviews}
     keyExtractor={review => review.menuReviewId.toString()}
-    renderItem={({ item }) => (
-      <TouchableOpacity onPress={() => onPress(item)}>
-        <Review review={item} />
-      </TouchableOpacity>
-    )}
+    renderItem={({ item }) => <Review review={item} onPress={onPress} />}
   />
 );
 
 export { Reviews };
+
+const styles = StyleSheet.create(
+  resizePixels({
+    header: {
+      marginHorizontal: 20,
+    },
+  })
+);
