@@ -1,61 +1,66 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { theme } from '@/styles/theme';
+import { resizePixels } from '@/utils';
 
 type TabHeaderProps = {
   title: string;
   totalCount: number;
-  addBtnText: string;
+  addBtnText?: string;
 };
 
-// 이름 변경?
+// TODO: 추후 버튼 컴포넌트 만들어지면 TabHeader 삭제 고민
 const TabHeader: React.FC<TabHeaderProps> = ({ title, totalCount, addBtnText }) => (
   <View style={styles.container}>
     <View style={styles.header}>
       <Text style={styles.tabName}>{title}</Text>
       <Text style={styles.totalCount}>{totalCount}</Text>
     </View>
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.buttonText}>{addBtnText}</Text>
-    </TouchableOpacity>
+    {addBtnText && (
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>{addBtnText}</Text>
+      </TouchableOpacity>
+    )}
   </View>
 );
 
 export { TabHeader };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  tabName: {
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  totalCount: {
-    color: theme.color.primary500,
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginLeft: 3,
-  },
-  button: {
-    backgroundColor: theme.color.primary500,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    justifyContent: 'center',
-    borderRadius: 30,
-  },
-  buttonText: {
-    color: theme.color.white,
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-});
+const styles = StyleSheet.create(
+  resizePixels({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 20,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    tabName: {
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+    totalCount: {
+      color: theme.color.primary500,
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginLeft: 3,
+    },
+    button: {
+      backgroundColor: theme.color.primary500,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      justifyContent: 'center',
+      borderRadius: 30,
+    },
+    buttonText: {
+      color: theme.color.white,
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+  })
+);
 
 // color: ${({ theme }) => theme.color.primary500};
 //   font-weight: bold;

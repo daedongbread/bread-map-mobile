@@ -10,11 +10,12 @@ type MenuProps = {
   rating: number;
 };
 
+// reviewLength 필요
 const Menu: React.FC<MenuProps> = ({ name, price, rating }) => (
   <View style={styles.container}>
     <View style={styles.textContainer}>
       <Text style={styles.name}>{name}</Text>
-      <BreadRating rating={`${rating}`} />
+      <BreadRating type={'menu'} rating={rating} reviewLength={20} />
       <Text style={styles.price}>{price.toLocaleString()}원</Text>
     </View>
     <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/100' }} />
@@ -36,7 +37,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     justifyContent: 'center',
-    marginLeft: 12,
   },
   name: {
     fontWeight: 'bold',

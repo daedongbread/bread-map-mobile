@@ -1,3 +1,4 @@
+export { ShareSolidIcon } from './ShareSolidIcon';
 export { InfoShippingIcon } from './InfoShippingIcon';
 export { InfoPetIcon } from './InfoPetIcon';
 export { InfoParkingIcon } from './InfoParkingIcon';
@@ -21,3 +22,5 @@ export { Quote } from './Quote';
 export { DaebbangFlag } from './DaebbangFlag';
 export { GoogleLogo } from './GoogleLogo';
 export { AppleLogo } from './AppleLogo';
+export { WishIcon } from './WishIcon';
+export { EditIcon } from './EditIcon';
