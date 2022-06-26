@@ -1,16 +1,27 @@
 import { BakeryInfo, BakeryMenu, BakeryReview } from '@/utils';
 import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { StackScreenProps } from '@react-navigation/stack';
 
 // ** Main route types **
 export type RootStackParamList = {
-  Home: undefined;
+  HomeStack: undefined;
   BakeryDetail: NavigatorScreenParams<BakeryDetailTabParamList>;
-  Bookmark: BookmarkStackParamList;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
+
+export type HomeStackParamList = {
+  Home: undefined;
+  BookmarkBottomSheet: BookmarkParamList;
+  Bookmark: undefined;
+};
+
+export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
+  StackScreenProps<HomeStackParamList, T>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 // ** BakeryDetail tab route types **
 export type Bakery = {
@@ -26,8 +37,9 @@ export type BakeryDetailTabParamList = {
   BakeryDetailInfo: Bakery['bakeryInfo'];
 };
 
-export type BookmarkStackParamList = {
+export type BookmarkParamList = {
   bakeryId: number;
+  name: string;
 };
 
 export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList> = CompositeScreenProps<
