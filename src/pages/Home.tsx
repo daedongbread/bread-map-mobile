@@ -3,11 +3,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { BakeryBottomSheetContainer, BakeryMapContainer } from '@/containers/Home';
 
-import { RootStackScreenProps } from '@/router';
-
 import { theme } from '@/styles/theme';
 
-export const Home: React.FC<RootStackScreenProps<'Home'>> = () => (
+export const Home: React.VFC = () => (
   <View style={styles.container}>
     <BakeryMapContainer />
     <BakeryBottomSheetContainer />
