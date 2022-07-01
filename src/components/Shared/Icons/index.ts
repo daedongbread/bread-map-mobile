@@ -26,3 +26,4 @@ export { FlagIcon } from './FlagIcon';
 export { NavigationIcon } from './NavigationIcon';
 export { HeartIcon } from './HeartIcon';
 export { PlusIcon } from './PlusIcon';
+export { CloseIcon } from './CloseIcon';
