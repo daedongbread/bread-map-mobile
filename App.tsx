@@ -4,7 +4,7 @@ import { AuthProvider } from '@/provider/AuthProvider/AuthProvider';
 import { SplashProvider } from '@/provider/SplashProvider';
 import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
-import { RootNavigation } from './src/pages/stack';
+import { RootNavigation } from './src/pages/Stack';
 
 const queryClient = new QueryClient();
 

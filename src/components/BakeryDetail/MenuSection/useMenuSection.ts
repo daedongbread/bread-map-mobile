@@ -1,7 +1,6 @@
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router';
 
-export const useMenuSection = ({ route }: BakeryDetailTabScreenProps<'BakeryDetailMenu'>) => {
+export const useMenuSection = () => {
   const { bakery } = useBakeryDetail();
 
   return {

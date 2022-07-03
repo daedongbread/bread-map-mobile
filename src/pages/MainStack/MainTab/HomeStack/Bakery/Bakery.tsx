@@ -1,6 +1,7 @@
 import React from 'react';
-import { InfoSection } from '@/components/BakeryDetail';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import styled from '@emotion/native';
+import { Text } from '@shared/Text';
 
 const info = {
   address: '서울 서초구 서초중앙로 18',
@@ -15,15 +16,16 @@ const info = {
 // TODO: 구조 고민
 // tab navigator로 인해 여기는 쓰이지 않는다.
 // components > BakeryDetail를 pages > BakeryDetail 폴더를 만들어서 옮겨야 할지 고민
-const BakeryDetail = () => (
+const Bakery: React.FC<HomeStackScreenProps<'Bakery'>> = () => (
   <Container>
     {/* <MenuSection bakeryMenu={bakeryMenu} /> */}
     {/* <ReviewSection reviews={reviews} /> */}
-    <InfoSection />
+    {/*<InfoSection />*/}
+    <Text>{'BAKERY DETAIL'}</Text>
   </Container>
 );
 
-export { BakeryDetail };
+export { Bakery };
 
 const Container = styled.SafeAreaView`
   flex: 1;

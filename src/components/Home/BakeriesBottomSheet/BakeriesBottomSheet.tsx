@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { BakeryEntity } from '@/apis';
 import { BakeryCard } from '@/components/Home/BakeryCard';
@@ -14,14 +14,20 @@ import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { Header } from './Header';
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
-  onClickBakery: (id: string) => void;
+  onClickBakery: (id: number) => void;
   activeTab: TabItem;
   onPressTab: (item: TabItem) => void;
   bakeryList: Array<BakeryEntity>;
   onPressIcon: (bakery: BakeryEntity) => void;
 };
 
-export const BakeriesBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, onPressTab, onPressIcon }) => {
+export const BakeriesBottomSheet: React.FC<Props> = ({
+  onClickBakery,
+  bakeryList,
+  activeTab,
+  onPressTab,
+  onPressIcon,
+}) => {
   const snapPoints = useMemo(() => ['35%', '60%'], []);
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
 
@@ -31,9 +37,13 @@ export const BakeriesBottomSheet: React.FC<Props> = ({ bakeryList, activeTab, on
 
   const renderItem = useCallback(
     ({ item }: { item: BakeryEntity }) => {
-      return <BakeryCard bakery={item} onPressIcon={onPressIcon} />;
+      return (
+        <TouchableOpacity onPress={() => onClickBakery(item.bakeryId)}>
+          <BakeryCard bakery={item} onPressIcon={onPressIcon} />
+        </TouchableOpacity>
+      );
     },
-    [onPressIcon]
+    [onClickBakery, onPressIcon]
   );
 
   return (

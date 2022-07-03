@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
 
-import { HomeStackScreenProps } from '@/router/types';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { CircleFlag, HeartIcon } from '@shared/Icons';
 
 export type TabItem = 'distance' | 'popularity';
 
-type ScreenProps = HomeStackScreenProps<'BookmarkBottomSheet'>;
+type ScreenProps = MainStackScreenProps<'BookmarkBottomSheet'>;
 
 type Navigation = ScreenProps['navigation'];
 type Route = ScreenProps['route'];

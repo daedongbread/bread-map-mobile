@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { RootStackScreenProps } from '@/pages/stack';
+import { RootStackScreenProps } from '@/pages/Stack';
 import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
 

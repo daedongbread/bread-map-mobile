@@ -1,16 +1,16 @@
 import React from 'react';
 import { DummyAuth } from '@/pages/Auth';
-import { HomeStack } from '@/pages/home/stack';
+import { MainStack, MainStackParamList } from '@/pages/MainStack/Stack';
 import { Onboarding } from '@/pages/Onboarding';
 import { useAuth } from '@/provider/AuthProvider/AuthProvider';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 
-type RootStackParamList = {
-  HomeStack: undefined;
+export type RootStackParamList = {
   Onboarding: undefined;
   Auth: undefined;
+  MainStack: NavigatorScreenParams<MainStackParamList>;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
@@ -25,7 +25,7 @@ const RootNavigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLogin ? (
           <>
-            <Stack.Screen name="HomeStack" component={HomeStack} />
+            <Stack.Screen name={'MainStack'} component={MainStack} />
           </>
         ) : (
           <>

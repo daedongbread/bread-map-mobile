@@ -5,18 +5,9 @@
 // import type { StackScreenProps } from '@react-navigation/stack';
 //
 // // ** Main route types **
-// export type RootStackParamList = {
-//   HomeStack: undefined;
-//   BakeryDetail: NavigatorScreenParams<BakeryDetailTabParamList>;
-// };
-//
-// export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
-//
-// export type HomeStackParamList = {
-//   Home: undefined;
-//   BookmarkBottomSheet: BookmarkParamList;
-//   Bookmark: undefined;
-// };
+
+import { RootStackParamList } from '@/pages/Stack';
+
 //
 // export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
 //   StackScreenProps<HomeStackParamList, T>,
@@ -46,10 +37,10 @@
 //   MaterialTopTabScreenProps<BakeryDetailTabParamList, T>,
 //   RootStackScreenProps<keyof RootStackParamList>
 // >;
-//
-// // ** Global **
-// declare global {
-//   namespace ReactNavigation {
-//     interface RootParamList extends RootStackParamList {}
-//   }
-// }
+
+// ** Global **
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
