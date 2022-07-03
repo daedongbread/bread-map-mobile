@@ -1,6 +1,5 @@
 import React, { createContext, FC, useContext } from 'react';
 import { SocialProvider } from '@/apis/auth/requestLogin';
-import { Auth } from '@/pages';
 import { useAuthMethod } from './useAuthMethod';
 
 type AuthContextValue = {
@@ -20,7 +19,8 @@ const AuthProvider: FC = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ login, logOut, isLogin: Boolean(user?.token) }}>
-      {user?.token ? children : <Auth />}
+      {/*{user?.token ? children : <Auth />}*/}
+      {children}
     </AuthContext.Provider>
   );
 };

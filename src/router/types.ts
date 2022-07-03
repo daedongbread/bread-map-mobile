@@ -4,17 +4,29 @@ import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-t
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { StackScreenProps } from '@react-navigation/stack';
 
 // ** Main route types **
 export type RootStackParamList = {
-  Home: undefined;
+  HomeStack: undefined;
   BakeryDetail: NavigatorScreenParams<BakeryDetailTabParamList>;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 
-// ** BakeryDetail tab (base) route types **
+export type HomeStackParamList = {
+  Home: undefined;
+  BookmarkBottomSheet: BookmarkParamList;
+  Bookmark: undefined;
+};
+
+export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
+  StackScreenProps<HomeStackParamList, T>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+// ** BakeryDetail tab route types **
 export type Bakery = {
   bakeryMenu: BakeryMenu[];
   bakeryReviews: BakeryReview[];
@@ -26,6 +38,11 @@ export type BakeryDetailTabParamList = {
   BakeryDetailMenu: NavigatorScreenParams<BakeryMenuStackParamList>;
   BakeryDetailReview: NavigatorScreenParams<BakeryReviewStackParamList>;
   BakeryDetailInfo: Bakery['bakeryInfo'];
+};
+
+export type BookmarkParamList = {
+  bakeryId: number;
+  name: string;
 };
 
 export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList> = CompositeScreenProps<
@@ -59,7 +76,7 @@ export type BakeryReviewStackParamList = {
 
 export type BakeryReviewStackNavigationProps = NativeStackNavigationProp<BakeryReviewStackParamList>;
 
-// ** Golobal **
+// ** Global **
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}

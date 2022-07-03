@@ -15,6 +15,7 @@ declare module '@emotion/react' {
       gray600: string;
       gray700: string;
       gray800: string;
+      gray900: string;
       purple: string;
       green: string;
       primary50: string;
@@ -24,6 +25,7 @@ declare module '@emotion/react' {
       primary400: string;
       primary500: string;
       overLay: string;
+      red: string;
     };
     windowSize: {
       width: number;
