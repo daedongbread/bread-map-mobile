@@ -3,22 +3,24 @@ import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
 import { Notification } from '@/pages/MainStack/Notification';
-import { Profile } from '@/pages/MainStack/ProfileStack';
-import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
+import { Profile } from '@/pages/MainStack/ProfileStack/Profile';
+import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { Search } from '@/pages/MainStack/Search';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { Text } from '@shared/Text';
 
 export type MainStackParamList = {
-  MainTab: NavigatorScreenParams<MainTabParamList>;
+  MainTab: BottomTabScreenProps<MainTabParamList>;
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
   };
   Bookmark: undefined;
   Search: undefined;
-  ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
+  ReportBakeryModal: undefined;
   NotificationModal: undefined;
   ProfileModal: undefined;
 };
@@ -30,21 +32,31 @@ export type MainStackScreenProps<T extends keyof MainStackParamList> = Composite
 
 const Stack = createStackNavigator<MainStackParamList>();
 
-const MainStack = () => {
+const ProfileStack = () => {
   return (
     <Stack.Navigator initialRouteName={'MainTab'} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen
-        name={'BookmarkBottomSheet'}
+        name="BookmarkBottomSheet"
         component={BookmarkBottomSheet}
         options={{ presentation: 'transparentModal', cardOverlayEnabled: false }}
       />
-      <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
-        <Stack.Screen name={'Bookmark'} component={Bookmark} />
-        <Stack.Screen name={'Search'} component={Search} />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ headerShown: true }}>
-        <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
+      <Stack.Group screenOptions={{ presentation: 'card', headerBackTitleVisible: false, headerShadowVisible: false }}>
+        <Stack.Screen
+          name="Bookmark"
+          component={Bookmark}
+          options={{
+            headerTitle: () => <Text presets={['subtitle2', 'bold']}>새 리스트</Text>,
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{
+            headerTitle: () => <Text presets={['subtitle2', 'bold']}>새 리스트</Text>,
+          }}
+        />
+        <Stack.Screen name={'ReportBakeryModal'} component={ReportBakery} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
       </Stack.Group>
@@ -52,4 +64,4 @@ const MainStack = () => {
   );
 };
 
-export { MainStack };
+export { ProfileStack };
