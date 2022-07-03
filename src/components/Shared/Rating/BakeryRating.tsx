@@ -1,6 +1,6 @@
 import React from 'react';
+import { StarGradientIcon, StarIcon } from '@/components/Shared/Icons';
 import styled from '@emotion/native';
-import { StarGradientIcon, StarIcon } from '../Icons';
 
 type TextPosition = 'top' | 'right';
 
@@ -10,7 +10,7 @@ type RatingProps = {
   size?: number;
 };
 
-const Rating: React.FC<RatingProps> = ({ rating, textPosition, size, ...props }) => (
+const BakeryRating: React.FC<RatingProps> = ({ rating, textPosition, size, ...props }) => (
   <Container textPosition={textPosition} {...props}>
     {textPosition === 'top' && <TopScore>{rating}</TopScore>}
     <Stars textPosition={textPosition}>
@@ -32,7 +32,7 @@ const Rating: React.FC<RatingProps> = ({ rating, textPosition, size, ...props })
   </Container>
 );
 
-export { Rating };
+export { BakeryRating };
 
 const Container = styled.View<{ textPosition: TextPosition }>`
   width: 100%;

@@ -1,6 +1,9 @@
+import { MenuItem } from '@/components/BakeryDetail/Menu/MenuList';
 import { BakeryInfo, BakeryMenu, BakeryReview } from '@/utils';
 import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { StackScreenProps } from '@react-navigation/stack';
 
@@ -32,8 +35,8 @@ export type Bakery = {
 
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: Bakery;
-  BakeryDetailMenu: Bakery['bakeryMenu'];
-  BakeryDetailReview: Bakery['bakeryReviews'];
+  BakeryDetailMenu: NavigatorScreenParams<BakeryMenuStackParamList>;
+  BakeryDetailReview: NavigatorScreenParams<BakeryReviewStackParamList>;
   BakeryDetailInfo: Bakery['bakeryInfo'];
 };
 
@@ -46,6 +49,32 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
   MaterialTopTabScreenProps<BakeryDetailTabParamList, T>,
   RootStackScreenProps<keyof RootStackParamList>
 >;
+
+export type BakeryDetailTabNavigationProps = NativeStackNavigationProp<BakeryDetailTabParamList>;
+
+// ** BakeryDetail tab (menu) route types **
+export type BakeryMenuStackParamList = {
+  BakeryMenus: Bakery; // 단일 값으로 할지 고민
+  BakeryMenuReviews: {
+    info: BakeryInfo;
+    menu: MenuItem;
+    reviews: BakeryReview[];
+  };
+};
+
+export type BakeryMenuStackNavigationProps = NativeStackNavigationProp<BakeryMenuStackParamList>;
+
+// ** BakeryDetail tab (review) route types **
+export type BakeryReviewStackParamList = {
+  BakeryReviews: Bakery;
+  BakeryReviewDetail: {
+    info: BakeryInfo;
+    review: BakeryReview;
+  };
+  BakeryReport: Bakery;
+};
+
+export type BakeryReviewStackNavigationProps = NativeStackNavigationProp<BakeryReviewStackParamList>;
 
 // ** Global **
 declare global {
