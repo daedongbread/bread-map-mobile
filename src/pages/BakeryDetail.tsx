@@ -1,5 +1,4 @@
 import React from 'react';
-import { InfoSection } from '@/components/BakeryDetail';
 import styled from '@emotion/native';
 
 const info = {
@@ -19,7 +18,7 @@ const BakeryDetail = () => (
   <Container>
     {/* <MenuSection bakeryMenu={bakeryMenu} /> */}
     {/* <ReviewSection reviews={reviews} /> */}
-    <InfoSection />
+    {/*<InfoSection info={info} />*/}
   </Container>
 );
 

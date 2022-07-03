@@ -1,3 +1,4 @@
+export { ShareSolidIcon } from './ShareSolidIcon';
 export { InfoShippingIcon } from './InfoShippingIcon';
 export { InfoPetIcon } from './InfoPetIcon';
 export { InfoParkingIcon } from './InfoParkingIcon';
@@ -26,3 +27,5 @@ export { FlagIcon } from './FlagIcon';
 export { NavigationIcon } from './NavigationIcon';
 export { HeartIcon } from './HeartIcon';
 export { PlusIcon } from './PlusIcon';
+export { WishIcon } from './WishIcon';
+export { EditIcon } from './EditIcon';

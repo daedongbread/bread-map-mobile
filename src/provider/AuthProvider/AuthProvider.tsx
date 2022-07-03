@@ -1,6 +1,5 @@
 import React, { createContext, FC, useContext } from 'react';
 import { SocialProvider } from '@/apis/auth/requestLogin';
-import { Auth } from '@/pages';
 import { useAuthMethod } from './useAuthMethod';
 
 type AuthContextValue = {
