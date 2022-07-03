@@ -1,18 +1,11 @@
 import React from 'react';
 import { HomeSection, InfoSection, MenuSection, ReviewSection } from '@/components/BakeryDetail';
-import { Home } from '@/pages';
-import { Bookmark } from '@/pages/Bookmark';
-import { BookmarkBottomSheet } from '@/pages/BookmarkBottomSheet';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { Route } from '@react-navigation/routers';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Text } from '@shared/Text';
-import { RootStackParamList } from '.';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -35,8 +28,6 @@ const BakeryDetailTabNavigator = () => (
   </BakeryDetailProvider>
 );
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
-
 const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
 
 const getHeaderTitle = (route: Partial<Route<string>>) => {
@@ -47,56 +38,4 @@ const getHeaderTitle = (route: Partial<Route<string>>) => {
     default:
       return bakeryData.bakeryInfo.bakeryName;
   }
-};
-
-const Stack = createStackNavigator();
-
-const HomeStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen
-        name="BookmarkBottomSheet"
-        component={BookmarkBottomSheet}
-        options={{
-          headerShown: false,
-          presentation: 'transparentModal',
-          cardOverlayEnabled: false,
-        }}
-      />
-      <Stack.Screen
-        name="Bookmark"
-        component={Bookmark}
-        options={{
-          presentation: 'card',
-          headerTitle: () => <Text presets={['subtitle2', 'bold']}>새 리스트</Text>,
-          headerBackTitleVisible: false,
-          headerShadowVisible: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const Navigation = () => (
-  <NavigationContainer theme={navigationTheme}>
-    <RootStack.Navigator initialRouteName="HomeStack">
-      <RootStack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }} />
-      <RootStack.Screen
-        name="BakeryDetail"
-        component={BakeryDetailTabNavigator}
-        options={({ route }) => ({ headerTitle: getHeaderTitle(route) })}
-      />
-    </RootStack.Navigator>
-  </NavigationContainer>
-);
-
-export { Navigation };
-
-const navigationTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'white',
-  },
 };
