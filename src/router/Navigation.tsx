@@ -8,7 +8,10 @@ import {
   ReviewList,
   ReviewReport,
 } from '@/components/BakeryDetail';
+import { Text } from '@/components/Shared/Text';
 import { Home } from '@/pages';
+import { Bookmark } from '@/pages/Bookmark';
+import { BookmarkBottomSheet } from '@/pages/BookmarkBottomSheet';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { bakeryMenu, bakeryReviews, bakeryInfo } from '@/utils';
@@ -16,6 +19,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer, DefaultTheme, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Route } from '@react-navigation/routers';
+import { createStackNavigator } from '@react-navigation/stack';
 import { BakeryReviewStackParamList } from './types';
 import { RootStackParamList, BakeryMenuStackParamList } from '.';
 
@@ -76,10 +80,39 @@ const getHeaderTitle = (route: Partial<Route<string>>) => {
   }
 };
 
+const Stack = createStackNavigator();
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="BookmarkBottomSheet"
+        component={BookmarkBottomSheet}
+        options={{
+          headerShown: false,
+          presentation: 'transparentModal',
+          cardOverlayEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Bookmark"
+        component={Bookmark}
+        options={{
+          presentation: 'card',
+          headerTitle: () => <Text presets={['subtitle2', 'bold']}>새 리스트</Text>,
+          headerBackTitleVisible: false,
+          headerShadowVisible: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const Navigation = () => (
   <NavigationContainer theme={navigationTheme}>
-    <RootStack.Navigator initialRouteName="Home">
-      <RootStack.Screen name="Home" component={Home} />
+    <RootStack.Navigator initialRouteName="HomeStack">
+      <RootStack.Screen name="HomeStack" component={HomeStack} options={{ headerShown: false }} />
       <RootStack.Screen
         name="BakeryDetail"
         component={BakeryDetailTabNavigator}

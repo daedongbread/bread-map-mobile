@@ -18,8 +18,9 @@ export const theme: Theme = {
     gray600: '#757575',
     gray700: '#616161',
     gray800: '#424242',
+    gray900: '#222222',
     purple: '#fe5436',
-    green: '#53aff',
+    green: '#1EC780',
     primary50: '#fff6f4',
     primary100: '#fff1ec',
     primary200: '#ffc5b3',
@@ -27,6 +28,7 @@ export const theme: Theme = {
     primary400: '#ff8b66',
     primary500: '#ff6e40',
     overLay: 'rgba(0, 0, 0, 60%)',
+    red: '#F3213B',
   },
   windowSize: {
     width: windowWidth,
