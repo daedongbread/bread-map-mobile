@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { AuthProvider } from '@/provider/AuthProvider/AuthProvider';
 import { SplashProvider } from '@/provider/SplashProvider';
 import { Navigation } from '@/router';
