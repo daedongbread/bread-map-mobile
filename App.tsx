@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 
 const App: FC = () => (
   <SplashProvider>
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <AuthProvider>
@@ -24,7 +24,7 @@ const App: FC = () => (
           </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
-    </Provider>
+    </ReduxProvider>
   </SplashProvider>
 );
 
