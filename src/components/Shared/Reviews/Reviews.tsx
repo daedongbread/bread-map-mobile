@@ -1,30 +1,30 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { BakeryReview, resizePixels } from '@/utils';
 import Review from './Review';
 
-type MenuReview = {
-  breadCategoryId: number;
-  contents: string;
-  imgPathList: string[];
-  lastModifiedDateTime: string;
-  memberId: number;
-  memberName: string;
-  menuId: number;
-  menuName: string;
-  menuReviewId: number;
-  rating: number;
-};
-
 type ReviewsProps = {
-  reviews: MenuReview[];
+  headerComponent?: React.ReactElement;
+  reviews: BakeryReview[];
+  onPress: (review: BakeryReview) => void;
 };
 
-const Reviews: React.FC<ReviewsProps> = ({ reviews }) => (
+const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) => (
   <FlatList
+    ListHeaderComponent={headerComponent}
+    ListHeaderComponentStyle={styles.header}
     data={reviews}
     keyExtractor={review => review.menuReviewId.toString()}
-    renderItem={({ item }) => <Review review={item} />}
+    renderItem={({ item }) => <Review review={item} onPress={onPress} />}
   />
 );
 
 export { Reviews };
+
+const styles = StyleSheet.create(
+  resizePixels({
+    header: {
+      marginHorizontal: 20,
+    },
+  })
+);

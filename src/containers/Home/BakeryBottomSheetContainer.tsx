@@ -25,7 +25,10 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
   const onClickBakery = useCallback(
     (id: number) => {
       navigate('Bakery', {
-        id,
+        screen: 'BakeryDetailHome',
+        params: {
+          ...bakeryData,
+        },
       });
     },
     [navigate]
