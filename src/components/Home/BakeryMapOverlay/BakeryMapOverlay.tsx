@@ -6,6 +6,7 @@ import { BakeryMapSearch } from '@/components/Home/BakeryMapSearch/BakeryMapSear
 import { FlagIcon, NavigationIcon } from '@shared/Icons';
 
 type Props = {
+  onPressSearch: () => void;
   searchValue: string;
   onChangeSearch: (text: string) => void;
   onPressFlagIcon: () => void;
@@ -13,14 +14,14 @@ type Props = {
 };
 
 export const BakeryMapOverlay: React.FC<Props> = ({
-  searchValue,
+  onPressSearch,
   onChangeSearch,
   onPressFlagIcon,
   onPressNavigationIcon,
 }) => {
   return (
     <View style={styles.container}>
-      <BakeryMapSearch searchValue={searchValue} onChangeSearch={onChangeSearch} />
+      <BakeryMapSearch onPress={onPressSearch} />
 
       <View style={styles.iconsWrapper}>
         <View style={styles.iconButton}>

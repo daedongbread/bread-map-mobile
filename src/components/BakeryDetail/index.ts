@@ -1,5 +1,3 @@
-export { Home } from './Home';
-
 // Information
 export { Information } from './Information/Information';
 

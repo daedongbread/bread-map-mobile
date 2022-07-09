@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Information, MenuList, ReviewList } from '@/components/BakeryDetail';
+import { Divider } from '@/components/BakeryDetail/Divider';
+import { BakeryButton } from '@/components/BakeryDetail/Home/BakeryButton';
+import { ReviewSummary } from '@/components/BakeryDetail/Home/ReviewSummary';
+import { RowInfo } from '@/components/BakeryDetail/Home/RowInfo';
 import {
   CircleFlag,
   ClockIcon,
@@ -12,15 +17,12 @@ import {
   WishIcon,
 } from '@/components/Shared/Icons';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router';
+import { BakeryDetailTabScreenProps } from '@/router/types';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import { BakeryButton as Button } from './BakeryButton';
-import { ReviewSummary as Summary } from './ReviewSummary';
-import { RowInfo as Info } from './RowInfo';
 
 // TODO: 일부 아이콘 변경 필요
-const Home: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
+const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
   const { bakery, updateBakery } = useBakeryDetail();
 
   React.useEffect(() => {
@@ -28,7 +30,7 @@ const Home: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route 
   }, [updateBakery, route.params]);
 
   return (
-    <View>
+    <ScrollView>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/360' }} resizeMode="cover" />
       </View>
@@ -36,9 +38,9 @@ const Home: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route 
         <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.bakeryName}</Text>
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
-            <Summary text={'1,200'} icon={<CircleFlag />} />
-            <Summary text={'1,200'} icon={<CircleFlag />} />
-            <Summary text={'1,200'} icon={<CircleFlag />} />
+            <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
+            <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
+            <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
           </View>
           <View style={styles.reviewerContainer}>
             <Text style={styles.reviewerText}>빵빵빵순</Text>
@@ -46,26 +48,30 @@ const Home: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route 
           </View>
         </View>
         <View style={styles.actionButtonContainer}>
-          <Button text={'저장하기'} icon={<WishIcon />} />
-          <Button text={'리뷰작성'} icon={<EditIcon />} />
-          <Button text={'공유하기'} icon={<ShareSolidIcon />} />
+          <BakeryButton text={'저장하기'} icon={<WishIcon />} />
+          <BakeryButton text={'리뷰작성'} icon={<EditIcon />} />
+          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} />
         </View>
         <View style={styles.informationContainer}>
-          <Info icon={<MapPinIcon />} text={bakery?.bakeryInfo.address!} />
-          <Info icon={<ClockIcon />} text={bakery?.bakeryInfo.businessHour!} />
-          <Info icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteUrlList[0]!} />
-          <Info icon={<PhoneIcon />} text={bakery?.bakeryInfo.telNumber!} />
+          <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address!} />
+          <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.businessHour!} />
+          <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteUrlList[0]!} />
+          <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.telNumber!} />
           <TouchableOpacity style={styles.editButton}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+      <Divider />
+      <MenuList />
+      <Divider />
+      <ReviewList />
+      <Divider />
+      <Information />
+    </ScrollView>
   );
 };
-
-export { Home };
 
 const styles = StyleSheet.create(
   resizePixels({
@@ -142,3 +148,5 @@ const styles = StyleSheet.create(
     },
   })
 );
+
+export { BakeryHome };

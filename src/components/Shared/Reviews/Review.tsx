@@ -2,7 +2,6 @@ import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { theme } from '@/styles/theme';
 import { BakeryReview, resizePixels } from '@/utils';
-import styled from '@emotion/native';
 import { BreadRating } from '../Rating';
 
 type MenuReview = {
@@ -66,7 +65,7 @@ const Review: React.FC<ReviewProps> = ({ review, onPress }) => (
           renderItem={({ item }) => <Image style={styles.reviewImage} source={item.src} />}
         />
       </View>
-      <Text style={styles.reivewText}>{review?.contents}</Text>
+      <Text style={styles.reviewText}>{review?.contents}</Text>
     </TouchableOpacity>
   </View>
 );
@@ -174,7 +173,7 @@ const styles = StyleSheet.create(
     reviewTextContainer: {
       paddingTop: 20,
     },
-    reivewText: {
+    reviewText: {
       color: theme.color.gray700,
       fontSize: 14,
       paddingTop: 130,
@@ -183,66 +182,3 @@ const styles = StyleSheet.create(
     },
   })
 );
-
-const Container = styled.View`
-  position: relative;
-`;
-
-const ReviewContent = styled.View`
-  margin: 20px;
-  padding-bottom: 20px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${({ theme }) => theme.color.gray300};
-  // TODO: 마지막 리뷰는 border 제거
-`;
-
-const Reviewer = styled.View`
-  flex-direction: row;
-`;
-
-const ProfileImg = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-`;
-
-const Info = styled.View`
-  margin-left: 8px;
-  justify-content: center;
-`;
-
-const Nickname = styled.Text`
-  font-weight: bold;
-  font-size: 14px;
-`;
-
-const UpdatedAt = styled.Text`
-  font-size: 12px;
-  color: ${({ theme }) => theme.color.gray600};
-  margin-top: 2px;
-`;
-
-const ReviewRating = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin: 16px 0 160px;
-`;
-
-const Name = styled.Text`
-  font-weight: bold;
-  font-size: 12px;
-  color: ${({ theme }) => theme.color.gray600};
-  margin-right: 8px;
-`;
-
-const ReviewImg = styled.Image`
-  width: 140px;
-  height: 140px;
-  border-radius: 8px;
-  margin-right: 8px;
-`;
-
-const ReviewText = styled.Text`
-  color: ${({ theme }) => theme.color.gray700};
-  font-size: 14px;
-`;

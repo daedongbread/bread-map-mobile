@@ -1,8 +1,8 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useMutation } from 'react-query';
-import { requestRefresh, requestSocialLogin, SocialProvider } from '@/apis/auth/requestLogin';
+import { LoginResponse, requestRefresh, requestSocialLogin, SocialProvider } from '@/apis/auth/requestLogin';
 import { fetcher } from '@/apis/fetcher';
 
 type User = {
@@ -43,8 +43,8 @@ export const useAuthMethod = () => {
     },
   });
 
-  const loginQuery = useMutation(requestSocialLogin, {
-    onSuccess: ({ appToken }) => {
+  const onSuccessLogin = useCallback<(props: LoginResponse) => void>(
+    ({ appToken }) => {
       if (appToken) {
         userRef.current = { age: getExpireDate(), token: appToken };
         EncryptedStorage.setItem(
@@ -57,6 +57,11 @@ export const useAuthMethod = () => {
         refreshTimeOut(refreshQuery.mutateAsync);
       }
     },
+    [refreshQuery.mutateAsync]
+  );
+
+  const loginQuery = useMutation(requestSocialLogin, {
+    onSuccess: onSuccessLogin,
   });
 
   useEffect(() => {
@@ -86,7 +91,8 @@ export const useAuthMethod = () => {
   }, [refreshQuery.mutate]);
 
   const login = ({ token, provider }: { token: string; provider: SocialProvider }) => {
-    loginQuery.mutate({ accessToken: token, provider });
+    // loginQuery.mutate({ accessToken: token, provider });
+    onSuccessLogin({ appToken: token, isNewMember: true });
   };
 
   const logOut = async () => {

@@ -1,4 +1,5 @@
 import { MenuItem } from '@/components/BakeryDetail/Menu/MenuList';
+import type { RootStackParamList as RootStack } from '@/pages/Stack';
 import { BakeryInfo, BakeryMenu, BakeryReview } from '@/utils';
 import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
@@ -79,6 +80,6 @@ export type BakeryReviewStackNavigationProps = NativeStackNavigationProp<BakeryR
 // ** Global **
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStack {}
   }
 }

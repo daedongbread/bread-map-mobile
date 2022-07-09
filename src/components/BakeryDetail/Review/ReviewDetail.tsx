@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { BakeryReviewStackParamList } from '@/router/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -19,9 +19,3 @@ const ReviewDetail: React.FC<Props> = ({ route }) => {
 };
 
 export { ReviewDetail };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-  },
-});
