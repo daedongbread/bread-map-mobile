@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps, View, ViewProps } from 'react-native';
 import { theme } from '@/styles/theme';
 import { PlusIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
@@ -7,14 +7,21 @@ import { Text } from '@shared/Text';
 type Appearance = 'primary' | 'secondary' | 'terdary';
 type Size = 'big' | 'large';
 
-type Props = {
+interface Props extends TouchableOpacityProps {
   style?: ViewProps['style'];
   appearance?: Appearance;
   size?: Size;
   icon?: boolean;
-};
+}
 
-export const Button: React.FC<Props> = ({ appearance = 'primary', size = 'large', style = {}, icon, children }) => {
+export const Button: React.FC<Props> = ({
+  appearance = 'primary',
+  size = 'large',
+  style = {},
+  icon,
+  children,
+  ...rest
+}) => {
   const appearanceStyle = appearanceStyles[appearance];
   const textStyle = textStyles[appearance];
   const iconColor = iconStyles[appearance].color;
@@ -22,7 +29,7 @@ export const Button: React.FC<Props> = ({ appearance = 'primary', size = 'large'
 
   return (
     <View style={style}>
-      <TouchableOpacity>
+      <TouchableOpacity {...rest}>
         <View style={[appearanceStyle, sizeStyle, defaultStyles.common]}>
           {icon && <PlusIcon color={iconColor} style={defaultStyles.icon} />}
           <Text style={textStyle} presets={['body1', 'bold']}>

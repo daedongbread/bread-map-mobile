@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Menus } from '@/components/Shared/Menu';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router';
 import { BakeryMenuStackNavigationProps } from '@/router/types';
 import { BakeryReview } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +14,7 @@ export type MenuItem = {
   rating: number;
 };
 // 다른부분들도 헤더탭부분 렌더링 변경하기
-const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = () => {
+const MenuList = () => {
   const { bakery } = useBakeryDetail();
 
   const navigation = useNavigation<BakeryMenuStackNavigationProps>();

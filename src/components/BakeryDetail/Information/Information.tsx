@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router';
 import { theme } from '@/styles/theme';
 import {
   InfoDeliveryIcon,
@@ -51,7 +50,7 @@ const facilityList: FacilityItem[] = [
   },
 ];
 
-const Information: React.FC<BakeryDetailTabScreenProps<'BakeryDetailInfo'>> = () => {
+const Information: React.FC = () => {
   const { bakery } = useBakeryDetail();
   const [facilities, setFacilities] = React.useState<FacilityItem[] | null>(null);
 

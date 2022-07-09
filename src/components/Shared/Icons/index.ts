@@ -1,4 +1,3 @@
-export { ShareSolidIcon } from './ShareSolidIcon';
 export { InfoShippingIcon } from './InfoShippingIcon';
 export { InfoPetIcon } from './InfoPetIcon';
 export { InfoParkingIcon } from './InfoParkingIcon';
@@ -29,3 +28,9 @@ export { HeartIcon } from './HeartIcon';
 export { PlusIcon } from './PlusIcon';
 export { WishIcon } from './WishIcon';
 export { EditIcon } from './EditIcon';
+export * from './ShareSolidIcon';
+
+export * from './NavHome';
+export * from './NavProfile';
+export * from './NavReport';
+export * from './NavNotification';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import { theme } from '@/styles/theme';
-import styled from '@emotion/native';
 import { BreadRating } from '../Rating';
 
 type MenuProps = {
@@ -50,34 +49,5 @@ const styles = StyleSheet.create({
     color: theme.color.primary500,
   },
 });
-
-const Container = styled.View`
-  flex-direction: row;
-  margin: 8px 0;
-`;
-
-const Img = styled.Image`
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-`;
-
-const MenuInfo = styled.View`
-  justify-content: center;
-  margin-left: 12px;
-`;
-
-const MenuName = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 4px;
-  color: ${({ theme }) => theme.color.black};
-`;
-
-const Price = styled.Text`
-  color: ${({ theme }) => theme?.color.primary500};
-  font-weight: bold;
-  margin-top: 16px;
-`;
 
 export { Menu };

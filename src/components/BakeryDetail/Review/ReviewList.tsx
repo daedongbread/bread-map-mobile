@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router';
 import { BakeryReviewStackNavigationProps } from '@/router/types';
 
 import { BakeryReview, resizePixels } from '@/utils';
@@ -10,7 +9,7 @@ import { Reviews } from '@shared/Reviews';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
-const ReviewList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailReview'>> = () => {
+const ReviewList: React.FC = () => {
   const { bakery } = useBakeryDetail();
 
   const navigation = useNavigation<BakeryReviewStackNavigationProps>();

@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, View } from 'react-native';
 import { BookmarkForm } from '@/components/BookmarkForm';
-import { HomeStackScreenProps } from '@/router/types';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
-type ScreenProps = HomeStackScreenProps<'Bookmark'>;
+type ScreenProps = MainStackScreenProps<'Bookmark'>;
 type Navigation = ScreenProps['navigation'];
 
 export const BookmarkFormContainer: React.VFC = () => {

@@ -15,7 +15,7 @@ interface MenuProps {
 const Menus: React.FC<MenuProps> = ({ headerComponent, bakery, onPress }) => {
   // TODO: id로 가져올 수 있도록 변경 필요
 
-  const { bakeryMenu, bakeryReviews, bakeryInfo } = bakery;
+  const { bakeryMenu, bakeryReviews } = bakery;
   const filteredReviews = (menuName: string) => {
     return bakeryReviews.filter(review => review.menuName === menuName);
   };
