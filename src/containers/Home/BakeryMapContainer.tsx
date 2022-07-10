@@ -4,6 +4,7 @@ import { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
+import { useNavigation } from '@react-navigation/native';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
 export type Coordinate = {
@@ -13,6 +14,8 @@ export type Coordinate = {
 };
 
 export const BakeryMapContainer: React.FC = () => {
+  const { navigate } = useNavigation();
+
   const [searchValue, setSearchValue] = useState('');
   const [selectMarker, setSelectMarker] = useState<Coordinate | null>(null);
 
@@ -47,6 +50,12 @@ export const BakeryMapContainer: React.FC = () => {
   const onPressFlagIcon = useCallback(() => {}, []);
   const onPressNavigationIcon = useCallback(() => {}, []);
 
+  const onPressSearch = useCallback(() => {
+    navigate('MainStack', {
+      screen: 'Search',
+    });
+  }, [navigate]);
+
   return (
     <View style={styles.container}>
       <BakeryMap
@@ -57,6 +66,7 @@ export const BakeryMapContainer: React.FC = () => {
         selectMarker={selectMarker}
       />
       <BakeryMapOverlay
+        onPressSearch={onPressSearch}
         searchValue={searchValue}
         onChangeSearch={setSearchValue}
         onPressFlagIcon={onPressFlagIcon}

@@ -1,30 +1,26 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { theme } from '@/styles/theme';
-import { resizePixel } from '@/utils';
 import { SearchIcon } from '@shared/Icons';
+import { Text } from '@shared/Text';
 
 type Props = {
-  searchValue: string;
-  onChangeSearch: (text: string) => void;
+  onPress: () => void;
 };
 
-export const BakeryMapSearch: React.FC<Props> = ({ searchValue, onChangeSearch }) => {
+export const BakeryMapSearch: React.FC<Props> = ({ onPress }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.searchIconWrapper}>
-        <SearchIcon />
+    <Pressable onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.searchIconWrapper}>
+          <SearchIcon />
+        </View>
+        <Text presets={['body1']} style={styles.text}>
+          빵집을 검색해보세요
+        </Text>
       </View>
-
-      <TextInput
-        value={searchValue}
-        onChangeText={onChangeSearch}
-        placeholder={'빵집을 검색해보세요'}
-        placeholderTextColor={theme.color.gray500}
-        style={styles.textInput}
-      />
-    </View>
+    </Pressable>
   );
 };
 
@@ -46,10 +42,7 @@ const styles = StyleSheet.create({
   searchIconWrapper: {
     marginRight: 10,
   },
-  textInput: {
-    fontSize: resizePixel(14),
-    fontWeight: 'bold',
-    margin: 0,
-    padding: 0,
+  text: {
+    color: theme.color.gray500,
   },
 });

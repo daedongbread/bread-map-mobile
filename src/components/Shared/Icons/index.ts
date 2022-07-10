@@ -26,3 +26,11 @@ export { FlagIcon } from './FlagIcon';
 export { NavigationIcon } from './NavigationIcon';
 export { HeartIcon } from './HeartIcon';
 export { PlusIcon } from './PlusIcon';
+export { WishIcon } from './WishIcon';
+export { EditIcon } from './EditIcon';
+export * from './ShareSolidIcon';
+
+export * from './NavHome';
+export * from './NavProfile';
+export * from './NavReport';
+export * from './NavNotification';
