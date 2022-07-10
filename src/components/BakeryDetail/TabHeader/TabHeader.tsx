@@ -1,58 +1,68 @@
 import React from 'react';
-import styled from '@emotion/native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { theme } from '@/styles/theme';
+import { resizePixels } from '@/utils';
 
 type TabHeaderProps = {
   title: string;
   totalCount: number;
-  addBtnText: string;
+  addBtnText?: string;
 };
 
+// TODO: 추후 버튼 컴포넌트 만들어지면 TabHeader 삭제 고민
 const TabHeader: React.FC<TabHeaderProps> = ({ title, totalCount, addBtnText }) => (
-  <Container>
-    <Header>
-      <TabTitle>{title}</TabTitle>
-      <TabTotalCount>{totalCount}</TabTotalCount>
-    </Header>
-    <AddButton>
-      <ButtonText>{addBtnText}</ButtonText>
-    </AddButton>
-  </Container>
+  <View style={styles.container}>
+    <View style={styles.header}>
+      <Text style={styles.tabName}>{title}</Text>
+      <Text style={styles.totalCount}>{totalCount}</Text>
+    </View>
+    {addBtnText && (
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>{addBtnText}</Text>
+      </TouchableOpacity>
+    )}
+  </View>
 );
 
 export { TabHeader };
 
-const Container = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-`;
+const styles = StyleSheet.create(
+  resizePixels({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 20,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    tabName: {
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+    totalCount: {
+      color: theme.color.primary500,
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginLeft: 3,
+    },
+    button: {
+      backgroundColor: theme.color.primary500,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      justifyContent: 'center',
+      borderRadius: 30,
+    },
+    buttonText: {
+      color: theme.color.white,
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+  })
+);
 
-const TabTitle = styled.Text`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-const Header = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const TabTotalCount = styled.Text`
-  color: ${({ theme }) => theme.color.primary500};
-  font-weight: bold;
-  font-size: 16px;
-  margin-left: 3px;
-`;
-
-const AddButton = styled.TouchableOpacity`
-  background: ${({ theme }) => theme.color.primary500};
-  justify-content: center;
-  border-radius: 30px;
-  padding: 8px 12px;
-`;
-
-const ButtonText = styled.Text`
-  color: ${({ theme }) => theme.color.white};
-  font-size: 14px;
-  font-weight: bold;
-`;
+// color: ${({ theme }) => theme.color.primary500};
+//   font-weight: bold;
+//   font-size: 16px;
+//   margin-left: 3px;

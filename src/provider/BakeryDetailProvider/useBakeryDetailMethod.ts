@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bakery } from '@/router/types';
+import { Bakery } from '@/types/bakery';
 
 export const useBakeryDetailMethod = () => {
   const [bakery, setBakery] = React.useState<Bakery | null>(null);
