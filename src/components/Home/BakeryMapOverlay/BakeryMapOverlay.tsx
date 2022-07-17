@@ -1,21 +1,22 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { BakeryMapSearch } from '@/components/Home/BakeryMapSearch/BakeryMapSearch';
 
 import { FlagIcon, NavigationIcon } from '@shared/Icons';
 
 type Props = {
+  isWatched: boolean;
+  showMaker: boolean;
   onPressSearch: () => void;
-  searchValue: string;
-  onChangeSearch: (text: string) => void;
   onPressFlagIcon: () => void;
   onPressNavigationIcon: () => void;
 };
 
 export const BakeryMapOverlay: React.FC<Props> = ({
+  isWatched,
+  showMaker,
   onPressSearch,
-  onChangeSearch,
   onPressFlagIcon,
   onPressNavigationIcon,
 }) => {
@@ -24,13 +25,23 @@ export const BakeryMapOverlay: React.FC<Props> = ({
       <BakeryMapSearch onPress={onPressSearch} />
 
       <View style={styles.iconsWrapper}>
-        <View style={styles.iconButton}>
-          <FlagIcon onPress={onPressFlagIcon} />
-        </View>
+        <TouchableOpacity onPress={onPressFlagIcon}>
+          <View style={[styles.iconButton, showMaker ? styles.iconButtonActiveColor : styles.iconButtonInactiveButton]}>
+            <FlagIcon color={showMaker ? 'white' : 'black'} />
+          </View>
+        </TouchableOpacity>
 
-        <View style={[styles.iconButton, styles.iconGap]}>
-          <NavigationIcon onPress={onPressNavigationIcon} />
-        </View>
+        <TouchableOpacity onPress={onPressNavigationIcon}>
+          <View
+            style={[
+              styles.iconButton,
+              styles.iconGap,
+              isWatched ? styles.iconButtonActiveColor : styles.iconButtonInactiveButton,
+            ]}
+          >
+            <NavigationIcon color={isWatched ? 'white' : 'black'} />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -56,6 +67,12 @@ const styles = StyleSheet.create({
     height: 44,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconButtonActiveColor: {
+    backgroundColor: 'black',
+  },
+  iconButtonInactiveButton: {
+    backgroundColor: 'white',
   },
   iconGap: {
     marginTop: 12,
