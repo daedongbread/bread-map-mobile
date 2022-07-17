@@ -5,6 +5,7 @@ import { SearchedBakeryNotFound } from '@/components/Search/SearchedBakeryNotFou
 import { SearchItem } from '@/components/Search/SearchItem';
 
 type Bakery = {
+  id: number;
   name: string;
   reviews: Array<number>;
   distance: number;
@@ -17,13 +18,19 @@ const ItemSeparatorComponent: React.VFC = memo(() => {
 type Props = {
   bakeries: Array<Bakery>;
   onPressReport: ButtonProps['onPress'];
-  onPressBakery: ButtonProps['onPress'];
+  onPressBakery: (id: number) => void;
 };
 
 const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPressReport }) => {
-  const renderItem: FlatListProps<Bakery>['renderItem'] = useCallback(({ item }) => {
-    return <SearchItem bakery={item} />;
-  }, []);
+  const renderItem: FlatListProps<Bakery>['renderItem'] = useCallback(
+    ({ item }) => {
+      const onPress = () => {
+        onPressBakery(item.id);
+      };
+      return <SearchItem bakery={item} onPress={onPress} />;
+    },
+    [onPressBakery]
+  );
 
   if (!bakeries.length) {
     return <SearchedBakeryNotFound onPress={onPressReport} />;

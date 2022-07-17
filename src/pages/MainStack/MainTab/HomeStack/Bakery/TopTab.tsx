@@ -19,7 +19,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export type BakeryDetailTabParamList = {
-  BakeryDetailHome: Bakery;
+  BakeryDetailHome: {
+    bakeryId: number;
+  };
   BakeryDetailMenu: undefined;
   BakeryDetailReview: undefined;
   bakeryDetailInfo: undefined;
