@@ -1,16 +1,16 @@
 import React from 'react';
-import { HomeStack } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { HomeStack, HomeStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NavHome, NavNotification, NavProfile } from '@shared/Icons';
 import { NavReport } from '@shared/Icons/NavReport';
 
 export type MainTabParamList = {
-  HomeStack: undefined;
+  HomeStack: NavigatorScreenParams<HomeStackParamList>;
   ReportBakery: undefined;
   Notification: undefined;
   Profile: undefined;

@@ -1,20 +1,41 @@
-import React, { memo } from 'react';
-import { View } from 'react-native';
+import React, { memo, useCallback } from 'react';
+import { ButtonProps, FlatList, FlatListProps, StyleSheet } from 'react-native';
+import { Divider } from '@/components/BakeryDetail/Divider';
 import { SearchedBakeryNotFound } from '@/components/Search/SearchedBakeryNotFound';
+import { SearchItem } from '@/components/Search/SearchItem';
+
+type Bakery = {
+  name: string;
+  reviews: Array<number>;
+  distance: number;
+};
+
+const ItemSeparatorComponent: React.VFC = memo(() => {
+  return <Divider style={styles.divide} />;
+});
 
 type Props = {
-  bakeries: Array<{
-    name: string;
-    reviews: Array<number>;
-    distance: number;
-  }>;
+  bakeries: Array<Bakery>;
+  onPressReport: ButtonProps['onPress'];
+  onPressBakery: ButtonProps['onPress'];
 };
-const SearchBakeryList: React.FC<Props> = memo(({ bakeries }) => {
+
+const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPressReport }) => {
+  const renderItem: FlatListProps<Bakery>['renderItem'] = useCallback(({ item }) => {
+    return <SearchItem bakery={item} />;
+  }, []);
+
   if (!bakeries.length) {
-    return <SearchedBakeryNotFound />;
+    return <SearchedBakeryNotFound onPress={onPressReport} />;
   }
 
-  return <View />;
+  return <FlatList data={bakeries} renderItem={renderItem} ItemSeparatorComponent={ItemSeparatorComponent} />;
+});
+
+const styles = StyleSheet.create({
+  divide: {
+    height: 1,
+  },
 });
 
 export { SearchBakeryList };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { BakeryReviewStackParamList } from '@/router/types';
+import { BakeryReviewStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<BakeryReviewStackParamList, 'BakeryReviewDetail'>;

@@ -1,7 +1,7 @@
 import React, { ComponentProps } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { PlusIcon } from '@shared/Icons';
+import { ChevronLeftIcon } from '@shared/Icons/ChevronLeftIcon';
 import { TextInput } from '@shared/TextInput';
 
 type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText'> &
@@ -12,7 +12,7 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
     <View>
       <View style={[styles.container, styles.TextInputContainer]}>
         <TouchableOpacity onPress={onPress}>
-          <PlusIcon />
+          <ChevronLeftIcon />
         </TouchableOpacity>
         <TextInput
           backgroundColor={'white'}
