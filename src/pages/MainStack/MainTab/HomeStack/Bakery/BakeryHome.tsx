@@ -16,8 +16,8 @@ import {
   ShareSolidIcon,
   WishIcon,
 } from '@/components/Shared/Icons';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router/types';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
