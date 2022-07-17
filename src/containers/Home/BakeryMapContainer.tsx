@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
+import { PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
+import { useGeolocation } from '@/hooks/useGeolocation';
 import { useNavigation } from '@react-navigation/native';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
@@ -13,19 +14,20 @@ export type Coordinate = {
   longitude: number;
 };
 
+//TODO: 현재 위치 정보를 받아와야함
+const INITIAL_REGION: Region = {
+  latitude: 37.6799006,
+  longitude: 127.0549781,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};
+
 export const BakeryMapContainer: React.FC = () => {
   const { navigate } = useNavigation();
+  const { getLocation, currentPosition, watchLocation, clearWatch, isWatched } = useGeolocation();
 
-  const [searchValue, setSearchValue] = useState('');
   const [selectMarker, setSelectMarker] = useState<Coordinate | null>(null);
-
-  //TODO: 현재 위치 정보를 받아와야함
-  const initialRegion = {
-    latitude: 37.6799006,
-    longitude: 127.0549781,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
+  const [showMaker, setShowMaker] = useState<boolean>(false);
 
   //TODO: 더미 데이터
   const markerCoordinates = [
@@ -47,8 +49,19 @@ export const BakeryMapContainer: React.FC = () => {
   }, []);
 
   //TODO: add handle press icon
-  const onPressFlagIcon = useCallback(() => {}, []);
-  const onPressNavigationIcon = useCallback(() => {}, []);
+  const onPressFlagIcon = useCallback(() => {
+    setShowMaker(prevState => !prevState);
+  }, []);
+
+  const onPressNavigationIcon = useCallback(() => {
+    if (isWatched) {
+      clearWatch();
+
+      return;
+    }
+
+    watchLocation();
+  }, [clearWatch, isWatched, watchLocation]);
 
   const onPressSearch = useCallback(() => {
     navigate('MainStack', {
@@ -56,21 +69,29 @@ export const BakeryMapContainer: React.FC = () => {
     });
   }, [navigate]);
 
+  const region = useMemo(() => ({ ...INITIAL_REGION, ...currentPosition }), [currentPosition]);
+
+  useEffect(() => {
+    getLocation();
+  }, [getLocation]);
+
   return (
     <View style={styles.container}>
       <BakeryMap
         provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
-        initialRegion={initialRegion}
+        initialRegion={INITIAL_REGION}
         markerCoordinates={markerCoordinates}
         onPressMarker={onPressMarker}
         selectMarker={selectMarker}
+        region={region}
+        showMaker={showMaker}
       />
       <BakeryMapOverlay
         onPressSearch={onPressSearch}
-        searchValue={searchValue}
-        onChangeSearch={setSearchValue}
         onPressFlagIcon={onPressFlagIcon}
         onPressNavigationIcon={onPressNavigationIcon}
+        isWatched={isWatched}
+        showMaker={showMaker}
       />
     </View>
   );
