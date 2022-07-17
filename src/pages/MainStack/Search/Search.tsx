@@ -4,16 +4,20 @@ import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
 import { Header } from '@/pages/MainStack/Search/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { bakeryInfo, bakeryMenu, bakeryReviews } from '@/utils';
 import { storage } from '@/utils/storage/storage';
 import { Text } from '@shared/Text';
 
 const INITIAL_BAKERY_LIST = [
-  { name: '파리바게뜨 평택합정점', distance: 86, reviews: [1, 2, 3, 4, 5] },
-  { name: '파리바게뜨 평택비전점', distance: 655, reviews: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] },
-  { name: '파리바게뜨 평택용죽점', distance: 788, reviews: [1] },
-  { name: '파리바게뜨 소사벌상업지구점', distance: 1200, reviews: [1, 2, 3, 4, 5] },
-  { name: '파리바게뜨 평택현촌', distance: 11600, reviews: [1, 2, 3, 4, 5] },
+  { id: 1, name: '파리바게뜨 평택합정점', distance: 86, reviews: [1, 2, 3, 4, 5] },
+  {
+    id: 2,
+    name: '파리바게뜨 평택비전점',
+    distance: 655,
+    reviews: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+  },
+  { id: 3, name: '파리바게뜨 평택용죽점', distance: 788, reviews: [1] },
+  { id: 4, name: '파리바게뜨 소사벌상업지구점', distance: 1200, reviews: [1, 2, 3, 4, 5] },
+  { id: 5, name: '파리바게뜨 평택현촌', distance: 11600, reviews: [1, 2, 3, 4, 5] },
 ];
 
 type Props = MainStackScreenProps<'Search'>;
@@ -23,6 +27,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
   const [searchHistory, setSearchHistory] = useState<Array<string>>([]);
   const [bakeryList, setBakeryList] = useState<
     Array<{
+      id: number;
       name: string;
       reviews: Array<number>;
       distance: number;
@@ -41,22 +46,23 @@ const Search: React.FC<Props> = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const navigateDetail = useCallback(() => {
-    navigation.push('MainTab', {
-      screen: 'HomeStack',
-      params: {
-        screen: 'Bakery',
+  const navigateDetail = useCallback(
+    (id: number) => {
+      navigation.push('MainTab', {
+        screen: 'HomeStack',
         params: {
-          screen: 'BakeryDetailHome',
+          screen: 'Bakery',
           params: {
-            bakeryInfo,
-            bakeryMenu,
-            bakeryReviews,
+            screen: 'BakeryDetailHome',
+            params: {
+              bakeryId: id,
+            },
           },
         },
-      },
-    });
-  }, [navigation]);
+      });
+    },
+    [navigation]
+  );
 
   useEffect(() => {
     const getSearchHistory = async () => {

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ButtonProps, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { theme } from '@/styles/theme';
 import { convertDistance } from '@/utils/convert/convert';
 import { BreadCakeIcon } from '@shared/Icons';
@@ -7,26 +7,30 @@ import { Text } from '@shared/Text';
 
 type Props = {
   bakery: {
+    id: number;
     name: string;
     reviews: Array<number>;
     distance: number;
   };
+  onPress: ButtonProps['onPress'];
 };
 
-const SearchItem: React.FC<Props> = memo(({ bakery }) => {
+const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <BreadCakeIcon width={26} height={26} />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <BreadCakeIcon width={26} height={26} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text presets={['body1', 'regular']}>{bakery.name}</Text>
+          <Text presets={['caption1', 'regular']} style={styles.hint}>
+            리뷰 {bakery.reviews.length}
+          </Text>
+        </View>
+        <Text style={styles.hint}>{convertDistance(bakery.distance)}</Text>
       </View>
-      <View style={{ flex: 1 }}>
-        <Text presets={['body1', 'regular']}>{bakery.name}</Text>
-        <Text presets={['caption1', 'regular']} style={styles.hint}>
-          리뷰 {bakery.reviews.length}
-        </Text>
-      </View>
-      <Text style={styles.hint}>{convertDistance(bakery.distance)}</Text>
-    </View>
+    </TouchableOpacity>
   );
 });
 
