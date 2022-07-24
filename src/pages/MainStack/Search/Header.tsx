@@ -15,9 +15,9 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
           <ChevronLeftIcon />
         </TouchableOpacity>
         <TextInput
+          value={value}
           backgroundColor={'white'}
           onChangeText={onChangeText}
-          value={value}
           placeholder={'빵집 이름을 검색해보세요'}
         />
       </View>

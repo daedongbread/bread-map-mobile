@@ -1,38 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useSearchQuery } from '@/apis/bakery/useSearch';
 import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/Search/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { storage } from '@/utils/storage/storage';
 import { Text } from '@shared/Text';
 
-const INITIAL_BAKERY_LIST = [
-  { id: 1, name: '파리바게뜨 평택합정점', distance: 86, reviews: [1, 2, 3, 4, 5] },
-  {
-    id: 2,
-    name: '파리바게뜨 평택비전점',
-    distance: 655,
-    reviews: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-  },
-  { id: 3, name: '파리바게뜨 평택용죽점', distance: 788, reviews: [1] },
-  { id: 4, name: '파리바게뜨 소사벌상업지구점', distance: 1200, reviews: [1, 2, 3, 4, 5] },
-  { id: 5, name: '파리바게뜨 평택현촌', distance: 11600, reviews: [1, 2, 3, 4, 5] },
-];
-
 type Props = MainStackScreenProps<'Search'>;
 
 const Search: React.FC<Props> = ({ navigation }) => {
+  const { currentPosition, getLocation } = useGeolocation();
   const [searchValue, setSearchValue] = useState('');
   const [searchHistory, setSearchHistory] = useState<Array<string>>([]);
-  const [bakeryList, setBakeryList] = useState<
-    Array<{
-      id: number;
-      name: string;
-      reviews: Array<number>;
-      distance: number;
-    }>
-  >(INITIAL_BAKERY_LIST);
+
+  const word = useDebounce(searchValue, 300);
+
+  const { data } = useSearchQuery({
+    word,
+    longitude: currentPosition?.longitude,
+    latitude: currentPosition?.latitude,
+  });
 
   const goBack = useCallback(() => {
     if (navigation.canGoBack()) {
@@ -77,12 +68,16 @@ const Search: React.FC<Props> = ({ navigation }) => {
     getSearchHistory().then(setSearchHistory);
   }, []);
 
+  useEffect(() => {
+    getLocation();
+  }, [getLocation]);
+
   return (
     <SafeAreaView style={[styles.fullScreen]}>
       <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
       <View style={styles.container}>
-        {bakeryList ? (
-          <SearchBakeryList bakeries={bakeryList} onPressReport={navigateReport} onPressBakery={navigateDetail} />
+        {data?.length ? (
+          <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={navigateDetail} />
         ) : (
           <>
             <Text presets={['body1', 'bold']} style={styles.historyTitle}>
