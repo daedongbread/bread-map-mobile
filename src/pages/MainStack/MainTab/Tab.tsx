@@ -1,12 +1,11 @@
 import React from 'react';
 import { HomeStack } from '@/pages/MainStack/MainTab/HomeStack/Stack';
-import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { NavHome, NavNotification, NavProfile } from '@shared/Icons';
+import { NavHome, NavProfile, Notification } from '@shared/Icons';
 import { NavReport } from '@shared/Icons/NavReport';
 
 export type MainTabParamList = {
@@ -42,7 +41,7 @@ const MainTab = () => {
       />
       <Tab.Screen
         name={'Notification'}
-        options={{ tabBarIcon: NavNotification }}
+        options={{ tabBarIcon: Notification }}
         component={Notification}
         listeners={({ navigation: { navigate } }) => ({
           tabPress: e => {

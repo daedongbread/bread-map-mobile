@@ -33,4 +33,4 @@ export * from './ShareSolidIcon';
 export * from './NavHome';
 export * from './NavProfile';
 export * from './NavReport';
-export * from './NavNotification';
+export * from './Notification';

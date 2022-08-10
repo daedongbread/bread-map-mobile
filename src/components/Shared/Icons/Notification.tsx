@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-const NavNotification: React.FC<SvgProps> = props => (
+const Notification: React.FC<SvgProps> = props => (
   <Svg width="48" height="52" viewBox="0 0 48 52" fill="none" {...props}>
     <Path
       d="M24.721 19.003L23.255 19C19.911 18.992 17.008 21.709 16.985 25V28.79C16.985 29.58 16.885 30.351 16.454 31.008L16.167 31.446C15.73 32.11 16.2 33 16.985 33H31.015C31.8 33 32.269 32.11 31.833 31.446L31.546 31.008C31.116 30.351 31.015 29.579 31.015 28.789V25.001C30.975 21.709 28.065 19.011 24.721 19.003V19.003Z"
@@ -27,4 +27,4 @@ const NavNotification: React.FC<SvgProps> = props => (
   </Svg>
 );
 
-export { NavNotification };
+export { Notification };
