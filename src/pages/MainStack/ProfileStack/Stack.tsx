@@ -22,7 +22,7 @@ export type MainStackParamList = {
   Search: undefined;
   ReportBakeryModal: undefined;
   NotificationModal: undefined;
-  ProfileModal: undefined;
+  Profile: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -58,7 +58,7 @@ const ProfileStack = () => {
         />
         <Stack.Screen name={'ReportBakeryModal'} component={ReportBakery} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
-        <Stack.Screen name={'ProfileModal'} component={Profile} />
+        <Stack.Screen name={'Profile'} component={Profile} />
       </Stack.Group>
     </Stack.Navigator>
   );

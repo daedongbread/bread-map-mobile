@@ -36,3 +36,4 @@ export * from './NavReport';
 export * from './Notification';
 
 export { default as Setting } from './setting.svg';
+export { default as ArrowLeft } from './arrow_left.svg';
