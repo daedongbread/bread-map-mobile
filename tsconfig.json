@@ -20,6 +20,6 @@
       "@shared/*": ["./components/Shared/*"]
     },
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "declaration.d.ts"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

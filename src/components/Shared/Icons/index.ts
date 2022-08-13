@@ -34,3 +34,5 @@ export * from './NavHome';
 export * from './NavProfile';
 export * from './NavReport';
 export * from './Notification';
+
+export { default as Setting } from './setting.svg';
