@@ -33,4 +33,6 @@ export * from './ShareSolidIcon';
 export * from './NavHome';
 export * from './NavProfile';
 export * from './NavReport';
-export * from './NavNotification';
+export * from './Notification';
+
+export { default as Setting } from './setting.svg';
