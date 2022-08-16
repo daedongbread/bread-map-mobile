@@ -47,7 +47,7 @@ const MainStack = () => {
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
       </Stack.Group>
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name={'Profile'} component={Profile} />
     </Stack.Navigator>
   );
 };
