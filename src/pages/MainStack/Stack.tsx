@@ -20,7 +20,7 @@ export type MainStackParamList = {
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   NotificationModal: undefined;
-  ProfileModal: undefined;
+  Profile: NavigatorScreenParams<MainTabParamList>;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -46,8 +46,8 @@ const MainStack = () => {
       <Stack.Group screenOptions={{ headerShown: true }}>
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
-        <Stack.Screen name={'ProfileModal'} component={Profile} />
       </Stack.Group>
+      <Stack.Screen name={'Profile'} component={Profile} />
     </Stack.Navigator>
   );
 };
