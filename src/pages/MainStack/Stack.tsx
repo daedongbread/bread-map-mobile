@@ -20,7 +20,7 @@ export type MainStackParamList = {
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   NotificationModal: undefined;
-  Profile: NavigatorScreenParams<MainTabParamList>;
+  Profile: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
