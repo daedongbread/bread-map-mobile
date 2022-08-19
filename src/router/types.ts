@@ -77,6 +77,13 @@ export type BakeryReviewStackParamList = {
 
 export type BakeryReviewStackNavigationProps = NativeStackNavigationProp<BakeryReviewStackParamList>;
 
+export type ReviewWriteStackParamList = {
+  ReviewSelect: undefined;
+  ReviewRating: undefined;
+};
+
+export type ReviewWriteStackNavigationProps = StackScreenProps<ReviewWriteStackParamList>;
+
 // ** Global **
 declare global {
   namespace ReactNavigation {

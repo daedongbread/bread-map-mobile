@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { BakeryReviewStackNavigationProps } from '@/router/types';
 
@@ -12,13 +13,20 @@ import { TabHeader } from '../TabHeader';
 const ReviewList: React.FC = () => {
   const { bakery } = useBakeryDetail();
 
-  const navigation = useNavigation<BakeryReviewStackNavigationProps>();
+  const BakeryReviewStackNavigation = useNavigation<BakeryReviewStackNavigationProps>();
+  const ReviewWriteStackNavigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const onPress = (review: BakeryReview) => {
     if (!bakery) {
       return;
     }
-    navigation.push('BakeryReviewDetail', { info: bakery.bakeryInfo, review });
+    BakeryReviewStackNavigation.push('BakeryReviewDetail', { info: bakery.bakeryInfo, review });
+  };
+
+  const onPressAddBtn = () => {
+    ReviewWriteStackNavigation.navigate('ReviewWriteStack', {
+      screen: 'ReviewSelect',
+    });
   };
 
   return (
@@ -26,7 +34,12 @@ const ReviewList: React.FC = () => {
       <Divider />
       <Reviews
         headerComponent={
-          <TabHeader title={'리뷰'} totalCount={bakery?.bakeryReviews.length || 0} addBtnText={'리뷰 작성'} />
+          <TabHeader
+            title={'리뷰'}
+            totalCount={bakery?.bakeryReviews.length || 0}
+            addBtnText={'리뷰 작성'}
+            onPressAddBtn={onPressAddBtn}
+          />
         }
         reviews={bakery?.bakeryReviews!}
         onPress={onPress}
