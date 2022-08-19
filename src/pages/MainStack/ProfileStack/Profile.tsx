@@ -9,10 +9,6 @@ interface ProfileProps {
 }
 
 const Profile = ({ navigation }: ProfileProps) => {
-  {
-    /* TODO: navigate 시 back button header 테스트를 위한 임시 코드. 테스트 이후 제거 예정 */
-  }
-
   // bottom tab에서 프로필 페이지에 접근한 경우, navigation 객체에 jumpTo property가 존재하므로 jumpTo로 backButton을 보여줄 것인지 트리거
   // @ts-ignore
   const isTabNavigated = navigation.jumpTo === undefined;
