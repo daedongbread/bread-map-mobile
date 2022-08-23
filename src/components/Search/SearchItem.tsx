@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { ButtonProps, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/useSearch';
+import { SearchEntity } from '@/apis/bakery/types';
 import { theme } from '@/styles/theme';
 import { convertDistance } from '@/utils/convert/convert';
 import { BreadCakeIcon } from '@shared/Icons';
