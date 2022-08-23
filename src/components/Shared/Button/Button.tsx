@@ -30,7 +30,7 @@ export const Button: React.FC<Props> = ({
   return (
     <View style={style}>
       <TouchableOpacity {...rest}>
-        <View style={[appearanceStyle, sizeStyle, defaultStyles.common]}>
+        <View style={[appearanceStyle, sizeStyle, defaultStyles.common, style]}>
           {icon && <PlusIcon color={iconColor} style={defaultStyles.icon} />}
           <Text style={textStyle} presets={['body1', 'bold']}>
             {children}
