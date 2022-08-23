@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
+import { useGetBakeries } from '@/apis';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useGeolocation } from '@/hooks/useGeolocation';
@@ -75,6 +76,14 @@ export const BakeryMapContainer: React.FC = () => {
   useEffect(() => {
     getLocation();
   }, [getLocation]);
+
+  useGetBakeries({
+    sort: 'distance',
+    latitude: 37.560992,
+    longitude: 127.044174,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.02,
+  });
 
   return (
     <View style={styles.container}>
