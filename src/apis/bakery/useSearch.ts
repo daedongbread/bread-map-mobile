@@ -1,15 +1,9 @@
 import { useQuery } from 'react-query';
+import { SearchEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
 type GetResultResult = {
   data: SearchEntity[];
-};
-
-export type SearchEntity = {
-  bakeryId: number;
-  bakeryName: number;
-  reviewNum: number;
-  distance: number;
 };
 
 type useSearchQuery = {
