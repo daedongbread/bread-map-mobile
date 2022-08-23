@@ -1,2 +1,2 @@
 export * from './Auth';
-export * from './DummyAuth';
+export * from './AuthWebView';

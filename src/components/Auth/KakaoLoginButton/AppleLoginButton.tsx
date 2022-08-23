@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { GoogleLogo } from '@/components/Shared/Icons';
+import { AppleLogo } from '@/components/Shared/Icons';
 import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
 
@@ -9,16 +9,16 @@ type Props = {
   onPress: () => void;
 };
 
-const GoogleLoginButton = ({ onPress }: Props) => (
+const AppleLoginButton = ({ onPress }: Props) => (
   <View style={styles.container}>
     <Button onPress={onPress} style={styles.button}>
-      <GoogleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>구글 계정으로 로그인</Text>
+      <AppleLogo style={styles.logo} />
+      <Text style={styles.buttonText}>애플 계정으로 로그인</Text>
     </Button>
   </View>
 );
 
-export { GoogleLoginButton };
+export { AppleLoginButton };
 
 const Button = styled(TouchableWithoutFeedback)`
   background: ${({ theme }) => theme.color.white};
@@ -35,6 +35,7 @@ const styles = StyleSheet.create(
       width: 25,
       height: 25,
       marginRight: 8,
+      marginBottom: 4,
     },
 
     button: {

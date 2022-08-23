@@ -1,3 +1,3 @@
 export { GoogleLoginButton } from './GoogleLoginButton';
-export { AppleLoginButton } from './AppleLoginButton';
+export { KakaoLoginButton } from './AppleLoginButton';
 export { LogOutButton } from './LogOutButton';
