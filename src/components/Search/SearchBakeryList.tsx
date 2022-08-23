@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { ButtonProps, FlatList, FlatListProps, StyleSheet } from 'react-native';
+import { ButtonProps, FlatList, ListRenderItem, StyleSheet } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/useSearch';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { SearchedBakeryNotFound } from '@/components/Search/SearchedBakeryNotFound';
@@ -12,15 +12,16 @@ const ItemSeparatorComponent: React.VFC = memo(() => {
 type Props = {
   bakeries: Array<SearchEntity>;
   onPressReport: ButtonProps['onPress'];
-  onPressBakery: (id: number) => void;
+  onPressBakery: (searchEntity: SearchEntity) => void;
 };
 
 const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPressReport }) => {
-  const renderItem: FlatListProps<SearchEntity>['renderItem'] = useCallback(
+  const renderItem: ListRenderItem<SearchEntity> = useCallback(
     ({ item }) => {
       const onPress = () => {
-        onPressBakery(item.id);
+        onPressBakery(item);
       };
+
       return <SearchItem bakery={item} onPress={onPress} />;
     },
     [onPressBakery]

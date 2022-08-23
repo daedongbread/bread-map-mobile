@@ -1,23 +1,29 @@
 import React, { memo } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
+import { SearchEntity } from '@/apis/bakery/useSearch';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { HistoryItem } from '@/components/Search/HistoryItem';
 import { theme } from '@/styles/theme';
 import { Text } from '@shared/Text';
-
-const renderItem: ListRenderItem<string> = ({ item }) => {
-  return <HistoryItem name={item} />;
-};
 
 const ItemSeparatorComponent: React.VFC = () => {
   return <Divider style={styles.divider} />;
 };
 
 type Props = {
-  searchHistory: Array<string>;
+  searchHistory: SearchEntity[];
+  onPressBakery: (searchEntity: SearchEntity) => void;
 };
 
-const SearchHistoryList: React.FC<Props> = memo(({ searchHistory }) => {
+const SearchHistoryList: React.FC<Props> = memo(({ searchHistory, onPressBakery }) => {
+  const renderItem: ListRenderItem<SearchEntity> = ({ item }) => {
+    const onPress = () => {
+      onPressBakery(item);
+    };
+
+    return <HistoryItem name={item.bakeryName} onPress={onPress} />;
+  };
+
   if (!searchHistory?.length) {
     return (
       <View style={styles.emptyContainer}>
