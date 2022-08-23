@@ -1,24 +1,46 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppleLoginButton, GoogleLoginButton } from '@/components/Auth';
+import { KakaoLoginButton, GoogleLoginButton } from '@/components/Auth';
 import { DaebbangFlag } from '@/components/Shared/Icons';
 import { TitleTextLogo } from '@/components/Shared/Icons/TitleTextLogo';
+import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
 
-const Auth = () => (
-  <Container>
-    <View style={styles.iconContainer}>
-      <DaebbangFlag style={styles.iconSize} />
-      <TitleTextLogo style={styles.titleText} />
-    </View>
-    <View>
-      <GoogleLoginButton />
-      <AppleLoginButton />
-    </View>
-  </Container>
-);
+type Navigation = RootStackScreenProps<'Auth'>['navigation'];
+
+const Auth = () => {
+  const navigation = useNavigation<Navigation>();
+
+  const navigateAuthWebView = (type: RootStackParamList['AuthWebView']['type']) => {
+    navigation.push('AuthWebView', {
+      type,
+    });
+  };
+
+  const onPressGoogle = () => {
+    navigateAuthWebView('google');
+  };
+
+  const onPressKakao = () => {
+    navigateAuthWebView('kakao');
+  };
+
+  return (
+    <Container>
+      <View style={styles.iconContainer}>
+        <DaebbangFlag style={styles.iconSize} />
+        <TitleTextLogo style={styles.titleText} />
+      </View>
+      <View>
+        <GoogleLoginButton onPress={onPressGoogle} />
+        <KakaoLoginButton onPress={onPressKakao} />
+      </View>
+    </Container>
+  );
+};
 
 export { Auth };
 

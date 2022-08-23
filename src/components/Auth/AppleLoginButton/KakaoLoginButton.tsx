@@ -2,20 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { AppleLogo } from '@/components/Shared/Icons';
-import { bindHook, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
-import { useAppleLoginButton } from './useAppleLoginButton';
 
-const AppleLoginButton = bindHook(useAppleLoginButton, ({ signIn }) => (
+type Props = {
+  onPress: () => void;
+};
+
+const KakaoLoginButton = ({ onPress }: Props) => (
   <View style={styles.container}>
-    <Button onPress={signIn} style={styles.button}>
+    <Button onPress={onPress} style={styles.button}>
       <AppleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>애플 계정으로 로그인</Text>
+      <Text style={styles.buttonText}>카카오 계정으로 로그인</Text>
     </Button>
   </View>
-));
+);
 
-export { AppleLoginButton };
+export { KakaoLoginButton };
 
 const Button = styled(TouchableWithoutFeedback)`
   background: ${({ theme }) => theme.color.white};

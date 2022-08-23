@@ -5,12 +5,14 @@ import { BakeryBottomSheetContainer, BakeryMapContainer } from '@/containers/Hom
 
 import { theme } from '@/styles/theme';
 
-export const Home: React.VFC = () => (
-  <View style={styles.container}>
-    <BakeryMapContainer />
-    <BakeryBottomSheetContainer />
-  </View>
-);
+export const Home: React.VFC = () => {
+  return (
+    <View style={styles.container}>
+      <BakeryMapContainer />
+      <BakeryBottomSheetContainer />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
