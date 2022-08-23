@@ -19,8 +19,9 @@ const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPre
   const renderItem: FlatListProps<SearchEntity>['renderItem'] = useCallback(
     ({ item }) => {
       const onPress = () => {
-        onPressBakery(item.id);
+        onPressBakery(item.bakeryId);
       };
+
       return <SearchItem bakery={item} onPress={onPress} />;
     },
     [onPressBakery]
