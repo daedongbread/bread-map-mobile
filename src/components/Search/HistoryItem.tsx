@@ -1,20 +1,23 @@
 import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { BreadCakeIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
 
 type Props = {
   name: string;
+  onPress: () => void;
 };
 
-const HistoryItem: React.FC<Props> = memo(({ name }) => {
+const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <BreadCakeIcon width={26} height={26} />
+    <Pressable onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <BreadCakeIcon width={26} height={26} />
+        </View>
+        <Text presets={['body1', 'regular']}>{name}</Text>
       </View>
-      <Text presets={['body1', 'regular']}>{name}</Text>
-    </View>
+    </Pressable>
   );
 });
 

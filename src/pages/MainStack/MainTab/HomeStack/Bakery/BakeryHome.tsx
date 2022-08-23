@@ -25,9 +25,9 @@ import { resizePixels } from '@/utils';
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
   const { bakery, updateBakery } = useBakeryDetail();
 
-  React.useEffect(() => {
-    updateBakery(route.params);
-  }, [updateBakery, route.params]);
+  // React.useEffect(() => {
+  //   updateBakery(route.params);
+  // }, [updateBakery, route.params]);
 
   return (
     <ScrollView>
