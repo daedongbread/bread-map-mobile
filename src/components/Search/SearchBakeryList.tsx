@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { ButtonProps, FlatList, FlatListProps, StyleSheet } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/useSearch';
+import { SearchEntity } from '@/apis/bakery/types';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { SearchedBakeryNotFound } from '@/components/Search/SearchedBakeryNotFound';
 import { SearchItem } from '@/components/Search/SearchItem';
@@ -19,8 +19,9 @@ const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPre
   const renderItem: FlatListProps<SearchEntity>['renderItem'] = useCallback(
     ({ item }) => {
       const onPress = () => {
-        onPressBakery(item.id);
+        onPressBakery(item.bakeryId);
       };
+
       return <SearchItem bakery={item} onPress={onPress} />;
     },
     [onPressBakery]

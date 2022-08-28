@@ -1,11 +1,9 @@
 import { useQuery } from 'react-query';
+import { SearchEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
-export type SearchEntity = {
-  bakeryId: number;
-  bakeryName: number;
-  reviewNum: number;
-  distance: number;
+type GetResultResult = {
+  data: SearchEntity[];
 };
 
 type useSearchQuery = {
@@ -15,11 +13,11 @@ type useSearchQuery = {
 };
 
 const getSearch = async ({ word, latitude, longitude }: useSearchQuery): Promise<SearchEntity[]> => {
-  const resp = await fetcher.get<SearchEntity[]>(
+  const resp = await fetcher.get<GetResultResult>(
     `/search/auto?word=${word}&latitude=${latitude}&longitude=${longitude}`
   );
 
-  return resp.data;
+  return resp.data.data;
 };
 
 const useSearchQuery = ({ word, latitude, longitude }: useSearchQuery) => {
