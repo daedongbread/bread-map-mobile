@@ -1,8 +1,12 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { ProfileHeader } from '@/components/Profile/ProfileHeader';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo';
+import { ReviewTab } from '@/pages/MainStack/ProfileStack/ReviewTab';
+import { SaveTab } from '@/pages/MainStack/ProfileStack/SavedTab';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { theme } from '@/styles/theme';
 
 interface ProfileProps {
   navigation: MainStackScreenProps<'Profile'>;
@@ -13,12 +17,42 @@ const Profile = ({ navigation }: ProfileProps) => {
   // @ts-ignore
   const isTabNavigated = navigation.jumpTo === undefined;
 
+  const renderScene = SceneMap({
+    saved: SaveTab,
+    review: ReviewTab,
+  });
+
+  const [index, setIndex] = useState<number>(0);
+  const [routes] = useState([
+    { key: 'saved', title: '저장목록' },
+    { key: 'review', title: '리뷰' },
+  ]);
+
+  const layout = useWindowDimensions();
+
   return (
     <SafeAreaView>
       <View style={styles.layout}>
         <ProfileHeader showBackButton={isTabNavigated} />
 
         <ProfileInfo isTabNavigated={isTabNavigated} />
+
+        <View style={styles.tabViewContainer}>
+          <TabView
+            renderTabBar={props => (
+              <TabBar
+                {...props}
+                indicatorStyle={styles.tabBarIndicatorStyle}
+                style={styles.tabBarStyle}
+                renderLabel={({ route }) => <Text style={styles.tabBarTitle}>{route.title}</Text>}
+              />
+            )}
+            onIndexChange={setIndex}
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            initialLayout={{ width: layout.width }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -27,6 +61,21 @@ const Profile = ({ navigation }: ProfileProps) => {
 const styles = StyleSheet.create({
   layout: {
     paddingHorizontal: 20,
+  },
+  tabViewContainer: {
+    height: '100%',
+    marginTop: 24,
+  },
+  tabBarStyle: {
+    backgroundColor: 'white',
+  },
+  tabBarTitle: {
+    color: `${theme.color.gray900}`,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  tabBarIndicatorStyle: {
+    backgroundColor: `${theme.color.primary500}`,
   },
 });
 
