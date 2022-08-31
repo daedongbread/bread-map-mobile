@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { BakeryEntity } from '@/apis/bakery/types';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
 type UseGetBakeriesProps = {
@@ -10,17 +10,21 @@ type UseGetBakeriesProps = {
   longitudeDelta: number;
 };
 
+type GetBakeriesResponse = {
+  data: BakeryMapBakeryEntity[];
+};
+
 const requestGetBakeries = async ({
   sort,
   latitude,
   longitude,
   latitudeDelta,
   longitudeDelta,
-}: UseGetBakeriesProps): Promise<BakeryEntity[]> => {
-  const resp = await fetcher.get<BakeryEntity[]>(
+}: UseGetBakeriesProps) => {
+  const resp = await fetcher.get<GetBakeriesResponse>(
     `/bakery?sort=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
   );
-  return resp.data;
+  return resp.data.data;
 };
 
 const useGetBakeries = ({ latitude, longitude, latitudeDelta, longitudeDelta, sort }: UseGetBakeriesProps) => {
