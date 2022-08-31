@@ -4,8 +4,8 @@ import { fetcher } from '../fetcher';
 
 type UseGetBakeriesProps = {
   sort: 'distance' | 'popular';
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
   latitudeDelta: number;
   longitudeDelta: number;
 };
@@ -28,9 +28,12 @@ const requestGetBakeries = async ({
 };
 
 const useGetBakeries = ({ latitude, longitude, latitudeDelta, longitudeDelta, sort }: UseGetBakeriesProps) => {
+  const queryKey = ['useGetBakeries', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const;
+
   const { data, isLoading, isError, refetch } = useQuery(
-    ['useGetBakeries', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const,
-    () => requestGetBakeries({ latitude, longitude, latitudeDelta, longitudeDelta, sort })
+    queryKey,
+    () => requestGetBakeries({ latitude, longitude, latitudeDelta, longitudeDelta, sort }),
+    { enabled: !!(latitude && longitude) }
   );
 
   return {
