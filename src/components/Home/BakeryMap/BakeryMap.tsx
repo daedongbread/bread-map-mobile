@@ -10,7 +10,7 @@ const MIN_ZOOM_LEVEL = 17;
 const MAX_ZOOM_LEVEL = 25;
 
 type Props = MapViewProps & {
-  markerCoordinates: Array<Coordinate>;
+  markerCoordinates?: Array<Coordinate>;
   onPressMarker: (coordinate: Coordinate) => void;
   selectMarker: Coordinate | null;
   showMaker: boolean;
@@ -70,7 +70,7 @@ export const BakeryMap: React.FC<Props> = ({
       minZoomLevel={MIN_ZOOM_LEVEL}
     >
       {showMaker &&
-        markerCoordinates.map(coordinate => (
+        markerCoordinates?.map(coordinate => (
           <BakeryMarker
             key={coordinate.id}
             coordinate={coordinate}
