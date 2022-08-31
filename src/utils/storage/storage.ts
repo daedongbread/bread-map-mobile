@@ -4,8 +4,10 @@ class Storage {
   public async get(key: string) {
     return EncryptedStorage.getItem(key);
   }
-  public async set(key: string, value: string) {
-    return EncryptedStorage.setItem(key, value);
+  public async set(key: string, value: unknown) {
+    const stringifyValue = JSON.stringify(value);
+
+    return EncryptedStorage.setItem(key, stringifyValue);
   }
 }
 

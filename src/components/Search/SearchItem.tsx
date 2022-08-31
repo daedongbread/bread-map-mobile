@@ -15,10 +15,10 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.iconContainer}>
+        <View style={styles.iconWrapper}>
           <BreadCakeIcon width={26} height={26} />
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
           <Text presets={['body1', 'regular']}>{bakery.bakeryName}</Text>
           <Text presets={['caption1', 'regular']} style={styles.hint}>
             리뷰 {bakery.reviewNum}
@@ -36,8 +36,11 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     alignItems: 'center',
   },
-  iconContainer: {
+  iconWrapper: {
     marginRight: 8,
+  },
+  wrapper: {
+    flex: 1,
   },
   hint: {
     color: theme.color.gray500,
