@@ -2,11 +2,12 @@ import React, { useCallback, useState } from 'react';
 
 import { useGetBakeries } from '@/apis';
 
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeriesBottomSheet } from '@/components/Home/BakeriesBottomSheet';
 
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
-import { bakeryInfo, bakeryMenu, bakeryReviews, bakeryList } from '@/utils';
+import { bakeryInfo, bakeryMenu, bakeryReviews } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 
 const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
@@ -37,12 +38,12 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
     [navigate]
   );
 
-  const onPressIcon = (bakery: BakeryEntity) => {
+  const onPressIcon = (bakery: BakeryMapBakeryEntity) => {
     navigate('MainStack', {
       screen: 'BookmarkBottomSheet',
       params: {
-        bakeryId: bakery.bakeryId,
-        name: bakery.bakeryName,
+        bakeryId: bakery.id,
+        name: bakery.name,
       },
     });
   };
@@ -60,7 +61,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
       onClickBakery={onClickBakery}
       activeTab={activeTab}
       onPressTab={onPressTab}
-      bakeryList={bakeryList}
+      bakeryList={bakeries}
       onPressIcon={onPressIcon}
     />
   );
