@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SearchEntity } from '@/apis/bakery/types';
 import { useSearchQuery } from '@/apis/bakery/useSearch';
 import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
@@ -7,7 +8,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/Search/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { storage } from '@/utils/storage/storage';
+import { getStorageSearchHistory, setStorageSearchHistory } from '@/utils/storage/searchHistory';
 import { Text } from '@shared/Text';
 
 type Props = MainStackScreenProps<'Search'>;
@@ -15,7 +16,7 @@ type Props = MainStackScreenProps<'Search'>;
 const Search: React.FC<Props> = ({ navigation }) => {
   const { currentPosition, getLocation } = useGeolocation();
   const [searchValue, setSearchValue] = useState('');
-  const [searchHistory, setSearchHistory] = useState<Array<string>>([]);
+  const [searchHistory, setSearchHistory] = useState<SearchEntity[]>([]);
 
   const word = useDebounce(searchValue, 300);
 
@@ -25,11 +26,11 @@ const Search: React.FC<Props> = ({ navigation }) => {
     latitude: currentPosition?.latitude,
   });
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     if (navigation.canGoBack()) {
       navigation.pop();
     }
-  }, [navigation]);
+  };
 
   const navigateReport = useCallback(() => {
     navigation.push('ReportBakeryStack', {
@@ -55,17 +56,28 @@ const Search: React.FC<Props> = ({ navigation }) => {
     [navigation]
   );
 
+  const appendSearchHistory = useCallback((searchEntity: SearchEntity) => {
+    setSearchHistory(prevState => {
+      const newSearchHistory = [searchEntity, ...prevState.filter(el => el.bakeryId !== searchEntity.bakeryId)];
+
+      setStorageSearchHistory(newSearchHistory);
+
+      return newSearchHistory;
+    });
+  }, []);
+
+  const onPressBakery = useCallback(
+    (searchEntity: SearchEntity) => {
+      navigateDetail(searchEntity.bakeryId);
+      appendSearchHistory(searchEntity);
+    },
+    [appendSearchHistory, navigateDetail]
+  );
+
   useEffect(() => {
-    const getSearchHistory = async () => {
-      const res = await storage.get('search');
-      if (!res) {
-        return;
-      }
-
-      return JSON.parse(res);
-    };
-
-    getSearchHistory().then(setSearchHistory);
+    getStorageSearchHistory().then(el => {
+      setSearchHistory(el);
+    });
   }, []);
 
   useEffect(() => {
@@ -77,13 +89,13 @@ const Search: React.FC<Props> = ({ navigation }) => {
       <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
       <View style={styles.container}>
         {data?.length ? (
-          <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={navigateDetail} />
+          <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
         ) : (
           <>
             <Text presets={['body1', 'bold']} style={styles.historyTitle}>
               최근검색
             </Text>
-            <SearchHistoryList searchHistory={searchHistory} />
+            <SearchHistoryList searchHistory={searchHistory} onPressBakery={onPressBakery} />
           </>
         )}
       </View>
