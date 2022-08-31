@@ -1,4 +1,4 @@
-import { SearchEntity } from '@/apis/bakery/useSearch';
+import { SearchEntity } from '@/apis/bakery/types';
 import { storage } from '@/utils/storage/storage';
 
 export const getStorageSearchHistory = async (): Promise<SearchEntity[]> => {
