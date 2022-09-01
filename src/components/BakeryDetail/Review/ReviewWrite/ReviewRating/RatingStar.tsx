@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StarIcon } from '@/components/Shared/Icons';
@@ -11,9 +11,6 @@ type Props = {
 const DEFAULT_RATING_COUNT = 5;
 
 export const RatingStars: React.FC<Props> = ({ rating = 0, onPressRatingStar }) => {
-  useEffect(() => {
-    // Array.from(Array(DEFAULT_RATING_COUNT), (_, i) => i + 1).map(i => );
-  }, []);
   return (
     <View style={styles.container}>
       {Array.from(Array(DEFAULT_RATING_COUNT), (_, i) => i + 1).map(i => (
