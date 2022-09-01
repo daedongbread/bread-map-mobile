@@ -6,6 +6,7 @@ import { useGetBakeries } from '@/apis';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
@@ -24,7 +25,7 @@ const INITIAL_REGION: Region = {
 };
 
 export const BakeryMapContainer: React.FC = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
   const { getLocation, currentPosition, watchLocation, clearWatch, isWatched } = useGeolocation();
 
   const [selectMarker, setSelectMarker] = useState<Coordinate | null>(null);

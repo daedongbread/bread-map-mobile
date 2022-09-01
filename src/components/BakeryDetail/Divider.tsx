@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewProps } from 'react-native';
 import { theme } from '@/styles/theme';
 
-const Divider: React.FC = () => {
-  return <View style={styles.container} />;
+const Divider: React.FC<Pick<ViewProps, 'style'>> = ({ style }) => {
+  return <View style={[styles.container, style]} />;
 };
 
 const styles = StyleSheet.create({

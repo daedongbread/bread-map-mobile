@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MenuItem } from '@/components/BakeryDetail/Menu/MenuList';
-import { Bakery } from '@/router/types';
+import { Bakery } from '@/types/bakery';
 import { BakeryReview, resizePixels } from '@/utils';
 import { Menu } from './Menu';
 
