@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Pressable, StyleSheet, TextInput as OriginTextInput, TextInputProps, View } from 'react-native';
 import { theme } from '@/styles/theme';
 import { XCircle } from '@shared/Icons/XCircle';
@@ -10,9 +10,18 @@ type Props = Omit<TextInputProps, 'value' | 'onChange'> & {
   onChange?: ({ label, value }: { label: string; value: string }) => void;
   hint?: string;
   error?: string;
+  backgroundColor?: string;
 };
 
-export const TextInput: React.FC<Props> = memo(({ onChangeText, onChange, label = '', error, hint, ...props }) => {
+export const TextInput: React.FC<Props> = ({
+  onChangeText,
+  onChange,
+  label = '',
+  error,
+  hint,
+  backgroundColor,
+  ...props
+}) => {
   const { value, multiline } = props;
 
   const handleChangeText = useCallback(
@@ -27,9 +36,17 @@ export const TextInput: React.FC<Props> = memo(({ onChangeText, onChange, label 
     handleChangeText('');
   }, [handleChangeText]);
 
+  const inputContainerStyle = useMemo(() => {
+    const override = {
+      backgroundColor,
+    };
+
+    return [styles.inputContainer, override];
+  }, [backgroundColor]);
+
   return (
-    <View>
-      <View style={styles.inputContainer}>
+    <View style={styles.container}>
+      <View style={inputContainerStyle}>
         <OriginTextInput placeholderTextColor={theme.color.gray500} onChangeText={handleChangeText} {...props} />
         {value.length && !multiline ? (
           <Pressable style={styles.closeButton} onPress={onClear}>
@@ -55,9 +72,12 @@ export const TextInput: React.FC<Props> = memo(({ onChangeText, onChange, label 
       </View>
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
   inputContainer: {
     paddingVertical: 16,
     paddingHorizontal: 14,

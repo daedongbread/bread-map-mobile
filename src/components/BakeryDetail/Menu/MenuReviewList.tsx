@@ -1,21 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Reviews } from '@/components/Shared/Reviews';
-import { BakeryDetailTabNavigationProps, BakeryMenuStackParamList } from '@/router/types';
+import { BakeryMenuStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { BakeryReview } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Props = NativeStackScreenProps<BakeryMenuStackParamList, 'BakeryMenuReviews'>;
 
-const MenuReviewList: React.FC<Props> = ({ route }) => {
+const MenuReviewList: React.FC<Props> = ({ navigation, route }) => {
   const {
     params: { info, menu, reviews },
   } = route;
-
-  const navigation = useNavigation<BakeryDetailTabNavigationProps>();
 
   const onPress = (review: BakeryReview) => {
     navigation.push('BakeryDetailReview', { screen: 'BakeryReviewDetail', params: { info, review } });
