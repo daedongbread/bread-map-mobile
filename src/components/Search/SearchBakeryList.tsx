@@ -10,7 +10,7 @@ const ItemSeparatorComponent: React.VFC = memo(() => {
 });
 
 type Props = {
-  bakeries: Array<SearchEntity>;
+  bakeries?: Array<SearchEntity>;
   onPressReport: ButtonProps['onPress'];
   onPressBakery: (searchEntity: SearchEntity) => void;
 };
@@ -27,7 +27,7 @@ const SearchBakeryList: React.FC<Props> = memo(({ bakeries, onPressBakery, onPre
     [onPressBakery]
   );
 
-  if (!bakeries.length) {
+  if (bakeries?.length === 0) {
     return <SearchedBakeryNotFound onPress={onPressReport} />;
   }
 
