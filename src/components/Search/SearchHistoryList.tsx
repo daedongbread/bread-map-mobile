@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/useSearch';
+import { SearchEntity } from '@/apis/bakery/types';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { HistoryItem } from '@/components/Search/HistoryItem';
 import { theme } from '@/styles/theme';

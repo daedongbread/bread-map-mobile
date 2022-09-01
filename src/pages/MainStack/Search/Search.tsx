@@ -88,7 +88,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
     <SafeAreaView style={[styles.fullScreen]}>
       <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
       <View style={styles.container}>
-        {data?.length ? (
+        {searchValue && data ? (
           <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
         ) : (
           <>
