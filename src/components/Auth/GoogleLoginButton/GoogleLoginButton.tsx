@@ -2,18 +2,21 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { GoogleLogo } from '@/components/Shared/Icons';
-import { bindHook, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
-import { useGoogleLoginButton } from './useGoogleLoginButton';
 
-const GoogleLoginButton = bindHook(useGoogleLoginButton, ({ signIn }) => (
+type Props = {
+  onPress: () => void;
+};
+
+const GoogleLoginButton = ({ onPress }: Props) => (
   <View style={styles.container}>
-    <Button onPress={signIn} style={styles.button}>
+    <Button onPress={onPress} style={styles.button}>
       <GoogleLogo style={styles.logo} />
       <Text style={styles.buttonText}>구글 계정으로 로그인</Text>
     </Button>
   </View>
-));
+);
 
 export { GoogleLoginButton };
 

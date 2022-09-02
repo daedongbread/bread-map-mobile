@@ -3,15 +3,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AuthProvider } from '@/provider/AuthProvider/AuthProvider';
 import { SplashProvider } from '@/provider/SplashProvider';
-import rootReducer from '@/slices';
+import store from '@/slices';
 import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
-import { configureStore } from '@reduxjs/toolkit';
 import { RootNavigation } from './src/pages/Stack';
-
-const store = configureStore({
-  reducer: rootReducer,
-});
 
 const queryClient = new QueryClient();
 

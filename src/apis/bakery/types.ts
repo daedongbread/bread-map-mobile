@@ -25,3 +25,10 @@ export type BakeryEntity = {
   menuReviewsCount: number;
   ratingCount: number;
 };
+
+export type SearchEntity = {
+  bakeryId: number;
+  bakeryName: number;
+  reviewNum: number;
+  distance: number;
+};

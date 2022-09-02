@@ -1,8 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Menus } from '@/components/Shared/Menu';
+import { BakeryMenuStackNavigationProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryMenuStackNavigationProps } from '@/router/types';
 import { BakeryReview } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from '../Divider';

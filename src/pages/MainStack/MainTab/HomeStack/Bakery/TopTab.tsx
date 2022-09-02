@@ -7,17 +7,21 @@ import {
   ReviewList,
   ReviewReport,
 } from '@/components/BakeryDetail';
+import { MenuItem } from '@/components/BakeryDetail/Menu/MenuList';
 import { BakeryHome } from '@/pages/MainStack/MainTab/HomeStack/Bakery/BakeryHome';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { BakeryMenuStackParamList, BakeryReviewStackParamList } from '@/router/types';
 import { theme } from '@/styles/theme';
 import { Bakery } from '@/types/bakery';
+import { BakeryInfo, BakeryReview } from '@/utils';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export type BakeryDetailTabParamList = {
-  BakeryDetailHome: Bakery;
+  BakeryDetailHome: {
+    bakeryId: number;
+  };
   BakeryDetailMenu: undefined;
   BakeryDetailReview: undefined;
   bakeryDetailInfo: undefined;
@@ -50,8 +54,19 @@ const BakeryDetailTabNavigator = () => (
   </Tab.Navigator>
 );
 
+// ** BakeryDetail tab (menu) route types **
+export type BakeryMenuStackParamList = {
+  BakeryMenus: Bakery; // 단일 값으로 할지 고민
+  BakeryMenuReviews: {
+    info: BakeryInfo;
+    menu: MenuItem;
+    reviews: BakeryReview[];
+  };
+};
+
+export type BakeryMenuStackNavigationProps = StackNavigationProp<BakeryMenuStackParamList>;
+
 const MenuStack = createNativeStackNavigator<BakeryMenuStackParamList>();
-const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
 
 const BakeryMenuStack = () => (
   <MenuStack.Navigator initialRouteName="BakeryMenus">
@@ -59,6 +74,19 @@ const BakeryMenuStack = () => (
     <MenuStack.Screen name="BakeryMenuReviews" options={{ headerShown: false }} component={MenuReviewList} />
   </MenuStack.Navigator>
 );
+
+export type BakeryReviewStackParamList = {
+  BakeryReviews: Bakery;
+  BakeryReviewDetail: {
+    info: BakeryInfo;
+    review: BakeryReview;
+  };
+  BakeryReport: Bakery;
+};
+
+export type BakeryReviewStackNavigationProps = StackNavigationProp<BakeryReviewStackParamList>;
+
+const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
 
 const BakeryReviewStack = () => (
   <ReviewStack.Navigator initialRouteName="BakeryReviews">

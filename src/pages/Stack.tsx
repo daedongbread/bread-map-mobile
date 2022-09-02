@@ -1,8 +1,9 @@
 import React from 'react';
-import { DummyAuth } from '@/pages/Auth';
+import { useAuth } from '@/hooks/useAuth';
+import { Auth } from '@/pages/Auth';
+import { AuthWebView } from '@/pages/Auth/AuthWebView';
 import { MainStack, MainStackParamList } from '@/pages/MainStack/Stack';
 import { Onboarding } from '@/pages/Onboarding';
-import { useAuth } from '@/provider/AuthProvider/AuthProvider';
 import { ReviewWriteStackParamList } from '@/router/types';
 import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +13,9 @@ import { ReviewWriteStack } from './ReviewWriteStack/Stack';
 export type RootStackParamList = {
   Onboarding: undefined;
   Auth: undefined;
+  AuthWebView: {
+    type: 'google' | 'kakao';
+  };
   MainStack: NavigatorScreenParams<MainStackParamList>;
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
 };
@@ -21,12 +25,12 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScre
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
-  const { isLogin } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isLogin ? (
+        {isLoggedIn ? (
           <>
             <Stack.Screen name={'MainStack'} component={MainStack} />
             <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
@@ -34,7 +38,8 @@ const RootNavigation = () => {
         ) : (
           <>
             <Stack.Screen name={'Onboarding'} component={Onboarding} />
-            <Stack.Screen name={'Auth'} component={DummyAuth} />
+            <Stack.Screen name={'Auth'} component={Auth} />
+            <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
           </>
         )}
       </Stack.Navigator>

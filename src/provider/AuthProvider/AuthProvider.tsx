@@ -1,6 +1,7 @@
-import React, { createContext, FC, useContext } from 'react';
+import React, { createContext, FC, useContext, useEffect } from 'react';
 import { SocialProvider } from '@/apis/auth/requestLogin';
-import { useAuthMethod } from './useAuthMethod';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { initAuth } from '@/slices/auth';
 
 type AuthContextValue = {
   login: ({ token, provider }: { token: string; provider: SocialProvider }) => void;
@@ -11,18 +12,18 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 const AuthProvider: FC = ({ children }) => {
-  const { login, logOut, user, loading } = useAuthMethod();
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector(selector => selector.auth);
+
+  useEffect(() => {
+    dispatch(initAuth());
+  }, [dispatch]);
 
   if (loading) {
     return null;
   }
 
-  return (
-    <AuthContext.Provider value={{ login, logOut, isLogin: Boolean(user?.token) }}>
-      {/*{user?.token ? children : <Auth />}*/}
-      {children}
-    </AuthContext.Provider>
-  );
+  return <>{children}</>;
 };
 
 const useAuth = () => {
