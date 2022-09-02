@@ -47,7 +47,12 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+    <string>Program requires GPS to track cars and job orders</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Program requires GPS to track cars and job orders</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Program requires GPS to track cars and job orders</string>
+
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -62,5 +67,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
+  </dict>
 </dict>
 </plist>

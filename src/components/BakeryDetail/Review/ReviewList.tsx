@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { BakeryReviewStackNavigationProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryReviewStackNavigationProps } from '@/router/types';
 
 import { BakeryReview, resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';

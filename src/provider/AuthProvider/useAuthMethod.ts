@@ -13,6 +13,7 @@ type User = {
 const USER_KEY = 'user';
 const EXPIRE_GAP = 5 * 24 * 60 * 60 * 60;
 const EXPIRE_DATE = 30 * 24 * 60 * 60 * 60;
+
 let REFRESH_TIME_OUT: ReturnType<typeof setTimeout> | null = null;
 
 const getExpireDate = () => (EXPIRE_DATE + new Date().getTime()) * 1000;

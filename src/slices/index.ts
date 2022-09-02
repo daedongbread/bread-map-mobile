@@ -1,14 +1,24 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import auth from './auth';
 import review from './review';
 import user from './user';
 
-const rootReducer = combineReducers({
+const reducers = {
   user,
   review,
+  auth,
+};
+
+const rootReducer = combineReducers(reducers);
+
+const store = configureStore({
+  reducer: rootReducer,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
 
-export const get = (key: keyof RootState) => (state: RootState) => state[key];
-
-export default rootReducer;
+// export const get = (key: keyof typeof reducers) => (state: RootState) => state[key];
+export default store;

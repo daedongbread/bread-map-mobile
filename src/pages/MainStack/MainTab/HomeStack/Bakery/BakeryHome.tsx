@@ -16,18 +16,16 @@ import {
   ShareSolidIcon,
   WishIcon,
 } from '@/components/Shared/Icons';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
-import { BakeryDetailTabScreenProps } from '@/router/types';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
 // TODO: 일부 아이콘 변경 필요
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
-  const { bakery, updateBakery } = useBakeryDetail();
+  const { bakery } = useBakeryDetail();
 
-  React.useEffect(() => {
-    updateBakery(route.params);
-  }, [updateBakery, route.params]);
+  const bakeryId = route.params.bakeryId;
 
   return (
     <ScrollView>
