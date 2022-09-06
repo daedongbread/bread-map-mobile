@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
@@ -71,6 +71,10 @@ export const useGeolocation = () => {
 
     setWatchId(null);
   }, [watchId]);
+
+  useEffect(() => {
+    getLocation();
+  }, [getLocation]);
 
   return {
     getLocation,
