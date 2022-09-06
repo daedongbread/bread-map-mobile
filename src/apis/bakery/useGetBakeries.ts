@@ -1,13 +1,17 @@
 import { useQuery } from 'react-query';
-import { BakeryEntity } from '@/apis/bakery/types';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
 type UseGetBakeriesProps = {
   sort: 'distance' | 'popular';
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
   latitudeDelta: number;
   longitudeDelta: number;
+};
+
+type GetBakeriesResponse = {
+  data: BakeryMapBakeryEntity[];
 };
 
 const requestGetBakeries = async ({
@@ -16,17 +20,20 @@ const requestGetBakeries = async ({
   longitude,
   latitudeDelta,
   longitudeDelta,
-}: UseGetBakeriesProps): Promise<BakeryEntity[]> => {
-  const resp = await fetcher.get<BakeryEntity[]>(
+}: UseGetBakeriesProps) => {
+  const resp = await fetcher.get<GetBakeriesResponse>(
     `/bakery?sort=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
   );
-  return resp.data;
+  return resp.data.data;
 };
 
 const useGetBakeries = ({ latitude, longitude, latitudeDelta, longitudeDelta, sort }: UseGetBakeriesProps) => {
+  const queryKey = ['useGetBakeries', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const;
+
   const { data, isLoading, isError, refetch } = useQuery(
-    ['useGetBakeries', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const,
-    () => requestGetBakeries({ latitude, longitude, latitudeDelta, longitudeDelta, sort })
+    queryKey,
+    () => requestGetBakeries({ latitude, longitude, latitudeDelta, longitudeDelta, sort }),
+    { enabled: !!(latitude && longitude) }
   );
 
   return {
