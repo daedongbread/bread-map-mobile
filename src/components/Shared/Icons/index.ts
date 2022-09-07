@@ -37,3 +37,5 @@ export * from './Notification';
 
 export { default as Setting } from './setting.svg';
 export { default as ArrowLeft } from './arrow_left.svg';
+export { default as DefaultProfile } from './default_profile.svg';
+export { default as Camera } from './camera.svg';
