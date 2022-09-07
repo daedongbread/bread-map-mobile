@@ -4,6 +4,7 @@ import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
 import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack/Profile';
+import { ProfileEdit } from '@/pages/MainStack/ProfileStack/ProfileEdit';
 import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { Search } from '@/pages/MainStack/Search';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
@@ -23,6 +24,7 @@ export type MainStackParamList = {
   ReportBakeryModal: undefined;
   NotificationModal: undefined;
   Profile: undefined;
+  ProfileEdit: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -59,6 +61,7 @@ const ProfileStack = () => {
         <Stack.Screen name={'ReportBakeryModal'} component={ReportBakery} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'Profile'} component={Profile} />
+        <Stack.Screen name={'ProfileEdit'} component={ProfileEdit} />
       </Stack.Group>
     </Stack.Navigator>
   );

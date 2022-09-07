@@ -4,11 +4,13 @@ import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
 import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
+import { ProfileEdit } from '@/pages/MainStack/ProfileStack/ProfileEdit';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { Search } from '@/pages/MainStack/Search';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { ArrowLeft } from '@shared/Icons';
 
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
@@ -21,6 +23,7 @@ export type MainStackParamList = {
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   NotificationModal: undefined;
   Profile: undefined;
+  ProfileEdit: undefined;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -48,6 +51,21 @@ const MainStack = () => {
         <Stack.Screen name={'NotificationModal'} component={Notification} />
       </Stack.Group>
       <Stack.Screen name={'Profile'} component={Profile} />
+      <Stack.Screen
+        name={'ProfileEdit'}
+        component={ProfileEdit}
+        options={{
+          headerShown: true,
+          headerTitle: '프로필 수정',
+          headerBackImage: () => <ArrowLeft style={{ marginLeft: 12 }} />,
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Shared/Button/Button';
 import { Text } from '@/components/Shared/Text';
+import { useNavigation } from '@react-navigation/native';
 import { FollowInfo } from './FollowInfo';
 
 interface ProfileInfoProps {
@@ -9,6 +10,8 @@ interface ProfileInfoProps {
 }
 
 const ProfileInfo = ({ isTabNavigated }: ProfileInfoProps) => {
+  const { navigate } = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.flexBox}>
@@ -24,7 +27,17 @@ const ProfileInfo = ({ isTabNavigated }: ProfileInfoProps) => {
       </View>
 
       <View style={styles.buttonWrapper}>
-        <Button appearance={isTabNavigated ? 'secondary' : 'terdary'} style={styles.buttonStyle}>
+        <Button
+          appearance={isTabNavigated ? 'secondary' : 'terdary'}
+          style={styles.buttonStyle}
+          onPress={() => {
+            if (!isTabNavigated) {
+              navigate('MainStack', {
+                screen: 'ProfileEdit',
+              });
+            }
+          }}
+        >
           {isTabNavigated ? '팔로우' : '수정'}
         </Button>
       </View>
