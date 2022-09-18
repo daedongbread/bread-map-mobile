@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { MapViewProps } from 'react-native-maps';
 
@@ -8,6 +8,8 @@ import { Coordinate } from '@/containers/Home/BakeryMapContainer';
 
 const MIN_ZOOM_LEVEL = 17;
 const MAX_ZOOM_LEVEL = 25;
+
+const ANIMATION_DURATION = 1000;
 
 type Props = MapViewProps & {
   markerCoordinates?: Array<Coordinate>;
@@ -26,6 +28,10 @@ export const BakeryMap: React.FC<Props> = ({
   onRegionChange,
   showMaker,
 }) => {
+  const [zoomLevel, setZoomLevel] = useState({
+    max: 20,
+    min: 0,
+  });
   const mapView = useRef<MapView>(null);
   const activeMarkerId = useSharedValue<number | null>(null);
 
@@ -36,15 +42,18 @@ export const BakeryMap: React.FC<Props> = ({
   }, [activeMarkerId, selectMarker]);
 
   useEffect(() => {
-    if (!mapView.current || !region) {
-      return;
-    }
-
     (async () => {
-      const currentCamera = await mapView?.current?.getCamera();
+      if (!mapView.current || !region) {
+        return;
+      }
 
-      mapView?.current?.animateToRegion(region, 2000);
-      mapView?.current?.animateCamera(
+      const currentCamera = await mapView?.current?.getCamera();
+      const isMoveImmediately =
+        Math.abs(region.latitude - currentCamera.center.latitude) > 0.0001 ||
+        Math.abs(region.longitude - currentCamera.center.longitude) > 0.0001;
+
+      mapView.current.animateToRegion(region, ANIMATION_DURATION);
+      mapView.current.animateCamera(
         {
           ...currentCamera,
           center: {
@@ -53,10 +62,17 @@ export const BakeryMap: React.FC<Props> = ({
             latitude: region.latitude,
           },
         },
-        { duration: 2000 }
+        { duration: isMoveImmediately ? 0 : ANIMATION_DURATION }
       );
     })();
   }, [region]);
+
+  useEffect(() => {
+    setZoomLevel({
+      max: MAX_ZOOM_LEVEL,
+      min: MIN_ZOOM_LEVEL,
+    });
+  }, []);
 
   return (
     <MapView
@@ -65,9 +81,10 @@ export const BakeryMap: React.FC<Props> = ({
       initialRegion={initialRegion}
       style={styles.container}
       showsUserLocation
+      followsUserLocation={false}
       onRegionChange={onRegionChange}
-      maxZoomLevel={MAX_ZOOM_LEVEL}
-      minZoomLevel={MIN_ZOOM_LEVEL}
+      maxZoomLevel={zoomLevel.max}
+      minZoomLevel={zoomLevel.min}
     >
       {showMaker &&
         markerCoordinates?.map(coordinate => (
