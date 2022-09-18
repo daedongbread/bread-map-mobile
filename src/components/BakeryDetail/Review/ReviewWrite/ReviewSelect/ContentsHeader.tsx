@@ -4,14 +4,14 @@ import { theme } from '@/styles/theme';
 
 interface Props {
   title: string;
-  bakeryCount: number;
+  breadCount: number;
 }
 
-export const ContentsHeader: React.FC<Props> = ({ title, bakeryCount }) => {
+export const ContentsHeader: React.FC<Props> = ({ title, breadCount }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>{title}</Text>
-      <Text style={styles.countText}>{bakeryCount}개</Text>
+      <Text style={styles.countText}>{breadCount}개</Text>
     </View>
   );
 };

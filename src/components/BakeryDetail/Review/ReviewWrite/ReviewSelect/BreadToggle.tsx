@@ -3,27 +3,33 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ToggleCloseIcon } from '@/components/Shared/Icons/ToggleCloseIcon';
 import { Text } from '@/components/Shared/Text';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
+import { useAppDispatch } from '@/hooks/redux';
+import { RatedBread, updateSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 
 interface Props {
-  bakery: BakeryType;
-  onChangeSeledtedBakery: (bakery: BakeryType, value: boolean) => void;
+  bread: RatedBread;
 }
 
-export const BakeryToggle = ({ bakery, onChangeSeledtedBakery }: Props) => {
+export const BreadToggle = ({ bread }: Props) => {
+  const dispatch = useAppDispatch();
   const [isTouched, setIsTouched] = useState(false);
 
   const onPressCloseButton = () => {
-    onChangeSeledtedBakery(bakery, false);
+    dispatch(
+      updateSelectedBread({
+        bread,
+        value: false,
+      })
+    );
   };
 
   const containerStyle = isTouched ? [styles.container, styles.touchedContainer] : styles.container;
 
   return (
     <TouchableOpacity style={containerStyle} onPress={() => setIsTouched(bool => !bool)}>
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.bakeryNameText}>
-        {bakery.name}
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.breadNameText}>
+        {bread.name}
       </Text>
       {isTouched && (
         <TouchableOpacity style={styles.button} onPress={onPressCloseButton}>
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
   touchedContainer: {
     backgroundColor: theme.color.primary300,
   },
-  bakeryNameText: {
+  breadNameText: {
     maxWidth: 120,
     color: '#ffffff',
     fontSize: 12,

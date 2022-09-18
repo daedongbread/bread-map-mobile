@@ -1,60 +1,83 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { FlatList, TextInput } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { Asset } from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
-import { ImageCloseIcon } from '@/components/Shared/Icons';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
-import { updateSeletedBakeryRating } from '@/slices/review';
+import { AlertIcon } from '@/components/Shared/Icons/AlertIcon';
+import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import { TouchableOpacity } from '@gorhom/bottom-sheet';
+
 import { TopHeader } from '../ReviewSelect/TopHeader';
+import { PhotoSelect } from './PhotoSelect';
+import { QuestionPopup } from './QuestionPopup';
 import { RatingList } from './RatingList';
+import { SuccessPopup } from './SuccessPopup';
 import { Title } from './Title';
 
 type Props = {
-  selectedBakery: BakeryType[];
-  onUpdateBakeryRating: ({ id, rating }: updateSeletedBakeryRating) => void;
+  selectedBreads: RatedBread[];
+  detailReview: string;
+  images: Asset[];
+  onUpdateBreadRating: ({ id, rating }: UpdateSeletedBreadRating) => void;
+  onChangeDetailReviewText: (text: string) => void;
+  onSelectPhotos: () => void;
+  deSelectPhoto: (uri?: string) => void;
+  saveReview: () => void;
 };
 
-export const ReviewRating: React.FC<Props> = ({ selectedBakery, onUpdateBakeryRating }) => {
+const ErrText = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <TopHeader title={'리뷰작성'} />
-      <Title />
-      <View style={styles.contentsContainer}>
-        <RatingList selectedBakery={selectedBakery} onUpdateBakeryRating={onUpdateBakeryRating} />
-        <View style={styles.detailReviewContainer}>
-          <Text style={styles.title}>상세한 후기</Text>
-          <TextInput
-            multiline
-            style={styles.detailReviewTextInput}
-            placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다. "
-          />
-          <Text style={styles.wordCount}>0자 / 최소 10자</Text>
-        </View>
-        <View style={styles.uploadContainer}>
-          <Text style={styles.title}>사진 업로드</Text>
-          <FlatList
-            data={[1, 2, 3, 4]}
-            contentContainerStyle={styles.uploadImageContainer}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            renderItem={({}) => (
-              <>
-                <Image style={styles.uploadImage} source={require('@/components/Shared/Images/bread.png')} />
-                <TouchableOpacity style={styles.uploadImageCloseButton}>
-                  <ImageCloseIcon />
-                </TouchableOpacity>
-              </>
-            )}
-          />
-        </View>
-      </View>
-      <Button onPress={() => null} style={styles.confirmBtn}>
-        {'확인'}
-      </Button>
-    </SafeAreaView>
+    <View style={styles.errTextContainer}>
+      <AlertIcon />
+      <Text style={styles.wordCountErr}>10자이상 입력해주세요</Text>
+    </View>
+  );
+};
+
+export const ReviewRating: React.FC<Props> = ({
+  selectedBreads,
+  detailReview,
+  images,
+  onUpdateBreadRating,
+  onChangeDetailReviewText,
+  onSelectPhotos,
+  deSelectPhoto,
+  saveReview,
+}) => {
+  const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
+  const [isShowSuccessPopup, setIsShowSuccessPopup] = useState(false);
+
+  return (
+    <>
+      <SafeAreaView style={styles.container}>
+        <TopHeader title={'리뷰작성'} closePopup={() => setIsShowQuestionPopup(true)} />
+        <ScrollView style={styles.contentsContainer}>
+          <Title />
+          <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
+          <View style={styles.detailReviewContainer}>
+            <Text style={styles.title}>상세한 후기</Text>
+            <TextInput
+              multiline
+              onChangeText={onChangeDetailReviewText}
+              defaultValue={detailReview}
+              style={styles.detailReviewTextInput}
+              placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
+            />
+            <View style={styles.textContainer}>
+              {detailReview.length < 10 ? <ErrText /> : <View />}
+              <Text style={styles.wordCount}>{detailReview.length}자 / 최소 10자</Text>
+            </View>
+          </View>
+          <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+        </ScrollView>
+        <Button onPress={() => saveReview()} style={styles.confirmBtn}>
+          {'확인'}
+        </Button>
+      </SafeAreaView>
+      {isShowQuestionPopup && <QuestionPopup closePopup={() => setIsShowQuestionPopup(false)} />}
+      {isShowSuccessPopup && <SuccessPopup closePopup={() => setIsShowSuccessPopup(false)} />}
+    </>
   );
 };
 
@@ -84,30 +107,26 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#9E9E9E',
   },
-  wordCount: {
-    alignSelf: 'flex-end',
-    paddingRight: 20,
+  textContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingTop: 8,
-    color: '#9E9E9E',
+  },
+  errTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  wordCountErr: {
+    color: '#F3213B',
+    paddingLeft: 4,
     fontSize: 12,
   },
-  uploadContainer: {
-    paddingTop: 36,
-    paddingLeft: 20,
-  },
-  uploadImageContainer: {
-    paddingTop: 12,
-  },
-  uploadImage: {
-    width: 88,
-    height: 88,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  uploadImageCloseButton: {
-    position: 'absolute',
-    right: 8,
-    top: -4,
+  wordCount: {
+    paddingRight: 20,
+    color: '#9E9E9E',
+    fontSize: 12,
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
   },
   confirmBtn: {
     paddingHorizontal: 20,

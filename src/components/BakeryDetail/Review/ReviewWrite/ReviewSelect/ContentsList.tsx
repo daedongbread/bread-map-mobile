@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
+import { BreadEntity } from '@/apis/bread';
 import { AddButton } from './AddButton';
 import { AdditionalArea } from './AdditionalArea';
-import { Bakery } from './Bakery';
+import { Bread } from './Bread';
 import { NoDataRow } from './NoDataRow';
 
 type Props = {
-  bakerys: BakeryType[];
-  selectedBakery: BakeryType[];
-  onChangeSeledtedBakery: (bakery: BakeryType, value: boolean) => void;
+  breads: BreadEntity[];
+  selectedBreads: BreadEntity[];
 };
 
-export const ContentsList: React.FC<Props> = ({ bakerys, selectedBakery, onChangeSeledtedBakery }) => {
+export const ContentsList: React.FC<Props> = ({ breads, selectedBreads }) => {
   const [isShowAddArea, setIsShowAddArea] = useState(false);
   const onPress = () => setIsShowAddArea(isBool => !isBool);
 
-  return bakerys.length ? (
+  return breads.length ? (
     <FlatList
-      data={bakerys}
+      data={breads}
       renderItem={({ item, index }) => (
         <>
-          <Bakery {...item} selectedBakery={selectedBakery} onChangeSeledtedBakery={onChangeSeledtedBakery} />
-          {index === bakerys.length - 1 && (
+          <Bread {...item} selectedBreads={selectedBreads} />
+          {index === breads.length - 1 && (
             <>
-              {isShowAddArea && <AdditionalArea onChangeSeledtedBakery={onChangeSeledtedBakery} />}
+              {isShowAddArea && <AdditionalArea />}
               <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
             </>
           )}

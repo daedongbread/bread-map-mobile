@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
+import { useAppDispatch } from '@/hooks/redux';
+import { updateSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 import CheckBox from '@react-native-community/checkbox';
 
-type Props = {
-  onChangeSeledtedBakery: (bakery: BakeryType, value: boolean) => void;
-};
+type Props = {};
 
 type AdditionalInput = {
   name: string;
   price: number;
 };
 
-export const AdditionalArea: React.FC<Props> = ({ onChangeSeledtedBakery }) => {
+export const AdditionalArea: React.FC<Props> = ({}) => {
+  const dispatch = useAppDispatch();
+
   const [form, setForm] = useState<AdditionalInput>({
     name: '',
     price: 0,
@@ -46,17 +47,22 @@ export const AdditionalArea: React.FC<Props> = ({ onChangeSeledtedBakery }) => {
       </View>
       <CheckBox
         style={styles.checkbox}
+        animationDuration={0}
         tintColor={theme.color.gray400}
         onTintColor={theme.color.primary500}
         onFillColor={theme.color.primary500}
         onCheckColor={'white'}
         onValueChange={value => {
-          onChangeSeledtedBakery(
-            {
-              name: form.name,
-              price: form.price,
-            },
-            value
+          dispatch(
+            updateSelectedBread({
+              bread: {
+                id: 0, //new id
+                name: form.name,
+                price: form.price,
+                image: '',
+              },
+              value,
+            })
           );
         }}
       />
