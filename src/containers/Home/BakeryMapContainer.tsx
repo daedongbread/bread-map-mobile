@@ -28,6 +28,7 @@ export const BakeryMapContainer: React.FC = () => {
 
   const [selectMarker, setSelectMarker] = useState<Coordinate | null>(null);
   const [showMaker, setShowMaker] = useState<boolean>(false);
+  const [showSearchButton, setShowSearchButton] = useState(false);
 
   //TODO: 더미 데이터
   const markerCoordinates = [
@@ -82,12 +83,14 @@ export const BakeryMapContainer: React.FC = () => {
         region={region}
         showMaker={showMaker}
       />
+
       <BakeryMapOverlay
         onPressSearch={onPressSearch}
         onPressFlagIcon={onPressFlagIcon}
         onPressNavigationIcon={onPressNavigationIcon}
         isWatched={isWatched}
         showMaker={showMaker}
+        showSearchButton={true}
       />
     </View>
   );
