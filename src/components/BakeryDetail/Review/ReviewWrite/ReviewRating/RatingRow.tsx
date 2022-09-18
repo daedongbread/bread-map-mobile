@@ -1,24 +1,23 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
-import { updateSeletedBakeryRating } from '@/slices/review';
-import { BakeryToggle } from '../ReviewSelect/BakeryToggle';
+import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
+import { BreadToggle } from '../ReviewSelect/BreadToggle';
 import { RatingStars } from './RatingStar';
 
 type Props = {
-  bakery: BakeryType;
-  onUpdateBakeryRating: ({ id, rating }: updateSeletedBakeryRating) => void;
+  bread: RatedBread;
+  onUpdateBreadRating: ({ id, rating }: UpdateSeletedBreadRating) => void;
 };
 
-export const RatingRow: React.FC<Props> = ({ bakery, onUpdateBakeryRating }) => {
+export const RatingRow: React.FC<Props> = ({ bread, onUpdateBreadRating }) => {
   const onPressRatingStar = (rating: number) => {
-    onUpdateBakeryRating({ id: bakery.id, rating: rating });
+    onUpdateBreadRating({ id: bread.id, rating });
   };
 
   return (
     <View style={styles.ratingRow}>
-      <BakeryToggle bakery={bakery} onChangeSeledtedBakery={() => null} />
-      <RatingStars rating={bakery.rating} onPressRatingStar={onPressRatingStar} />
+      <BreadToggle bread={bread} />
+      <RatingStars rating={bread.rating} onPressRatingStar={onPressRatingStar} />
     </View>
   );
 };

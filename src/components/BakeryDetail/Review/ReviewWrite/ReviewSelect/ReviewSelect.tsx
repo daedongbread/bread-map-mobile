@@ -1,51 +1,45 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { BreadEntity } from '@/apis/bread';
 import { Button } from '@/components/Shared/Button/Button';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
 import { theme } from '@/styles/theme';
-import { BakeryToggleList } from './BakeryToggleList';
+import { BreadToggleList } from './BreadToggleList';
 import { ContentsHeader } from './ContentsHeader';
 import { ContentsList } from './ContentsList';
 import { ReviewSearch } from './ReviewSearch';
 import { TopHeader } from './TopHeader';
 
 type Props = {
-  bakerys: BakeryType[];
+  breads: BreadEntity[];
   searchValue: string;
-  selectedBakery: BakeryType[];
-  onChnageSearchValue: (searchValue: string) => void;
-  onChangeSeledtedBakery: (bakery: BakeryType, value: boolean) => void;
+  selectedBreads: BreadEntity[];
+  onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;
 };
 
 export const ReviewSelect: React.FC<Props> = ({
-  bakerys,
+  breads,
   searchValue,
-  selectedBakery,
-  onChnageSearchValue,
-  onChangeSeledtedBakery,
+  selectedBreads,
+  onChangeSearchValue,
   onPressConfirmButton,
 }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <TopHeader title={'리뷰작성'} />
-        <BakeryToggleList selectedBakery={selectedBakery} onChangeSeledtedBakery={onChangeSeledtedBakery} />
-        <ReviewSearch searchValue={searchValue} onChnageSearchValue={onChnageSearchValue} />
+        <BreadToggleList selectedBreads={selectedBreads} />
+        <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
       </View>
       <View style={styles.contentsContainer}>
-        <ContentsHeader title={'메뉴선택'} bakeryCount={bakerys.length} />
-        <ContentsList
-          bakerys={bakerys}
-          selectedBakery={selectedBakery}
-          onChangeSeledtedBakery={onChangeSeledtedBakery}
-        />
+        <ContentsHeader title={'메뉴선택'} breadCount={breads.length} />
+        <ContentsList breads={breads} selectedBreads={selectedBreads} />
       </View>
       <Button
         onPress={onPressConfirmButton}
         style={styles.confirmBtn}
-        disabled={Boolean(selectedBakery.length === 0)}
-        appearance={selectedBakery.length ? 'primary' : 'quaternary'}
+        disabled={Boolean(selectedBreads.length === 0)}
+        appearance={selectedBreads.length ? 'primary' : 'quaternary'}
       >
         확인
       </Button>

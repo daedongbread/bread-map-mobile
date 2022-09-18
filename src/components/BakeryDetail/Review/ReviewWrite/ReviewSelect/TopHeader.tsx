@@ -8,9 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
+  closePopup: () => void;
 }
 
-export const TopHeader = ({ title }: Props) => {
+export const TopHeader = ({ title, closePopup }: Props) => {
   const navigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
@@ -19,7 +20,7 @@ export const TopHeader = ({ title }: Props) => {
 
   const onPressCloseBtn = () => {
     // navigation pop이 아닌 현재 stack 자체를 pop할 수 있는 방안?
-    navigation.pop();
+    closePopup();
   };
 
   return (

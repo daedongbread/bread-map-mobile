@@ -7,10 +7,10 @@ import { resizePixel } from '@/utils';
 
 interface Props {
   searchValue: string;
-  onChnageSearchValue: (searchValue: string) => void;
+  onChangeSearchValue: (searchValue: string) => void;
 }
 
-export const ReviewSearch: React.FC<Props> = ({ searchValue, onChnageSearchValue }) => {
+export const ReviewSearch: React.FC<Props> = ({ searchValue, onChangeSearchValue }) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -23,7 +23,7 @@ export const ReviewSearch: React.FC<Props> = ({ searchValue, onChnageSearchValue
           placeholder={'메뉴 이름을검색해보세요'}
           placeholderTextColor={theme.color.gray500}
           value={searchValue}
-          onChangeText={onChnageSearchValue}
+          onChangeText={onChangeSearchValue}
         />
       </View>
     </View>

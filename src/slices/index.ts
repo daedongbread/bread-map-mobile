@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import auth from './auth';
-import review from './review';
+import reviewWrite from './reviewWrite';
 import user from './user';
 
 const reducers = {
   user,
-  review,
+  reviewWrite,
   auth,
 };
 

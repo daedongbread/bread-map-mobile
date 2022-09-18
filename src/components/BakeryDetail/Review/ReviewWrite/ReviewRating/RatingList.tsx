@@ -1,24 +1,32 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@/components/Shared/Text';
-import { BakeryType } from '@/containers/Review/ReviewSelectContainer';
-import { updateSeletedBakeryRating } from '@/slices/review';
+import { RootStackScreenProps } from '@/pages/Stack';
+import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
+import { useNavigation } from '@react-navigation/native';
 import { AddButton } from '../ReviewSelect/AddButton';
 import { RatingRow } from './RatingRow';
 
 type Props = {
-  selectedBakery: BakeryType[];
-  onUpdateBakeryRating: ({ id, rating }: updateSeletedBakeryRating) => void;
+  selectedBreads: RatedBread[];
+  onUpdateBreadRating: ({ id, rating }: UpdateSeletedBreadRating) => void;
 };
 
-export const RatingList: React.FC<Props> = ({ selectedBakery, onUpdateBakeryRating }) => {
+export const RatingList: React.FC<Props> = ({ selectedBreads, onUpdateBreadRating }) => {
+  const navigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>빵 평점</Text>
-      {selectedBakery.map(item => (
-        <RatingRow bakery={item} onUpdateBakeryRating={onUpdateBakeryRating} />
+      {selectedBreads.map((bread, index) => (
+        <RatingRow key={index} bread={bread} onUpdateBreadRating={onUpdateBreadRating} />
       ))}
-      <AddButton onPress={() => null} buttonText="메뉴 추가하기" />
+      <AddButton
+        onPress={() => {
+          navigation.pop();
+        }}
+        buttonText="메뉴 추가하기"
+      />
     </View>
   );
 };
