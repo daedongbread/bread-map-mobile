@@ -1,30 +1,38 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { BakeryReviewStackNavigationProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
-import { RootStackScreenProps } from '@/pages/Stack';
+import {
+  BakeryMenuStackParamList,
+  BakeryReviewStackParamList,
+} from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { MainStackParamList } from '@/pages/MainStack/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 
 import { BakeryReview, resizePixels } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 import { Reviews } from '@shared/Reviews';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
+type Navigation = CompositeScreenProps<
+  StackScreenProps<BakeryMenuStackParamList, 'BakeryMenus'>,
+  CompositeScreenProps<StackScreenProps<MainStackParamList>, StackScreenProps<BakeryReviewStackParamList>>
+>;
+
 const ReviewList: React.FC = () => {
   const { bakery } = useBakeryDetail();
 
-  const BakeryReviewStackNavigation = useNavigation<BakeryReviewStackNavigationProps>();
-  const ReviewWriteStackNavigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
+  const navigation = useNavigation<Navigation['navigation']>();
 
   const onPress = (review: BakeryReview) => {
     if (!bakery) {
       return;
     }
-    BakeryReviewStackNavigation.push('BakeryReviewDetail', { info: bakery.bakeryInfo, review });
+    navigation.push('BakeryReviewDetail', { info: bakery.bakeryInfo, review });
   };
 
   const onPressAddBtn = () => {
-    ReviewWriteStackNavigation.navigate('ReviewWriteStack', {
+    navigation.navigate('ReviewWriteStack', {
       screen: 'ReviewSelect',
     });
   };
