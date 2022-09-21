@@ -1,14 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation, { AuthorizationResult } from 'react-native-geolocation-service';
+
+export type Position = {
+  latitude: number;
+  longitude: number;
+};
 
 export const useGeolocation = () => {
-  const [currentPosition, setCurrentPosition] = useState<{ latitude: number; longitude: number }>();
+  const currentPositionRef = useRef<Position>();
+  const [currentPosition, setCurrentPosition] = useState<Position>();
   const [watchId, setWatchId] = useState<number | null>(null);
+  const [authorization, setAuthorization] = useState<AuthorizationResult>();
 
   const requireAuthorization = useCallback(async () => {
     if (Platform.OS === 'ios') {
-      return await Geolocation.requestAuthorization('whenInUse');
+      const auth = await Geolocation.requestAuthorization('whenInUse');
+
+      setAuthorization(auth);
+      return auth;
     }
   }, []);
 
@@ -76,10 +86,24 @@ export const useGeolocation = () => {
     getLocation();
   }, [getLocation]);
 
+  useEffect(() => {
+    currentPositionRef.current = currentPosition;
+  }, [currentPosition]);
+
+  useEffect(() => {
+    watchLocation();
+
+    return () => {
+      clearWatch();
+    };
+  }, [clearWatch, watchLocation]);
+
   return {
+    geolocationAuthorization: authorization,
     getLocation,
     isWatched: typeof watchId === 'number',
     currentPosition,
+    currentPositionRef,
     watchLocation,
     clearWatch,
   };

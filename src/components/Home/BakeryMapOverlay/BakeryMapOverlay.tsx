@@ -15,6 +15,7 @@ type Props = {
   onPressFlagIcon: () => void;
   onPressNavigationIcon: () => void;
   showSearchButton: boolean;
+  onPressSearchButton: () => void;
 };
 
 export const BakeryMapOverlay: React.FC<Props> = ({
@@ -23,7 +24,8 @@ export const BakeryMapOverlay: React.FC<Props> = ({
   onPressSearch,
   onPressFlagIcon,
   onPressNavigationIcon,
-  showSearchButton = true,
+  showSearchButton,
+  onPressSearchButton,
 }) => {
   return (
     <>
@@ -55,14 +57,16 @@ export const BakeryMapOverlay: React.FC<Props> = ({
         </View>
       </View>
 
-      <View style={styles.searchButtonWrapper}>
-        <TouchableOpacity style={styles.searchButton}>
-          <Text presets={['caption1', 'bold']} style={styles.searchText}>
-            현위치에서 검색
-          </Text>
-          <IcReset />
-        </TouchableOpacity>
-      </View>
+      {showSearchButton && (
+        <View style={styles.searchButtonWrapper}>
+          <TouchableOpacity style={styles.searchButton} onPress={onPressSearchButton}>
+            <Text presets={['caption1', 'bold']} style={styles.searchText}>
+              현위치에서 검색
+            </Text>
+            <IcReset />
+          </TouchableOpacity>
+        </View>
+      )}
     </>
   );
 };

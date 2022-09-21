@@ -33,7 +33,7 @@ const useGetBakeries = ({ latitude, longitude, latitudeDelta, longitudeDelta, so
   const { data, isLoading, isError, refetch } = useQuery(
     queryKey,
     () => requestGetBakeries({ latitude, longitude, latitudeDelta, longitudeDelta, sort }),
-    { enabled: !!(latitude && longitude && latitudeDelta && longitudeDelta) }
+    { enabled: !!(latitude && longitude) }
   );
 
   return {
