@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const BakeryMap = 'bakeryMap';
 
+export type SearchMapCameraLocation = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
+
 export interface BakeryMap {
-  searchMapCameraLocation?: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
+  searchMapCameraLocation?: SearchMapCameraLocation;
 }
 
 const initialState: BakeryMap = {
@@ -32,6 +34,6 @@ export const bakeryMapSlice = createSlice({
   },
 });
 
-export const {} = bakeryMapSlice.actions;
+export const { searchCurrentCameraLocation } = bakeryMapSlice.actions;
 
 export default bakeryMapSlice.reducer;
