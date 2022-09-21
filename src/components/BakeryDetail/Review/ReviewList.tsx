@@ -32,7 +32,7 @@ const ReviewList: React.FC = () => {
   };
 
   const onPressAddBtn = () => {
-    navigation.navigate('ReviewWriteStack', {
+    navigation.push('ReviewWriteStack', {
       screen: 'ReviewSelect',
     });
   };

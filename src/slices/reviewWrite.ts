@@ -8,6 +8,7 @@ export type RatedBread = BreadEntity & {
 
 type BreadState = {
   selectedBreads: RatedBread[];
+  manualSelectedBreads: RatedBread[];
   detailReview: string;
   images: Asset[];
 };
@@ -24,6 +25,7 @@ export type UpdateSelectedBread = {
 
 const initialState: BreadState = {
   selectedBreads: [],
+  manualSelectedBreads: [],
   detailReview: '',
   images: [],
 };

@@ -3,18 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from '@/components/Shared/Text';
-import { RootStackScreenProps } from '@/pages/Stack';
-import { bakeryInfo, bakeryMenu, bakeryReviews } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
-
-const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
 
 type Props = {
   closePopup: () => void;
+  closePage: () => void;
 };
 
-export const QuestionPopup = ({ closePopup }: Props) => {
-  const navigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
+export const QuestionPopup = ({ closePopup, closePage }: Props) => {
   return (
     <View style={styles.container}>
       <SafeAreaView edges={['bottom']} style={styles.popupContainer}>
@@ -30,16 +25,7 @@ export const QuestionPopup = ({ closePopup }: Props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.rightButton}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Bakery', {
-                  screen: 'BakeryDetailHome',
-                  params: {
-                    ...bakeryData,
-                  },
-                });
-              }}
-            >
+            <TouchableOpacity onPress={closePage}>
               <Text style={styles.rightButtonText}>그만할게요</Text>
             </TouchableOpacity>
           </View>

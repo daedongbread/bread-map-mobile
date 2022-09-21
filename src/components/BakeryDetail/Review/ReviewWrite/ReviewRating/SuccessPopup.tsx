@@ -4,15 +4,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SuccessIcon } from '@/components/Shared/Icons/SuccessIcon';
 import { Text } from '@/components/Shared/Text';
-import { useNavigation } from '@react-navigation/native';
 
 type Props = {
-  closePopup: () => void;
+  closePage: () => void;
 };
 
-export const SuccessPopup = ({}: Props) => {
-  const navigation = useNavigation();
-
+export const SuccessPopup = ({ closePage }: Props) => {
   return (
     <View style={styles.container}>
       <SafeAreaView edges={['bottom']} style={styles.popupContainer}>
@@ -22,16 +19,7 @@ export const SuccessPopup = ({}: Props) => {
           <Text style={styles.text}>리뷰 등록이{'\n'}완료 되었어요!</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Bakery', {
-                screen: 'BakeryDetailHome',
-                params: {
-                  bakeryId: 111,
-                },
-              });
-            }}
-          >
+          <TouchableOpacity onPress={closePage}>
             <Text style={styles.buttonText}>확인</Text>
           </TouchableOpacity>
         </View>

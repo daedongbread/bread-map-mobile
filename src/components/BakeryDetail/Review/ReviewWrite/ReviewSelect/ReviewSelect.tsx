@@ -3,11 +3,11 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { BreadEntity } from '@/apis/bread';
 import { Button } from '@/components/Shared/Button/Button';
 import { theme } from '@/styles/theme';
+import { Header } from '../Header';
 import { BreadToggleList } from './BreadToggleList';
 import { ContentsHeader } from './ContentsHeader';
 import { ContentsList } from './ContentsList';
 import { ReviewSearch } from './ReviewSearch';
-import { TopHeader } from './TopHeader';
 
 type Props = {
   breads: BreadEntity[];
@@ -15,6 +15,7 @@ type Props = {
   selectedBreads: BreadEntity[];
   onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;
+  closePage: () => void;
 };
 
 export const ReviewSelect: React.FC<Props> = ({
@@ -23,11 +24,12 @@ export const ReviewSelect: React.FC<Props> = ({
   selectedBreads,
   onChangeSearchValue,
   onPressConfirmButton,
+  closePage,
 }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <TopHeader title={'리뷰작성'} />
+        <Header title={'리뷰작성'} closePage={closePage} />
         <BreadToggleList selectedBreads={selectedBreads} />
         <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
       </View>

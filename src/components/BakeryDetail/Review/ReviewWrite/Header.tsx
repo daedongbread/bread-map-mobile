@@ -3,24 +3,23 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
-import { RootStackScreenProps } from '@/pages/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
-  closePopup: () => void;
+  closePage: () => void;
 }
 
-export const TopHeader = ({ title, closePopup }: Props) => {
-  const navigation = useNavigation<RootStackScreenProps<'ReviewWriteStack'>['navigation']>();
+export const Header = ({ title, closePage }: Props) => {
+  const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
     navigation.pop();
   };
 
   const onPressCloseBtn = () => {
-    // navigation pop이 아닌 현재 stack 자체를 pop할 수 있는 방안?
-    closePopup();
+    closePage();
   };
 
   return (

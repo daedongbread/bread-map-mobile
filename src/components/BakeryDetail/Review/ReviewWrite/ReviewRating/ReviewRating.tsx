@@ -7,8 +7,7 @@ import { Button } from '@/components/Shared/Button/Button';
 import { AlertIcon } from '@/components/Shared/Icons/AlertIcon';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-
-import { TopHeader } from '../ReviewSelect/TopHeader';
+import { Header } from '../Header';
 import { PhotoSelect } from './PhotoSelect';
 import { QuestionPopup } from './QuestionPopup';
 import { RatingList } from './RatingList';
@@ -24,6 +23,7 @@ type Props = {
   onSelectPhotos: () => void;
   deSelectPhoto: (uri?: string) => void;
   saveReview: () => void;
+  closePage: () => void;
 };
 
 const ErrText = () => {
@@ -43,7 +43,7 @@ export const ReviewRating: React.FC<Props> = ({
   onChangeDetailReviewText,
   onSelectPhotos,
   deSelectPhoto,
-  saveReview,
+  closePage,
 }) => {
   const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
   const [isShowSuccessPopup, setIsShowSuccessPopup] = useState(false);
@@ -51,7 +51,7 @@ export const ReviewRating: React.FC<Props> = ({
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <TopHeader title={'리뷰작성'} closePopup={() => setIsShowQuestionPopup(true)} />
+        <Header title={'리뷰작성'} closePage={() => setIsShowQuestionPopup(true)} />
         <ScrollView style={styles.contentsContainer}>
           <Title />
           <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
@@ -71,12 +71,12 @@ export const ReviewRating: React.FC<Props> = ({
           </View>
           <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
         </ScrollView>
-        <Button onPress={() => saveReview()} style={styles.confirmBtn}>
+        <Button onPress={() => setIsShowSuccessPopup(true)} style={styles.confirmBtn}>
           {'확인'}
         </Button>
       </SafeAreaView>
-      {isShowQuestionPopup && <QuestionPopup closePopup={() => setIsShowQuestionPopup(false)} />}
-      {isShowSuccessPopup && <SuccessPopup closePopup={() => setIsShowSuccessPopup(false)} />}
+      {isShowQuestionPopup && <QuestionPopup closePopup={() => setIsShowQuestionPopup(false)} closePage={closePage} />}
+      {isShowSuccessPopup && <SuccessPopup closePage={closePage} />}
     </>
   );
 };
