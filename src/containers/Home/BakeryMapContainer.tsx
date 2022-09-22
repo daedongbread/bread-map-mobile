@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
+import { useGetBakeries } from '@/apis';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -48,7 +49,7 @@ export const BakeryMapContainer: React.FC = () => {
   const mapView = useRef<MapView>(null);
 
   const { navigate } = useNavigation();
-  const { currentPositionRef, geolocationAuthorization } = useGeolocation();
+  const { currentPositionRef, geolocationAuthorization, currentPosition } = useGeolocation();
   const [isWatched, setIsWatched] = useState(true);
 
   const dispatch = useAppDispatch();
@@ -59,6 +60,14 @@ export const BakeryMapContainer: React.FC = () => {
   const [showMaker, setShowMaker] = useState<boolean>(false);
   const [showSearchButton, setShowSearchButton] = useState(false);
   const [cameraCoordinate, setCameraCoordinate] = useState<Region>();
+
+  const { bakeries } = useGetBakeries({
+    sort: 'distance',
+    latitude: searchMapCameraLocation?.latitude,
+    longitude: searchMapCameraLocation?.longitude,
+    latitudeDelta: searchMapCameraLocation?.latitudeDelta,
+    longitudeDelta: searchMapCameraLocation?.longitudeDelta,
+  });
 
   //TODO: 더미 데이터
   const markerCoordinates = [
@@ -125,22 +134,25 @@ export const BakeryMapContainer: React.FC = () => {
       return;
     }
 
-    mapView.current.animateCamera(getCameraProperty(coordinate));
+    if (!searchMapCameraLocation) {
+      searchBakeriesWith(getRegion(coordinate));
+    }
   };
 
   useEffect(() => {
-    const region = geolocationAuthorization === 'denied' ? INITIAL_REGION : getRegion(currentPositionRef.current);
-
-    setInitialRegion(region);
-  }, [currentPositionRef, geolocationAuthorization]);
-
-  useEffect(() => {
-    if (searchMapCameraLocation || !currentPositionRef.current) {
+    if (initialRegion) {
       return;
     }
 
-    searchBakeriesWith(getRegion(currentPositionRef.current));
-  }, [currentPositionRef, searchBakeriesWith, searchMapCameraLocation]);
+    if (geolocationAuthorization === 'denied') {
+      setInitialRegion(INITIAL_REGION);
+      return;
+    }
+
+    if (currentPosition) {
+      setInitialRegion(getRegion(currentPosition));
+    }
+  }, [currentPosition, geolocationAuthorization, initialRegion]);
 
   useEffect(() => {
     if (isWatched) {
