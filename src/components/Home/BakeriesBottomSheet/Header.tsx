@@ -9,13 +9,13 @@ import { TabIcon } from './TabIcon';
 
 type Props = {
   activeTab: TabItem;
-  onPress: (tab: 'distance' | 'popularity') => void;
+  onPress: (tab: 'distance' | 'popular') => void;
 };
 
 export const Header: React.FC<Props> = memo(({ activeTab, onPress }) => {
   const tabItems = [
     { value: 'distance' as const, label: '거리순' },
-    { value: 'popularity' as const, label: '인기순' },
+    { value: 'popular' as const, label: '인기순' },
   ];
 
   return (

@@ -92,11 +92,7 @@ export const useGeolocation = () => {
 
   useEffect(() => {
     watchLocation();
-
-    return () => {
-      clearWatch();
-    };
-  }, [clearWatch, watchLocation]);
+  }, [watchLocation]);
 
   return {
     geolocationAuthorization: authorization,

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Marker } from 'react-native-maps';
 import { Easing, useAnimatedStyle, withTiming, SharedValue } from 'react-native-reanimated';
 
-import { Coordinate } from '@/containers/Home/BakeryMapContainer';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { resizePixel } from '@/utils';
 import styled from '@emotion/native';
 import { BreadCakeIcon } from '@shared/Icons';
@@ -20,14 +20,13 @@ const DEFAULT_ICON_SIZE = [
 
 type Props = {
   activeMarkerId: SharedValue<number | null>;
-  coordinate: Coordinate;
-  onPress: (coordinate: Coordinate) => void;
+  bakeryMapEntity: BakeryMapBakeryEntity;
+  onPress: (bakeryMapEntity?: BakeryMapBakeryEntity) => void;
 };
 
-const BakeryMarker: React.FC<Props> = React.memo(({ activeMarkerId, coordinate, onPress }) => {
+const BakeryMarker: React.FC<Props> = React.memo(({ activeMarkerId, bakeryMapEntity, onPress }) => {
   const animationStyle = useAnimatedStyle(() => {
-    const isActive = coordinate.id === activeMarkerId.value;
-
+    const isActive = bakeryMapEntity.id === activeMarkerId.value;
     const { width, height } = isActive ? DEFAULT_ICON_SIZE[1] : DEFAULT_ICON_SIZE[0];
 
     return {
@@ -43,11 +42,18 @@ const BakeryMarker: React.FC<Props> = React.memo(({ activeMarkerId, coordinate, 
   });
 
   const handlePress = useCallback(() => {
-    onPress(coordinate);
-  }, [coordinate, onPress]);
+    const isActive = bakeryMapEntity.id === activeMarkerId.value;
+
+    if (isActive) {
+      onPress();
+      return;
+    }
+
+    onPress(bakeryMapEntity);
+  }, [activeMarkerId.value, bakeryMapEntity, onPress]);
 
   return (
-    <Marker coordinate={coordinate} onPress={handlePress}>
+    <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
       <IconStyle animatedProps={animationStyle} />
     </Marker>
   );

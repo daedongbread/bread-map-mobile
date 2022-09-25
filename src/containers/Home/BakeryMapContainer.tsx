@@ -3,11 +3,12 @@ import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 import { useGetBakeries } from '@/apis';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useGeolocation } from '@/hooks/useGeolocation';
-import { searchCurrentCameraLocation } from '@/slices/bakeryMap';
+import { onSelectMarker, searchCurrentCameraLocation } from '@/slices/bakeryMap';
 import { useNavigation } from '@react-navigation/native';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
@@ -53,16 +54,15 @@ export const BakeryMapContainer: React.FC = () => {
   const [isWatched, setIsWatched] = useState(true);
 
   const dispatch = useAppDispatch();
-  const { searchMapCameraLocation } = useAppSelector(select => select.bakeryMap);
+  const { searchMapCameraLocation, selectedMarker, sort } = useAppSelector(select => select.bakeryMap);
 
   const [initialRegion, setInitialRegion] = useState<Region>();
-  const [selectMarker, setSelectMarker] = useState<Coordinate | null>(null);
   const [showMaker, setShowMaker] = useState<boolean>(false);
   const [showSearchButton, setShowSearchButton] = useState(false);
   const [cameraCoordinate, setCameraCoordinate] = useState<Region>();
 
   const { bakeries } = useGetBakeries({
-    sort: 'distance',
+    sort,
     latitude: searchMapCameraLocation?.latitude,
     longitude: searchMapCameraLocation?.longitude,
     latitudeDelta: searchMapCameraLocation?.latitudeDelta,
@@ -70,23 +70,15 @@ export const BakeryMapContainer: React.FC = () => {
   });
 
   //TODO: 더미 데이터
-  const markerCoordinates = [
-    {
-      id: 1,
-      latitude: 37.6799006,
-      longitude: 127.0549781,
-    },
-    {
-      id: 2,
-      latitude: 37.6798116,
-      longitude: 127.0549781,
-    },
-  ];
+  const markerCoordinates = bakeries;
 
   //TODO: 마커를 눌렀을때 액션 추가(바텀시트에 보인다?)
-  const onPressMarker = useCallback((coordinate: Coordinate) => {
-    setSelectMarker(coordinate);
-  }, []);
+  const onPressMarker = useCallback(
+    (bakeryEntity?: BakeryMapBakeryEntity) => {
+      dispatch(onSelectMarker({ bakeryEntity }));
+    },
+    [dispatch]
+  );
 
   //TODO: add handle press icon
   const onPressFlagIcon = useCallback(() => {
@@ -119,7 +111,7 @@ export const BakeryMapContainer: React.FC = () => {
     setCameraCoordinate(region);
   }, []);
 
-  const onPressSearchButton = () => {
+  const onPressSearchButton = useCallback(() => {
     if (!cameraCoordinate) {
       return;
     }
@@ -127,17 +119,20 @@ export const BakeryMapContainer: React.FC = () => {
     searchBakeriesWith(cameraCoordinate);
 
     setShowSearchButton(false);
-  };
+  }, [cameraCoordinate, searchBakeriesWith]);
 
-  const onUserLocationChange = (coordinate: { longitude: number; latitude: number }) => {
-    if (!mapView?.current || !isWatched) {
-      return;
-    }
+  const onUserLocationChange = useCallback(
+    (coordinate: { longitude: number; latitude: number }) => {
+      if (!mapView?.current || !isWatched) {
+        return;
+      }
 
-    if (!searchMapCameraLocation) {
-      searchBakeriesWith(getRegion(coordinate));
-    }
-  };
+      if (!searchMapCameraLocation) {
+        searchBakeriesWith(getRegion(coordinate));
+      }
+    },
+    [isWatched, searchBakeriesWith, searchMapCameraLocation]
+  );
 
   useEffect(() => {
     if (initialRegion) {
@@ -166,9 +161,9 @@ export const BakeryMapContainer: React.FC = () => {
         ref={mapView}
         provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
         initialRegion={initialRegion}
-        markerCoordinates={markerCoordinates}
+        markers={markerCoordinates}
         onPressMarker={onPressMarker}
-        selectMarker={selectMarker}
+        selectedMarker={selectedMarker}
         showMaker={showMaker}
         onPanDrag={onPanDrag}
         isWatch={isWatched}
@@ -191,6 +186,6 @@ export const BakeryMapContainer: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '70%',
   },
 });

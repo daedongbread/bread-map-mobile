@@ -1,3 +1,4 @@
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 const BakeryMap = 'bakeryMap';
@@ -11,10 +12,14 @@ export type SearchMapCameraLocation = {
 
 export interface BakeryMap {
   searchMapCameraLocation?: SearchMapCameraLocation;
+  selectedMarker?: BakeryMapBakeryEntity;
+  sort: 'distance' | 'popular';
 }
 
 const initialState: BakeryMap = {
   searchMapCameraLocation: undefined,
+  selectedMarker: undefined,
+  sort: 'distance',
 };
 
 export const bakeryMapSlice = createSlice({
@@ -31,9 +36,22 @@ export const bakeryMapSlice = createSlice({
         longitudeDelta,
       };
     },
+    onSelectMarker(state, action) {
+      const { bakeryEntity } = action.payload;
+
+      state.selectedMarker = bakeryEntity;
+    },
+    onClearMarker(state) {
+      state.selectedMarker = undefined;
+    },
+    onChangeSort(state, action) {
+      const { sort } = action.payload;
+
+      state.sort = sort;
+    },
   },
 });
 
-export const { searchCurrentCameraLocation } = bakeryMapSlice.actions;
+export const { searchCurrentCameraLocation, onSelectMarker, onChangeSort, onClearMarker } = bakeryMapSlice.actions;
 
 export default bakeryMapSlice.reducer;
