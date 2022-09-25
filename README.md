@@ -183,3 +183,9 @@ const styles = StyleSheet.create(
   })
 );
 ```
+
+
+### 위도(latitude) 와 경도(longitude)
+위도의 1도는 약 111km (어디에서도 비슷하다)
+
+경도는 극지방과 적도애서의 거리가 다르다. (극지방에서는 0m, 적도에서는 111km)

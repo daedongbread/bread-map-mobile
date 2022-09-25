@@ -1,86 +1,88 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { MapViewProps } from 'react-native-maps';
+import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryMarker } from '@/components/Home';
-import { Coordinate } from '@/containers/Home/BakeryMapContainer';
-
-const MIN_ZOOM_LEVEL = 17;
-const MAX_ZOOM_LEVEL = 25;
 
 type Props = MapViewProps & {
-  markerCoordinates: Array<Coordinate>;
-  onPressMarker: (coordinate: Coordinate) => void;
-  selectMarker: Coordinate | null;
+  markers?: Array<BakeryMapBakeryEntity>;
+  onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
+  selectedMarker?: BakeryMapBakeryEntity;
   showMaker: boolean;
+  isWatch: boolean;
+  handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
 };
 
-export const BakeryMap: React.FC<Props> = ({
-  provider,
-  initialRegion,
-  markerCoordinates,
-  onPressMarker,
-  selectMarker,
-  region,
-  onRegionChange,
-  showMaker,
-}) => {
-  const mapView = useRef<MapView>(null);
-  const activeMarkerId = useSharedValue<number | null>(null);
+export const BakeryMap = React.memo(
+  React.forwardRef<MapView, Props>(
+    (
+      {
+        provider,
+        initialRegion,
+        markers,
+        onPressMarker,
+        selectedMarker,
+        onRegionChange,
+        showMaker,
+        onPanDrag,
+        isWatch,
+        handleUserLocationChange,
+      },
+      mapView
+    ) => {
+      const activeMarkerId = useSharedValue<number | null>(null);
 
-  useEffect(() => {
-    if (selectMarker) {
-      activeMarkerId.value = selectMarker.id;
-    }
-  }, [activeMarkerId, selectMarker]);
+      useEffect(() => {
+        if (selectedMarker) {
+          activeMarkerId.value = selectedMarker.id;
+        } else {
+          activeMarkerId.value = null;
+        }
+      }, [activeMarkerId, selectedMarker]);
 
-  useEffect(() => {
-    if (!mapView.current || !region) {
-      return;
-    }
+      const onUserLocationChange = (e: EventUserLocation) => {
+        const { coordinate } = e.nativeEvent;
 
-    (async () => {
-      const currentCamera = await mapView?.current?.getCamera();
+        handleUserLocationChange(coordinate);
+      };
 
-      mapView?.current?.animateToRegion(region, 2000);
-      mapView?.current?.animateCamera(
-        {
-          ...currentCamera,
-          center: {
-            ...currentCamera?.center,
-            longitude: region.longitude,
-            latitude: region.latitude,
-          },
-        },
-        { duration: 2000 }
+      return (
+        <MapView
+          ref={mapView}
+          provider={provider}
+          initialRegion={initialRegion}
+          style={styles.container}
+          showsUserLocation
+          followsUserLocation={isWatch}
+          onPanDrag={onPanDrag}
+          onUserLocationChange={onUserLocationChange}
+          zoomTapEnabled={false}
+          onRegionChangeComplete={onRegionChange}
+        >
+          {showMaker
+            ? markers?.map(marker => (
+                <BakeryMarker
+                  key={marker.id}
+                  bakeryMapEntity={marker}
+                  onPress={onPressMarker}
+                  activeMarkerId={activeMarkerId}
+                />
+              ))
+            : markers?.map(marker => (
+                <BakeryMarker
+                  key={marker.id}
+                  bakeryMapEntity={marker}
+                  onPress={onPressMarker}
+                  activeMarkerId={activeMarkerId}
+                />
+              ))}
+        </MapView>
       );
-    })();
-  }, [region]);
-
-  return (
-    <MapView
-      ref={mapView}
-      provider={provider}
-      initialRegion={initialRegion}
-      style={styles.container}
-      showsUserLocation
-      onRegionChange={onRegionChange}
-      maxZoomLevel={MAX_ZOOM_LEVEL}
-      minZoomLevel={MIN_ZOOM_LEVEL}
-    >
-      {showMaker &&
-        markerCoordinates.map(coordinate => (
-          <BakeryMarker
-            key={coordinate.id}
-            coordinate={coordinate}
-            onPress={onPressMarker}
-            activeMarkerId={activeMarkerId}
-          />
-        ))}
-    </MapView>
-  );
-};
+    }
+  )
+);
 
 const styles = StyleSheet.create({
   container: {

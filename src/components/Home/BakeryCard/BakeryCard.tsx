@@ -2,8 +2,7 @@ import React, { memo } from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { BakeryEntity } from '@/apis';
-
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryThumbnail } from '@/components/Home/BakeryThumbnail';
 
 import { theme } from '@/styles/theme';
@@ -13,14 +12,14 @@ import { numberFormat, resizePixels } from '@/utils';
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 
 type Props = {
-  bakery: BakeryEntity;
-  onPressIcon: (bakery: BakeryEntity) => void;
+  bakery: BakeryMapBakeryEntity;
+  onPressIcon: (bakery: BakeryMapBakeryEntity) => void;
 };
 
 const BOOKMARK_ICON_SIZE = 28;
 
 export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
-  const source = bakery.imgPath ? { uri: bakery.imgPath } : undefined;
+  const source = bakery.image ? { uri: bakery.image } : undefined;
 
   const defaultBookmarkIconColor = 'rgba(34, 34, 34, 0.6)';
 
@@ -42,28 +41,28 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>{bakery.bakeryName}</Text>
+        <Text style={styles.name}>{bakery.name}</Text>
         <View style={styles.countItemsWrap}>
           <View style={styles.countItem}>
             <CircleFlag />
-            <Text style={styles.countItemText}>{numberFormat(bakery.flagsCount)}</Text>
+            <Text style={styles.countItemText}>{numberFormat(bakery.flagNum)}</Text>
           </View>
           <View style={styles.countItem}>
             <CircleStar />
-            <Text style={styles.countItemText}>{bakery.avgRating.toFixed(1)}</Text>
+            <Text style={styles.countItemText}>{bakery.rating.toFixed(1)}</Text>
           </View>
           <View style={styles.countItem}>
             <CirclePencil />
-            <Text style={styles.countItemText}>{numberFormat(bakery.menuReviewsCount)}</Text>
+            <Text style={styles.countItemText}>{numberFormat(bakery.reviewNum)}</Text>
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {bakery.menuReviewList.map((review, idx) => (
-            <View key={`${review.breadCategoryId}_${idx}`} style={styles.reviewView}>
+          {bakery.simpleReviewList.map(review => (
+            <View key={`${review.id}`} style={styles.reviewView}>
               <View style={styles.reviewContent}>
                 <Quote />
                 <Text style={styles.countItemText} numberOfLines={2}>
-                  {review.contents}
+                  {review.content}
                 </Text>
               </View>
             </View>
