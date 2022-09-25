@@ -3,73 +3,85 @@ import { StyleSheet } from 'react-native';
 import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryMarker } from '@/components/Home';
-import { Coordinate } from '@/containers/Home/BakeryMapContainer';
 
 type Props = MapViewProps & {
-  markerCoordinates?: Array<Coordinate>;
-  onPressMarker: (coordinate: Coordinate) => void;
-  selectMarker: Coordinate | null;
+  markers?: Array<BakeryMapBakeryEntity>;
+  onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
+  selectedMarker?: BakeryMapBakeryEntity;
   showMaker: boolean;
   isWatch: boolean;
   handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
 };
 
-export const BakeryMap = React.forwardRef<MapView, Props>(
-  (
-    {
-      provider,
-      initialRegion,
-      markerCoordinates,
-      onPressMarker,
-      selectMarker,
-      onRegionChange,
-      showMaker,
-      onPanDrag,
-      isWatch,
-      handleUserLocationChange,
-    },
-    mapView
-  ) => {
-    const activeMarkerId = useSharedValue<number | null>(null);
+export const BakeryMap = React.memo(
+  React.forwardRef<MapView, Props>(
+    (
+      {
+        provider,
+        initialRegion,
+        markers,
+        onPressMarker,
+        selectedMarker,
+        onRegionChange,
+        showMaker,
+        onPanDrag,
+        isWatch,
+        handleUserLocationChange,
+      },
+      mapView
+    ) => {
+      const activeMarkerId = useSharedValue<number | null>(null);
 
-    useEffect(() => {
-      if (selectMarker) {
-        activeMarkerId.value = selectMarker.id;
-      }
-    }, [activeMarkerId, selectMarker]);
+      useEffect(() => {
+        if (selectedMarker) {
+          activeMarkerId.value = selectedMarker.id;
+        } else {
+          activeMarkerId.value = null;
+        }
+      }, [activeMarkerId, selectedMarker]);
 
-    const onUserLocationChange = (e: EventUserLocation) => {
-      const { coordinate } = e.nativeEvent;
+      const onUserLocationChange = (e: EventUserLocation) => {
+        const { coordinate } = e.nativeEvent;
 
-      handleUserLocationChange(coordinate);
-    };
+        handleUserLocationChange(coordinate);
+      };
 
-    return (
-      <MapView
-        ref={mapView}
-        provider={provider}
-        initialRegion={initialRegion}
-        style={styles.container}
-        showsUserLocation
-        followsUserLocation={isWatch}
-        onPanDrag={onPanDrag}
-        onUserLocationChange={onUserLocationChange}
-        zoomTapEnabled={false}
-        onRegionChangeComplete={onRegionChange}
-      >
-        {showMaker &&
-          markerCoordinates?.map(coordinate => (
-            <BakeryMarker
-              key={coordinate.id}
-              coordinate={coordinate}
-              onPress={onPressMarker}
-              activeMarkerId={activeMarkerId}
-            />
-          ))}
-      </MapView>
-    );
-  }
+      return (
+        <MapView
+          ref={mapView}
+          provider={provider}
+          initialRegion={initialRegion}
+          style={styles.container}
+          showsUserLocation
+          followsUserLocation={isWatch}
+          onPanDrag={onPanDrag}
+          onUserLocationChange={onUserLocationChange}
+          zoomTapEnabled={false}
+          onRegionChangeComplete={onRegionChange}
+        >
+          {showMaker
+            ? markers?.map(marker => (
+                <BakeryMarker
+                  key={marker.id}
+                  bakeryMapEntity={marker}
+                  onPress={onPressMarker}
+                  activeMarkerId={activeMarkerId}
+                />
+              ))
+            : markers?.map(marker => (
+                <BakeryMarker
+                  key={marker.id}
+                  bakeryMapEntity={marker}
+                  onPress={onPressMarker}
+                  activeMarkerId={activeMarkerId}
+                />
+              ))}
+        </MapView>
+      );
+    }
+  )
 );
 
 const styles = StyleSheet.create({
