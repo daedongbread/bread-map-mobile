@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { BakeryEntity } from '@/apis';
+import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryCard } from '@/components/Home/BakeryCard';
 import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
 
@@ -17,13 +17,13 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   onClickBakery: (id: number) => void;
   activeTab: TabItem;
   onPressTab: (item: TabItem) => void;
-  bakeryList: Array<BakeryEntity>;
-  onPressIcon: (bakery: BakeryEntity) => void;
+  bakeryList?: Array<BakeryMapBakeryEntity>;
+  onPressIcon: (bakery: BakeryMapBakeryEntity) => void;
 };
 
 export const BakeriesBottomSheet: React.FC<Props> = ({
   onClickBakery,
-  bakeryList,
+  bakeryList = [],
   activeTab,
   onPressTab,
   onPressIcon,
@@ -36,9 +36,9 @@ export const BakeriesBottomSheet: React.FC<Props> = ({
   };
 
   const renderItem = useCallback(
-    ({ item }: { item: BakeryEntity }) => {
+    ({ item }: { item: BakeryMapBakeryEntity }) => {
       return (
-        <TouchableOpacity onPress={() => onClickBakery(item.bakeryId)}>
+        <TouchableOpacity onPress={() => onClickBakery(item.id)}>
           <BakeryCard bakery={item} onPressIcon={onPressIcon} />
         </TouchableOpacity>
       );
