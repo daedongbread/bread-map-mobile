@@ -41,7 +41,13 @@ const MainStack = () => {
       />
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />
-        <Stack.Screen name={'Search'} component={Search} />
+        <Stack.Screen
+          name={'Search'}
+          component={Search}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Group>
       <Stack.Group screenOptions={{ headerShown: true }}>
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />

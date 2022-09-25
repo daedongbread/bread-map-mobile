@@ -8,6 +8,7 @@ import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { onSelectMarker, searchCurrentCameraLocation } from '@/slices/bakeryMap';
 import { useNavigation } from '@react-navigation/native';
 
@@ -49,7 +50,7 @@ const getCameraProperty = (coordinate?: { latitude: number; longitude: number })
 export const BakeryMapContainer: React.FC = () => {
   const mapView = useRef<MapView>(null);
 
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
   const { currentPositionRef, geolocationAuthorization, currentPosition } = useGeolocation();
   const [isWatched, setIsWatched] = useState(true);
 
