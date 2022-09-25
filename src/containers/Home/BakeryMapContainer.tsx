@@ -9,7 +9,7 @@ import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOv
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
-import { onSelectMarker, searchCurrentCameraLocation } from '@/slices/bakeryMap';
+import { onClearMarker, onSelectMarker, searchCurrentCameraLocation } from '@/slices/bakeryMap';
 import { useNavigation } from '@react-navigation/native';
 
 //TODO: API 문서에 나오는 데이터 타입으로 수정
@@ -117,10 +117,11 @@ export const BakeryMapContainer: React.FC = () => {
       return;
     }
 
+    dispatch(onClearMarker());
     searchBakeriesWith(cameraCoordinate);
 
     setShowSearchButton(false);
-  }, [cameraCoordinate, searchBakeriesWith]);
+  }, [cameraCoordinate, dispatch, searchBakeriesWith]);
 
   const onUserLocationChange = useCallback(
     (coordinate: { longitude: number; latitude: number }) => {
