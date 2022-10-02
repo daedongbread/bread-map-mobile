@@ -35,8 +35,12 @@ const Auth = () => {
         <TitleTextLogo style={styles.titleText} />
       </View>
       <View>
-        <GoogleLoginButton onPress={onPressGoogle} />
-        <KakaoLoginButton onPress={onPressKakao} />
+        <View style={{ marginBottom: 12 }}>
+          <GoogleLoginButton onPress={onPressGoogle} />
+        </View>
+        <View>
+          <KakaoLoginButton onPress={onPressKakao} />
+        </View>
       </View>
     </Container>
   );
