@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation, { AuthorizationResult } from 'react-native-geolocation-service';
 
 export type Position = {
@@ -20,6 +20,28 @@ export const useGeolocation = () => {
       setAuthorization(auth);
       return auth;
     }
+
+    if (Platform.OS === 'android' && Platform.Version < 23) {
+      setAuthorization('granted');
+      return 'granted';
+    }
+
+    const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+    if (hasPermission) {
+      setAuthorization('granted');
+      return 'granted';
+    }
+
+    const status = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+    if (status === 'never_ask_again') {
+      setAuthorization('denied');
+      return 'denied';
+    }
+
+    setAuthorization(status);
+    return status;
   }, []);
 
   const getLocation = useCallback(async () => {
