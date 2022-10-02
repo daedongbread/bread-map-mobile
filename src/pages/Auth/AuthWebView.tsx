@@ -25,6 +25,25 @@ const AuthWebView = () => {
   return (
     <SafeAreaView style={styles.container}>
       <WebView
+        javaScriptEnabled={true}
+        originWhitelist={['*']}
+        injectedJavaScriptBeforeContentLoadedForMainFrameOnly={false}
+        injectedJavaScriptForMainFrameOnly={false}
+        injectedJavaScriptBeforeContentLoaded={`
+            window.addEventListener("message", function(event) {
+              window.ReactNativeWebView.postMessage(JSON.stringify(event.data));
+            }, false);
+        `}
+        injectedJavaScript={
+          Platform.OS === 'android'
+            ? '(function() {' +
+              'if(window.document.getElementsByTagName("pre").length>0){' +
+              'var pre = window.document.getElementsByTagName("pre")[0].innerHTML; var startIndex = pre.indexOf("(\'"); var endIndex = pre.indexOf("\')");' +
+              'window.ReactNativeWebView.postMessage((pre.slice(startIndex + 2, endIndex)));' +
+              '}' +
+              '})();'
+            : ''
+        }
         style={styles.container}
         onMessage={onMessage}
         source={{ uri: `http://ec2-3-36-94-161.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${type}` }}

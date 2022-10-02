@@ -5,6 +5,7 @@
   "scripts": {
     "android:prod": "react-native run-android --variant=productiondebug",
     "android:prod-release": "react-native run-android --variant=productionrelease",
+    "android:prod-bundle": "cd ./android && ./gradlew bundleDebug && open ./app/build/outputs/bundle/debug",
     "android:dev": "react-native run-android --variant=developmentdebug",
     "android:dev-release": "react-native run-android --variant=developmentrelease",
     "ios:dev": "react-native run-ios --scheme daedongbreadDev",
