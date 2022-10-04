@@ -1,32 +1,52 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { BreadEntity } from '@/apis/bread';
 import { useAppDispatch } from '@/hooks/redux';
-import { updateSelectedBread } from '@/slices/reviewWrite';
+import { addManualSelectedBread, RatedBread, updateManualSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 import CheckBox from '@react-native-community/checkbox';
 
-type Props = {};
-
-type AdditionalInput = {
-  name: string;
-  price: number;
+type Props = BreadEntity & {
+  setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
 };
 
-export const AdditionalArea: React.FC<Props> = ({}) => {
+export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInputs }) => {
   const dispatch = useAppDispatch();
+  const [isChecked, setIsChecked] = useState(false);
 
-  const [form, setForm] = useState<AdditionalInput>({
-    name: '',
-    price: 0,
-  });
+  useEffect(() => {
+    addManualSelectedBreadStore();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isChecked]);
+
+  const addManualSelectedBreadStore = () => {
+    dispatch(
+      addManualSelectedBread({
+        manualInputBread: {
+          id,
+          name: name,
+          price: price,
+        },
+        isChecked,
+      })
+    );
+  };
 
   const onChange = (key: string, e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     const { text } = e.nativeEvent;
-    setForm({
-      ...form,
-      [key]: text,
+
+    setManualInputs(prev => {
+      const newState = [...prev];
+      newState[id] = { ...newState[id], [key]: text };
+
+      return newState;
     });
+
+    if (isChecked) {
+      dispatch(updateManualSelectedBread({ id, name: text, price }));
+    }
   };
 
   return (
@@ -36,12 +56,14 @@ export const AdditionalArea: React.FC<Props> = ({}) => {
           style={styles.nameInput}
           placeholder={'메뉴명'}
           placeholderTextColor={theme.color.gray500}
+          value={name}
           onChange={e => onChange('name', e)}
         />
         <TextInput
           style={styles.priceInput}
           placeholder={'가격(선택)'}
           placeholderTextColor={theme.color.gray500}
+          value={price?.toString()}
           onChange={e => onChange('price', e)}
         />
       </View>
@@ -52,19 +74,9 @@ export const AdditionalArea: React.FC<Props> = ({}) => {
         onTintColor={theme.color.primary500}
         onFillColor={theme.color.primary500}
         onCheckColor={'white'}
-        onValueChange={value => {
-          dispatch(
-            updateSelectedBread({
-              bread: {
-                id: 0, //new id
-                name: form.name,
-                price: form.price,
-                image: '',
-              },
-              value,
-            })
-          );
-        }}
+        disabled={name.trim().length === 0}
+        value={isChecked}
+        onValueChange={setIsChecked}
       />
     </View>
   );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { BreadEntity } from '@/apis/bread';
 import { Button } from '@/components/Shared/Button/Button';
+import { RatedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 import { Header } from '../Header';
 import { BreadToggleList } from './BreadToggleList';
@@ -13,6 +14,9 @@ type Props = {
   breads: BreadEntity[];
   searchValue: string;
   selectedBreads: BreadEntity[];
+  manualSelectedBreads: RatedBread[];
+  manualInputs: BreadEntity[];
+  setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;
   closePage: () => void;
@@ -22,6 +26,9 @@ export const ReviewSelect: React.FC<Props> = ({
   breads,
   searchValue,
   selectedBreads,
+  manualSelectedBreads,
+  manualInputs,
+  setManualInputs,
   onChangeSearchValue,
   onPressConfirmButton,
   closePage,
@@ -30,18 +37,25 @@ export const ReviewSelect: React.FC<Props> = ({
     <SafeAreaView style={styles.container}>
       <View>
         <Header title={'리뷰작성'} closePage={closePage} />
-        <BreadToggleList selectedBreads={selectedBreads} />
+        {(selectedBreads || BreadToggleList) && (
+          <BreadToggleList selectedBreads={selectedBreads} manualSelectedBreads={manualSelectedBreads} />
+        )}
         <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
       </View>
       <View style={styles.contentsContainer}>
         <ContentsHeader title={'메뉴선택'} breadCount={breads.length} />
-        <ContentsList breads={breads} selectedBreads={selectedBreads} />
+        <ContentsList
+          breads={breads}
+          selectedBreads={selectedBreads}
+          manualInputs={manualInputs}
+          setManualInputs={setManualInputs}
+        />
       </View>
       <Button
         onPress={onPressConfirmButton}
         style={styles.confirmBtn}
-        disabled={Boolean(selectedBreads.length === 0)}
-        appearance={selectedBreads.length ? 'primary' : 'quaternary'}
+        disabled={Boolean(selectedBreads.length + manualSelectedBreads.length === 0)}
+        appearance={selectedBreads.length + manualSelectedBreads.length ? 'primary' : 'quaternary'}
       >
         확인
       </Button>

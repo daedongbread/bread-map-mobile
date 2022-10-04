@@ -13,14 +13,19 @@ type BreadState = {
   images: Asset[];
 };
 
+export type UpdateSelectedBread = {
+  bread: BreadEntity;
+  isChecked: boolean;
+};
+
+export type AddManualSelectedBread = {
+  manualInputBread: RatedBread;
+  isChecked: boolean;
+};
+
 export type UpdateSeletedBreadRating = {
   id: number;
   rating: number;
-};
-
-export type UpdateSelectedBread = {
-  bread: BreadEntity;
-  value: boolean;
 };
 
 const initialState: BreadState = {
@@ -45,13 +50,36 @@ const slice = createSlice({
     },
     updateSelectedBread(state, { payload }: PayloadAction<UpdateSelectedBread>) {
       let newSelectedBreads: RatedBread[] = [];
-      if (payload.value) {
+      if (payload.isChecked) {
         newSelectedBreads = [...state.selectedBreads, payload.bread];
       } else {
         newSelectedBreads = state.selectedBreads.filter(_bread => _bread.id !== payload.bread.id);
       }
 
       state.selectedBreads = newSelectedBreads;
+    },
+    updateManualSelectedBread(state, { payload }: PayloadAction<BreadEntity>) {
+      const manualSelectedBreads = state.manualSelectedBreads.map(selectedBreads => {
+        if (selectedBreads.id === payload.id) {
+          return payload;
+        } else {
+          return selectedBreads;
+        }
+      });
+
+      state.manualSelectedBreads = manualSelectedBreads;
+    },
+    addManualSelectedBread(state, { payload }: PayloadAction<AddManualSelectedBread>) {
+      let newManualSelectedBreads: RatedBread[] = [];
+      if (payload.isChecked) {
+        newManualSelectedBreads = [...state.manualSelectedBreads, payload.manualInputBread];
+      } else {
+        newManualSelectedBreads = state.manualSelectedBreads.filter(
+          _manualInputBread => _manualInputBread.id !== payload.manualInputBread.id
+        );
+      }
+
+      state.manualSelectedBreads = newManualSelectedBreads;
     },
     updateSeletedBreadRating(state, { payload }: PayloadAction<UpdateSeletedBreadRating>) {
       state.selectedBreads = state.selectedBreads.map(bread => {
@@ -74,6 +102,8 @@ export default slice.reducer;
 export const {
   updateAllSeletedBread,
   updateSelectedBread,
+  updateManualSelectedBread,
+  addManualSelectedBread,
   updateSeletedBreadRating,
   updateDetailReview,
   updateImages,

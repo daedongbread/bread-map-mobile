@@ -34,7 +34,7 @@ export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
             onCheckColor={'white'}
             value={isChecked}
             onValueChange={value => {
-              dispatch(updateSelectedBread({ bread, value }));
+              dispatch(updateSelectedBread({ bread, isChecked: value }));
             }}
           />
         </View>

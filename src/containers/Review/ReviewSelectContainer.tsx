@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useGetBreads } from '@/apis/bread';
+import { BreadEntity, useGetBreads } from '@/apis/bread';
 import { ReviewSelect } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewSelect';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -13,7 +13,8 @@ export const ReviewSelectContainer: React.FC = () => {
   const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const [searchValue, setSearchValue] = useState('');
-  const selectedBread = useAppSelector(selector => selector.reviewWrite.selectedBreads);
+  const { selectedBreads, manualSelectedBreads } = useAppSelector(selector => selector.reviewWrite);
+  const [manualInputs, setManualInputs] = useState<BreadEntity[]>([]);
 
   const { data: breads } = useGetBreads({
     bakeryId,
@@ -21,7 +22,7 @@ export const ReviewSelectContainer: React.FC = () => {
 
   const onChangeSearchValue = (value: string) => setSearchValue(value);
   const onPressConfirmButton = () => {
-    dispatch(updateAllSeletedBread(selectedBread));
+    dispatch(updateAllSeletedBread(selectedBreads));
     navigation.push('ReviewWriteStack', {
       screen: 'ReviewRating',
     });
@@ -35,6 +36,7 @@ export const ReviewSelectContainer: React.FC = () => {
   const filteredBreads = breads ? breads?.filter(bread => bread.name.includes(searchValue)) : [];
 
   useEffect(() => {
+    // unmount시 store값 초기화
     return () => {
       dispatch(resetSelectedBreads());
     };
@@ -44,7 +46,10 @@ export const ReviewSelectContainer: React.FC = () => {
     <ReviewSelect
       breads={filteredBreads}
       searchValue={searchValue}
-      selectedBreads={selectedBread}
+      selectedBreads={selectedBreads}
+      manualSelectedBreads={manualSelectedBreads}
+      manualInputs={manualInputs}
+      setManualInputs={setManualInputs}
       onChangeSearchValue={onChangeSearchValue}
       onPressConfirmButton={onPressConfirmButton}
       closePage={closePage}

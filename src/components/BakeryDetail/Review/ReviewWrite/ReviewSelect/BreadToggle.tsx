@@ -19,7 +19,7 @@ export const BreadToggle = ({ bread }: Props) => {
     dispatch(
       updateSelectedBread({
         bread,
-        value: false,
+        isChecked: false,
       })
     );
   };

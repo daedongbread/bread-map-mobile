@@ -18,7 +18,9 @@ export const ReviewRatingContainer: React.FC = () => {
 
   const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
-  const { selectedBreads, detailReview, images } = useAppSelector(selector => selector.reviewWrite);
+  const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
+    selector => selector.reviewWrite
+  );
 
   const onUpdateBakeryRating = ({ id, rating }: UpdateSeletedBreadRating) => {
     dispatch(updateSeletedBreadRating({ id, rating }));
@@ -142,7 +144,7 @@ export const ReviewRatingContainer: React.FC = () => {
 
   return (
     <ReviewRating
-      selectedBreads={selectedBreads}
+      selectedBreads={[...selectedBreads, ...manualSelectedBreads]}
       detailReview={detailReview}
       images={images}
       onUpdateBreadRating={onUpdateBakeryRating}

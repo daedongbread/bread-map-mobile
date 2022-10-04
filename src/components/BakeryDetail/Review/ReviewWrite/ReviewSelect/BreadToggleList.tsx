@@ -6,18 +6,20 @@ import { BreadToggle } from './BreadToggle';
 
 type Props = {
   selectedBreads: BreadEntity[];
+  manualSelectedBreads: BreadEntity[];
 };
 
-export const BreadToggleList: React.FC<Props> = ({ selectedBreads }) => {
+export const BreadToggleList: React.FC<Props> = ({ selectedBreads, manualSelectedBreads }) => {
+  const renderData = [...selectedBreads, ...manualSelectedBreads];
+
   return (
     <FlatList
-      data={selectedBreads}
+      data={renderData}
       contentContainerStyle={styles.container}
-      horizontal={true}
+      horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => <BreadToggle bread={item} />}
-      // 임시 name을 key && pk 값으로 사용 추후 백엔드와 논의 필요
-      keyExtractor={item => item.name}
+      keyExtractor={item => item.id.toString()}
     />
   );
 };
