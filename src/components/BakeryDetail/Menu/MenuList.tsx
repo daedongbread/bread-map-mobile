@@ -51,5 +51,6 @@ export { MenuList };
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    marginTop: 32,
   },
 });

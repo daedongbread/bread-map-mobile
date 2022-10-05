@@ -84,6 +84,7 @@ export { Information };
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 32,
     backgroundColor: 'white',
   },
   informationContainer: {

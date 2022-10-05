@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { Information, MenuList, ReviewList } from '@/components/BakeryDetail';
+import { Information, MenuList, ReviewList, ReviewReport } from '@/components/BakeryDetail';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { BakeryButton } from '@/components/BakeryDetail/Home/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/Home/ReviewSummary';
@@ -20,6 +20,7 @@ import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // TODO: 일부 아이콘 변경 필요
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
@@ -28,7 +29,7 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
   const bakeryId = route.params.bakeryId;
 
   return (
-    <ScrollView>
+    <ScrollView style={{ marginTop: 32 }}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/360' }} resizeMode="cover" />
       </View>
@@ -61,12 +62,9 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
           </TouchableOpacity>
         </View>
       </View>
-      <Divider />
       <MenuList />
-      <Divider />
+      <ReviewReport />
       <ReviewList />
-      <Divider />
-      <Information />
     </ScrollView>
   );
 };
