@@ -41,6 +41,7 @@ const BakeryDetailTabNavigator = () => (
       tabBarStyle: {
         elevation: 0,
         shadowOffset: { width: 0, height: 0 },
+        top: 35,
       },
       tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
       tabBarLabelStyle: { fontWeight: 'bold' },

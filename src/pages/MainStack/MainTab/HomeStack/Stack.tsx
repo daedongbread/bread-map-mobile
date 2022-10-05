@@ -24,7 +24,7 @@ const HomeStack = () => {
     <BakeryDetailProvider>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="Bakery" component={BakeryDetailTabNavigator} />
+        <Stack.Screen name="Bakery" component={BakeryDetailTabNavigator} options={{ headerShown: false }} />
       </Stack.Navigator>
     </BakeryDetailProvider>
   );

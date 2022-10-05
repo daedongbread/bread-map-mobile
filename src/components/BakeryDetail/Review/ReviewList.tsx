@@ -39,6 +39,7 @@ export { ReviewList };
 const styles = StyleSheet.create(
   resizePixels({
     container: {
+      marginTop: 32,
       backgroundColor: 'white',
     },
   })
