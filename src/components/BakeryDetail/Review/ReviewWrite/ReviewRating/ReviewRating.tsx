@@ -43,6 +43,7 @@ export const ReviewRating: React.FC<Props> = ({
   onChangeDetailReviewText,
   onSelectPhotos,
   deSelectPhoto,
+  saveReview,
   closePage,
 }) => {
   const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
@@ -71,7 +72,17 @@ export const ReviewRating: React.FC<Props> = ({
           </View>
           <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
         </ScrollView>
-        <Button onPress={() => setIsShowSuccessPopup(true)} style={styles.confirmBtn}>
+        <Button
+          style={styles.confirmBtn}
+          // layer popup 전역, 공통화 필요 (추후 layer popup 공통화 branch에서 작업 예정)
+          onPress={() => {
+            if (detailReview.length < 10) {
+              return;
+            }
+            setIsShowSuccessPopup(true);
+            saveReview();
+          }}
+        >
           {'확인'}
         </Button>
       </SafeAreaView>
