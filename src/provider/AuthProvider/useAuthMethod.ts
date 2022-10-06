@@ -66,6 +66,7 @@ export const useAuthMethod = () => {
   });
 
   useEffect(() => {
+    console.log(userRef.current?.token);
     fetcher.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
       config.headers = {
         Authorization: `Bearer ${userRef.current?.token}`,
