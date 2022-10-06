@@ -9,6 +9,7 @@ import { Search } from '@/pages/MainStack/Search';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
@@ -16,6 +17,7 @@ export type MainStackParamList = {
     bakeryId: number;
     name: string;
   };
+  ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
   Bookmark: undefined;
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
@@ -39,6 +41,7 @@ const MainStack = () => {
         component={BookmarkBottomSheet}
         options={{ presentation: 'transparentModal', cardOverlayEnabled: false }}
       />
+      <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />
         <Stack.Screen

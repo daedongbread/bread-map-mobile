@@ -7,17 +7,18 @@ type TabHeaderProps = {
   title: string;
   totalCount: number;
   addBtnText?: string;
+  onPressAddBtn: () => void;
 };
 
 // TODO: 추후 버튼 컴포넌트 만들어지면 TabHeader 삭제 고민
-const TabHeader: React.FC<TabHeaderProps> = ({ title, totalCount, addBtnText }) => (
+const TabHeader: React.FC<TabHeaderProps> = ({ title, totalCount, addBtnText, onPressAddBtn }) => (
   <View style={styles.container}>
     <View style={styles.header}>
       <Text style={styles.tabName}>{title}</Text>
       <Text style={styles.totalCount}>{totalCount}</Text>
     </View>
     {addBtnText && (
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onPressAddBtn}>
         <Text style={styles.buttonText}>{addBtnText}</Text>
       </TouchableOpacity>
     )}
