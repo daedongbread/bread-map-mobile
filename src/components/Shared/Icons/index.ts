@@ -28,6 +28,8 @@ export { HeartIcon } from './HeartIcon';
 export { PlusIcon } from './PlusIcon';
 export { WishIcon } from './WishIcon';
 export { EditIcon } from './EditIcon';
+export { CloseIcon } from './CloseIcon';
+export { ImageCloseIcon } from './ImageCloseIcon';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';
