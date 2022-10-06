@@ -1,34 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { AppleLogo } from '@/components/Shared/Icons';
+import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import styled from '@emotion/native';
 
 type Props = {
   onPress: () => void;
 };
 
 const KakaoLoginButton = ({ onPress }: Props) => (
-  <View style={styles.container}>
-    <Button onPress={onPress} style={styles.button}>
+  <TouchableWithoutFeedback onPress={onPress}>
+    <View style={styles.container}>
       <AppleLogo style={styles.logo} />
       <Text style={styles.buttonText}>카카오 계정으로 로그인</Text>
-    </Button>
-  </View>
+    </View>
+  </TouchableWithoutFeedback>
 );
 
 export { KakaoLoginButton };
 
-const Button = styled(TouchableWithoutFeedback)`
-  background: ${({ theme }) => theme.color.white};
-`;
-
 const styles = StyleSheet.create(
   resizePixels({
     container: {
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      paddingVertical: 16,
+      borderRadius: 8,
+      backgroundColor: theme.color.white,
+      width: 320,
+      height: 56,
     },
 
     logo: {
@@ -36,17 +37,6 @@ const styles = StyleSheet.create(
       height: 25,
       marginRight: 8,
       marginBottom: 4,
-    },
-
-    button: {
-      marginBottom: 12,
-      borderRadius: 8,
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: 320,
-      height: 56,
     },
 
     buttonText: {

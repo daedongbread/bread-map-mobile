@@ -1,15 +1,47 @@
-import { useCallback, useState } from 'react';
-import { Platform } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
+import Geolocation, { AuthorizationResult } from 'react-native-geolocation-service';
+
+export type Position = {
+  latitude: number;
+  longitude: number;
+};
 
 export const useGeolocation = () => {
-  const [currentPosition, setCurrentPosition] = useState<{ latitude: number; longitude: number }>();
+  const currentPositionRef = useRef<Position>();
+  const [currentPosition, setCurrentPosition] = useState<Position>();
   const [watchId, setWatchId] = useState<number | null>(null);
+  const [authorization, setAuthorization] = useState<AuthorizationResult>();
 
   const requireAuthorization = useCallback(async () => {
     if (Platform.OS === 'ios') {
-      return await Geolocation.requestAuthorization('whenInUse');
+      const auth = await Geolocation.requestAuthorization('whenInUse');
+
+      setAuthorization(auth);
+      return auth;
     }
+
+    if (Platform.OS === 'android' && Platform.Version < 23) {
+      setAuthorization('granted');
+      return 'granted';
+    }
+
+    const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+    if (hasPermission) {
+      setAuthorization('granted');
+      return 'granted';
+    }
+
+    const status = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+    if (status === 'never_ask_again') {
+      setAuthorization('denied');
+      return 'denied';
+    }
+
+    setAuthorization(status);
+    return status;
   }, []);
 
   const getLocation = useCallback(async () => {
@@ -72,10 +104,24 @@ export const useGeolocation = () => {
     setWatchId(null);
   }, [watchId]);
 
+  useEffect(() => {
+    getLocation();
+  }, [getLocation]);
+
+  useEffect(() => {
+    currentPositionRef.current = currentPosition;
+  }, [currentPosition]);
+
+  useEffect(() => {
+    watchLocation();
+  }, [watchLocation]);
+
   return {
+    geolocationAuthorization: authorization,
     getLocation,
     isWatched: typeof watchId === 'number',
     currentPosition,
+    currentPositionRef,
     watchLocation,
     clearWatch,
   };

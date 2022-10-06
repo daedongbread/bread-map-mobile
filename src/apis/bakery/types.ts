@@ -11,7 +11,28 @@ type MenuReviewEntity = {
   rating: number;
 };
 
+type SimpleReview = {
+  id: number;
+  content: string;
+};
+
+export type BakeryMapBakeryEntity = {
+  longitude: number;
+  latitude: number;
+  image: null;
+  id: number;
+  name: string;
+  flagNum: number;
+  rating: number;
+  reviewNum: number;
+  simpleReviewList: SimpleReview[];
+  distance: number;
+  popularNum: number;
+};
+
 export type BakeryEntity = {
+  longitude: number;
+  latitude: number;
   address: string;
   avgRating: number;
   bakeryId: number;
@@ -19,8 +40,6 @@ export type BakeryEntity = {
   breadCategoryList: string[];
   flagsCount: number;
   imgPath: string;
-  latitude: number;
-  longitude: number;
   menuReviewList: MenuReviewEntity[];
   menuReviewsCount: number;
   ratingCount: number;
