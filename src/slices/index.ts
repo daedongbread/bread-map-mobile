@@ -1,10 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import auth from './auth';
+import reviewWrite from './reviewWrite';
+
 import bakeryMap from './bakeryMap';
 import user from './user';
 
 const reducers = {
   user,
+  reviewWrite,
   auth,
   bakeryMap,
 };

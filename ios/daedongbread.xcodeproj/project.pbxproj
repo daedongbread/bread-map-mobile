@@ -10,14 +10,14 @@
 		00E356F31AD99517003FC87E /* daedongbreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* daedongbreadTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2F0A7624A9FCC0831EC2C5A5 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */; };
+		2B079464C9613E66DB228DA3 /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789C4FE4622B4B2ED274857 /* libPods-daedongbread.a */; };
 		34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
 		34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
 		34710D53287AFDCB00BE25E4 /* geolocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34710D52287AFDCB00BE25E4 /* geolocation.swift */; };
 		34A0CCCF2838B345003C329D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
-		4A28C381A688CC5C6D269FA4 /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */; };
+		A0A1D72297D1BD5BBCDBD290 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C10B94E0ED24469B382EA6F1 /* libPods-daedongbread-daedongbreadTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,23 +34,23 @@
 		00E356EE1AD99517003FC87E /* daedongbreadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = daedongbreadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* daedongbreadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daedongbreadTests.m; sourceTree = "<group>"; };
-		1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread-daedongbreadTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* daedongbread.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = daedongbread.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = daedongbread/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = daedongbread/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = daedongbread/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = daedongbread/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = daedongbread/main.m; sourceTree = "<group>"; };
-		2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.release.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.release.xcconfig"; sourceTree = "<group>"; };
 		34269DC6281DF22400EBFF95 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = daedongbread/Images.xcassets/LaunchScreen.imageset/launch_screen.png; sourceTree = "<group>"; };
 		34710D52287AFDCB00BE25E4 /* geolocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geolocation.swift; sourceTree = "<group>"; };
 		34C35D3E281E1BC500872416 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		420D214427CB688700F392B7 /* daedongbread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbread.entitlements; path = daedongbread/daedongbread.entitlements; sourceTree = "<group>"; };
-		49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.debug.xcconfig"; sourceTree = "<group>"; };
-		700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7674A39203926E0AD5CCC4D6 /* Pods-daedongbread-daedongbreadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.release.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.release.xcconfig"; sourceTree = "<group>"; };
-		8CCDC8F28F9B28A82B903047 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5D7A32CBA2356FCCFDECA3D0 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6789C4FE4622B4B2ED274857 /* libPods-daedongbread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B6D6B85DB71F8B6AF4D8D1 /* Pods-daedongbread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.debug.xcconfig"; sourceTree = "<group>"; };
+		C10B94E0ED24469B382EA6F1 /* libPods-daedongbread-daedongbreadTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread-daedongbreadTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F1AF9339F131AB770ECAE154 /* Pods-daedongbread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.release.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.release.xcconfig"; sourceTree = "<group>"; };
+		F43076C1EF78943A9798F4AC /* Pods-daedongbread-daedongbreadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.release.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F0A7624A9FCC0831EC2C5A5 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */,
+				A0A1D72297D1BD5BBCDBD290 /* libPods-daedongbread-daedongbreadTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A28C381A688CC5C6D269FA4 /* libPods-daedongbread.a in Frameworks */,
+				2B079464C9613E66DB228DA3 /* libPods-daedongbread.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				700D16DB6AEBCC7ABF2998BE /* libPods-daedongbread.a */,
-				1275B379C28BBBBF2FD4794B /* libPods-daedongbread-daedongbreadTests.a */,
+				6789C4FE4622B4B2ED274857 /* libPods-daedongbread.a */,
+				C10B94E0ED24469B382EA6F1 /* libPods-daedongbread-daedongbreadTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,10 +117,10 @@
 		6C09964EC338E41AEDB73134 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */,
-				2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */,
-				8CCDC8F28F9B28A82B903047 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */,
-				7674A39203926E0AD5CCC4D6 /* Pods-daedongbread-daedongbreadTests.release.xcconfig */,
+				84B6D6B85DB71F8B6AF4D8D1 /* Pods-daedongbread.debug.xcconfig */,
+				F1AF9339F131AB770ECAE154 /* Pods-daedongbread.release.xcconfig */,
+				5D7A32CBA2356FCCFDECA3D0 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */,
+				F43076C1EF78943A9798F4AC /* Pods-daedongbread-daedongbreadTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -165,12 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "daedongbreadTests" */;
 			buildPhases = (
-				8FC1D3C92A81D36D6ED9ECCE /* [CP] Check Pods Manifest.lock */,
+				96B56FE45A150CB32D4F40B7 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				834803CA5210A3921BA34A74 /* [CP] Embed Pods Frameworks */,
-				2A4F7B182399962740C19CED /* [CP] Copy Pods Resources */,
+				C4F01730F2BA150AF3D4351A /* [CP] Embed Pods Frameworks */,
+				9193CE2D0B37E79011D61C13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,14 +186,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "daedongbread" */;
 			buildPhases = (
-				B57B875DF21799E3D19446F5 /* [CP] Check Pods Manifest.lock */,
+				35BF203592599A6F2A06A4E4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				2BD70077BA0AE9B9E66E3ACF /* [CP] Embed Pods Frameworks */,
-				95161861D5D6492B63AE4327 /* [CP] Copy Pods Resources */,
+				822C48CD9B5D36A8BEE306C5 /* [CP] Embed Pods Frameworks */,
+				787389307A0D5CFA9A193B12 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -278,24 +278,46 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2A4F7B182399962740C19CED /* [CP] Copy Pods Resources */ = {
+		35BF203592599A6F2A06A4E4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-daedongbread-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2BD70077BA0AE9B9E66E3ACF /* [CP] Embed Pods Frameworks */ = {
+		787389307A0D5CFA9A193B12 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		822C48CD9B5D36A8BEE306C5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -312,24 +334,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		834803CA5210A3921BA34A74 /* [CP] Embed Pods Frameworks */ = {
+		9193CE2D0B37E79011D61C13 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8FC1D3C92A81D36D6ED9ECCE /* [CP] Check Pods Manifest.lock */ = {
+		96B56FE45A150CB32D4F40B7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -351,43 +373,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		95161861D5D6492B63AE4327 /* [CP] Copy Pods Resources */ = {
+		C4F01730F2BA150AF3D4351A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread/Pods-daedongbread-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B57B875DF21799E3D19446F5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-daedongbread-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -443,7 +443,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CCDC8F28F9B28A82B903047 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */;
+			baseConfigurationReference = 5D7A32CBA2356FCCFDECA3D0 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -477,7 +477,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7674A39203926E0AD5CCC4D6 /* Pods-daedongbread-daedongbreadTests.release.xcconfig */;
+			baseConfigurationReference = F43076C1EF78943A9798F4AC /* Pods-daedongbread-daedongbreadTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -507,7 +507,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49A53A9A13CCAD7E3F776149 /* Pods-daedongbread.debug.xcconfig */;
+			baseConfigurationReference = 84B6D6B85DB71F8B6AF4D8D1 /* Pods-daedongbread.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -540,7 +540,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D25FC3BA2A4607D3241E4F1 /* Pods-daedongbread.release.xcconfig */;
+			baseConfigurationReference = F1AF9339F131AB770ECAE154 /* Pods-daedongbread.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
