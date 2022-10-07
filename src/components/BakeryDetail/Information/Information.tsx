@@ -58,7 +58,7 @@ const Information: React.FC = () => {
     if (!bakery) {
       return;
     }
-    const filtered = facilityList.filter(facility => bakery.bakeryInfo.basicInfoList.includes(facility.category));
+    const filtered = facilityList.filter(facility => bakery.facilityInfoList.includes(facility.category));
     setFacilities(filtered);
   }, [bakery]);
 

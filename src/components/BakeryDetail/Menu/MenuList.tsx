@@ -13,6 +13,7 @@ export type MenuItem = {
   price: number;
   rating: number;
 };
+
 // 다른부분들도 헤더탭부분 렌더링 변경하기
 const MenuList = () => {
   const { bakery } = useBakeryDetail();
@@ -25,7 +26,7 @@ const MenuList = () => {
     }
 
     navigation.push('BakeryMenuReviews', {
-      info: bakery.bakeryInfo,
+      info: bakery.info,
       menu,
       reviews,
     });
@@ -35,9 +36,9 @@ const MenuList = () => {
     <SafeAreaView style={styles.container}>
       <Divider />
 
-      {bakery && bakery.bakeryMenu.length > 0 && (
+      {bakery && bakery.menu.length > 0 && (
         <Menus
-          headerComponent={<TabHeader title={'메뉴'} totalCount={bakery?.bakeryMenu.length || 0} />}
+          headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />}
           bakery={bakery!}
           onPress={onPress}
         />

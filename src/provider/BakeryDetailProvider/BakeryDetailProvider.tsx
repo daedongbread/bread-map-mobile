@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Bakery } from '@/types/bakery';
 import { useBakeryDetailMethod } from './useBakeryDetailMethod';
+import { useGetBakery } from '@/apis/bakery';
+import { BakerySingleEntity } from '@/apis/bakery/types';
 
 type BakeryDetailValue = {
-  bakery: Bakery | null;
-  updateBakery: (bakery: Bakery) => void;
+  bakery: BakerySingleEntity | null;
+  updateBakery: (bakery: BakerySingleEntity) => void;
 };
 
 const BakeryDetailContext = React.createContext<BakeryDetailValue | null>(null);
@@ -15,8 +17,16 @@ const BakeryDetailProvider: React.FC = ({ children }) => {
   return <BakeryDetailContext.Provider value={{ bakery, updateBakery }}>{children}</BakeryDetailContext.Provider>;
 };
 
-const useBakeryDetail = () => {
+const useBakeryDetail = (bakeryId?: number) => {
   const context = React.useContext(BakeryDetailContext);
+
+  const { bakery } = useGetBakery({ bakeryId: bakeryId! });
+
+  useEffect(() => {
+    if (bakery != null) {
+      context?.updateBakery(bakery!);
+    }
+  }, [bakery]);
 
   if (!context) {
     throw new Error('Not Found useBakeryDetailContext');

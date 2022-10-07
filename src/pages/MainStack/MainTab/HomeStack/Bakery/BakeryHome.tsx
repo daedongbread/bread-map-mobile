@@ -7,6 +7,8 @@ import { ReviewSummary } from '@/components/BakeryDetail/Home/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/Home/RowInfo';
 import {
   CircleFlag,
+  CirclePencil,
+  CircleStar,
   ClockIcon,
   EarthIcon,
   EditIcon,
@@ -24,9 +26,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // TODO: 일부 아이콘 변경 필요
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route }) => {
-  const { bakery } = useBakeryDetail();
-
   const bakeryId = route.params.bakeryId;
+
+  const { bakery } = useBakeryDetail(bakeryId);
 
   return (
     <ScrollView style={{ marginTop: 32 }}>
@@ -34,12 +36,12 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
         <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/360' }} resizeMode="cover" />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.bakeryName}</Text>
+        <Text style={styles.bakeryNameText}>{bakery?.info.name}</Text>
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
             <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
-            <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
-            <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
+            <ReviewSummary text={String(bakery?.info.rating!)} icon={<CircleStar />} />
+            <ReviewSummary text={String(bakery?.info.reviewNum)} icon={<CirclePencil />} />
           </View>
           <View style={styles.reviewerContainer}>
             <Text style={styles.reviewerText}>빵빵빵순</Text>
@@ -52,10 +54,10 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
           <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} />
         </View>
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address!} />
-          <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.businessHour!} />
-          <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteUrlList[0]!} />
-          <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.telNumber!} />
+          <RowInfo icon={<MapPinIcon />} text={bakery?.info.address!} />
+          <RowInfo icon={<ClockIcon />} text={bakery?.info.hours!} />
+          <RowInfo icon={<EarthIcon />} text={bakery?.info.websiteURL!} />
+          <RowInfo icon={<PhoneIcon />} text={bakery?.info.phoneNumber!} />
           <TouchableOpacity style={styles.editButton}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>

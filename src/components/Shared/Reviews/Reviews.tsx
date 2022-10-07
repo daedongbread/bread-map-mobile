@@ -1,13 +1,14 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
-import { BakeryReview, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import Review from './Review';
 import { Button } from '../Button/Button';
+import { BakeryReviewEntity } from '@/apis/bakery/types';
 
 type ReviewsProps = {
   headerComponent?: React.ReactElement;
-  reviews: BakeryReview[];
-  onPress: (review: BakeryReview) => void;
+  reviews: BakeryReviewEntity[];
+  onPress: (review: BakeryReviewEntity) => void;
 };
 
 const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) => (
@@ -15,10 +16,10 @@ const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) 
     ListHeaderComponent={headerComponent}
     ListHeaderComponentStyle={styles.header}
     data={reviews}
-    keyExtractor={review => review.menuReviewId.toString()}
+    keyExtractor={review => review.id.toString()}
     renderItem={({ item }) => <Review review={item} onPress={onPress} />}
     ListFooterComponent={
-      <Button size="large" appearance="terdary" style={{ marginHorizontal: 20, marginBottom: 32 }}>
+      <Button size="large" appearance="terdary" style={{ marginHorizontal: 20, marginVertical: 32 }}>
         <Text style={styles.footerButtonText}>전체메뉴보기</Text>
       </Button>
     }
