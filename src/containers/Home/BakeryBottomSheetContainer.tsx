@@ -8,10 +8,7 @@ import { BakeriesBottomSheet } from '@/components/Home/BakeriesBottomSheet';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { onChangeSort } from '@/slices/bakeryMap';
-import { bakeryInfo, bakeryMenu, bakeryReviews } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
-
-const bakeryData = { bakeryMenu, bakeryReviews, bakeryInfo };
 
 export type TabItem = 'distance' | 'popular';
 
@@ -31,10 +28,12 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
   // TODO: fix params, pass bakeryId not bakery data
   const onClickBakery = useCallback(
     (id: number) => {
+      console.log(id);
       navigate('Bakery', {
         screen: 'BakeryDetailHome',
         params: {
-          ...bakeryData,
+          // bakeryId: id,
+          bakeryId: 30300001400004,
         },
       });
     },

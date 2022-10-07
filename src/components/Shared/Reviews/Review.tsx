@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { theme } from '@/styles/theme';
-import { BakeryReview, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import { BreadRating } from '../Rating';
+import { BakeryReviewEntity } from '@/apis/bakery/types';
 
 type MenuReview = {
   breadCategoryId: number;
@@ -18,8 +19,8 @@ type MenuReview = {
 };
 
 type ReviewProps = {
-  review: MenuReview;
-  onPress: (review: BakeryReview) => void;
+  review: BakeryReviewEntity;
+  onPress: (review: BakeryReviewEntity) => void;
 };
 
 const imgs = [
@@ -36,11 +37,11 @@ const Review: React.FC<ReviewProps> = ({ review, onPress }) => (
         <View style={styles.reviewerContainer}>
           <Image style={styles.profileImage} source={{ uri: 'https://via.placeholder.com/100' }} />
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userNameText}>{review?.memberName}</Text>
+            <Text style={styles.userNameText}>{review?.nickName}</Text>
             <View style={styles.socialInfo}>
-              <Text style={styles.userInfoText}>리뷰 {6}</Text>
+              <Text style={styles.userInfoText}>리뷰 {review?.reviewNum}</Text>
               <Text style={styles.divider}> | </Text>
-              <Text style={styles.userInfoText}>팔로워 {100}</Text>
+              <Text style={styles.userInfoText}>팔로워 {review.followerNum}</Text>
             </View>
           </View>
         </View>
@@ -48,24 +49,28 @@ const Review: React.FC<ReviewProps> = ({ review, onPress }) => (
           <Text style={styles.followButtonText}>팔로우</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.breadRatingContainer}>
-        <Text style={styles.menuNameText}>{review?.menuName}</Text>
-        <BreadRating rating={review?.rating} type={'review'} />
-      </View>
+      {review?.productRatingList.map(i => (
+        <View style={styles.breadRatingContainer}>
+          <Text style={styles.menuNameText}>{i?.productName}</Text>
+          <BreadRating rating={i?.rating} type={'review'} />
+        </View>
+      ))}
     </View>
     <TouchableOpacity onPress={() => onPress(review)}>
-      <View style={styles.reviewContainer}>
-        <FlatList
-          style={styles.reviewImageContainer}
-          data={imgs}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.reviewImageContent}
-          keyExtractor={img => img.id.toString()}
-          renderItem={({ item }) => <Image style={styles.reviewImage} source={item.src} />}
-        />
-      </View>
-      <Text style={styles.reviewText}>{review?.contents}</Text>
+      {review?.imageList.length >= 1 && (
+        <View style={styles.reviewContainer}>
+          <FlatList
+            style={styles.reviewImageContainer}
+            data={review?.imageList.map((i, ix) => ({ id: ix, src: i }))}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.reviewImageContent}
+            keyExtractor={img => img.id.toString()}
+            renderItem={({ item }) => <Image style={styles.reviewImage} source={item.src as any} />}
+          />
+        </View>
+      )}
+      <Text style={styles.reviewText}>{review?.content}</Text>
     </TouchableOpacity>
   </View>
 );
@@ -176,7 +181,7 @@ const styles = StyleSheet.create(
     reviewText: {
       color: theme.color.gray700,
       fontSize: 14,
-      paddingTop: 130,
+      // paddingTop: 00,
       paddingBottom: 20,
       paddingHorizontal: 20,
     },

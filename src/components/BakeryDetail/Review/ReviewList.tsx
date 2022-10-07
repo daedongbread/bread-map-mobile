@@ -13,6 +13,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Reviews } from '@shared/Reviews';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
+import { useGetReviews } from '@/apis/review';
 
 type Navigation = CompositeScreenProps<
   StackScreenProps<BakeryMenuStackParamList, 'BakeryMenus'>,
@@ -20,15 +21,15 @@ type Navigation = CompositeScreenProps<
 >;
 
 const ReviewList: React.FC = () => {
-  const { bakery } = useBakeryDetail();
+  const { reviews } = useGetReviews({ bakeryId: 30300001400004 });
 
   const navigation = useNavigation<Navigation['navigation']>();
 
   const onPress = (review: BakeryReview) => {
-    if (!bakery) {
+    if (!reviews) {
       return;
     }
-    navigation.push('BakeryReviewDetail', { info: bakery.bakeryInfo, review });
+    // navigation.push('BakeryReviewDetail', { info: bakery.info, review });
   };
 
   const onPressAddBtn = () => {
@@ -44,12 +45,12 @@ const ReviewList: React.FC = () => {
         headerComponent={
           <TabHeader
             title={'리뷰'}
-            totalCount={bakery?.bakeryReviews.length || 0}
+            totalCount={reviews?.length || 0}
             addBtnText={'리뷰 작성'}
             onPressAddBtn={onPressAddBtn}
           />
         }
-        reviews={bakery?.bakeryReviews!}
+        reviews={reviews!}
         onPress={onPress}
       />
     </View>
@@ -60,7 +61,7 @@ export { ReviewList };
 const styles = StyleSheet.create(
   resizePixels({
     container: {
-      marginTop: 32,
+      marginTop: 24,
       backgroundColor: 'white',
     },
   })
