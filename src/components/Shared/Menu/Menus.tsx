@@ -1,10 +1,10 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { resizePixels } from '@/utils';
-import { Menu } from './Menu';
-import { Button } from '../Button/Button';
 import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
+import { resizePixels } from '@/utils';
+import { Button } from '../Button/Button';
+import { Menu } from './Menu';
 
 interface MenuProps {
   headerComponent?: React.ReactElement;
@@ -13,8 +13,6 @@ interface MenuProps {
 }
 
 const Menus: React.FC<MenuProps> = ({ headerComponent, bakery, onPress }) => {
-  // TODO: id로 가져올 수 있도록 변경 필요
-
   const { menu } = bakery;
 
   return (

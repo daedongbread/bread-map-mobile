@@ -42,6 +42,7 @@ const MainStack = () => {
         options={{ presentation: 'transparentModal', cardOverlayEnabled: false }}
       />
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
+
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />
         <Stack.Screen

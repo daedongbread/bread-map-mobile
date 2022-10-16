@@ -52,51 +52,53 @@ export type SearchEntity = {
   distance: number;
 };
 
-type BakeryFacilityInfoType =  "PARKING" | "WIFI" |"DELIVERY" | "PET" | "SHIPPING" | "BOOKING"
+type BakeryFacilityInfoType = 'PARKING' | 'WIFI' | 'DELIVERY' | 'PET' | 'SHIPPING' | 'BOOKING';
 
 export type BakeryMenuEntity = {
-  id: number,
-    name: string;
-    rating: number;
-    reviewNum: number;
-    price: string;
-    image: Array<string>
-}
+  id: number;
+  name: string;
+  rating: number;
+  reviewNum: number;
+  price: string;
+  image: Array<string>;
+};
 
 export type BakerySingleEntity = {
   info: {
-    image: Array<string>;
+    image: string | null;
     name: string;
-    flagName: number;
+    flagNum: number;
     rating: number;
     reviewNum: number;
     address: string;
     hours: string;
-    websiteURL: string
+    websiteURL: string;
     instagramURL: string;
     facebookURL: string;
     blogURL: string;
-    phoneNumber: string
-  },
+    phoneNumber: string;
+  };
   menu: BakeryMenuEntity[];
-  facilityInfoList: Array<BakeryFacilityInfoType>
-}
+  facilityInfoList: Array<BakeryFacilityInfoType>;
+};
 
-export type BakeryReviewEntity=  {
-    "id" : number,
-    "userId" : number,
-    "userImage" : string,
-    "nickName" : string,
-    "reviewNum" : number,
-    "followerNum" : number,
-    "productRatingList" : [ {
-      "productName" : string,
-      "rating" : number
-    } ],
-    "imageList" : Array<string>
-    "content" : string,
-    "likeNum" : number,
-    "commentNum" : number,
-    "createdAt" : string,
-    "averageRating" : number
-}
+export type BakeryReviewEntity = {
+  id: number;
+  userId: number;
+  userImage: string;
+  nickName: string;
+  reviewNum: number;
+  followerNum: number;
+  productRatingList: [
+    {
+      productName: string;
+      rating: number;
+    }
+  ];
+  imageList: Array<string>;
+  content: string;
+  likeNum: number;
+  commentNum: number;
+  createdAt: string;
+  averageRating: number;
+};
