@@ -14,9 +14,9 @@ type Props = {
 
 export const Header: React.FC<Props> = memo(({ activeTab, onPress }) => {
   const tabItems = [
-    { value: 'distance' as const, label: '거리순' },
-    { value: 'popular' as const, label: '인기순' },
-  ];
+    { value: 'distance', label: '거리순' },
+    { value: 'popular', label: '인기순' },
+  ] as const;
 
   return (
     <View style={styles.container}>
