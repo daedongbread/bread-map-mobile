@@ -12,7 +12,6 @@ type UseGetBreadsProps = {
 
 const getBreads = async ({ bakeryId }: UseGetBreadsProps) => {
   const { data, config } = await fetcher.get<GetBreadsRes>(`/bakery/${bakeryId}/review/bread`);
-  console.log(config.headers.Authorization);
   return data.data;
 };
 

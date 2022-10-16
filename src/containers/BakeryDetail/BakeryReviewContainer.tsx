@@ -2,36 +2,39 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
 import { useGetReviews } from '@/apis/review';
-import {
-  BakeryMenuStackParamList,
-  BakeryReviewStackParamList,
-} from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
-import { MainStackParamList } from '@/pages/MainStack/Stack';
-
+import { Divider } from '@/components/BakeryDetail/Divider';
+import { TabHeader } from '@/components/BakeryDetail/TabHeader';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
-import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
-import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import { Reviews } from '@shared/Reviews';
-import { Divider } from '../Divider';
-import { TabHeader } from '../TabHeader';
 
-type Navigation = CompositeScreenProps<
-  StackScreenProps<BakeryMenuStackParamList, 'BakeryMenus'>,
-  CompositeScreenProps<StackScreenProps<MainStackParamList>, StackScreenProps<BakeryReviewStackParamList>>
->;
+type Props = {
+  bakeryId: number;
+};
 
-const ReviewList: React.FC = () => {
-  const { reviews } = useGetReviews({ bakeryId: 30300001400004 });
+export const BakeryReviewContainer = ({ bakeryId }: Props) => {
+  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
 
-  const navigation = useNavigation<Navigation['navigation']>();
+  const { reviews } = useGetReviews({ bakeryId });
 
   const onPress = (review: BakeryReviewEntity) => {
-    if (!reviews) {
+    if (!review) {
       return;
     }
 
-    navigation.push('BakeryReviewDetail', {
-      reviewId: review.id,
+    navigation.push('MainTab', {
+      screen: 'HomeStack',
+      params: {
+        screen: 'Bakery',
+        params: {
+          screen: 'BakeryDetailReview',
+          params: {
+            screen: 'BakeryReviewDetail',
+            params: { reviewId: review.id },
+          },
+        },
+      },
     });
   };
 
@@ -59,7 +62,6 @@ const ReviewList: React.FC = () => {
     </View>
   );
 };
-export { ReviewList };
 
 const styles = StyleSheet.create(
   resizePixels({
