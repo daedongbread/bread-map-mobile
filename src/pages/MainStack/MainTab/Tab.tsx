@@ -6,7 +6,8 @@ import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { NavHome, NavNotification, NavProfile } from '@shared/Icons';
+import { NavNotification, NavProfile } from '@shared/Icons';
+import IcNavHome from '@shared/Icons/IcNavHome.svg';
 import { NavReport } from '@shared/Icons/NavReport';
 
 export type MainTabParamList = {
@@ -26,7 +27,7 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const MainTab = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
-      <Tab.Screen name={'HomeStack'} options={{ tabBarIcon: NavHome }} component={HomeStack} />
+      <Tab.Screen name={'HomeStack'} options={{ tabBarIcon: IcNavHome }} component={HomeStack} />
       <Tab.Screen
         name={'ReportBakery'}
         options={{ tabBarIcon: NavReport }}
