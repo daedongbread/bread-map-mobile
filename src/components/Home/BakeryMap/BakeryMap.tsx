@@ -67,7 +67,7 @@ export const BakeryMap = React.memo(
                   key={marker.id}
                   bakeryMapEntity={marker}
                   onPress={onPressMarker}
-                  activeMarkerId={activeMarkerId}
+                  activeMarkerId={selectedMarker?.id}
                 />
               ))
             : markers?.map(marker => (
@@ -75,7 +75,7 @@ export const BakeryMap = React.memo(
                   key={marker.id}
                   bakeryMapEntity={marker}
                   onPress={onPressMarker}
-                  activeMarkerId={activeMarkerId}
+                  activeMarkerId={selectedMarker?.id}
                 />
               ))}
         </MapView>
