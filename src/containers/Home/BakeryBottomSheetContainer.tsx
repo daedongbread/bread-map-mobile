@@ -23,7 +23,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
 
   const onPressTab = useCallback(
     (tabItem: TabItem) => {
-      dispatch(onChangeSort(tabItem));
+      dispatch(onChangeSort({ sort: tabItem }));
     },
     [dispatch]
   );
