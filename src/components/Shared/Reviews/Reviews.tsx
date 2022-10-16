@@ -1,9 +1,9 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
-import { resizePixels } from '@/utils';
-import Review from './Review';
-import { Button } from '../Button/Button';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
+import { resizePixels } from '@/utils';
+import { Button } from '../Button/Button';
+import Review from './Review';
 
 type ReviewsProps = {
   headerComponent?: React.ReactElement;

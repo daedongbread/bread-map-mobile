@@ -28,12 +28,11 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
   // TODO: fix params, pass bakeryId not bakery data
   const onClickBakery = useCallback(
     (id: number) => {
-      console.log(id);
       navigate('Bakery', {
         screen: 'BakeryDetailHome',
         params: {
           // bakeryId: id,
-          bakeryId: 30300001400004,
+          bakeryId: id,
         },
       });
     },

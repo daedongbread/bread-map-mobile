@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { Bakery } from '@/types/bakery';
-import { useBakeryDetailMethod } from './useBakeryDetailMethod';
 import { useGetBakery } from '@/apis/bakery';
 import { BakerySingleEntity } from '@/apis/bakery/types';
+import { useBakeryDetailMethod } from './useBakeryDetailMethod';
 
 type BakeryDetailValue = {
   bakery: BakerySingleEntity | null;
@@ -26,7 +25,7 @@ const useBakeryDetail = (bakeryId?: number) => {
     if (bakery != null) {
       context?.updateBakery(bakery!);
     }
-  }, [bakery]);
+  }, [bakery, context]);
 
   if (!context) {
     throw new Error('Not Found useBakeryDetailContext');
