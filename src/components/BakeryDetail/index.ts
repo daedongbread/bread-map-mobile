@@ -2,7 +2,7 @@
 export { Information } from './Information/Information';
 
 // Menu
-export { MenuList } from './Menu/MenuList';
+// export { MenuList } from './Menu/MenuList';
 export { MenuReviewList } from './Menu/MenuReviewList';
 
 // Review

@@ -6,8 +6,12 @@ type Props = TextProps & {
   presets?: TextPresets | Array<TextPresets>;
 };
 
-export const Text: React.FC<Props> = memo(({ presets = 'body1', style: styleOverride, ...rest }) => {
+export const Text: React.FC<Props> = memo(({ presets, style: styleOverride, ...rest }) => {
   const parsingPresets = useCallback(() => {
+    if (!presets) {
+      return [{}];
+    }
+
     if (typeof presets === 'object') {
       return presets.map(item => textPresets[item]);
     }

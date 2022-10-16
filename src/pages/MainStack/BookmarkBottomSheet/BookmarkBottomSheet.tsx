@@ -8,6 +8,7 @@ import { useIsFocused } from '@react-navigation/native';
 
 export const BookmarkBottomSheet: React.FC<MainStackScreenProps<'BookmarkBottomSheet'>> = () => {
   const focused = useIsFocused();
+
   return (
     <Modal visible={focused} style={styles.container} animationType={'fade'} transparent statusBarTranslucent>
       <BakeryBookmarkBottomSheetContainer />

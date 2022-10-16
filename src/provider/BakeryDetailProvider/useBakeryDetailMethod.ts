@@ -1,10 +1,10 @@
 import React from 'react';
-import { Bakery } from '@/types/bakery';
+import { BakerySingleEntity } from '@/apis/bakery/types';
 
 export const useBakeryDetailMethod = () => {
-  const [bakery, setBakery] = React.useState<Bakery | null>(null);
+  const [bakery, setBakery] = React.useState<BakerySingleEntity | null>(null);
 
-  const updateBakery = (bakeryItem: Bakery) => {
+  const updateBakery = (bakeryItem: BakerySingleEntity) => {
     // TODO: 인자 이름 고민
     setBakery(bakeryItem);
   };
