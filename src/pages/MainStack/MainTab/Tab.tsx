@@ -58,14 +58,14 @@ const MainTab = () => {
         name={'Profile'}
         options={{ tabBarIcon: NavProfile }}
         component={Profile}
-        listeners={({ navigation: { navigate } }) => ({
-          tabPress: e => {
-            e.preventDefault();
-            navigate('MainStack', {
-              screen: 'ProfileModal',
-            });
-          },
-        })}
+        // listeners={({ navigation: { navigate } }) => ({
+        //   tabPress: e => {
+        //     e.preventDefault();
+        //     navigate('MainStack', {
+        //       screen: 'ProfileModal',
+        //     });
+        //   },
+        // })}
       />
     </Tab.Navigator>
   );

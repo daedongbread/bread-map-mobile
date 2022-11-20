@@ -10,6 +10,7 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
+import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
 
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
@@ -23,6 +24,7 @@ export type MainStackParamList = {
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   NotificationModal: undefined;
   ProfileModal: undefined;
+  ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type MainStackScreenProps<T extends keyof MainStackParamList> = CompositeScreenProps<
@@ -58,6 +60,7 @@ const MainStack = () => {
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
       </Stack.Group>
+      <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
     </Stack.Navigator>
   );
 };

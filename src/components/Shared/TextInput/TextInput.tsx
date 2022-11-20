@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, TextInput as OriginTextInput, TextInputProps, Vi
 import { theme } from '@/styles/theme';
 import { XCircle } from '@shared/Icons/XCircle';
 import { Text } from '@shared/Text';
+import { AlertIcon } from '../Icons/AlertIcon';
 
 type Props = Omit<TextInputProps, 'value' | 'onChange'> & {
   value: string;
@@ -11,6 +12,7 @@ type Props = Omit<TextInputProps, 'value' | 'onChange'> & {
   hint?: string;
   error?: string;
   backgroundColor?: string;
+  isAlert?: boolean;
 };
 
 export const TextInput: React.FC<Props> = ({
@@ -20,6 +22,7 @@ export const TextInput: React.FC<Props> = ({
   error,
   hint,
   backgroundColor,
+  isAlert,
   ...props
 }) => {
   const { value, multiline } = props;
@@ -47,27 +50,36 @@ export const TextInput: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <View style={inputContainerStyle}>
-        <OriginTextInput placeholderTextColor={theme.color.gray500} onChangeText={handleChangeText} {...props} />
-        {value.length && !multiline ? (
-          <Pressable style={styles.closeButton} onPress={onClear}>
-            <XCircle />
-          </Pressable>
-        ) : null}
-      </View>
-      <View style={styles.hintContainer}>
-        <View>
-          {error && (
-            <Text presets={['number2', 'regular']} style={styles.errorText}>
-              {error}
-            </Text>
-          )}
+        <View style={styles.input}>
+          <OriginTextInput placeholderTextColor={theme.color.gray500} onChangeText={handleChangeText} {...props} />
+          {value.length && !multiline ? (
+            <Pressable style={styles.closeButton} onPress={onClear}>
+              <XCircle />
+            </Pressable>
+          ) : null}
         </View>
-        <View>
-          {hint && (
-            <Text presets={['number2', 'regular']} style={styles.hintText}>
-              {hint}
-            </Text>
-          )}
+
+        <View style={styles.hintContainer}>
+          <View style={styles.errorContainer}>
+            {isAlert && (
+              <>
+                <AlertIcon />
+                <Text> </Text>
+              </>
+            )}
+            {error && (
+              <Text presets={['number2', 'regular']} style={styles.errorText}>
+                {error}
+              </Text>
+            )}
+          </View>
+          <View>
+            {hint && (
+              <Text presets={['number2', 'regular']} style={styles.hintText}>
+                {hint}
+              </Text>
+            )}
+          </View>
         </View>
       </View>
     </View>
@@ -85,18 +97,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.color.gray100,
   },
+  input: {
+    justifyContent: 'center',
+  },
   closeButton: {
     position: 'absolute',
     right: 16,
   },
   hintContainer: {
+    marginTop: 6,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   errorText: {
     color: theme.color.red,
+    fontSize: 12,
   },
   hintText: {
     color: theme.color.gray500,
+    fontSize: 12,
   },
 });
