@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+import { useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
 
+import { flagColorHexColors } from '@/containers/Bookmark';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -22,6 +24,8 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   const [selectBookmark, setSelectBookmark] = useState<number>();
 
+  const { data } = useGetFlags();
+
   const onClose = () => {
     goBack();
   };
@@ -33,9 +37,12 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   };
 
   const list = [
-    { id: 0, icon: React.Fragment, text: 'header' },
-    { id: 1, icon: HeartIcon, text: '가고싶어요' },
-    { id: 2, icon: CircleFlag, text: '가봤어요' },
+    { flagId: 0, icon: React.Fragment, name: 'header' },
+    ...(data || [])?.map((flag, index) => ({
+      ...flag,
+      color: flagColorHexColors[flag.color],
+      icon: index === 0 ? HeartIcon : CircleFlag,
+    })),
   ];
 
   return (
