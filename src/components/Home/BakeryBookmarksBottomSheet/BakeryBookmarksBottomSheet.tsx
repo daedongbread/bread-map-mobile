@@ -16,9 +16,10 @@ import { Header } from './Header';
 import { StoreListHeader } from './StoreListHeader';
 
 type List = {
-  id: number;
+  flagId: number;
   icon: React.FC<SvgProps>;
-  text: string;
+  color?: string;
+  name: string;
 };
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
@@ -39,13 +40,13 @@ type RenderItemProps = {
 
 const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) => {
   return (
-    <Pressable onPress={() => onClick(item.id)}>
+    <Pressable onPress={() => onClick(item.flagId)}>
       <View style={styles.itemContainer}>
         <View style={styles.iconWrapper}>
-          <item.icon width={32} height={32} color={theme.color.primary500} />
+          <item.icon width={32} height={32} color={item.color || theme.color.primary500} />
         </View>
         <Text style={styles.flex} presets={['body1', 'bold']}>
-          {item.text}
+          {item.name}
         </Text>
         <Checkbox checked={isSelected} />
       </View>
@@ -95,7 +96,7 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
                     {index === 0 ? (
                       <StoreListHeader onPress={onPressNewBookmark} />
                     ) : (
-                      <RenderItem item={item} isSelected={item.id === selectBookmarkId} onClick={onClick} />
+                      <RenderItem item={item} isSelected={item.flagId === selectBookmarkId} onClick={onClick} />
                     )}
                   </View>
                 );
