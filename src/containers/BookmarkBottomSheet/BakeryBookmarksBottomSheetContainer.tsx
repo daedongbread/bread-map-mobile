@@ -33,8 +33,9 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   };
 
   const list = [
-    { id: 1, icon: CircleFlag, text: '가고싶어요' },
-    { id: 2, icon: HeartIcon, text: '가봤어요' },
+    { id: 0, icon: React.Fragment, text: 'header' },
+    { id: 1, icon: HeartIcon, text: '가고싶어요' },
+    { id: 2, icon: CircleFlag, text: '가봤어요' },
   ];
 
   return (
