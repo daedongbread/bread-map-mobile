@@ -30,6 +30,21 @@ export type BakeryMapBakeryEntity = {
   popularNum: number;
 };
 
+export type BakeryMapBakeryFilterEntity = {
+  longitude: number;
+  latitude: number;
+  image: null;
+  id: number;
+  name: string;
+  flagNum: number;
+  rating: number;
+  reviewNum: number;
+  simpleReviewList: SimpleReview[];
+  distance: number;
+  popularNum: number;
+  color: string;
+};
+
 export type BakeryEntity = {
   longitude: number;
   latitude: number;
