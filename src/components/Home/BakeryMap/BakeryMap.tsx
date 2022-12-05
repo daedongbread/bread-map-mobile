@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
-import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { BakeryMarker } from '@/components/Home';
 
 type Props = MapViewProps & {
-  markers?: Array<BakeryMapBakeryEntity>;
+  markers?: Array<BakeryMapBakeryEntity> | Array<BakeryMapBakeryFilterEntity>;
   onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
   selectedMarker?: BakeryMapBakeryEntity;
   showMaker: boolean;
@@ -68,6 +68,7 @@ export const BakeryMap = React.memo(
                   bakeryMapEntity={marker}
                   onPress={onPressMarker}
                   activeMarkerId={selectedMarker?.id}
+                  color={marker.color}
                 />
               ))
             : markers?.map(marker => (
