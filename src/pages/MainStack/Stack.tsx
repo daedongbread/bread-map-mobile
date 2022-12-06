@@ -57,7 +57,11 @@ const MainStack = () => {
       </Stack.Group>
       <Stack.Group screenOptions={{ headerShown: true }}>
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
-        <Stack.Screen name={'NotificationModal'} component={Notification} />
+        <Stack.Screen
+          options={{ headerTitle: '알림', headerTitleAlign: 'center', headerStyle: { height: 52 } }}
+          name={'NotificationModal'}
+          component={Notification}
+        />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
