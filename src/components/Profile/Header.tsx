@@ -23,6 +23,10 @@ export const Header = ({ type, title, onClickRight }: Props) => {
     navigation.pop();
   };
 
+  const navigateSetting = () => {
+    navigation.push('SettingModal');
+  };
+
   if (type === 'ME') {
     return (
       <View style={styles.MeContainer}>
@@ -30,7 +34,7 @@ export const Header = ({ type, title, onClickRight }: Props) => {
           <IcArea />
         </TouchableOpacity>
         <SplitColumn width={16} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateSetting}>
           <IcSetting />
         </TouchableOpacity>
       </View>
