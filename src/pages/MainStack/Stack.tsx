@@ -1,11 +1,14 @@
 import React from 'react';
+import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
+import { DeleteAccount } from '@/pages/MainStack/DeleteAccount';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
 import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { Search } from '@/pages/MainStack/Search';
+import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
@@ -24,6 +27,9 @@ export type MainStackParamList = {
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   NotificationModal: undefined;
   ProfileModal: undefined;
+  SettingModal: undefined;
+  BlackListModal: undefined;
+  DeleteAccountModal: undefined;
   ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 
@@ -59,6 +65,9 @@ const MainStack = () => {
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
+        <Stack.Screen name={'SettingModal'} component={Setting} />
+        <Stack.Screen name={'BlackListModal'} component={BlockList} />
+        <Stack.Screen name={'DeleteAccountModal'} component={DeleteAccount} />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
     </Stack.Navigator>
