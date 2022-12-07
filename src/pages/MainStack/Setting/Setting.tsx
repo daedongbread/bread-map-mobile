@@ -34,7 +34,7 @@ export const Setting = () => {
       appVersion={VersionCheck.getCurrentVersion()}
       onPressPrivacyTerm={() => Alert.alert('navigate 개인정보 처리방침')}
       onPressServiceTerm={() => Alert.alert('navigate 서비스 이용약관')}
-      onPressBlackList={() => navigation.push('BlackListModal')}
+      onPressBlackList={() => navigation.push('BlockListModal')}
       onPressAnnounce={() =>
         Linking.openURL('https://www.notion.so/506fd626ec3e4e259a448c67d7d47d5f?v=df32777d315d475f96bd220ae2809a71')
       }
