@@ -28,7 +28,9 @@ export type MainStackParamList = {
   NotificationModal: undefined;
   ProfileModal: undefined;
   SettingModal: undefined;
-  BlackListModal: undefined;
+  BlockListModal: {
+    blockUserId?: number;
+  };
   DeleteAccountModal: undefined;
   ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
@@ -61,29 +63,34 @@ const MainStack = () => {
           }}
         />
       </Stack.Group>
-      <Stack.Group screenOptions={{ headerShown: true }}>
+      <Stack.Group
+        screenOptions={{
+          headerShown: true,
+          headerStyle: {
+            height: 52,
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center',
+        }}
+      >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
         <Stack.Screen name={'SettingModal'} component={Setting} />
-        <Stack.Screen name={'BlackListModal'} component={BlockList} />
+
         <Stack.Screen
           options={{
             headerBackImage: () => <IcX24 />,
             headerTitle: '탈퇴하기',
-            headerTitleAlign: 'center',
-            headerStyle: {
-              height: 52,
-            },
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
           }}
           name={'DeleteAccountModal'}
           component={DeleteAccount}
         />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
+      <Stack.Screen name={'BlockListModal'} component={BlockList} />
     </Stack.Navigator>
   );
 };
