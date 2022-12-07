@@ -12,9 +12,9 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import IcX24 from '@shared/Icons/IcX24.svg';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
-
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
   BookmarkBottomSheet: {
@@ -67,7 +67,21 @@ const MainStack = () => {
         <Stack.Screen name={'ProfileModal'} component={Profile} />
         <Stack.Screen name={'SettingModal'} component={Setting} />
         <Stack.Screen name={'BlackListModal'} component={BlockList} />
-        <Stack.Screen name={'DeleteAccountModal'} component={DeleteAccount} />
+        <Stack.Screen
+          options={{
+            headerBackImage: () => <IcX24 />,
+            headerTitle: '탈퇴하기',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              height: 52,
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+          name={'DeleteAccountModal'}
+          component={DeleteAccount}
+        />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
     </Stack.Navigator>

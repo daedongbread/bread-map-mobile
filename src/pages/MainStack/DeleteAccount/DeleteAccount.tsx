@@ -1,10 +1,94 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useMutation } from 'react-query';
+import { requestDeleteAccount } from '@/apis/auth/useDeleteAccount';
+import { useAuth } from '@/hooks/useAuth';
+import { theme } from '@/styles/theme';
+import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
 export const DeleteAccount = () => {
+  const { logOut } = useAuth();
+
+  const { mutate } = useMutation({
+    mutationFn: requestDeleteAccount,
+    onSuccess: () => {
+      logOut();
+    },
+  });
+
+  const onPressDeleteButton = () => {
+    mutate();
+  };
+
+  const labels = [
+    '모든 게시물, 댓글이 삭제됩니다.',
+    '계정이 삭제된 후에는 계정을 다시 살리거나 게시물, 댓글 등의 데이터를 복구할 수 없습니다.',
+    '현재 계정으로 다시는 로그인할 수 없습니다.',
+    '7일 동안 재가입할 수 없습니다. ',
+  ];
+
   return (
-    <View>
-      <Text>DeleteAccount</Text>
+    <SafeAreaView style={styles.flex}>
+      <View style={[styles.wrapper, styles.flex]}>
+        <Text presets={['subtitle1', 'bold']} style={styles.title}>
+          {'잠깐만요! 탈퇴하기 전에 \n읽어보세요.'}
+        </Text>
+        {labels.map((label, index) => (
+          <List key={index} label={label} />
+        ))}
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button size={'big'} onPress={onPressDeleteButton}>
+          탈퇴하기
+        </Button>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export const List = (props: { label: string }) => {
+  return (
+    <View style={[styles.listWrapper, styles.gap]}>
+      <View style={styles.middlePointWrapper}>
+        <View style={styles.middlePoint} />
+      </View>
+      <Text presets={['body2']}>{props.label}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  wrapper: {
+    paddingVertical: 12,
+    paddingLeft: 20,
+    paddingRight: 40,
+  },
+  title: {
+    color: 'black',
+    marginBottom: 20,
+  },
+  listWrapper: {
+    flexDirection: 'row',
+  },
+  gap: {
+    marginBottom: 8,
+  },
+  middlePointWrapper: {
+    height: 20,
+    marginRight: 8,
+    justifyContent: 'center',
+  },
+  middlePoint: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: theme.color.gray800,
+  },
+  buttonWrapper: {
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+  },
+});
