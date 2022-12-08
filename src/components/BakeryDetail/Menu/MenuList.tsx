@@ -10,9 +10,7 @@ export type MenuItem = {
 
 // 다른부분들도 헤더탭부분 렌더링 변경하기
 const MenuList: React.FC<BakeryMenuStackNavigationProps<'BakeryMenus'>> = ({ route }) => {
-  const bakeryId = route.params.bakeryId;
-
-  return <BakeryMenuListContainer bakeryId={bakeryId} />;
+  return <BakeryMenuListContainer bakeryId={30300001400004} />;
 };
 
 export { MenuList };
