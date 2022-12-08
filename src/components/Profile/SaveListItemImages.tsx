@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import SadBreadGray from '@shared/Images/sadBreadGray.png';
 import { Text } from '../Shared/Text';
 
 export function SaveListItemImages({ num, images }: { num: number; images: any }) {
@@ -10,16 +11,23 @@ export function SaveListItemImages({ num, images }: { num: number; images: any }
 
   return (
     <View style={styles.Container}>
-      {num === 1 ? (
-        <FastImage source={{ uri: images[0].url }} style={styles.FullImage} />
+      {num === 0 ? (
+        <View style={styles.NoWrap}>
+          <FastImage style={styles.NoImage} source={SadBreadGray} />
+          <Text style={styles.NoTitle} presets={['caption1', 'regular']}>
+            저장한 빵집이 없어요
+          </Text>
+        </View>
+      ) : num === 1 ? (
+        <FastImage source={{ uri: images[0] }} style={styles.FullImage} />
       ) : num === 2 ? (
         <View style={styles.ImageWrap}>
           <View style={styles.FirstImage}>
-            <FastImage source={{ uri: images[0].url }} style={styles.FullImage} />
+            <FastImage source={{ uri: images[0] }} style={styles.FullImage} />
           </View>
           <View>
             <View style={styles.SecondImage}>
-              <FastImage source={{ uri: images[1].url }} style={styles.FullImage} />
+              <FastImage source={{ uri: images[1] }} style={styles.FullImage} />
             </View>
             <View style={styles.ThirdImage} />
           </View>
@@ -27,14 +35,14 @@ export function SaveListItemImages({ num, images }: { num: number; images: any }
       ) : (
         <View style={styles.ImageWrap}>
           <View style={styles.FirstImage}>
-            <FastImage source={{ uri: images[0].url }} style={styles.FullImage} />
+            <FastImage source={{ uri: images[0] }} style={styles.FullImage} />
           </View>
           <View>
             <View style={styles.SecondImage}>
-              <FastImage source={{ uri: images[1].url }} style={styles.FullImage} />
+              <FastImage source={{ uri: images[1] }} style={styles.FullImage} />
             </View>
             <View style={styles.ThirdImage}>
-              <FastImage source={{ uri: images[2].url }} style={[styles.FullImage, { opacity }]} />
+              <FastImage source={{ uri: images[2] }} style={[styles.FullImage, { opacity }]} />
               {num > 3 && (
                 <View style={styles.ImagesNumWrap}>
                   <Text style={styles.ImagesNumText}>+{num - 3}</Text>
@@ -54,6 +62,20 @@ const styles = StyleSheet.create(
       borderRadius: 16,
       flex: 1,
       overflow: 'hidden',
+    },
+    NoWrap: {
+      backgroundColor: theme.color.gray100,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    NoImage: {
+      width: 60,
+      height: 34,
+    },
+    NoTitle: {
+      color: theme.color.gray500,
+      marginTop: 12,
     },
     ImageWrap: {
       flexDirection: 'row',

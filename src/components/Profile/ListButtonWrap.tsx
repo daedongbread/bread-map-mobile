@@ -6,14 +6,16 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
 type Props = {
+  profileInfoData: any;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
 };
 
-export function ListButtonWrap({ buttonType, setButtonType }: Props) {
+export function ListButtonWrap({ profileInfoData, buttonType, setButtonType }: Props) {
   const onButtonClick = (index: number) => {
     setButtonType(index);
   };
+
   return (
     <View style={styles.Container}>
       <TouchableOpacity
@@ -25,7 +27,7 @@ export function ListButtonWrap({ buttonType, setButtonType }: Props) {
         </Text>
         <SplitColumn width={5} />
         <Text presets={['bold', 'body2']} style={{ color: theme.color.primary500 }}>
-          3
+          {profileInfoData?.userFlagList.length}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -37,7 +39,7 @@ export function ListButtonWrap({ buttonType, setButtonType }: Props) {
         </Text>
         <SplitColumn width={5} />
         <Text presets={['bold', 'body2']} style={{ color: theme.color.primary500 }}>
-          30
+          {profileInfoData?.userReviewList.length}
         </Text>
       </TouchableOpacity>
     </View>

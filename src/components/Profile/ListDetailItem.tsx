@@ -119,6 +119,7 @@ const styles = StyleSheet.create(
       fontSize: 12,
       marginLeft: 4,
       marginRight: 8,
+      color: '#757575',
     },
     reviewView: {
       paddingHorizontal: 10,

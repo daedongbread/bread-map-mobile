@@ -1,14 +1,16 @@
 import React, { memo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import EmptyData from '@shared/Images/emptyData.png';
 import { Text } from '../Shared/Text';
 import { ReviewListItem } from './ReviewListItem';
 
-export function ReviewList() {
+export function ReviewList({ userReviewList }: any) {
   return (
     <FlatList
-      data={mockReviewData}
+      data={userReviewList}
       renderItem={data => {
         return <ReviewListItem item={data?.item} />;
       }}
@@ -27,7 +29,13 @@ const ItemSeparatorComponent = memo(() => (
 
 const ReviewListEmptyComponent = memo(() => (
   <View style={styles.EmptyContainer}>
-    <Text>ReviewListEmptyComponent</Text>
+    <FastImage style={styles.EmptyImage} source={EmptyData} />
+    <Text presets={['body2', 'regular']} style={styles.EmptyText}>
+      아직 리뷰가 없어요
+    </Text>
+    <Text presets={['body2', 'regular']} style={styles.EmptyText}>
+      첫 리뷰를 남겨주세요
+    </Text>
   </View>
 ));
 
@@ -43,11 +51,20 @@ const styles = StyleSheet.create(
       marginHorizontal: 20,
     },
     EmptyContainer: {
-      backgroundColor: 'pink',
       flex: 1,
+      alignItems: 'center',
     },
     Flatlist: {
       paddingTop: 16,
+    },
+    EmptyImage: {
+      width: 97,
+      height: 80,
+      marginTop: 80,
+      marginBottom: 14,
+    },
+    EmptyText: {
+      color: theme.color.gray500,
     },
   })
 );
