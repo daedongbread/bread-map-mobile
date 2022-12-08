@@ -18,7 +18,7 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
   }, [navigation, bakeryId]);
 
   return (
-    <ScrollView style={{ marginTop: 32 }}>
+    <ScrollView>
       <BakeryDetailInfoContainer bakeryId={bakeryId} />
       <BakeryMenuListContainer bakeryId={bakeryId} />
       <BakeryReportContainer bakeryId={bakeryId} />
