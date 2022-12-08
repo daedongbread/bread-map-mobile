@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { launchImageLibrary } from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import { EditProfileComponent } from '@/components/Profile';
 
 export function EditProfileContainer() {
@@ -16,20 +16,15 @@ export function EditProfileContainer() {
     }
   }, []);
 
-  const onCameraClick = async () => {
-    const { assets, didCancel } = await launchImageLibrary({
-      mediaType: 'photo',
-      maxHeight: 100,
-      maxWidth: 100,
-      quality: 1,
+  const getAlbum = () => {
+    ImageCropPicker.openPicker({
+      width: 100,
+      height: 100,
+      cropping: true,
+    }).then(image => {
+      setCurImage(image.path);
     });
-    if (didCancel) {
-      return null;
-    }
-    if (assets) {
-      setCurImage(assets[0]?.uri!!);
-    }
   };
 
-  return <EditProfileComponent name={name} onChange={onChange} onCameraClick={onCameraClick} curImage={curImage} />;
+  return <EditProfileComponent name={name} onChange={onChange} onCameraClick={getAlbum} curImage={curImage} />;
 }
