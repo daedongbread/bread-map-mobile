@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { theme } from '@/styles/theme';
@@ -16,7 +16,7 @@ export function FollowDetailComponent() {
   } = useRoute<RootRouteProps<'FollowDetail'>>();
 
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title={index === 0 ? '팔로잉' : '팔로워'} />
       <FlatList
         contentContainerStyle={styles.Flatlist}
@@ -26,7 +26,7 @@ export function FollowDetailComponent() {
         ListEmptyComponent={ListEmptyComponent(index)}
         showsVerticalScrollIndicator={false}
       />
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -54,6 +54,9 @@ const ListEmptyComponent = (index: number) =>
 
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     SeparatorContainer: {
       height: 1,
       backgroundColor: theme.color.gray200,

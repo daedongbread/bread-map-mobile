@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { TextInput } from '@/components/Shared/TextInput';
 import { theme } from '@/styles/theme';
@@ -24,7 +24,7 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage }
     [onChange]
   );
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title="프로필 수정" />
       <SplitRow height={20} />
       <View style={styles.Container}>
@@ -49,11 +49,14 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage }
       <View style={styles.Button}>
         <Button>확인</Button>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     Container: {
       marginHorizontal: 21,
     },

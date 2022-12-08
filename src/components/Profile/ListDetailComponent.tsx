@@ -1,5 +1,5 @@
 import React, { memo, useRef } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -17,7 +17,7 @@ export function ListDetailComponent() {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title="저장목록" onClickRight={onMoreClick} />
       <FlatList
         ListHeaderComponent={ListHeaderComponent}
@@ -29,7 +29,7 @@ export function ListDetailComponent() {
       />
       <ListDetailItemBottomSheet bottomSheetRef={infoBottomSheetRef} />
       <ListDetailInfoBottomSheet bottomSheetRef={editBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -46,6 +46,9 @@ const ListHeaderComponent = memo(() => (
 
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     Flatlist: {
       marginLeft: 20,
     },
