@@ -3,10 +3,12 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import { resizePixels } from '@/utils';
 import { SaveListItem } from './SaveListItem';
 
-export function SaveList() {
+export function SaveList({ userFlagList }: any) {
+  console.log(userFlagList);
+
   return (
     <FlatList
-      data={mockSaveData}
+      data={userFlagList}
       numColumns={2}
       renderItem={data => {
         return <SaveListItem item={data?.item} />;

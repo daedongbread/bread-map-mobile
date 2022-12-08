@@ -5,10 +5,10 @@ import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
-import { getRandomImageUrl, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 
-export function ProfileInfo() {
+export function ProfileInfo({ profileInfoData }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const onClickUpdateButton = () => {
     navigation.push('ProfileStack', {
@@ -25,21 +25,21 @@ export function ProfileInfo() {
   };
   return (
     <View style={styles.Container}>
-      <FastImage source={{ uri: getRandomImageUrl() }} style={styles.Image} />
+      <FastImage source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
       <SplitColumn width={16} />
       <View style={styles.Info}>
         <Text style={styles.InfoTitle} presets={['bold', 'body1']}>
-          빵순이님
+          {profileInfoData?.nickName}
         </Text>
         <View style={styles.InfoSubInfo}>
           <TouchableOpacity onPress={() => onClickFollowButton(0)} style={styles.Follow}>
             <Text style={styles.InfoSubTitle}>팔로잉</Text>
-            <Text style={[styles.InfoSubTitle, styles.InfoGray700]}> 0</Text>
+            <Text style={[styles.InfoSubTitle, styles.InfoGray700]}> {profileInfoData?.followingNum}</Text>
           </TouchableOpacity>
           <Text style={[styles.InfoSubTitle, styles.splitColumn]}> |</Text>
           <TouchableOpacity onPress={() => onClickFollowButton(1)} style={styles.Follow}>
             <Text style={styles.InfoSubTitle}> 팔로워</Text>
-            <Text style={[styles.InfoSubTitle, styles.InfoGray700]}> 100</Text>
+            <Text style={[styles.InfoSubTitle, styles.InfoGray700]}> {profileInfoData?.followerNum}</Text>
           </TouchableOpacity>
         </View>
       </View>
