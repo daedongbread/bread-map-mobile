@@ -44,6 +44,5 @@ export const BakeryMenuListContainer = ({ bakeryId }: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    marginTop: 32,
   },
 });
