@@ -72,5 +72,13 @@
     <key>NSAllowsArbitraryLoadsInWebContent</key>
     <true/>
   </dict>
+	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	</dict>
+	<dict>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>$(PRODUCT_NAME) needs access to your PhotoLibrary.</string>
+	</dict>
 </dict>
 </plist>

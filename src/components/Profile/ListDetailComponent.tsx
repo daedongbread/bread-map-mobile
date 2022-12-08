@@ -77,7 +77,7 @@ const MockData = [
     reviewCount: '1,180',
     reviews: [
       {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡가나다라마바사',
       },
       {
         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
