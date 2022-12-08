@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -38,7 +38,7 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
@@ -102,12 +102,15 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
       </ScrollView>
       <EditDoneBottomSheet bottomSheetRef={editDoneBottomSheetRef} title="수정" />
       <CancelBottomSheet bottomSheetRef={cancelBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     TitleWrap: {
       height: 64,
       marginLeft: 20,

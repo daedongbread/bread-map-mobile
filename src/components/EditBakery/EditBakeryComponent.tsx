@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Header } from '@/components/EditBakery';
 import sadBread from '@/components/Shared/Images/sadBread.png';
@@ -20,7 +20,7 @@ type Props = {
 
 export function EditBakeryComponent({ onClickRight, onClickEdit, onClickDelete, DeleteBakeryBottomSheetRef }: Props) {
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header title="빵집 정보 수정" onClickRight={onClickRight} />
       <SplitRow height={80} />
       <View style={styles.ImageWrap}>
@@ -44,12 +44,15 @@ export function EditBakeryComponent({ onClickRight, onClickEdit, onClickDelete, 
         장소 삭제 요청
       </Button>
       <DeleteBakeryBottomSheet bottomSheetRef={DeleteBakeryBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     ImageWrap: {
       width: 120,
       height: 120,

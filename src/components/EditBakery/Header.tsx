@@ -22,16 +22,17 @@ export const Header = ({ onClickLeft, title, onClickRight }: Props) => {
 
   return (
     <View style={styles.DetailContainer}>
-      {onClickLeft && (
-        <TouchableOpacity onPress={onPressPrevBtn}>
-          <PrevIcon />
-        </TouchableOpacity>
-      )}
       <View style={styles.TextWrap}>
         <Text style={styles.Text} presets={['bold', 'subtitle2']}>
           {title}
         </Text>
       </View>
+
+      {onClickLeft && (
+        <TouchableOpacity onPress={onPressPrevBtn}>
+          <PrevIcon />
+        </TouchableOpacity>
+      )}
 
       {onClickRight && (
         <TouchableOpacity style={styles.RightIcon} onPress={onClickRight}>
