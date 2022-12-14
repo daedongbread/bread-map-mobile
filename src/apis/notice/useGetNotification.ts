@@ -1,28 +1,49 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { NoticeEntry } from '@/apis/notice/types';
 import { fetcher } from '../fetcher';
 
-type GetBreadsRes = {
+export type GetNoticeResponse = {
   data: {
-    todayNoticeList: NoticeEntry[];
-    weekNoticeList: NoticeEntry[];
-    beforeNoticeList: NoticeEntry[];
+    pageNumber: number;
+    numberOfElements: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    contents: NoticeEntry[];
   };
 };
 
-type UseGetNoticeProps = {
+type GetNoticeProps = Required<Omit<UseGetNoticeProps, 'deviceToken'>> & Pick<UseGetNoticeProps, 'deviceToken'>;
+
+export type UseGetNoticeProps = {
   deviceToken?: string | null;
+  page?: number;
+  unit?: 'today' | 'week' | 'before';
 };
 
-const getNotice = async ({ deviceToken }: UseGetNoticeProps) => {
-  const { data } = await fetcher.get<GetBreadsRes>(`/notice?deviceToken:${deviceToken}`);
+const getNotice = async ({ deviceToken, page, unit }: GetNoticeProps): Promise<GetNoticeResponse['data']> => {
+  const { data } = await fetcher.get<GetNoticeResponse>(`/notice?${unit}?page=${page}deviceToken:${deviceToken}`);
   return data.data;
 };
 
-const useGetNotice = ({ deviceToken }: UseGetNoticeProps) => {
-  return useQuery(['useGetNotice', { deviceToken }], () => getNotice({ deviceToken }), {
+export const getNoticeQueryKey = (props: Omit<UseGetNoticeProps, 'page'>) => {
+  return ['useGetNotice', { ...props }];
+};
+
+const useGetInfiniteNotice = ({ deviceToken, unit = 'today' }: UseGetNoticeProps) => {
+  return useInfiniteQuery({
+    queryKey: getNoticeQueryKey({ deviceToken, unit }),
+    queryFn: ({ pageParam = 0 }) => getNotice({ deviceToken, page: pageParam, unit }),
     enabled: !!deviceToken,
+    staleTime: 5000,
+    getNextPageParam: (lastPage: GetNoticeResponse['data']) => {
+      if (lastPage.pageNumber < lastPage.totalPages) {
+        return lastPage.pageNumber + 1;
+      }
+
+      return undefined;
+    },
   });
 };
 
-export { useGetNotice };
+export { useGetInfiniteNotice };

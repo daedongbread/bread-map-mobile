@@ -6,13 +6,14 @@ import { NoticeWrapper } from '@/components/Notice/NoticeWrapper';
 
 interface Props {
   notice: NoticeEntry;
+  nickname: string;
 }
 
-export const Notice = ({ notice }: Props) => {
+export const Notice = ({ notice, nickname }: Props) => {
   return (
     <NoticeWrapper key={notice.contentId}>
       <NoticeAvatar image={notice.image} />
-      <NoticeText title={notice.title} createdAt={notice.createdAt} />
+      <NoticeText title={notice.title} createdAt={notice.createdAt} nickname={nickname} />
     </NoticeWrapper>
   );
 };
