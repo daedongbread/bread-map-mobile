@@ -25,10 +25,14 @@ export const Setting = () => {
 
   const [enable, setEnable] = useState(false);
 
+  const onChangeNotice = (value: boolean) => {
+    setEnable(value);
+  };
+
   return (
     <SettingList
       isEnableNotice={enable}
-      onChangeEnableNotice={setEnable}
+      onChangeEnableNotice={onChangeNotice}
       logout={() => logOut()}
       onPressDeleteAccount={() => navigation.push('DeleteAccountModal')}
       appVersion={VersionCheck.getCurrentVersion()}
