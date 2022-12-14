@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 interface Props {
-  image: string;
+  image: string | null;
 }
 export const NoticeAvatar = ({ image }: Props) => {
   return (
@@ -12,7 +12,11 @@ export const NoticeAvatar = ({ image }: Props) => {
   );
 };
 
-const getImageSource = (image: string) => {
+const getImageSource = (image: string | null) => {
+  if (!image) {
+    return undefined;
+  }
+
   if (image.includes('comment')) {
     return require('@/assets/noticeImage/comment.jpg');
   }

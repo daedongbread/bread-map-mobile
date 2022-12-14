@@ -9,15 +9,32 @@ import { Text } from '@shared/Text';
 
 interface Props {
   notice: NoticeEntry;
+  nickName: string;
+  handlePressFollow: (userId: number) => void;
 }
 
-export const FollowNotice = ({ notice }: Props) => {
+export const FollowNotice = ({ notice, nickName, handlePressFollow }: Props) => {
+  const onPressFollow = () => {
+    if (!notice.fromUserId) {
+      console.error('from user id 값이 정상적으로 넘어오지 않음');
+      return;
+    }
+
+    handlePressFollow(notice.fromUserId);
+  };
+
   return (
     <NoticeWrapper key={notice.contentId}>
       <NoticeAvatar image={notice.image} />
-      <NoticeText title={notice.title} createdAt={notice.createdAt} />
+      <NoticeText title={notice.title} createdAt={notice.createdAt} nickname={nickName} />
       <View>
-        <Button size={'tiny'} borderRadius={4} appearance={'secondary'} style={styles.followButton}>
+        <Button
+          size={'tiny'}
+          borderRadius={4}
+          appearance={'secondary'}
+          style={styles.followButton}
+          onPress={onPressFollow}
+        >
           <Text presets={['bold']}>팔로우</Text>
         </Button>
       </View>

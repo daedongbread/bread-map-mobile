@@ -48,7 +48,8 @@
 
         <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
         <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
-        <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+        <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver"
+                android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -56,8 +57,7 @@
             </intent-filter>
         </receiver>
 
-        <service
-                android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+        <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
                 android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
