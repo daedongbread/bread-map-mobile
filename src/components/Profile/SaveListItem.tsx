@@ -18,10 +18,10 @@ export function SaveListItem({ item }: any) {
   };
   return (
     <TouchableOpacity onPress={onItemClick} style={styles.Container}>
-      <SaveListItemImages num={item?.imageList.length} images={item?.imageList} />
+      <SaveListItemImages num={item?.flagImageList.length} images={item?.flagImageList} />
       <View style={styles.Info}>
-        <View style={[styles.IconBackground, { backgroundColor: item?.color }]}>
-          {item?.icon === 'heart' ? <HeartIcon width={16} /> : <IcFlag width={16} />}
+        <View style={[styles.IconBackground, { backgroundColor: 'pink' }]}>
+          {item?.name === '가고싶어요' ? <HeartIcon width={24} /> : <IcFlag width={10} />}
         </View>
         <Text style={styles.Text} presets={['caption1', 'bold']}>
           {item.name}
