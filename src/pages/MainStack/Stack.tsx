@@ -28,7 +28,7 @@ export type MainStackParamList = {
   NotificationModal: undefined;
   ProfileModal: undefined;
   SettingModal: undefined;
-  BlockListModal: {
+  BlockListModal?: {
     blockUserId?: number;
   };
   DeleteAccountModal: undefined;
