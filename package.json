@@ -51,6 +51,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.1.1",
     "react-native-tab-view": "^3.1.1",
+    "react-native-version-check": "^3.4.3",
     "react-native-vision-camera": "^2.15.2",
     "react-native-webview": "^11.23.0",
     "react-query": "^3.34.12",
