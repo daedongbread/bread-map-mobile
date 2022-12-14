@@ -1,12 +1,13 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { useGetBlockList } from '@/apis/auth/useBlockList';
 import { BlockUser } from '@/components/BlockList/BlockUser';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 export const BlockListContainer = () => {
   const navigation = useNavigation<MainStackScreenProps<'BlockListModal'>['navigation']>();
-  // const { data } = useGetBlockList();
+  const { data } = useGetBlockList();
 
   const onPressUnblock = (userId: number) => {
     navigation.setParams({
@@ -14,15 +15,6 @@ export const BlockListContainer = () => {
     });
   };
 
-  const data = [
-    {
-      userId: 91,
-      userImage: null,
-      nickName: 'testBlockUserNickName',
-      reviewNum: 0,
-      followerNum: 0,
-    },
-  ];
   return (
     <View style={style.wrapper}>
       <FlatList

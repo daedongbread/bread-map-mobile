@@ -10,6 +10,7 @@ export const BlockListHeader = () => {
   const goBack = () => {
     navigation.goBack();
   };
+
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity style={styles.iconWrapper} onPress={goBack}>
