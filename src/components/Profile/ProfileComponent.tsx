@@ -9,32 +9,42 @@ import { ReviewList } from './ReviewList';
 import { SaveList } from '.';
 
 type Props = {
+  profileInfoData: any;
+  loading: boolean;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
 };
 //뷰
-export const ProfileComponent = ({ buttonType, setButtonType }: Props) => {
+export const ProfileComponent = ({ profileInfoData, loading, buttonType, setButtonType }: Props) => {
   return (
     <>
-      <SectionList
-        sections={[{ title: 'none', data: [''] }]}
-        ListHeaderComponent={() => (
-          <>
-            <Header type="ME" />
-            <SplitRow height={16} />
-            <ProfileInfo />
-            <SplitRow height={16} />
-          </>
-        )}
-        renderSectionHeader={() => (
-          <View style={styles.Header}>
-            <ListButtonWrap buttonType={buttonType} setButtonType={setButtonType} />
-          </View>
-        )}
-        stickySectionHeadersEnabled
-        key={buttonType === 0 ? 'G' : 'L'}
-        renderItem={() => (buttonType === 0 ? <SaveList /> : <ReviewList />)}
-      />
+      {loading ? null : (
+        <SectionList
+          sections={[{ title: 'none', data: [''] }]}
+          ListHeaderComponent={() => (
+            <>
+              <Header type="ME" />
+              <SplitRow height={16} />
+              <ProfileInfo profileInfoData={profileInfoData} />
+              <SplitRow height={16} />
+            </>
+          )}
+          renderSectionHeader={() => (
+            <View style={styles.Header}>
+              <ListButtonWrap profileInfoData={profileInfoData} buttonType={buttonType} setButtonType={setButtonType} />
+            </View>
+          )}
+          stickySectionHeadersEnabled
+          key={buttonType === 0 ? 'G' : 'L'}
+          renderItem={() =>
+            buttonType === 0 ? (
+              <SaveList userFlagList={profileInfoData?.userFlagList} />
+            ) : (
+              <ReviewList userReviewList={profileInfoData?.userReviewList} />
+            )
+          }
+        />
+      )}
     </>
   );
 };

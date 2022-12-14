@@ -1,7 +1,11 @@
 import React from 'react';
 import { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 
-export function BackdropComponent(props: BottomSheetBackdropProps) {
+type Props = BottomSheetBackdropProps & {
+  behavior?: string;
+};
+
+export function BackdropComponent(props: Props) {
   return (
     <BottomSheetBackdrop
       {...props}
@@ -9,7 +13,7 @@ export function BackdropComponent(props: BottomSheetBackdropProps) {
       disappearsOnIndex={-1}
       appearsOnIndex={0}
       opacity={0.5}
-      pressBehavior="close"
+      pressBehavior={props?.behavior === 'none' ? 'none' : 'close'}
     />
   );
 }

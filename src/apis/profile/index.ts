@@ -1,0 +1,1 @@
+export { useGetProfileInfo } from './useGetProfileInfo';
