@@ -19,6 +19,7 @@ type Props = {
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;
+  isExistBread: (manualBreadName: string) => boolean;
   closePage: () => void;
 };
 
@@ -31,6 +32,7 @@ export const ReviewSelect: React.FC<Props> = ({
   setManualInputs,
   onChangeSearchValue,
   onPressConfirmButton,
+  isExistBread,
   closePage,
 }) => {
   return (
@@ -49,6 +51,7 @@ export const ReviewSelect: React.FC<Props> = ({
           selectedBreads={selectedBreads}
           manualInputs={manualInputs}
           setManualInputs={setManualInputs}
+          isExistBread={isExistBread}
         />
       </View>
       <Button
