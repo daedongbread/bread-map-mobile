@@ -6,6 +6,7 @@ import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import {
   updateDetailReview,
   updateImages,
+  updateManualBreadRating,
   updateSeletedBreadRating,
   UpdateSeletedBreadRating,
 } from '@/slices/reviewWrite';
@@ -24,8 +25,12 @@ export const ReviewRatingContainer: React.FC = () => {
     selector => selector.reviewWrite
   );
 
-  const onUpdateBakeryRating = ({ id, rating }: UpdateSeletedBreadRating) => {
-    dispatch(updateSeletedBreadRating({ id, rating }));
+  const onUpdateBreadRating = (props: UpdateSeletedBreadRating) => {
+    if (props.type === 'auto') {
+      dispatch(updateSeletedBreadRating(props));
+    } else {
+      dispatch(updateManualBreadRating(props));
+    }
   };
   const onChangeDetailReviewText = (text: string) => {
     dispatch(updateDetailReview({ detailReview: text }));
@@ -57,7 +62,7 @@ export const ReviewRatingContainer: React.FC = () => {
       selectedBreads={[...selectedBreads, ...manualSelectedBreads]}
       detailReview={detailReview}
       images={images}
-      onUpdateBreadRating={onUpdateBakeryRating}
+      onUpdateBreadRating={onUpdateBreadRating}
       onChangeDetailReviewText={onChangeDetailReviewText}
       onSelectPhotos={onSelectPhotos}
       deSelectPhoto={deSelectPhoto}

@@ -2,7 +2,10 @@ import { Asset } from 'react-native-image-picker';
 import { BreadEntity } from '@/apis/bread';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type BreadType = 'auto' | 'manual';
+
 export type RatedBread = BreadEntity & {
+  type?: BreadType;
   rating?: number;
 };
 
@@ -26,6 +29,7 @@ export type AddManualSelectedBread = {
 export type UpdateSeletedBreadRating = {
   id: number;
   rating: number;
+  type?: BreadType;
 };
 
 const initialState: BreadState = {
@@ -43,6 +47,7 @@ const slice = createSlice({
       const ratedBreads: RatedBread[] = payload.map(bread => {
         return {
           rating: 0,
+          type: 'auto',
           ...bread,
         };
       });
@@ -58,10 +63,10 @@ const slice = createSlice({
 
       state.selectedBreads = newSelectedBreads;
     },
-    updateManualSelectedBread(state, { payload }: PayloadAction<BreadEntity>) {
+    updateManualSelectedBread(state, { payload }: PayloadAction<RatedBread>) {
       const manualSelectedBreads = state.manualSelectedBreads.map(selectedBreads => {
         if (selectedBreads.id === payload.id) {
-          return payload;
+          return { ...selectedBreads, ...payload };
         } else {
           return selectedBreads;
         }
@@ -86,6 +91,11 @@ const slice = createSlice({
         return bread.id === payload.id ? { ...bread, rating: payload.rating } : bread;
       });
     },
+    updateManualBreadRating(state, { payload }: PayloadAction<UpdateSeletedBreadRating>) {
+      state.manualSelectedBreads = state.manualSelectedBreads.map(bread => {
+        return bread.id === payload.id ? { ...bread, rating: payload.rating } : bread;
+      });
+    },
     updateDetailReview(state, { payload }: PayloadAction<{ detailReview: string }>) {
       state.detailReview = payload.detailReview;
     },
@@ -105,6 +115,7 @@ export const {
   updateManualSelectedBread,
   addManualSelectedBread,
   updateSeletedBreadRating,
+  updateManualBreadRating,
   updateDetailReview,
   updateImages,
   resetSelectedBreads,
