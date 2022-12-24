@@ -49,6 +49,8 @@ export const ReviewRating: React.FC<Props> = ({
   const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
   const [isShowSuccessPopup, setIsShowSuccessPopup] = useState(false);
 
+  const [isShowErrorMessage, setIsShowErrorMessage] = useState(false);
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -66,7 +68,7 @@ export const ReviewRating: React.FC<Props> = ({
               placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
             />
             <View style={styles.textContainer}>
-              {detailReview.length < 10 ? <ErrText /> : <View />}
+              {isShowErrorMessage ? <ErrText /> : <View />}
               <Text style={styles.wordCount}>{detailReview.length}자 / 최소 10자</Text>
             </View>
           </View>
@@ -77,6 +79,7 @@ export const ReviewRating: React.FC<Props> = ({
           // layer popup 전역, 공통화 필요 (추후 layer popup 공통화 branch에서 작업 예정)
           onPress={() => {
             if (detailReview.length < 10) {
+              setIsShowErrorMessage(true);
               return;
             }
             setIsShowSuccessPopup(true);
