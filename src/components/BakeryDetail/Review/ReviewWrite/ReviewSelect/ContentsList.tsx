@@ -10,7 +10,7 @@ import { NoDataRow } from './NoDataRow';
 type Props = {
   breads: BreadEntity[];
   selectedBreads: BreadEntity[];
-  manualInputs: BreadEntity[];
+  manualInputs: RatedBread[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
 };
@@ -64,7 +64,7 @@ export const ContentsList: React.FC<Props> = ({
 }) => {
   const onPress = () => {
     const newManualInputs = [...manualInputs];
-    newManualInputs.push({ id: newManualInputs.length + 1, name: '' });
+    newManualInputs.push({ id: newManualInputs.length + 1, name: '', type: 'manual' });
 
     setManualInputs(newManualInputs);
   };

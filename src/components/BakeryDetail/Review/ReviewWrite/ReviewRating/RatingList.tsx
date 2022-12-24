@@ -9,7 +9,7 @@ import { RatingRow } from './RatingRow';
 
 type Props = {
   selectedBreads: RatedBread[];
-  onUpdateBreadRating: ({ id, rating }: UpdateSeletedBreadRating) => void;
+  onUpdateBreadRating: ({ id, rating, type }: UpdateSeletedBreadRating) => void;
 };
 
 export const RatingList: React.FC<Props> = ({ selectedBreads, onUpdateBreadRating }) => {

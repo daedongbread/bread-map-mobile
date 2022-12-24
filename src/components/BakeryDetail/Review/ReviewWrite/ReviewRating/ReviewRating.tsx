@@ -18,7 +18,7 @@ type Props = {
   selectedBreads: RatedBread[];
   detailReview: string;
   images: Asset[];
-  onUpdateBreadRating: ({ id, rating }: UpdateSeletedBreadRating) => void;
+  onUpdateBreadRating: ({ id, rating, type }: UpdateSeletedBreadRating) => void;
   onChangeDetailReviewText: (text: string) => void;
   onSelectPhotos: () => void;
   deSelectPhoto: (uri?: string) => void;
