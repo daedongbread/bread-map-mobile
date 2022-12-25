@@ -8,11 +8,19 @@ import { theme } from '@/styles/theme';
 import CheckBox from '@react-native-community/checkbox';
 
 type Props = BreadEntity & {
+  manualSelectedBreads: RatedBread[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
 };
 
-export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInputs, isExistBread }) => {
+export const ManualInputRow: React.FC<Props> = ({
+  id,
+  name,
+  price,
+  manualSelectedBreads,
+  setManualInputs,
+  isExistBread,
+}) => {
   const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState(false);
 
@@ -25,6 +33,13 @@ export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInpu
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChecked]);
+
+  useEffect(() => {
+    const _isChecked = manualSelectedBreads.some(bread => bread.id === id);
+    if (!_isChecked) {
+      setIsChecked(false);
+    }
+  }, [id, manualSelectedBreads]);
 
   const addManualSelectedBreadStore = () => {
     dispatch(
