@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     paddingHorizontal: 20,
-    marginVertical: 16,
+    paddingBottom: 16,
   },
 });
