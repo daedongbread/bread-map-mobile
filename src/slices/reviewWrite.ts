@@ -26,6 +26,10 @@ export type AddManualSelectedBread = {
   isChecked: boolean;
 };
 
+export type DeleteManualSelectedBread = {
+  id: number;
+};
+
 export type UpdateSeletedBreadRating = {
   id: number;
   rating: number;
@@ -86,6 +90,9 @@ const slice = createSlice({
 
       state.manualSelectedBreads = newManualSelectedBreads;
     },
+    deleteManualSelectedBread(state, { payload }: PayloadAction<DeleteManualSelectedBread>) {
+      state.manualSelectedBreads = state.manualSelectedBreads.filter(bread => bread.id !== payload.id);
+    },
     updateSeletedBreadRating(state, { payload }: PayloadAction<UpdateSeletedBreadRating>) {
       state.selectedBreads = state.selectedBreads.map(bread => {
         return bread.id === payload.id ? { ...bread, rating: payload.rating } : bread;
@@ -114,6 +121,7 @@ export const {
   updateSelectedBread,
   updateManualSelectedBread,
   addManualSelectedBread,
+  deleteManualSelectedBread,
   updateSeletedBreadRating,
   updateManualBreadRating,
   updateDetailReview,

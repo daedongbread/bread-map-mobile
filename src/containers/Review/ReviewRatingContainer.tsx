@@ -1,5 +1,6 @@
 import React from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { fetcher } from '@/apis/fetcher';
 import { ReviewRating } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -48,8 +49,34 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   const saveReview = async () => {
-    // await fetcher.post(`/review/${bakeryId}/info`);
-    // await fetcher.post(`/review/${bakeryId}/photo`);
+    const productRatingList = selectedBreads.map(bread => {
+      return { productId: bread.id, rating: bread.rating };
+    });
+    const noExistProductRatingRequestList = manualSelectedBreads.map(bread => {
+      return { productType: 'BREAD', productName: bread.name, rating: bread.rating };
+    });
+
+    const formData = new FormData();
+    images.forEach(image => {
+      const file = {
+        uri: image.uri,
+        type: image.type,
+        name: image.fileName,
+      };
+
+      formData.append('files', file);
+    });
+
+    const { data } = await fetcher.post(`/review/${bakeryId}`, {
+      productRatingList,
+      noExistProductRatingRequestList,
+      content: detailReview,
+    });
+
+    await fetcher.post(`/review/${data.data.reviewId}/image`, formData, {
+      headers: { 'content-type': 'multipart/form-data' },
+      transformRequest: _data => _data,
+    });
   };
 
   //react-navigation 에서 현재 stack 자체를 pop 할 수 없는 방법이 없어 동적으로 .pop(number)에 값을 줘서 해결

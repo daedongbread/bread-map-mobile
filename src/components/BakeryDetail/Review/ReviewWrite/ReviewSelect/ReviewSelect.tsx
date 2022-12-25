@@ -52,6 +52,7 @@ export const ReviewSelect: React.FC<Props> = ({
         <ContentsList
           breads={breads}
           selectedBreads={selectedBreads}
+          manualSelectedBreads={manualSelectedBreads}
           manualInputs={manualInputs}
           setManualInputs={setManualInputs}
           isExistBread={isExistBread}

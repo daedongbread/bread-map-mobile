@@ -81,9 +81,11 @@ export const ReviewRating: React.FC<Props> = ({
             if (detailReview.length < 10) {
               setIsShowErrorMessage(true);
               return;
+            } else {
+              setIsShowErrorMessage(false);
             }
-            setIsShowSuccessPopup(true);
             saveReview();
+            setIsShowSuccessPopup(true);
           }}
         >
           {'확인'}

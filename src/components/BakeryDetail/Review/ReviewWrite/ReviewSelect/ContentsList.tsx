@@ -9,7 +9,8 @@ import { NoDataRow } from './NoDataRow';
 
 type Props = {
   breads: BreadEntity[];
-  selectedBreads: BreadEntity[];
+  selectedBreads: RatedBread[];
+  manualSelectedBreads: RatedBread[];
   manualInputs: RatedBread[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
@@ -21,6 +22,7 @@ type BreadListProps = {
 };
 
 type ManualBreadListProps = {
+  manualSelectedBreads: RatedBread[];
   manualInputs: BreadEntity[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
@@ -36,7 +38,12 @@ const BreadList = ({ breads, selectedBreads }: BreadListProps) => {
   );
 };
 
-const ManualBreadList = ({ manualInputs, setManualInputs, isExistBread }: ManualBreadListProps) => {
+const ManualBreadList = ({
+  manualSelectedBreads,
+  manualInputs,
+  setManualInputs,
+  isExistBread,
+}: ManualBreadListProps) => {
   return (
     <>
       {manualInputs.map((item, idx) => {
@@ -46,6 +53,7 @@ const ManualBreadList = ({ manualInputs, setManualInputs, isExistBread }: Manual
             id={idx}
             name={item.name}
             price={item.price}
+            manualSelectedBreads={manualSelectedBreads}
             setManualInputs={setManualInputs}
             isExistBread={isExistBread}
           />
@@ -58,6 +66,7 @@ const ManualBreadList = ({ manualInputs, setManualInputs, isExistBread }: Manual
 export const ContentsList: React.FC<Props> = ({
   breads,
   selectedBreads,
+  manualSelectedBreads,
   manualInputs,
   setManualInputs,
   isExistBread,
@@ -76,7 +85,12 @@ export const ContentsList: React.FC<Props> = ({
       ) : (
         <NoDataRow />
       )}
-      <ManualBreadList manualInputs={manualInputs} setManualInputs={setManualInputs} isExistBread={isExistBread} />
+      <ManualBreadList
+        manualSelectedBreads={manualSelectedBreads}
+        manualInputs={manualInputs}
+        setManualInputs={setManualInputs}
+        isExistBread={isExistBread}
+      />
       <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
     </ScrollView>
   );
