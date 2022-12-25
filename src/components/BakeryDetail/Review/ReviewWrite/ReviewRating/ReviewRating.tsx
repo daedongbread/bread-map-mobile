@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     backgroundColor: theme.color.gray100,
+    textAlignVertical: 'top',
     paddingTop: 12,
     paddingHorizontal: 16,
     fontSize: 14,
@@ -144,5 +145,6 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     paddingHorizontal: 20,
+    marginVertical: 16,
   },
 });
