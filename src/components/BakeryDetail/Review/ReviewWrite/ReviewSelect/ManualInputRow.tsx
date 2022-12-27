@@ -67,7 +67,7 @@ export const ManualInputRow: React.FC<Props> = ({
     });
 
     if (isChecked) {
-      dispatch(updateManualSelectedBread({ id, name: text, price }));
+      dispatch(updateManualSelectedBread({ id, name, price, [key]: text }));
     }
 
     // name 필드만 증복 여부 검증
