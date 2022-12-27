@@ -49,6 +49,7 @@ export const ManualInputRow: React.FC<Props> = ({
           name: name,
           price: price,
           type: 'manual',
+          rating: 1,
         },
         isChecked,
       })
