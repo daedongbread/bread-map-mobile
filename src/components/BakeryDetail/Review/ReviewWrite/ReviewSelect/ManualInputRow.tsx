@@ -101,6 +101,7 @@ export const ManualInputRow: React.FC<Props> = ({
           placeholderTextColor={theme.color.gray500}
           value={price?.toString()}
           onChange={e => onChange('price', e)}
+          keyboardType={'number-pad'}
         />
       </View>
       <CheckBox
