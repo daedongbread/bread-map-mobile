@@ -7,10 +7,22 @@ import { FollowDetail } from './FollowDetail';
 import { ListDetail } from './ListDetail';
 
 export type ProfileStackParamList = {
-  EditProfile: undefined;
-  ListDetail: undefined;
+  Profile: {
+    userId: number;
+  };
+  EditProfile: {
+    userImage: string;
+    nickName: string;
+  };
+  ListDetail: {
+    flagId: number;
+    name: string;
+    len: number;
+    color: string;
+  };
   FollowDetail: {
     index: number;
+    userId: number;
   };
 
   // UpdateBaker: {

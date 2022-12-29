@@ -13,7 +13,7 @@ export function SaveListItemImages({ num, images }: { num: number; images: any }
     <View style={styles.Container}>
       {num === 0 ? (
         <View style={styles.NoWrap}>
-          <FastImage style={styles.NoImage} source={SadBreadGray} />
+          <FastImage style={styles.NoImage} source={SadBreadGray} resizeMode="contain" />
           <Text style={styles.NoTitle} presets={['caption1', 'regular']}>
             저장한 빵집이 없어요
           </Text>
