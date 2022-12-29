@@ -39,6 +39,7 @@ export function CameraComponent({
       {device && (
         <Camera ref={camera} photo={true} style={StyleSheet.absoluteFill} device={device} isActive={!isCameraClick} />
       )}
+      {isCameraClick && <View style={styles.ResultBackground} />}
       <TouchableOpacity onPress={onCloseClick} style={styles.Header}>
         <CloseIcon width={32} height={32} style={styles.Icon} />
       </TouchableOpacity>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create(
       flex: 1,
     },
     Header: {
-      marginTop: 15,
+      marginTop: 40,
       height: 32,
       width: '100%',
       backgroundColor: 'inherit',
@@ -136,6 +137,14 @@ const styles = StyleSheet.create(
       marginTop: 'auto',
       paddingTop: 20,
       paddingHorizontal: 20,
+    },
+    ResultBackground: {
+      backgroundColor: 'black',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      top: 0,
     },
     ResultText: {
       color: 'white',
