@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -10,16 +10,33 @@ import { Button } from '../Shared/Button/Button';
 import { CloseIcon } from '../Shared/Icons';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
+import { Camera } from 'react-native-vision-camera';
 
 export function DeleteBakeryBottomSheet({ bottomSheetRef }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const snapPoints = useMemo(() => [184], []);
 
-  const onClickCamera = () => {
-    navigation.push('EditBakeryStack', {
-      screen: 'Camera',
-    });
-    bottomSheetRef.current?.close();
+  const onClickCamera = async () => {
+    await Camera.requestCameraPermission();
+    const cameraPermission = await Camera.getCameraPermissionStatus();
+    console.log(cameraPermission);
+    if (cameraPermission === 'authorized') {
+      navigation.push('EditBakeryStack', {
+        screen: 'Camera',
+      });
+      bottomSheetRef.current?.close();
+    } else if (cameraPermission === 'not-determined') {
+      const newCameraPermission = await Camera.requestCameraPermission();
+      if (newCameraPermission === 'authorized') {
+      } else {
+        navigation.push('EditBakeryStack', {
+          screen: 'Camera',
+        });
+        bottomSheetRef.current?.close();
+      }
+    } else if (cameraPermission === 'denied') {
+      Alert.alert('', '앱 설정에서 카메라 권한을 허용해주세요.');
+    }
   };
 
   const onClickAlbum = () => {

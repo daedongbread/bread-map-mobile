@@ -4,6 +4,7 @@ import { AlbumList } from './AlbumList';
 import { ConfirmDelete } from './ConfirmDelete';
 import { Header } from './Header';
 import { CancelBottomSheet } from '.';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 type Props = {
   onClickRight: () => void;
@@ -23,7 +24,7 @@ export function DeleteLocationComponent({
   cancelBottomSheetRef,
 }: Props) {
   return (
-    <>
+    <SafeAreaView style={styles.Container}>
       <Header title="장소 삭제" onClickRight={onClickRight} />
       {curType === 'Album' ? (
         <AlbumList setCurLocationUrl={setCurLocationUrl} />
@@ -31,6 +32,12 @@ export function DeleteLocationComponent({
         <ConfirmDelete curLocationUrl={curLocationUrl} curPhotoUrl={curPhotoUrl} />
       )}
       <CancelBottomSheet bottomSheetRef={cancelBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  Container: {
+    flex: 1,
+  },
+});

@@ -7,25 +7,59 @@ import { ListButtonWrap } from './ListButtonWrap';
 import { ProfileInfo } from './ProfileInfo';
 import { ReviewList } from './ReviewList';
 import { SaveList } from '.';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 
 type Props = {
   profileInfoData: any;
   loading: boolean;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
+  onItemClick: (item: any) => void;
+  onClickUpdateButton: () => void;
+  onFollowButtonClick: (userId: number) => void;
+  userId: any;
 };
-//뷰
-export const ProfileComponent = ({ profileInfoData, loading, buttonType, setButtonType }: Props) => {
+
+export const FlagColors = {
+  ORANGE: '#FF6E40',
+  GREEN: '#1EC780',
+  YELLOW: '#FFBF1B',
+  CYAN: '#00C7D3',
+  BLUE: '#1A73E9',
+  SKY: '#50A0FF',
+  NAVY: '#AD44FF',
+  PURPLE: '#7B61FF',
+  RED: '#FF4141',
+  PINK: '#FF7294',
+} as const;
+
+export const ProfileComponent = ({
+  profileInfoData,
+  loading,
+  buttonType,
+  setButtonType,
+  onItemClick,
+  onClickUpdateButton,
+  onFollowButtonClick,
+  userId,
+}: Props) => {
   return (
     <>
       {loading ? null : (
         <SectionList
           sections={[{ title: 'none', data: [''] }]}
+          bounces={false}
           ListHeaderComponent={() => (
             <>
-              <Header type="ME" />
+              <Header type={userId ? 'OTHER' : 'ME'} />
               <SplitRow height={16} />
-              <ProfileInfo profileInfoData={profileInfoData} />
+              <ProfileInfo
+                profileInfoData={profileInfoData}
+                onClickUpdateButton={onClickUpdateButton}
+                onFollowButtonClick={onFollowButtonClick}
+                userId={userId}
+              />
               <SplitRow height={16} />
             </>
           )}
@@ -38,7 +72,7 @@ export const ProfileComponent = ({ profileInfoData, loading, buttonType, setButt
           key={buttonType === 0 ? 'G' : 'L'}
           renderItem={() =>
             buttonType === 0 ? (
-              <SaveList userFlagList={profileInfoData?.userFlagList} />
+              <SaveList userFlagList={profileInfoData?.userFlagList} onItemClick={onItemClick} />
             ) : (
               <ReviewList userReviewList={profileInfoData?.userReviewList} />
             )

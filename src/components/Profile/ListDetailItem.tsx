@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { theme } from '@/styles/theme';
@@ -8,10 +8,34 @@ import { useNavigation } from '@react-navigation/native';
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
 import IcFlag from '@shared/Icons/IcFlag.svg';
 import IcHeart from '@shared/Icons/IcHeart.svg';
+import defaultProfile from '@shared/Images/defaultProfile.png';
+import { FlagColors } from './ProfileComponent';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-export function ListDetailItem({ item, bottomSheetRef }: any) {
+export function ListDetailItem({ item, bottomSheetRef, name, color }: any) {
   const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
+
+  const FlagColor =
+    color === 'ORANGE'
+      ? FlagColors.ORANGE
+      : color === 'GREEN'
+      ? FlagColors.GREEN
+      : color === 'YELLOW'
+      ? FlagColors.YELLOW
+      : color === 'CYAN'
+      ? FlagColors.CYAN
+      : color === 'BLUE'
+      ? FlagColors.BLUE
+      : color === 'SKY'
+      ? FlagColors.SKY
+      : color === 'NAVY'
+      ? FlagColors.NAVY
+      : color === 'PURPLE'
+      ? FlagColors.PURPLE
+      : color === 'RED'
+      ? FlagColors.RED
+      : FlagColors.PINK;
+
   const onItemClick = () => {
     // bottomSheetRef.current?.expand();
     navigate('MainStack', {
@@ -22,12 +46,18 @@ export function ListDetailItem({ item, bottomSheetRef }: any) {
       },
     });
   };
+
   return (
     <TouchableOpacity onPress={onItemClick} style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
-        <FastImage style={styles.Image} source={{ uri: item?.image }} />
-        <View style={[styles.bookmarkBackground, { backgroundColor: item?.iconBackgroundColor }]}>
-          {item?.icon === 'heart' ? <IcHeart width={17.5} /> : <IcFlag width={17.5} />}
+        <View>
+          <View style={styles.Placeholder}>
+            <ImageBackground source={defaultProfile} resizeMode="contain" style={styles.PlaceholderImage} />
+          </View>
+          <FastImage style={styles.Image} source={{ uri: item?.image }} />
+        </View>
+        <View style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
+          {name !== '가봤어요' ? <IcHeart width={17.5} /> : <IcFlag width={17.5} />}
         </View>
       </View>
       <View style={styles.infoContainer}>
@@ -35,30 +65,35 @@ export function ListDetailItem({ item, bottomSheetRef }: any) {
         <View style={styles.countItemsWrap}>
           <View style={styles.countItem}>
             <CircleFlag />
-            <Text style={styles.countItemText}>{item?.flagCount}</Text>
+            <Text style={styles.countItemText}>{item?.flagNum}</Text>
           </View>
           <View style={styles.countItem}>
             <CircleStar />
-            <Text style={styles.countItemText}>{item?.starCount}</Text>
+            <Text style={styles.countItemText}>{item?.rating}</Text>
           </View>
           <View style={styles.countItem}>
             <CirclePencil />
-            <Text style={styles.countItemText}>{item?.reviewCount}</Text>
+            <Text style={styles.countItemText}>{item?.reviewNum}</Text>
           </View>
         </View>
-        <View style={styles.ScrollView} onStartShouldSetResponder={() => true}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {item?.reviews.map((review: any, index: number) => (
-              <View key={index} style={styles.reviewView}>
-                <View style={styles.reviewContent}>
-                  <Quote />
-                  <Text style={styles.reviewText} numberOfLines={2}>
-                    {review.text}
-                  </Text>
+        <View style={styles.ScrollView}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={item?.simpleReviewList}
+            renderItem={({ item }) => {
+              return (
+                <View key={item?.id} style={styles.reviewView} onStartShouldSetResponder={() => true}>
+                  <View style={styles.reviewContent}>
+                    <Quote />
+                    <Text style={styles.reviewText} numberOfLines={2}>
+                      {item.content}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </ScrollView>
+              );
+            }}
+          />
         </View>
       </View>
     </TouchableOpacity>
@@ -82,7 +117,7 @@ const styles = StyleSheet.create(
       position: 'absolute',
       width: 28,
       height: 28,
-      borderRadius: 99,
+      borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
       right: 6,
@@ -125,10 +160,10 @@ const styles = StyleSheet.create(
       paddingHorizontal: 10,
       paddingVertical: 8,
       width: 195,
+      height: 54,
       marginRight: 8,
       borderRadius: 8,
       backgroundColor: theme.color.gray200,
-      justifyContent: 'center',
     },
     reviewContent: {
       flexDirection: 'row',
@@ -140,6 +175,19 @@ const styles = StyleSheet.create(
     },
     ScrollView: {
       flexDirection: 'row',
+    },
+    Placeholder: {
+      position: 'absolute',
+      backgroundColor: '#eeeeee',
+      borderRadius: 20,
+      width: 108,
+      height: 108,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    PlaceholderImage: {
+      width: 56,
+      height: 56,
     },
   })
 );
