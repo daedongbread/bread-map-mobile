@@ -6,8 +6,11 @@ import { CameraComponent } from '@/components/EditBakery';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-easy-toast';
+import { phPathToFilePath } from '@/utils/phPathToFilePath';
 
 export function CameraContainer() {
+  const toast = useRef<Toast>(null);
   const camera = useRef<Camera>(null);
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const devices = useCameraDevices();
@@ -16,6 +19,8 @@ export function CameraContainer() {
   const [isCameraClick, setIsCameraClick] = useState(false);
   const [tmpPhoto, setTmpPhoto] = useState('');
   const [galleryImage, setGalleryImage] = useState('');
+
+  console.log('device: ' + device);
 
   const currentCameraPermission = async () => {
     await Camera.requestCameraPermission();
@@ -26,20 +31,26 @@ export function CameraContainer() {
   };
 
   const getAlbum = () => {
-    ImageCropPicker.openPicker({
-      width: 320,
-      height: 280,
-      cropping: true,
-    }).then(image => {
-      setPhoto(image.path);
+    // ImageCropPicker.openPicker({
+    //   width: 320,
+    //   height: 280,
+    //   cropping: true,
+    // }).then(image => {
+    //   setPhoto(image.path);
+    // });
+    navigation.push('EditBakeryStack', {
+      screen: 'DeleteLocation',
+      params: {
+        type: 'Album',
+      },
     });
   };
 
   const onCameraButtonClick = async () => {
     const data = await camera.current?.takePhoto({
-      qualityPrioritization: 'quality',
+      qualityPrioritization: Platform.OS === 'android' ? 'quality' : 'balanced',
     });
-    // console.log(data?.path);
+    // console.log(data);
 
     const image = await ImageCropPicker.openCropper({
       path: `file://${data?.path}`,
@@ -86,13 +97,17 @@ export function CameraContainer() {
       first: 1,
       assetType: 'Photos',
     });
-    // eslint-disable-next-line no-console
-    console.log(data);
-    setGalleryImage(data.edges[0]?.node?.image?.uri);
+    if (Platform.OS === 'ios') {
+      const result = await phPathToFilePath(data.edges[0].node.image.uri);
+      setGalleryImage(result);
+    } else {
+      setGalleryImage(data.edges[0]?.node?.image?.uri);
+    }
   };
+
   useEffect(() => {
     getPhotoWithPermission();
-    currentCameraPermission();
+    // currentCameraPermission();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -108,18 +123,27 @@ export function CameraContainer() {
     }
   }, [photo, navigation]);
 
+  useEffect(() => {
+    toast.current?.show('폐업전경 사진을 제출해주세요');
+  }, []);
+
   return (
-    <CameraComponent
-      getAlbum={getAlbum}
-      onCameraButtonClick={onCameraButtonClick}
-      camera={camera}
-      onCloseClick={onCloseClick}
-      device={device}
-      isCameraClick={isCameraClick}
-      onRetakePhoto={onRetakePhoto}
-      onUseImageClick={onUseImageClick}
-      tmpPhoto={tmpPhoto}
-      galleryImage={galleryImage}
-    />
+    <>
+      {device && (
+        <CameraComponent
+          getAlbum={getAlbum}
+          onCameraButtonClick={onCameraButtonClick}
+          camera={camera}
+          onCloseClick={onCloseClick}
+          device={device}
+          isCameraClick={isCameraClick}
+          onRetakePhoto={onRetakePhoto}
+          onUseImageClick={onUseImageClick}
+          tmpPhoto={tmpPhoto}
+          galleryImage={galleryImage}
+        />
+      )}
+      <Toast ref={toast} position="top" />
+    </>
   );
 }
