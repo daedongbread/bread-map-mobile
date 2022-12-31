@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useGetBakery } from '@/apis/bakery';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { RatingStars } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewRating/RatingStar';
 import { numberFormat } from '@/utils';
-import { StarIcon } from '@shared/Icons';
 import IcPersonCircle from '@shared/Icons/IcPersonCircle.svg';
 import { Text } from '@shared/Text';
 
@@ -26,13 +26,7 @@ export const BakeryReportContainer = ({ bakeryId }: Props) => {
           <Text presets={['caption1', 'regular']}> {numberFormat(bakery?.info.reviewNum || 0)}명이 평가했어요!</Text>
         </View>
         <Text style={styles.ratingText}>{bakery?.info.rating}</Text>
-        <View style={styles.ratingWrapper}>
-          <StarIcon size={16} fillColor="orange" />
-          <StarIcon size={16} fillColor="orange" />
-          <StarIcon size={16} fillColor="orange" />
-          <StarIcon size={16} fillColor="orange" />
-          <StarIcon size={16} fillColor="gray" />
-        </View>
+        <RatingStars rating={bakery?.info.rating || 0} />
       </View>
     </React.Fragment>
   );
