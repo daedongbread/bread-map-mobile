@@ -46,7 +46,7 @@ const AuthWebView = () => {
         }
         style={styles.container}
         onMessage={onMessage}
-        source={{ uri: `http://ec2-3-36-94-161.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${type}` }}
+        source={{ uri: `http://ec2-13-125-60-187.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${type}` }}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
