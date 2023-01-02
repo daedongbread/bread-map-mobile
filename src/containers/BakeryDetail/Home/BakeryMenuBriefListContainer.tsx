@@ -29,7 +29,7 @@ export const BakeryMenuBriefListContainer = ({ bakeryId }: Props) => {
   };
 
   const onPressMoreButton = () => {
-    //TODO navigation 타입 정리 필요함
+    //TODO  navigation 타입 정리 필요함
     (navigation as any).jumpTo('BakeryDetailMenu', { bakeryId });
   };
 
@@ -47,8 +47,8 @@ export const BakeryMenuBriefListContainer = ({ bakeryId }: Props) => {
         <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />
         {bakery &&
           bakery.menu.length > 0 &&
-          briefMenu.map(menuData => (
-            <TouchableOpacity onPress={() => onPress(menuData)}>
+          briefMenu.map((menuData, idx) => (
+            <TouchableOpacity key={idx} onPress={() => onPress(menuData)}>
               <Menu name={menuData.name} price={Number(menuData.price)} rating={menuData.rating} />
             </TouchableOpacity>
           ))}

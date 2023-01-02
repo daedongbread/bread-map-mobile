@@ -3,8 +3,8 @@ import { ScrollView } from 'react-native';
 
 import { BakeryDetailInfoContainer } from '@/containers/BakeryDetail/BakeryDetailInfoContainer';
 import { BakeryReportContainer } from '@/containers/BakeryDetail/BakeryReportContainer';
-import { BakeryReviewContainer } from '@/containers/BakeryDetail/BakeryReviewContainer';
 import { BakeryMenuBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryMenuBriefListContainer';
+import { BakeryReviewBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryReviewBriefListContainer';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 
 // TODO: 일부 아이콘 변경 필요
@@ -18,11 +18,11 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
   }, [navigation, bakeryId]);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ height: '100%' }}>
       <BakeryDetailInfoContainer bakeryId={bakeryId} />
       <BakeryMenuBriefListContainer bakeryId={bakeryId} />
       <BakeryReportContainer bakeryId={bakeryId} />
-      <BakeryReviewContainer bakeryId={bakeryId} />
+      <BakeryReviewBriefListContainer bakeryId={bakeryId} />
     </ScrollView>
   );
 };
