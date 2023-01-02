@@ -38,7 +38,7 @@ export const BakeryMenuBriefListContainer = ({ bakeryId }: Props) => {
   }
 
   const { menu } = bakery;
-  const briefMenu = menu.slice(0, 5);
+  const briefMenu = menu.slice(0, 3);
 
   return (
     <>

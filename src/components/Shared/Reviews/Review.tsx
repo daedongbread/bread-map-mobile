@@ -80,7 +80,7 @@ export default Review;
 const styles = StyleSheet.create(
   resizePixels({
     container: {
-      position: 'relative',
+      marginTop: 20,
     },
 
     reviewContent: {
