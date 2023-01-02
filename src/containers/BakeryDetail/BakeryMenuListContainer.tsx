@@ -4,8 +4,7 @@ import { useGetBakery } from '@/apis/bakery';
 import { BakeryMenuEntity } from '@/apis/bakery/types';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { TabHeader } from '@/components/BakeryDetail/TabHeader';
-
-import { Menus } from '@shared/Menu';
+import { Menus } from '@/components/Shared/Menu';
 
 type Props = {
   bakeryId: number;

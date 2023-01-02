@@ -10,7 +10,7 @@ type GetReviewResponse = {
   data: BakeryReviewEntity[];
 };
 
-const requestGetReviews = async ({ bakeryId }: UseGetReviewProps) => {
+export const requestGetReviews = async ({ bakeryId }: UseGetReviewProps) => {
   const resp = await fetcher.get<GetReviewResponse>(`/review/${bakeryId}/simple?sort=latest`);
   return resp.data.data;
 };
