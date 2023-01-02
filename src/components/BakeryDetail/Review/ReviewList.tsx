@@ -2,10 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
 import { useGetReviews } from '@/apis/review';
-import {
-  BakeryMenuStackParamList,
-  BakeryReviewStackParamList,
-} from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+
+import { BakeryReviewStackParamList } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 import { MainStackParamList } from '@/pages/MainStack/Stack';
 
 import { resizePixels } from '@/utils';
@@ -16,8 +14,8 @@ import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Navigation = CompositeScreenProps<
-  StackScreenProps<BakeryMenuStackParamList, 'BakeryMenus'>,
-  CompositeScreenProps<StackScreenProps<MainStackParamList>, StackScreenProps<BakeryReviewStackParamList>>
+  StackScreenProps<MainStackParamList>,
+  StackScreenProps<BakeryReviewStackParamList>
 >;
 
 const ReviewList: React.FC = () => {

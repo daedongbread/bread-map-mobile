@@ -13,8 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 
 export const PHOTO_LIMIT = 10;
 
-const bakeryId = 30300001400004;
-
 export const ReviewRatingContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
