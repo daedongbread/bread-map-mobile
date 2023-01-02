@@ -1,36 +1,32 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { BakeryReviewEntity } from '@/apis/bakery/types';
+import { Divider } from '@/components/BakeryDetail/Divider';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { BreadRating } from '../Rating';
-import { BakeryReviewEntity } from '@/apis/bakery/types';
 
-type MenuReview = {
-  breadCategoryId: number;
-  contents: string;
-  imgPathList: string[];
-  lastModifiedDateTime: string;
-  memberId: number;
-  memberName: string;
-  menuId: number;
-  menuName: string;
-  menuReviewId: number;
-  rating: number;
-};
+// type MenuReview = {
+//   breadCategoryId: number;
+//   contents: string;
+//   imgPathList: string[];
+//   lastModifiedDateTime: string;
+//   memberId: number;
+//   memberName: string;
+//   menuId: number;
+//   menuName: string;
+//   menuReviewId: number;
+//   rating: number;
+// };
+// TODO 안쓰는 type 제거
 
 type ReviewProps = {
   review: BakeryReviewEntity;
   onPress: (review: BakeryReviewEntity) => void;
+  isEnd: boolean;
 };
 
-const imgs = [
-  { id: 1, src: require('../Images/bread.png') },
-  { id: 2, src: require('../Images/bread2.png') },
-  { id: 3, src: require('../Images/bread.png') },
-  { id: 4, src: require('../Images/bread2.png') },
-];
-// 페이지 이동되는 부분에 btn, view가 있는데, 이것때문에 사진이 안넘어간다.
-const Review: React.FC<ReviewProps> = ({ review, onPress }) => (
+const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
   <View style={styles.container}>
     <View style={styles.reviewContent}>
       <View style={styles.reviewHeader}>
@@ -45,32 +41,35 @@ const Review: React.FC<ReviewProps> = ({ review, onPress }) => (
             </View>
           </View>
         </View>
+        {/*TODO 팔로우 버튼 동작*/}
         <TouchableOpacity style={styles.followButton}>
           <Text style={styles.followButtonText}>팔로우</Text>
         </TouchableOpacity>
       </View>
-      {review?.productRatingList.map(i => (
-        <View style={styles.breadRatingContainer}>
-          <Text style={styles.menuNameText}>{i?.productName}</Text>
-          <BreadRating rating={i?.rating} type={'review'} />
-        </View>
-      ))}
+      <View style={styles.breadRatingListContainer}>
+        {review?.productRatingList.map((i, idx) => (
+          <View style={styles.breadRatingContainer} key={idx}>
+            <Text style={styles.menuNameText}>{i?.productName}</Text>
+            <BreadRating rating={i?.rating} type={'review'} />
+          </View>
+        ))}
+      </View>
     </View>
     <TouchableOpacity onPress={() => onPress(review)}>
-      {review?.imageList.length >= 1 && (
+      {review?.imageList.length > 0 && (
         <View style={styles.reviewContainer}>
           <FlatList
             style={styles.reviewImageContainer}
             data={review?.imageList.map((i, ix) => ({ id: ix, src: i }))}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.reviewImageContent}
             keyExtractor={img => img.id.toString()}
-            renderItem={({ item }) => <Image style={styles.reviewImage} source={item.src as any} />}
+            renderItem={({ item }) => <Image style={styles.reviewImage} source={{ uri: item.src as any }} />}
           />
         </View>
       )}
       <Text style={styles.reviewText}>{review?.content}</Text>
+      {isEnd || <Divider style={{ height: 1 }} />}
     </TouchableOpacity>
   </View>
 );
@@ -82,15 +81,10 @@ const styles = StyleSheet.create(
   resizePixels({
     container: {
       position: 'relative',
-      borderBottomWidth: 1,
-      borderBottomColor: theme.color.gray300,
     },
 
     reviewContent: {
-      marginHorizontal: 20,
-      marginVertical: 20,
-
-      // TODO: 마지막 리뷰는 border 제거
+      marginBottom: 12,
     },
     reviewHeader: {
       flexDirection: 'row',
@@ -118,6 +112,11 @@ const styles = StyleSheet.create(
       color: theme.color.gray300,
       fontSize: 12,
     },
+    breadRatingListContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+
     socialInfo: {
       flexDirection: 'row',
     },
@@ -143,6 +142,7 @@ const styles = StyleSheet.create(
     breadRatingContainer: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginRight: 8,
       flexGrow: 0,
       backgroundColor: theme.color.gray100,
       paddingHorizontal: 8,
@@ -157,17 +157,12 @@ const styles = StyleSheet.create(
       color: theme.color.gray600,
       marginRight: 0,
     },
-    reviewContainer: {
-      paddingTop: 30,
-    },
+    reviewContainer: {},
     // 여기에 문제있음
     reviewImageContainer: {
       flexDirection: 'row',
-      position: 'absolute',
       left: 0,
-    },
-    reviewImageContent: {
-      paddingHorizontal: 20,
+      marginBottom: 12,
     },
     reviewImage: {
       width: 140,
@@ -181,9 +176,7 @@ const styles = StyleSheet.create(
     reviewText: {
       color: theme.color.gray700,
       fontSize: 14,
-      // paddingTop: 00,
       paddingBottom: 20,
-      paddingHorizontal: 20,
     },
   })
 );
