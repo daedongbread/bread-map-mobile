@@ -28,6 +28,11 @@ export const BakeryMenuBriefListContainer = ({ bakeryId }: Props) => {
     });
   };
 
+  const onPressMoreButton = () => {
+    //TODO navigation 타입 정리 필요함
+    (navigation as any).jumpTo('BakeryDetailMenu', { bakeryId });
+  };
+
   if (!bakery) {
     return <></>;
   }
@@ -48,7 +53,12 @@ export const BakeryMenuBriefListContainer = ({ bakeryId }: Props) => {
             </TouchableOpacity>
           ))}
       </View>
-      <Button size="large" appearance="terdary" style={{ marginHorizontal: 20, marginVertical: 24 }}>
+      <Button
+        onPress={onPressMoreButton}
+        size="large"
+        appearance="terdary"
+        style={{ marginHorizontal: 20, marginVertical: 24 }}
+      >
         <Text style={styles.footerButtonText}>전체메뉴보기</Text>
       </Button>
     </>
