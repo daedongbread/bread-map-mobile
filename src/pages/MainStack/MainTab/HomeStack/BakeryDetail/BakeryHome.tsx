@@ -9,8 +9,8 @@ import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/
 
 // TODO: 일부 아이콘 변경 필요
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ navigation }) => {
+  // const bakeryId = route.params.bakeryId;
   const bakeryId = 30300001400004;
-
   useEffect(() => {
     navigation.setParams({
       bakeryId,

@@ -12,6 +12,7 @@ import {
   InfoWifiIcon,
 } from '@shared/Icons';
 import { Divider } from '../Divider';
+import { EmptyInformation } from './EmptyInformation';
 
 type FacilityCategory = 'PARKING' | 'WIFI' | 'DELIVERY' | 'PET' | 'SHIPPING';
 type FacilityText = '주차 가능' | '와이파이' | '배달' | '반려동물' | '택배';
@@ -51,7 +52,8 @@ const facilityList: FacilityItem[] = [
 ];
 
 const Information: React.FC = () => {
-  const { bakery } = useBakeryDetail();
+  const bakeryId = 30300001400004;
+  const { bakery } = useBakeryDetail(bakeryId);
   const [facilities, setFacilities] = React.useState<FacilityItem[] | null>(null);
 
   React.useEffect(() => {
@@ -68,6 +70,7 @@ const Information: React.FC = () => {
       <View style={styles.facilitiesContainer}>
         <Text style={styles.title}>시설정보</Text>
         <View style={styles.facilities}>
+          {facilities?.length === 0 && <EmptyInformation />}
           {facilities?.map(facility => (
             <View style={styles.facility} key={facility.category}>
               {<facility.icon strokeColor={'orange'} />}
