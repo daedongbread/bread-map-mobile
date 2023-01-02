@@ -5,7 +5,7 @@ import { XCircle } from '@shared/Icons/XCircle';
 import { Text } from '@shared/Text';
 import { AlertIcon } from '../Icons/AlertIcon';
 
-type Props = Omit<TextInputProps, 'value' | 'onChange'> & {
+export type TextInputPropsType = Omit<TextInputProps, 'value' | 'onChange'> & {
   value: string;
   label?: string;
   onChange?: ({ label, value }: { label: string; value: string }) => void;
@@ -15,7 +15,7 @@ type Props = Omit<TextInputProps, 'value' | 'onChange'> & {
   isAlert?: boolean;
 };
 
-export const TextInput: React.FC<Props> = ({
+export const TextInput: React.FC<TextInputPropsType> = ({
   onChangeText,
   onChange,
   label = '',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   inputContainer: {
-    paddingVertical: 16,
+    paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: 8,
     justifyContent: 'center',

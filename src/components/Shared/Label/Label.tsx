@@ -1,15 +1,18 @@
 import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View } from 'react-native';
 import { Text } from '@shared/Text';
 
 type Props = {
   isRequire?: boolean;
+  style?: StyleProp<any>;
 };
 
-export const Label: React.FC<Props> = memo(({ isRequire = false, children }) => {
+export const Label: React.FC<Props> = memo(({ isRequire = false, children, style }) => {
   return (
-    <View style={styles.container}>
-      <Text presets={['body1', 'bold']}>{children}</Text>
+    <View style={[styles.container, style]}>
+      <Text presets={['body1', 'bold']} style={styles.text}>
+        {children}
+      </Text>
       {isRequire ? <View style={styles.require} /> : null}
     </View>
   );
@@ -19,6 +22,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginBottom: 12,
+  },
+  text: {
+    fontSize: 14,
   },
   require: {
     marginLeft: 2,

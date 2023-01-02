@@ -2,8 +2,11 @@ import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from '../Button/Button';
+import { PlusIcon } from '../Icons';
 import { Menu } from './Menu';
 
 interface MenuProps {
@@ -14,6 +17,13 @@ interface MenuProps {
 
 const Menus: React.FC<MenuProps> = ({ headerComponent, bakery, onPress }) => {
   const { menu } = bakery;
+  const navigate = useNavigation<HomeStackScreenProps<'BakeryBreadReport'>['navigation']>();
+
+  const onPressAddButton = () => {
+    navigate.push('BakeryBreadReport', {
+      bakeryId: bakery.id,
+    });
+  };
 
   return (
     <FlatList
@@ -27,8 +37,10 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, bakery, onPress }) => {
         </TouchableOpacity>
       )}
       ListFooterComponent={
-        <Button size="large" appearance="terdary" style={{ marginHorizontal: 20, marginVertical: 24 }}>
-          <Text style={styles.footerButtonText}>전체메뉴보기</Text>
+        <Button size="large" appearance="terdary" style={{ marginVertical: 24 }} onPress={onPressAddButton}>
+          <Text style={styles.footerButtonText}>
+            <PlusIcon color={'#BDBDBD'} style={{ marginRight: 8 }} /> 빵 메뉴 제보하기
+          </Text>
         </Button>
       }
     />
