@@ -29,10 +29,7 @@ export const BakeryReviewContainer = ({ bakeryId }: Props) => {
         screen: 'Bakery',
         params: {
           screen: 'BakeryDetailReview',
-          params: {
-            screen: 'BakeryReviewDetail',
-            params: { reviewId: review.id },
-          },
+          params: { bakeryId: bakeryId },
         },
       },
     });

@@ -1,14 +1,14 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { Information, MenuReviewList, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
-import { MenuItem, MenuList } from '@/components/BakeryDetail/Menu/MenuList';
+import { Information, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
+import { MenuList } from '@/components/BakeryDetail/Menu/MenuList';
 import { BakeryHome } from '@/pages/MainStack/MainTab/HomeStack/Bakery/BakeryHome';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: {
@@ -32,7 +32,7 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ route }) => {
+const BakeryDetailTabNavigator = ({ route }: any) => {
   return (
     <SafeAreaView
       style={{
@@ -49,7 +49,7 @@ const BakeryDetailTabNavigator = ({ route }) => {
         <Tab.Screen name="BakeryDetailHome" component={BakeryHome} options={{ title: '홈' }} />
         <Tab.Screen
           name="BakeryDetailMenu"
-          component={BakeryMenuStack}
+          component={MenuList}
           options={{ title: '메뉴' }}
           initialParams={{ bakeryId: route.params.params.bakeryId }}
         />
@@ -69,32 +69,6 @@ const BakeryDetailTabNavigator = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-// ** BakeryDetail tab (menu) route types **
-export type BakeryMenuStackParamList = {
-  BakeryMenus: {
-    bakeryId: number;
-  };
-  BakeryMenuReviews: {
-    info: undefined;
-    menu: MenuItem;
-    reviews: undefined;
-  };
-};
-
-export type BakeryMenuStackNavigationProps<T extends keyof BakeryMenuStackParamList> = CompositeScreenProps<
-  StackScreenProps<BakeryMenuStackParamList, T>,
-  RootStackScreenProps<keyof RootStackParamList>
->;
-
-const MenuStack = createNativeStackNavigator<BakeryMenuStackParamList>();
-
-const BakeryMenuStack = () => (
-  <MenuStack.Navigator initialRouteName="BakeryMenus">
-    <MenuStack.Screen name="BakeryMenus" options={{ headerShown: false }} component={MenuList} />
-    <MenuStack.Screen name="BakeryMenuReviews" options={{ headerShown: false }} component={MenuReviewList} />
-  </MenuStack.Navigator>
-);
 
 export type BakeryReviewStackParamList = {
   BakeryReviews: {
