@@ -1,13 +1,12 @@
 import React from 'react';
 import { BakeryMenuEntity } from '@/apis/bakery/types';
 import { MenuReviewList } from '@/components/BakeryDetail';
-import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
 import { Home } from '@/pages/MainStack/MainTab/HomeStack/Home';
-import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
+import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail/BakeryDetailTopTab';
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -18,10 +17,7 @@ export type HomeStackParamList = {
   };
 };
 
-export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
-  RootStackScreenProps<keyof RootStackParamList>,
-  StackScreenProps<HomeStackParamList, T>
->;
+export type HomeStackScreenProps<T extends keyof HomeStackParamList> = StackScreenProps<HomeStackParamList, T>;
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 

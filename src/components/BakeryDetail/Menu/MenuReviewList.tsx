@@ -2,14 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useGetMenuReviews } from '@/apis/review/useGetMenuReviews';
 import { Reviews } from '@/components/Shared/Reviews';
-import { BakeryMenuStackNavigationProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
-const MenuReviewList: React.FC<BakeryMenuStackNavigationProps<'BakeryMenuReviews'>> = ({ route }) => {
-  const {
-    params: { menu, bakeryId },
-  } = route;
+const MenuReviewList: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ route }) => {
+  const { bakeryId, menu } = route.params;
 
   const { data } = useGetMenuReviews({ bakeryId, productName: menu.name });
   const onPress = () => {
