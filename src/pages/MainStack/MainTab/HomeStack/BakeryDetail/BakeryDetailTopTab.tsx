@@ -2,13 +2,16 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { Information, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
 import { MenuList } from '@/components/BakeryDetail/Menu/MenuList';
-import { BakeryHome } from '@/pages/MainStack/MainTab/HomeStack/Bakery/BakeryHome';
+import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
+import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { HomeStackScreenProps } from '../Stack';
+import { BakeryHome } from './BakeryHome';
 
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: {
@@ -32,16 +35,25 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ route }: any) => {
+const BakeryDetailTabNavigator = ({ navigation }: HomeStackScreenProps<'Bakery'>) => {
+  // const { bakeryId } = route.params?.params || { bakeryId: 0 };
+  const bakeryId = 30300001400004;
+  const bakery = useBakeryDetail(bakeryId);
   return (
     <SafeAreaView
       style={{
         flex: 1,
+        height: '100%',
       }}
     >
+      <NavigateHeader title={bakery.bakery?.info.name || ''} onPressPrevBtn={() => navigation.pop()} />
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{
+          tabBarContentContainerStyle: {
+            flex: 1,
+            height: '100%',
+          },
           tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
           tabBarLabelStyle: { fontWeight: 'bold' },
         }}
@@ -51,19 +63,19 @@ const BakeryDetailTabNavigator = ({ route }: any) => {
           name="BakeryDetailMenu"
           component={MenuList}
           options={{ title: '메뉴' }}
-          initialParams={{ bakeryId: route.params.params.bakeryId }}
+          initialParams={{ bakeryId }}
         />
         <Tab.Screen
           name="BakeryDetailReview"
           component={BakeryReviewStack}
           options={{ title: '리뷰' }}
-          initialParams={{ bakeryId: route.params.params.bakeryId }}
+          initialParams={{ bakeryId }}
         />
         <Tab.Screen
           name="BakeryDetailInfo"
           component={Information}
           options={{ title: '정보' }}
-          initialParams={{ bakeryId: route.params.params.bakeryId }}
+          initialParams={{ bakeryId }}
         />
       </Tab.Navigator>
     </SafeAreaView>

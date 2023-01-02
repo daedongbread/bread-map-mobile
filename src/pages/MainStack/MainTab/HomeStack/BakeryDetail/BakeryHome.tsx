@@ -5,7 +5,7 @@ import { BakeryDetailInfoContainer } from '@/containers/BakeryDetail/BakeryDetai
 import { BakeryReportContainer } from '@/containers/BakeryDetail/BakeryReportContainer';
 import { BakeryMenuBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryMenuBriefListContainer';
 import { BakeryReviewBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryReviewBriefListContainer';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 
 // TODO: 일부 아이콘 변경 필요
 const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ navigation }) => {
