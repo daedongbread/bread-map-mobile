@@ -13,7 +13,9 @@ type SubmitDataType = {
   price: string;
   images: Asset[];
 };
-const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ navigation }) => {
+const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ route, navigation }) => {
+  const { bakeryId } = route.params;
+
   const [submitData, setSubmitData] = React.useState<SubmitDataType>({
     menuName: '',
     price: '',
@@ -75,7 +77,7 @@ const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = (
       <ButtonWrapper>
         <Button
           onPress={onSubmitButtonPress}
-          disabled={isSubmitDataValid}
+          disabled={!isSubmitDataValid}
           appearance={isSubmitDataValid ? 'primary' : 'quaternary'}
         >
           확인

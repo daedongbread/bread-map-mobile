@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
+import { BakeryReviewEntity, BakerySingleEntity } from '@/apis/bakery/types';
 import { Information, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
 import { MenuList } from '@/components/BakeryDetail/Menu/MenuList';
 import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
@@ -35,9 +36,8 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ navigation }: HomeStackScreenProps<'Bakery'>) => {
-  // const { bakeryId } = route.params?.params || { bakeryId: 0 };
-  const bakeryId = 30300001400004;
+const BakeryDetailTabNavigator = ({ navigation, route }: HomeStackScreenProps<'Bakery'>) => {
+  const { bakeryId } = route.params?.params || { bakeryId: 0 };
   const bakery = useBakeryDetail(bakeryId);
   return (
     <SafeAreaView
@@ -87,7 +87,8 @@ export type BakeryReviewStackParamList = {
     bakeryId: number;
   };
   BakeryReviewDetail: {
-    reviewId: number;
+    review: BakeryReviewEntity;
+    info: BakerySingleEntity['info'];
   };
   BakeryReport: undefined;
 };
@@ -96,9 +97,14 @@ export type BakeryReviewStackNavigationProps = StackNavigationProp<BakeryReviewS
 
 const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
 
-const BakeryReviewStack = () => (
+const BakeryReviewStack = ({ route }: any) => (
   <ReviewStack.Navigator initialRouteName="BakeryReviews">
-    <ReviewStack.Screen name="BakeryReviews" options={{ headerShown: false }} component={ReviewList} />
+    <ReviewStack.Screen
+      name="BakeryReviews"
+      initialParams={route.params}
+      options={{ headerShown: false }}
+      component={ReviewList}
+    />
     <ReviewStack.Screen name="BakeryReviewDetail" options={{ headerShown: false }} component={ReviewDetail} />
     <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={ReviewReport} />
   </ReviewStack.Navigator>
