@@ -12,7 +12,6 @@ import {
   InfoWifiIcon,
 } from '@shared/Icons';
 import { Divider } from '../Divider';
-import { EmptyInformation } from './EmptyInformation';
 
 type FacilityCategory = 'PARKING' | 'WIFI' | 'DELIVERY' | 'PET' | 'SHIPPING';
 type FacilityText = '주차 가능' | '와이파이' | '배달' | '반려동물' | '택배';
@@ -54,15 +53,6 @@ const facilityList: FacilityItem[] = [
 const Information: React.FC = () => {
   const bakeryId = 30300001400004;
   const { bakery } = useBakeryDetail(bakeryId);
-  const [facilities, setFacilities] = React.useState<FacilityItem[] | null>(null);
-
-  React.useEffect(() => {
-    if (!bakery) {
-      return;
-    }
-    const filtered = facilityList.filter(facility => bakery.facilityInfoList.includes(facility.category));
-    setFacilities(filtered);
-  }, [bakery]);
 
   return (
     <View style={styles.container}>
@@ -70,11 +60,17 @@ const Information: React.FC = () => {
       <View style={styles.facilitiesContainer}>
         <Text style={styles.title}>시설정보</Text>
         <View style={styles.facilities}>
-          {facilities?.length === 0 && <EmptyInformation />}
-          {facilities?.map(facility => (
+          {facilityList.map(facility => (
             <View style={styles.facility} key={facility.category}>
-              {<facility.icon strokeColor={'orange'} />}
-              <Text style={styles.facilityName}>{facility.text}</Text>
+              {<facility.icon strokeColor={bakery?.facilityInfoList.includes(facility.category) ? 'orange' : 'gray'} />}
+              <Text
+                style={
+                  facilityNameStyle(bakery?.facilityInfoList.includes(facility.category) ? 'primary500' : 'gray500')
+                    .facilityName
+                }
+              >
+                {facility.text}
+              </Text>
             </View>
           ))}
         </View>
@@ -84,6 +80,15 @@ const Information: React.FC = () => {
 };
 
 export { Information };
+
+const facilityNameStyle = (colorKey: keyof typeof theme.color) =>
+  StyleSheet.create({
+    facilityName: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      color: theme.color[colorKey],
+    },
+  });
 
 const styles = StyleSheet.create({
   container: {
@@ -130,10 +135,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     margin: 5,
-  },
-  facilityName: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: theme.color.primary500,
   },
 });
