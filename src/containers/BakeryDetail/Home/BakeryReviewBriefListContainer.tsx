@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
 import { useGetReviews } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { EmptyReviews } from '@/components/BakeryDetail/Review/EmptyReviews';
 import { TabHeader } from '@/components/BakeryDetail/TabHeader';
 import { Button } from '@/components/Shared/Button/Button';
 import Review from '@/components/Shared/Reviews/Review';
@@ -57,6 +58,7 @@ export const BakeryReviewBriefListContainer = ({ bakeryId }: Props) => {
           addBtnText={'리뷰 작성'}
           onPressAddBtn={onPressAddBtn}
         />
+        {briefReviews.length === 0 && <EmptyReviews />}
         {briefReviews.map((review, idx) => (
           <Review review={review} onPress={onPress} key={idx} isEnd={briefReviews.length - 1 === idx} />
         ))}
