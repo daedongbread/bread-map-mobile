@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import {
@@ -50,8 +51,8 @@ const facilityList: FacilityItem[] = [
   },
 ];
 
-const Information: React.FC = () => {
-  const bakeryId = 30300001400004;
+const Information: React.FC<BakeryDetailTabScreenProps<'BakeryDetailInfo'>> = ({ route }) => {
+  const { bakeryId } = route.params;
   const { bakery } = useBakeryDetail(bakeryId);
 
   return (

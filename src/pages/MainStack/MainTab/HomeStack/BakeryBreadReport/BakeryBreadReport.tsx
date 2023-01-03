@@ -38,6 +38,7 @@ const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = (
   };
 
   const isSubmitDataValid = !!submitData.menuName && !!submitData.price;
+
   return (
     <Base>
       <FormView>

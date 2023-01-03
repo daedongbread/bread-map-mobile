@@ -15,6 +15,17 @@ export const requestGetReviews = async ({ bakeryId }: UseGetReviewProps) => {
   return resp.data.data;
 };
 
+export const requestGetReview = async ({ reviewId }: { reviewId: number }) => {
+  const resp = await fetcher.get<{
+    data: BakeryReviewEntity;
+  }>(`/review/${reviewId}`);
+  return resp.data.data;
+};
+
+const useGetReview = ({ reviewId }: { reviewId: number }) => {
+  return useQuery(['useGetReviewByReviewId', { reviewId }], () => requestGetReview({ reviewId }));
+};
+
 const useGetReviews = ({ bakeryId }: UseGetReviewProps) => {
   const { data, isLoading, isError, refetch } = useQuery(['useGetReview', { bakeryId }], () =>
     requestGetReviews({ bakeryId })
@@ -28,4 +39,4 @@ const useGetReviews = ({ bakeryId }: UseGetReviewProps) => {
   };
 };
 
-export { useGetReviews };
+export { useGetReviews, useGetReview };

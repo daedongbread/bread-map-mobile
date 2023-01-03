@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
+import { EmptyReviews } from '@/components/BakeryDetail/Review/EmptyReviews';
 import { resizePixels } from '@/utils';
 import Review from './Review';
 
@@ -15,6 +16,7 @@ const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) 
     ListHeaderComponent={headerComponent}
     contentContainerStyle={styles.contain}
     data={reviews}
+    ListEmptyComponent={<EmptyReviews />}
     keyExtractor={review => review.id.toString()}
     renderItem={({ item, index }) => <Review review={item} onPress={onPress} isEnd={reviews.length === index + 1} />}
   />
