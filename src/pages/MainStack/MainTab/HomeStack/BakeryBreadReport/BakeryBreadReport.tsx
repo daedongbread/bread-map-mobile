@@ -1,5 +1,5 @@
 import React from 'react';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { launchImageLibrary, Asset } from 'react-native-image-picker';
 import { PhotoSelect } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewRating/PhotoSelect';
 import { Button } from '@/components/Shared/Button/Button';
 import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
@@ -8,13 +8,36 @@ import { PHOTO_LIMIT } from '@/containers/Review/ReviewRatingContainer';
 import styled from '@emotion/native';
 import { HomeStackScreenProps } from '../Stack';
 
+type SubmitDataType = {
+  menuName: string;
+  price: string;
+  images: Asset[];
+};
 const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ navigation }) => {
+  const [submitData, setSubmitData] = React.useState<SubmitDataType>({
+    menuName: '',
+    price: '',
+    images: [],
+  });
+  const onChangeMenuName = (text: string) => {
+    setSubmitData(prev => ({ ...prev, menuName: text }));
+  };
+  const onChangePrice = (text: string) => {
+    setSubmitData(prev => ({ ...prev, price: text }));
+  };
+
   const onSelectPhotos = async () => {
     const { assets, didCancel } = await launchImageLibrary({ mediaType: 'photo', selectionLimit: PHOTO_LIMIT });
     if (!didCancel && assets) {
-      // dispatch(updateImages([...images, ...assets]));
+      setSubmitData(prev => ({ ...prev, images: [...submitData.images, ...assets] }));
     }
   };
+
+  const onSubmitButtonPress = () => {
+    //TODO: 서버에 데이터 전송
+  };
+
+  const isSubmitDataValid = !!submitData.menuName && !!submitData.price;
   return (
     <Base>
       <FormView>
@@ -27,30 +50,33 @@ const BakeryBreadReport: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = (
         <TextInputWithLabel
           label={'메뉴명'}
           isAlert
-          onChange={() => {}}
+          onChangeText={onChangeMenuName}
           placeholder={'텍스트 입력'}
-          maxLength={10}
           autoCorrect={false}
-          error="메뉴명을 입력해주세요"
-          value={''}
+          error={submitData.menuName ? undefined : '메뉴명을 입력해주세요'}
+          value={submitData.menuName}
           isRequire={true}
         />
         <TextInputWithLabel
           label={'가격'}
-          onChange={() => {}}
+          onChangeText={onChangePrice}
           isAlert
           placeholder={'원'}
           keyboardType="numeric"
-          maxLength={10}
           autoCorrect={false}
-          value={''}
+          value={submitData.price}
           isRequire={true}
+          error={submitData.price ? undefined : '가격을 입력해주세요'}
         />
 
-        <PhotoSelect images={[]} deSelectPhoto={() => {}} onSelectPhotos={onSelectPhotos} />
+        <PhotoSelect images={submitData.images} deSelectPhoto={() => {}} onSelectPhotos={onSelectPhotos} />
       </FormView>
       <ButtonWrapper>
-        <Button disabled appearance="quaternary">
+        <Button
+          onPress={onSubmitButtonPress}
+          disabled={isSubmitDataValid}
+          appearance={isSubmitDataValid ? 'primary' : 'quaternary'}
+        >
           확인
         </Button>
       </ButtonWrapper>
