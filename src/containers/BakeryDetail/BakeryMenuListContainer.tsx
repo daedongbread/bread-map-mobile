@@ -35,6 +35,7 @@ export const BakeryMenuListContainer = ({ bakeryId }: Props) => {
         <Menus
           headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />}
           bakery={bakery}
+          bakeryId={bakeryId}
           onPress={onPress}
         />
       )}

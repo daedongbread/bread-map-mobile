@@ -1,6 +1,6 @@
 import React from 'react';
 import { BakeryMenuListContainer } from '@/containers/BakeryDetail/BakeryMenuListContainer';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 
 export type MenuItem = {
   name: string;
@@ -8,9 +8,9 @@ export type MenuItem = {
   rating: number;
 };
 
-const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = ({ route, navigation }) => {
+const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = ({ route }) => {
   const { bakeryId } = route.params;
-  return <BakeryMenuListContainer bakeryId={30300001400004} />;
+  return <BakeryMenuListContainer bakeryId={bakeryId} />;
 };
 
 export { MenuList };

@@ -12,16 +12,17 @@ import { Menu } from './Menu';
 interface MenuProps {
   headerComponent?: React.ReactElement;
   bakery: BakerySingleEntity;
+  bakeryId: number;
   onPress: (menu: BakeryMenuEntity) => void;
 }
 
-const Menus: React.FC<MenuProps> = ({ headerComponent, bakery, onPress }) => {
+const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, bakery, onPress }) => {
   const { menu } = bakery;
   const navigate = useNavigation<HomeStackScreenProps<'BakeryBreadReport'>['navigation']>();
 
   const onPressAddButton = () => {
     navigate.push('BakeryBreadReport', {
-      bakeryId: bakery.id,
+      bakeryId,
     });
   };
 
