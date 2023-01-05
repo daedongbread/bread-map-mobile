@@ -1,5 +1,5 @@
 import React, { memo, useRef } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -9,43 +9,60 @@ import { ListDetailInfoBottomSheet } from './ListDetailInfoBottomSheet';
 import { ListDetailItem } from './ListDetailItem';
 import { ListDetailItemBottomSheet } from './ListDetailItemBottomSheet';
 
-export function ListDetailComponent() {
+type Props = {
+  getFlagData: any;
+  loading: boolean;
+  name: string;
+  len: number;
+  color: string;
+};
+
+export function ListDetailComponent({ getFlagData, loading, name, len, color }: Props) {
   const infoBottomSheetRef = useRef<BottomSheet>(null);
   const editBottomSheetRef = useRef<BottomSheet>(null);
   const onMoreClick = () => {
     editBottomSheetRef.current?.expand();
   };
+  console.log(getFlagData);
 
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title="저장목록" onClickRight={onMoreClick} />
-      <FlatList
-        ListHeaderComponent={ListHeaderComponent}
-        contentContainerStyle={styles.Flatlist}
-        data={MockData}
-        renderItem={data => {
-          return <ListDetailItem item={data.item} bottomSheetRef={infoBottomSheetRef} />;
-        }}
-      />
+      {loading ? null : (
+        <FlatList
+          ListHeaderComponent={ListHeaderComponent(name, len)}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.Flatlist}
+          data={getFlagData}
+          renderItem={data => {
+            return <ListDetailItem item={data.item} bottomSheetRef={infoBottomSheetRef} name={name} color={color} />;
+          }}
+          keyExtractor={(item: any) => item?.id}
+        />
+      )}
       <ListDetailItemBottomSheet bottomSheetRef={infoBottomSheetRef} />
       <ListDetailInfoBottomSheet bottomSheetRef={editBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
 
-const ListHeaderComponent = memo(() => (
-  <View style={styles.Title}>
-    <Text style={styles.TitleTextName} presets={['bold', 'number1']}>
-      연남동빵지순례
-    </Text>
-    <Text style={styles.TitleTextCount} presets={['bold', 'subtitle2']}>
-      &nbsp;20
-    </Text>
-  </View>
-));
+const ListHeaderComponent = (name: string, len: number) =>
+  memo(() => (
+    <View style={styles.Title}>
+      <Text style={styles.TitleTextName} presets={['bold', 'number1']}>
+        {name}
+      </Text>
+      <Text style={styles.TitleTextCount} presets={['bold', 'subtitle2']}>
+        &nbsp;{len}
+      </Text>
+    </View>
+  ));
 
 const styles = StyleSheet.create(
   resizePixels({
+    SafeAreaView: {
+      flex: 1,
+    },
     Flatlist: {
       marginLeft: 20,
     },
@@ -77,7 +94,7 @@ const MockData = [
     reviewCount: '1,180',
     reviews: [
       {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡가나다라마바사',
       },
       {
         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',

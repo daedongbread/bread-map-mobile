@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { login, logout } from '@/slices/auth';
 
 export const useAuth = () => {
-  const accessToken = useAppSelector(selector => selector.auth.accessToken);
+  const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
   const dispatch = useAppDispatch();
 
   const signIn = useCallback(
@@ -14,11 +14,16 @@ export const useAuth = () => {
   );
 
   const signOut = useCallback(() => {
-    dispatch(logout());
-  }, [dispatch]);
+    dispatch(
+      logout({
+        accessToken: accessToken || undefined,
+        refreshToken: refreshToken || undefined,
+      })
+    );
+  }, [accessToken, dispatch, refreshToken]);
 
   return {
-    isLoggedIn: !!accessToken,
+    isLoggedIn: true,
     logIn: signIn,
     logOut: signOut,
   };
