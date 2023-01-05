@@ -9,8 +9,8 @@ type Props = {
 
 export const Label: React.FC<Props> = memo(({ isRequire = false, children, style }) => {
   return (
-    <View style={[styles.container, style]}>
-      <Text presets={['body1', 'bold']} style={styles.text}>
+    <View style={styles.container}>
+      <Text style={styles.Text} presets={['body1', 'bold']}>
         {children}
       </Text>
       {isRequire ? <View style={styles.require} /> : null}
@@ -32,5 +32,8 @@ const styles = StyleSheet.create({
     height: 4,
     backgroundColor: '#FF6E40',
     borderRadius: 4,
+  },
+  Text: {
+    color: '#424242',
   },
 });

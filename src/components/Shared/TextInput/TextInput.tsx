@@ -61,20 +61,16 @@ export const TextInput: React.FC<TextInputPropsType> = ({
 
         <View style={styles.hintContainer}>
           <View style={styles.errorContainer}>
-            {error && (
+            {!!error && isAlert && (
               <>
-                {isAlert && (
-                  <AlertIcon
-                    style={{
-                      marginRight: 4,
-                    }}
-                  />
-                )}
-
-                <Text presets={['number2', 'regular']} style={styles.errorText}>
-                  {error}
-                </Text>
+                <AlertIcon />
+                <Text> </Text>
               </>
+            )}
+            {!!error && (
+              <Text presets={['number2', 'regular']} style={styles.errorText}>
+                {error}
+              </Text>
             )}
           </View>
           <View>

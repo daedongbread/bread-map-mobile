@@ -147,7 +147,8 @@ android {
         versionCode 1
         versionName "1.0"
         resValue "string", "build_config_package", "com.daedongbread"
-
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
@@ -210,6 +211,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    // For Java
+    implementation 'androidx.work:work-runtime:2.7.1' 
+
+    // For Kotlin
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
