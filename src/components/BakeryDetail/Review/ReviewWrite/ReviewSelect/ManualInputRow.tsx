@@ -83,6 +83,20 @@ export const ManualInputRow: React.FC<Props> = ({
 
       setIsExistName(_isExist);
     }
+
+    // name 필드만 증복 여부 검증
+    const _isExist = isExistBread(text);
+    if (key === 'name') {
+      if (_isExist || text.trim().length === 0) {
+        setIsChecked(false);
+      }
+
+      if (_isExist) {
+        // 중복 항목임을 알려주는 event run
+      }
+
+      setIsExistName(_isExist);
+    }
   };
 
   return (

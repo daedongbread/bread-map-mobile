@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { StarIcon } from '@/components/Shared/Icons';
 import IcComment from '@/components/Shared/Icons/IcComment.svg';
 import IcLike from '@/components/Shared/Icons/IcLike.svg';
@@ -13,7 +13,6 @@ import { resizePixels } from '@/utils';
 import { ReviewListItemInImageItem } from './ReviewListItemInImageItem';
 
 export function ReviewListItem({ item }: any) {
-  console.log(item);
   return (
     <View>
       <Text presets={['body1', 'bold']} style={styles.Name}>
@@ -25,15 +24,29 @@ export function ReviewListItem({ item }: any) {
           {item?.bakeryAddress}
         </Text>
       </View>
-      <View style={styles.MenuInfoWrap}>
-        <Text presets={['caption1', 'bold']} style={styles.MenuInfoText}>
-          {item?.productRatingList[0].productName}
-        </Text>
-        <SplitColumn width={4} />
-        <StarIcon size={10.5} fillColor="orange" />
-        <SplitColumn width={1.5} />
-        <Text style={styles.RatingText}>{(+item?.productRatingList[0].rating).toFixed(1)}</Text>
-      </View>
+      <FlatList
+        style={{ marginTop: 12 }}
+        contentContainerStyle={{ paddingLeft: 20 }}
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
+        data={item?.productRatingList}
+        horizontal
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.MenuInfoWrap}>
+              <Text presets={['caption1', 'bold']} style={styles.MenuInfoText}>
+                {item?.productName}
+              </Text>
+              <SplitColumn width={4} />
+              <StarIcon size={10.5} fillColor="orange" />
+              <SplitColumn width={1.5} />
+              <Text style={styles.RatingText}>{(+item?.rating).toFixed(1)}</Text>
+            </View>
+          );
+        }}
+        keyExtractor={(_, index) => index.toString()}
+      />
+
       <SplitRow height={12} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.ContentContainer}>
         {item?.imageList.map((image: any, index: number) => {
@@ -116,8 +129,6 @@ const styles = StyleSheet.create(
       height: 24,
       backgroundColor: theme.color.gray100,
       borderRadius: 4,
-      marginLeft: 20,
-      marginTop: 12,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',

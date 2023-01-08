@@ -54,8 +54,6 @@ const ManualBreadList = ({
             name={item.name}
             price={item.price}
             manualSelectedBreads={manualSelectedBreads}
-            setManualInputs={setManualInputs}
-            isExistBread={isExistBread}
           />
         );
       })}
