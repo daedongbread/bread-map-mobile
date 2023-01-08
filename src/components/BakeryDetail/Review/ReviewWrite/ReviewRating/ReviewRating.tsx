@@ -64,8 +64,9 @@ export const ReviewRating: React.FC<Props> = ({
               placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
             />
             <View style={styles.textContainer}>
-              <ValidateErrorText isValid={!isShowErrorMessage}>10자이상 입력해주세요</ValidateErrorText>
-              {isShowErrorMessage ? <ErrText /> : <View />}
+              <ValidateErrorText isValid={!isShowErrorMessage || detailReview.trim().length >= 10}>
+                10자이상 입력해주세요
+              </ValidateErrorText>
               <Text style={styles.wordCount}>{detailReview.length}자 / 최소 10자</Text>
             </View>
           </View>
