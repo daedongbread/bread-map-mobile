@@ -53,6 +53,8 @@ const ManualBreadList = ({
             id={idx}
             name={item.name}
             price={item.price}
+            setManualInputs={setManualInputs}
+            isExistBread={isExistBread}
             manualSelectedBreads={manualSelectedBreads}
           />
         );
