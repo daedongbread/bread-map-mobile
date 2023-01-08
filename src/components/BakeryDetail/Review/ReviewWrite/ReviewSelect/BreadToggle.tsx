@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ToggleCloseIcon } from '@/components/Shared/Icons/ToggleCloseIcon';
 import { Text } from '@/components/Shared/Text';
 import { useAppDispatch } from '@/hooks/redux';
-import { RatedBread, updateSelectedBread } from '@/slices/reviewWrite';
+import { deleteManualSelectedBread, RatedBread, updateSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 
 interface Props {
@@ -16,12 +16,16 @@ export const BreadToggle = ({ bread }: Props) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const onPressCloseButton = () => {
-    dispatch(
-      updateSelectedBread({
-        bread,
-        isChecked: false,
-      })
-    );
+    if (bread.type === 'manual') {
+      dispatch(deleteManualSelectedBread({ id: bread.id }));
+    } else {
+      dispatch(
+        updateSelectedBread({
+          bread,
+          isChecked: false,
+        })
+      );
+    }
   };
 
   const containerStyle = isTouched ? [styles.container, styles.touchedContainer] : styles.container;
