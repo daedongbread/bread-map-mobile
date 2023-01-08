@@ -3,7 +3,7 @@ import { BreadEntity, useGetBreads } from '@/apis/bread';
 import { ReviewSelect } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewSelect';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { resetSelectedBreads, updateAllSeletedBread } from '@/slices/reviewWrite';
+import { RatedBread, resetSelectedBreads, updateAllSeletedBread } from '@/slices/reviewWrite';
 import { useNavigation } from '@react-navigation/native';
 
 const bakeryId = 30300001400004;
@@ -14,7 +14,7 @@ export const ReviewSelectContainer: React.FC = () => {
 
   const [searchValue, setSearchValue] = useState('');
   const { selectedBreads, manualSelectedBreads } = useAppSelector(selector => selector.reviewWrite);
-  const [manualInputs, setManualInputs] = useState<BreadEntity[]>([]);
+  const [manualInputs, setManualInputs] = useState<RatedBread[]>([]);
 
   const { data: breads } = useGetBreads({
     bakeryId,
