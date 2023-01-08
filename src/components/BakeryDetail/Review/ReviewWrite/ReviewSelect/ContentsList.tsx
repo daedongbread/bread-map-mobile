@@ -12,6 +12,7 @@ type Props = {
   selectedBreads: BreadEntity[];
   manualInputs: BreadEntity[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
+  isExistBread: (manualBreadName: string) => boolean;
 };
 
 type BreadListProps = {
@@ -22,6 +23,7 @@ type BreadListProps = {
 type ManualBreadListProps = {
   manualInputs: BreadEntity[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
+  isExistBread: (manualBreadName: string) => boolean;
 };
 
 const BreadList = ({ breads, selectedBreads }: BreadListProps) => {
@@ -34,19 +36,32 @@ const BreadList = ({ breads, selectedBreads }: BreadListProps) => {
   );
 };
 
-const ManualBreadList = ({ manualInputs, setManualInputs }: ManualBreadListProps) => {
+const ManualBreadList = ({ manualInputs, setManualInputs, isExistBread }: ManualBreadListProps) => {
   return (
     <>
       {manualInputs.map((item, idx) => {
         return (
-          <ManualInputRow key={idx} id={idx} name={item.name} price={item.price} setManualInputs={setManualInputs} />
+          <ManualInputRow
+            key={idx}
+            id={idx}
+            name={item.name}
+            price={item.price}
+            setManualInputs={setManualInputs}
+            isExistBread={isExistBread}
+          />
         );
       })}
     </>
   );
 };
 
-export const ContentsList: React.FC<Props> = ({ breads, selectedBreads, manualInputs, setManualInputs }) => {
+export const ContentsList: React.FC<Props> = ({
+  breads,
+  selectedBreads,
+  manualInputs,
+  setManualInputs,
+  isExistBread,
+}) => {
   const onPress = () => {
     const newManualInputs = [...manualInputs];
     newManualInputs.push({ id: newManualInputs.length + 1, name: '' });
@@ -61,34 +76,8 @@ export const ContentsList: React.FC<Props> = ({ breads, selectedBreads, manualIn
       ) : (
         <NoDataRow />
       )}
-      <ManualBreadList manualInputs={manualInputs} setManualInputs={setManualInputs} />
+      <ManualBreadList manualInputs={manualInputs} setManualInputs={setManualInputs} isExistBread={isExistBread} />
       <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
     </ScrollView>
   );
 };
-
-// return breads.length ? (
-//   <FlatList
-//     data={breads}
-//     renderItem={({ item, index }) => (
-//       <>
-//         <Bread {...item} selectedBreads={selectedBreads} />
-//         {index === breads.length - 1 && (
-//           <>
-//             {Array(manualInputCnt)
-//               .fill(0)
-//               .map((_, idx) => (
-//                 <ManualInputRow key={idx} id={idx} />
-//               ))}
-//             <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
-//           </>
-//         )}
-//       </>
-//     )}
-//   />
-// ) : (
-//   <>
-//     <NoDataRow />
-//     <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
-//   </>
-// );
