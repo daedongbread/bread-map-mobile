@@ -78,7 +78,7 @@ const MainStack = () => {
           headerTitleAlign: 'center',
         }}
       >
-        <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
+        <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name={'NotificationModal'} component={Notification} />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
         <Stack.Screen name={'SettingModal'} component={Setting} options={{ title: '설정' }} />
