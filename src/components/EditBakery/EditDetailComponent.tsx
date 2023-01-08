@@ -39,7 +39,7 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
         <View style={styles.TitleWrap}>

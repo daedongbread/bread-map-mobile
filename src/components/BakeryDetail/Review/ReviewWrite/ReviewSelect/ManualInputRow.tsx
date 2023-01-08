@@ -8,18 +8,38 @@ import { theme } from '@/styles/theme';
 import CheckBox from '@react-native-community/checkbox';
 
 type Props = BreadEntity & {
+  manualSelectedBreads: RatedBread[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
+  isExistBread: (manualBreadName: string) => boolean;
 };
 
-export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInputs }) => {
+export const ManualInputRow: React.FC<Props> = ({
+  id,
+  name,
+  price,
+  manualSelectedBreads,
+  setManualInputs,
+  isExistBread,
+}) => {
   const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState(false);
+
+  const [isExistName, setIsExistName] = useState(false);
+  // checkbox disabled 여부
+  const isCheckable = name.trim().length > 0 && !isExistName;
 
   useEffect(() => {
     addManualSelectedBreadStore();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChecked]);
+
+  useEffect(() => {
+    const _isChecked = manualSelectedBreads.some(bread => bread.id === id);
+    if (!_isChecked) {
+      setIsChecked(false);
+    }
+  }, [id, manualSelectedBreads]);
 
   const addManualSelectedBreadStore = () => {
     dispatch(
@@ -28,6 +48,8 @@ export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInpu
           id,
           name: name,
           price: price,
+          type: 'manual',
+          rating: 1,
         },
         isChecked,
       })
@@ -45,7 +67,35 @@ export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInpu
     });
 
     if (isChecked) {
-      dispatch(updateManualSelectedBread({ id, name: text, price }));
+      dispatch(updateManualSelectedBread({ id, name, price, [key]: text }));
+    }
+
+    // name 필드만 증복 여부 검증
+    const _isExist = isExistBread(text);
+    if (key === 'name') {
+      if (_isExist || text.trim().length === 0) {
+        setIsChecked(false);
+      }
+
+      if (_isExist) {
+        // 중복 항목임을 알려주는 event run
+      }
+
+      setIsExistName(_isExist);
+    }
+
+    // name 필드만 증복 여부 검증
+    const _isExist = isExistBread(text);
+    if (key === 'name') {
+      if (_isExist || text.trim().length === 0) {
+        setIsChecked(false);
+      }
+
+      if (_isExist) {
+        // 중복 항목임을 알려주는 event run
+      }
+
+      setIsExistName(_isExist);
     }
   };
 
@@ -65,17 +115,18 @@ export const ManualInputRow: React.FC<Props> = ({ id, name, price, setManualInpu
           placeholderTextColor={theme.color.gray500}
           value={price?.toString()}
           onChange={e => onChange('price', e)}
+          keyboardType={'number-pad'}
         />
       </View>
       <CheckBox
         style={styles.checkbox}
         animationDuration={0}
         tintColor={theme.color.gray400}
+        disabled={!isCheckable}
+        value={isChecked}
         onTintColor={theme.color.primary500}
         onFillColor={theme.color.primary500}
         onCheckColor={'white'}
-        disabled={name.trim().length === 0}
-        value={isChecked}
         onValueChange={setIsChecked}
       />
     </View>

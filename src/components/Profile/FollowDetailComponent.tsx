@@ -1,31 +1,46 @@
 import React, { memo } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import { useRoute } from '@react-navigation/native';
 import SadBreadGray from '@shared/Images/sadBreadGray.png';
 import { Text } from '../Shared/Text';
 import { FollowDetailItem } from './FollowDetailItem';
 import { Header } from './Header';
 
-export function FollowDetailComponent() {
-  const {
-    params: { index },
-  } = useRoute<RootRouteProps<'FollowDetail'>>();
+type Props = {
+  index: number;
+  followingData: any;
+  followerData: any;
+  followingLoading: boolean;
+  followerLoading: boolean;
+  onFollowButtonClick: (item: any) => void;
+};
+
+export function FollowDetailComponent({
+  index,
+  followingData,
+  followerData,
+  followerLoading,
+  followingLoading,
+  onFollowButtonClick,
+}: Props) {
+  const isLoading = followerLoading || followingLoading;
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title={index === 0 ? '팔로잉' : '팔로워'} />
-      <FlatList
-        contentContainerStyle={styles.Flatlist}
-        data={[]}
-        renderItem={FollowDetailItem}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-        ListEmptyComponent={ListEmptyComponent(index)}
-        showsVerticalScrollIndicator={false}
-      />
+      {isLoading ? null : (
+        <FlatList
+          bounces={false}
+          contentContainerStyle={styles.Flatlist}
+          data={index === 0 ? followingData : followerData}
+          renderItem={FollowDetailItem(onFollowButtonClick)}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          ListEmptyComponent={ListEmptyComponent(index)}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -89,87 +104,45 @@ const styles = StyleSheet.create(
 
 const MockData = [
   {
-    image: 'https://source.unsplash.com/collection/1',
-    name: '빵으로살찐자',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: null,
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
   {
-    image: 'https://source.unsplash.com/collection/2',
-    name: '내사랑도넛',
-    reviewCount: 64,
-    followerCount: 124,
-    isFollowing: false,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/3',
-    name: '도넛을찾아서',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: 'https://source.unsplash.com/collection/1',
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
   {
-    image: 'https://source.unsplash.com/collection/1',
-    name: '빵으로살찐자',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: 'https://source.unsplash.com/collection/1',
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
   {
-    image: 'https://source.unsplash.com/collection/2',
-    name: '내사랑도넛',
-    reviewCount: 64,
-    followerCount: 124,
-    isFollowing: false,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/3',
-    name: '도넛을찾아서',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: 'https://source.unsplash.com/collection/1',
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
   {
-    image: 'https://source.unsplash.com/collection/1',
-    name: '빵으로살찐자',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: 'https://source.unsplash.com/collection/1',
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
   {
-    image: 'https://source.unsplash.com/collection/2',
-    name: '내사랑도넛',
-    reviewCount: 64,
-    followerCount: 124,
-    isFollowing: false,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/3',
-    name: '도넛을찾아서',
-    reviewCount: 80,
-    followerCount: 150,
-    isFollowing: true,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/1',
-    name: '빵으로살찐자',
-    reviewCount: 80,
-    followerCount: 150,
-    isFollowing: true,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/2',
-    name: '내사랑도넛',
-    reviewCount: 64,
-    followerCount: 124,
-    isFollowing: false,
-  },
-  {
-    image: 'https://source.unsplash.com/collection/3',
-    name: '도넛을찾아서',
-    reviewCount: 80,
-    followerCount: 150,
+    userImage: 'https://source.unsplash.com/collection/1',
+    nickname: '빵으로살찐자',
+    reviewNum: 80,
+    followerNum: 150,
     isFollowing: true,
   },
 ];
