@@ -2059,6 +2059,21 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
+"@types/react-native-snap-carousel@^3.8.5":
+  version "3.8.5"
+  resolved "https://registry.yarnpkg.com/@types/react-native-snap-carousel/-/react-native-snap-carousel-3.8.5.tgz#5b3cb208119e3599d5537b5fc83653a155c6275d"
+  integrity sha512-EMBwQo/om2HZM/J6u8Bvz7i0BEO/v6frrpmlvUQ579CMsgYQPlYzQ1ne4KDdRq08+yDSG8/8AwIi1R+185ROsg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*":
+  version "0.70.8"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.8.tgz#3302a0f7eddcd3350448ca17a9e415d02b1efde6"
+  integrity sha512-jvs5QMOrlyi0ScfT5Brha2roDoOWtbIOadNkp0jsueVen5+pH4SQAYtzL6xu0+dIcx3J/5LtZ/JYby2C1/zUug==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@^0.66.11":
   version "0.66.16"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.66.16.tgz#fa654d7a611f8c74122b5706958224ebadc82044"
@@ -2493,7 +2508,7 @@ array.prototype.flatmap@^1.2.5:
     define-properties "^1.1.3"
     es-abstract "^1.19.0"
 
-asap@~2.0.6:
+asap@~2.0.3, asap@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
@@ -3177,6 +3192,11 @@ core-js-compat@^3.21.0:
     browserslist "^4.19.1"
     semver "7.0.0"
 
+core-js@^1.0.0:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
+  integrity sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==
+
 core-util-is@~1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
@@ -3584,6 +3604,13 @@ encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
+
+encoding@^0.1.11:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.13.tgz#56574afdd791f54a8e9b2785c0582a2d26210fa9"
+  integrity sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==
+  dependencies:
+    iconv-lite "^0.6.2"
 
 end-of-stream@^1.1.0:
   version "1.4.4"
@@ -4111,6 +4138,19 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
+fbjs@^0.8.4:
+  version "0.8.18"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.18.tgz#9835e0addb9aca2eff53295cd79ca1cfc7c9662a"
+  integrity sha512-EQaWFK+fEPSoibjNy8IxUtaFOMXcWsY0JaVrQoZR9zC8N2Ygf9iDITPWjUTVIax95b6I742JFLqASHfsag/vKA==
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.30"
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/file-entry-cache/-/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
@@ -4580,6 +4620,13 @@ iconv-lite@0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
+iconv-lite@^0.6.2:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.6.3.tgz#a52f80bf38da1952eb5c681790719871a1a72501"
+  integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
+  dependencies:
+    safer-buffer ">= 2.1.2 < 3.0.0"
+
 ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
@@ -4863,7 +4910,7 @@ is-shared-array-buffer@^1.0.1:
   resolved "https://registry.yarnpkg.com/is-shared-array-buffer/-/is-shared-array-buffer-1.0.1.tgz#97b0c85fbdacb59c9c446fe653b82cf2b5b7cfe6"
   integrity sha512-IU0NmyknYZN0rChcKhRO1X8LYz5Isj/Fsqh8NJOSf+N/hCOTwy29F32Ik7a+QszE63IdvmwdTPDd6cZ5pg4cwA==
 
-is-stream@^1.1.0:
+is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
   integrity sha1-EtSj3U5o4Lec6428hBc66A2RykQ=
@@ -4937,6 +4984,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+
+isomorphic-fetch@^2.1.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
+  integrity sha512-9c4TNAKYXM5PRyVcwUZrF3W09nQ+sO7+jydgs4ZGW9dhsLG2VOlISJABombdQqQRXCwuYG3sYV/puGf5rp0qmA==
+  dependencies:
+    node-fetch "^1.0.1"
+    whatwg-fetch ">=0.10.0"
 
 istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.2.0:
   version "3.2.0"
@@ -6528,6 +6583,14 @@ node-dir@^0.1.17:
   dependencies:
     minimatch "^3.0.2"
 
+node-fetch@^1.0.1:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
+  integrity sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
+  dependencies:
+    encoding "^0.1.11"
+    is-stream "^1.0.1"
+
 node-fetch@^2.2.0, node-fetch@^2.6.0:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
@@ -6644,7 +6707,7 @@ ob1@0.72.0:
   resolved "https://registry.yarnpkg.com/ob1/-/ob1-0.72.0.tgz#13fa85d2fd1444d534156ac701c492fa6c17c956"
   integrity sha512-QwCDyk1SvGg6KVEgpvAK9xG+7+0sEUZYuzNBT+aucFFVDkw0nHmsgfpzxNiiZwcSpWb04IxGp4CKAmFQBmLQPw==
 
-object-assign@^4.1.1:
+object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
@@ -7063,6 +7126,13 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
+promise@^7.1.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/promise/-/promise-7.3.1.tgz#064b72602b18f90f29192b8b1bc418ffd1ebd3bf"
+  integrity sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==
+  dependencies:
+    asap "~2.0.3"
+
 promise@^8.0.3:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/promise/-/promise-8.1.0.tgz#697c25c3dfe7435dd79fcd58c38a135888eaf05e"
@@ -7078,7 +7148,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@*, prop-types@^15.6.0, prop-types@^15.7.2:
+prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7124,6 +7194,14 @@ range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
+
+react-addons-shallow-compare@15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
+  integrity sha512-yAV9tOObmKPiohqne1jiMcx6kDjfz7GeL8K9KHgI+HvDsbrRv148uyUzrPc6GwepZnQcJ59Q3lp1ghrkyPwtjg==
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
 
 react-devtools-core@4.19.1:
   version "4.19.1"
@@ -7236,6 +7314,19 @@ react-native-image-picker@^4.10.0:
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.10.0.tgz#471ca942bd1189134eff63e25903147f54aeb8c2"
   integrity sha512-QNK4ZnFLD+BdiM1QL1jh9GUALhRXm3MV97crhnTCSMv50H6E4tq3ozgfyxF5uKz0cECbNkWswg4sjgqZKEJtww==
 
+react-native-iphone-x-helper@^1.0.3:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
+  integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
+
+react-native-keyboard-aware-scroll-view@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.5.tgz#e2e9665d320c188e6b1f22f151b94eb358bf9b71"
+  integrity sha512-XwfRn+T/qBH9WjTWIBiJD2hPWg0yJvtaEw6RtPCa5/PYHabzBaWxYBOl0usXN/368BL1XktnZPh8C2lmTpOREA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
+
 react-native-maps@^0.30.1:
   version "0.30.1"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.30.1.tgz#b227f3cbf68947bbd22fcf2b7470a7ab3a4f3fbb"
@@ -7249,9 +7340,9 @@ react-native-pager-view@^5.4.15:
   integrity sha512-5NssD840wFCuOL4B1ZRiRADvt+Vx2Dgify4SmAUqHXCx03yiGPnRWmFjYXyQeK6gq/8VY+gPGE4bTy9ahzBbDw==
 
 react-native-reanimated@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.8.0.tgz#93c06ca84d91fb3865110b0857c49a24e316130e"
-  integrity sha512-kJvf/UWLBMaGCs9X66MKq5zdFMgwx8D0nHnolbHR7s8ZnbLdb7TlQ/yuzIXqn/9wABfnwtNRI3CyaP1aHWMmZg==
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.13.0.tgz#d64c1386626822d4dc22094b4efe028ff2c49cc9"
+  integrity sha512-yUHyYVIegWWIza4+nVyS3CSmI/Mc8kLFVHw2c6gnSHaYhYA4LeEjH/jBkoMzHk9Xd0Ra3cwtjYKAMG8OTp6JVg==
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.16.7"
     "@babel/preset-typescript" "^7.16.7"
@@ -7283,6 +7374,14 @@ react-native-screens@^3.12.0:
     react-freeze "^1.0.0"
     react-native-gradle-plugin "^0.0.3"
     warn-once "^0.1.0"
+
+react-native-snap-carousel@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz#6fd9bd8839546c2c6043a41d2035afbc6fe0443e"
+  integrity sha512-xWEGusacIgK1YaDXLi7Gao2+ISLoGPVEBR8fcMf4tOOJQufutlNwkoLu0l6B8Qgsrre0nTxoVZikRgGRDWlLaQ==
+  dependencies:
+    prop-types "^15.6.1"
+    react-addons-shallow-compare "15.6.2"
 
 react-native-splash-screen@^3.3.0:
   version "3.3.0"
@@ -7709,7 +7808,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-"safer-buffer@>= 2.1.2 < 3":
+"safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
@@ -8465,6 +8564,11 @@ typescript@^4.5.5:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
 
+ua-parser-js@^0.7.30:
+  version "0.7.32"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.32.tgz#cd8c639cdca949e30fa68c44b7813ef13e36d211"
+  integrity sha512-f9BESNVhzlhEFf2CHMSj40NWOjYPl1YKYbrvIr/hFTDEmLq7SRbWvm7FcdcpCYT95zrOhC7gZSxjdnnTpBcwVw==
+
 uglify-es@^3.1.9:
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
@@ -8696,7 +8800,7 @@ whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@^3.0.0:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^3.0.0:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==

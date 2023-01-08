@@ -4,10 +4,10 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
-import { AlertIcon } from '@/components/Shared/Icons/AlertIcon';
+import { Header } from '@/components/Shared/Header';
+import { ValidateErrorText } from '@/components/Shared/Text';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import { Header } from '../Header';
 import { PhotoSelect } from './PhotoSelect';
 import { QuestionPopup } from './QuestionPopup';
 import { RatingList } from './RatingList';
@@ -24,15 +24,6 @@ type Props = {
   deSelectPhoto: (uri?: string) => void;
   saveReview: () => void;
   closePage: () => void;
-};
-
-const ErrText = () => {
-  return (
-    <View style={styles.errTextContainer}>
-      <AlertIcon />
-      <Text style={styles.wordCountErr}>10자이상 입력해주세요</Text>
-    </View>
-  );
 };
 
 export const ReviewRating: React.FC<Props> = ({
@@ -54,7 +45,12 @@ export const ReviewRating: React.FC<Props> = ({
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Header title={'리뷰작성'} closePage={() => setIsShowQuestionPopup(true)} />
+        <Header
+          title={'리뷰작성'}
+          onPressClose={() => setIsShowQuestionPopup(true)}
+          isPrevButtonShown
+          isCloseButtonShown
+        />
         <ScrollView style={styles.contentsContainer}>
           <Title />
           <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
@@ -68,6 +64,7 @@ export const ReviewRating: React.FC<Props> = ({
               placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
             />
             <View style={styles.textContainer}>
+              <ValidateErrorText isValid={!isShowErrorMessage}>10자이상 입력해주세요</ValidateErrorText>
               {isShowErrorMessage ? <ErrText /> : <View />}
               <Text style={styles.wordCount}>{detailReview.length}자 / 최소 10자</Text>
             </View>
