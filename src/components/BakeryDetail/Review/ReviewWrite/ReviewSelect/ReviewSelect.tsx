@@ -3,9 +3,9 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BreadEntity } from '@/apis/bread';
 import { Button } from '@/components/Shared/Button/Button';
+import { Header } from '@/components/Shared/Header';
 import { RatedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import { Header } from '../Header';
 import { BreadToggleList } from './BreadToggleList';
 import { ContentsHeader } from './ContentsHeader';
 import { ContentsList } from './ContentsList';
@@ -39,7 +39,7 @@ export const ReviewSelect: React.FC<Props> = ({
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Header title={'리뷰작성'} closePage={closePage} />
+        <Header title={'리뷰작성'} onPressClose={closePage} isCloseButtonShown />
         <BreadToggleList selectedBreads={selectedBreads} manualSelectedBreads={manualSelectedBreads} />
         <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
       </View>
