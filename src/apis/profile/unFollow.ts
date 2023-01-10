@@ -8,7 +8,7 @@ type Props = {
 const unFollow = async ({ accessToken, userId }: Props) => {
   const resp = await fetcher({
     method: 'delete',
-    url: '/user/unfollow',
+    url: '/user/follow',
     headers: {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
