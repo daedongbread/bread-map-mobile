@@ -1,27 +1,40 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
 import { HeartIcon } from '../Shared/Icons';
 import IcFlag from '../Shared/Icons/IcFlag.svg';
 import { Text } from '../Shared/Text';
 import { SaveListItemImages } from './SaveListItemImages';
+import { FlagColors } from './ProfileComponent';
 
-export function SaveListItem({ item }: any) {
-  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+export function SaveListItem({ item, onItemClick }: any) {
+  const color =
+    item?.color === 'ORANGE'
+      ? FlagColors.ORANGE
+      : item?.color === 'GREEN'
+      ? FlagColors.GREEN
+      : item?.color === 'YELLOW'
+      ? FlagColors.YELLOW
+      : item?.color === 'CYAN'
+      ? FlagColors.CYAN
+      : item?.color === 'BLUE'
+      ? FlagColors.BLUE
+      : item?.color === 'SKY'
+      ? FlagColors.SKY
+      : item?.color === 'NAVY'
+      ? FlagColors.NAVY
+      : item?.color === 'PURPLE'
+      ? FlagColors.PURPLE
+      : item?.color === 'RED'
+      ? FlagColors.RED
+      : FlagColors.PINK;
 
-  const onItemClick = () => {
-    navigation.push('ProfileStack', {
-      screen: 'ListDetail',
-    });
-  };
   return (
-    <TouchableOpacity onPress={onItemClick} style={styles.Container}>
+    <TouchableOpacity onPress={onItemClick(item)} style={styles.Container}>
       <SaveListItemImages num={item?.flagImageList.length} images={item?.flagImageList} />
       <View style={styles.Info}>
-        <View style={[styles.IconBackground, { backgroundColor: 'pink' }]}>
-          {item?.name === '가고싶어요' ? <HeartIcon width={24} /> : <IcFlag width={10} />}
+        <View style={[styles.IconBackground, { backgroundColor: color }]}>
+          {item?.name !== '가봤어요' ? <HeartIcon width={18} /> : <IcFlag width={12} />}
         </View>
         <Text style={styles.Text} presets={['caption1', 'bold']}>
           {item.name}

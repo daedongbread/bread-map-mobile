@@ -9,10 +9,13 @@ const Profile = () => {
   const onClickButton = () => {
     navigation.push('EditBakeryStack', {
       screen: 'EditBakery',
+      params: {
+        bakeryId: 30000000000003,
+      },
     });
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Button title="임시 상세페이지 정보수정" onPress={onClickButton} />
       <ProfileContainer />
     </SafeAreaView>

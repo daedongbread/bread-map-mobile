@@ -14,9 +14,11 @@ type Props = {
   onChange: ({ name, value }: { name: string; value: string }) => void;
   onCameraClick: () => void;
   curImage: string;
+  onConfirmClick: () => void;
+  errorMsg: string;
 };
 
-export function EditProfileComponent({ name, onChange, onCameraClick, curImage }: Props) {
+export function EditProfileComponent({ name, onChange, onCameraClick, curImage, onConfirmClick, errorMsg }: Props) {
   const handleChange = useCallback(
     ({ label, value }: { label: string; value: string }) => {
       onChange({ name: label, value });
@@ -41,13 +43,13 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage }
         placeholder={'빵순이'}
         hint={`${name.length}자 / 최대 10자`}
         isAlert
-        error={'이미 존재하는 닉네임입니다'}
+        error={errorMsg + ''}
         maxLength={10}
         autoCorrect={false}
         style={styles.TextInput}
       />
       <View style={styles.Button}>
-        <Button>확인</Button>
+        <Button onPress={onConfirmClick}>확인</Button>
       </View>
     </SafeAreaView>
   );

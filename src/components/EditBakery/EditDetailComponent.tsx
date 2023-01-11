@@ -17,10 +17,23 @@ type Props = {
   location: string;
   edit: string;
   onChange: ({ name, value }: { name: string; value: string }) => void;
+  onConfirmClick: () => void;
+  editDoneBottomSheetRef: any;
+  errorState: {
+    name: boolean;
+    location: boolean;
+  };
 };
 
-export function EditDetailComponent({ name, location, edit, onChange }: Props) {
-  const editDoneBottomSheetRef = useRef<BottomSheet>(null);
+export function EditDetailComponent({
+  name,
+  location,
+  edit,
+  onChange,
+  onConfirmClick,
+  editDoneBottomSheetRef,
+  errorState,
+}: Props) {
   const cancelBottomSheetRef = useRef<BottomSheet>(null);
 
   const handleChange = useCallback(
@@ -33,13 +46,13 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
     cancelBottomSheetRef.current?.expand();
   };
 
-  const onConfirmClick = () => {
-    editDoneBottomSheetRef.current?.expand();
+  const onClickButton = () => {
+    onConfirmClick();
   };
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
         <View style={styles.TitleWrap}>
@@ -60,7 +73,7 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
           onChange={handleChange}
           placeholder={'빵집 이름을 입력해주세요'}
           isAlert
-          error={'빵집 이름을 입력해주세요'}
+          error={errorState.name ? '빵집 이름을 입력해주세요' : ''}
           // maxLength={10}
           autoCorrect={false}
           style={styles.TextInput}
@@ -75,7 +88,7 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
           onChange={handleChange}
           placeholder={'예시) 서울시 강남구 역삼동'}
           isAlert
-          error={'위치를 입력해주세요'}
+          error={errorState.location ? '위치를 입력해주세요' : ''}
           // maxLength={10}
           autoCorrect={false}
           style={styles.TextInput}
@@ -95,7 +108,7 @@ export function EditDetailComponent({ name, location, edit, onChange }: Props) {
           multiline
         />
         <SplitRow height={38} />
-        <Button onPress={onConfirmClick} style={styles.Button}>
+        <Button onPress={onClickButton} style={styles.Button}>
           확인
         </Button>
         <SplitRow height={18} />

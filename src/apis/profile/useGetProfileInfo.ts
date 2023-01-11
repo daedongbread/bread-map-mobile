@@ -3,7 +3,7 @@ import { fetcher } from '../fetcher';
 
 type UseGetProfileInfoProps = {
   accessToken: string;
-  type: string;
+  type: 'me' | number;
 };
 
 type GetProfileInfoResponse = {
