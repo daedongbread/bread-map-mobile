@@ -10,17 +10,18 @@ import { Text } from '@shared/Text';
 interface Props {
   notice: NoticeEntry;
   nickName: string;
-  handlePressFollow: (userId: number) => void;
+  handlePressFollow: (userId: number, isFollow: boolean) => void;
+  isFollow: boolean;
 }
 
-export const FollowNotice = ({ notice, nickName, handlePressFollow }: Props) => {
+export const FollowNotice = ({ notice, nickName, handlePressFollow, isFollow }: Props) => {
   const onPressFollow = () => {
     if (!notice.fromUserId) {
       console.error('from user id 값이 정상적으로 넘어오지 않음');
       return;
     }
 
-    handlePressFollow(notice.fromUserId);
+    handlePressFollow(notice.fromUserId, notice.isFollow);
   };
 
   return (
@@ -31,7 +32,7 @@ export const FollowNotice = ({ notice, nickName, handlePressFollow }: Props) => 
         <Button
           size={'tiny'}
           borderRadius={4}
-          appearance={'secondary'}
+          appearance={isFollow ? 'terdary' : 'secondary'}
           style={styles.followButton}
           onPress={onPressFollow}
         >
