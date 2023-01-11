@@ -10,7 +10,6 @@ type Props = MapViewProps & {
   markers?: Array<BakeryMapBakeryEntity> | Array<BakeryMapBakeryFilterEntity>;
   onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
   selectedMarker?: BakeryMapBakeryEntity;
-  showMaker: boolean;
   isWatch: boolean;
   handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
 };
@@ -25,7 +24,6 @@ export const BakeryMap = React.memo(
         onPressMarker,
         selectedMarker,
         onRegionChange,
-        showMaker,
         onPanDrag,
         isWatch,
         handleUserLocationChange,
@@ -61,8 +59,9 @@ export const BakeryMap = React.memo(
           zoomTapEnabled={false}
           onRegionChangeComplete={onRegionChange}
         >
-          {showMaker
-            ? markers?.map(marker => (
+          {markers?.map(marker => {
+            if ('color' in marker) {
+              return (
                 <BakeryMarker
                   key={marker.id}
                   bakeryMapEntity={marker}
@@ -70,15 +69,18 @@ export const BakeryMap = React.memo(
                   activeMarkerId={selectedMarker?.id}
                   color={marker.color}
                 />
-              ))
-            : markers?.map(marker => (
-                <BakeryMarker
-                  key={marker.id}
-                  bakeryMapEntity={marker}
-                  onPress={onPressMarker}
-                  activeMarkerId={selectedMarker?.id}
-                />
-              ))}
+              );
+            }
+
+            return (
+              <BakeryMarker
+                key={marker.id}
+                bakeryMapEntity={marker}
+                onPress={onPressMarker}
+                activeMarkerId={selectedMarker?.id}
+              />
+            );
+          })}
         </MapView>
       );
     }
