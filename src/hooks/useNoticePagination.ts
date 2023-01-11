@@ -8,28 +8,38 @@ import {
 
 type Props = Omit<UseGetNoticeProps, 'page'>;
 
+type NoticeQueryData = {
+  pageParams: [];
+  pages: GetNoticeResponse['data'][];
+};
+
 export const useNoticePagination = (props: Props) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, hasNextPage, fetchNextPage } = useGetInfiniteNotice({ ...props });
 
   const onUpdateFollow = (userId: number) => {
-    queryClient.setQueryData<GetNoticeResponse['data'] | undefined>(getNoticeQueryKey(props), old => {
+    queryClient.setQueryData<NoticeQueryData | undefined>(getNoticeQueryKey(props), old => {
       if (!old) {
         return;
       }
 
       return {
         ...old,
-        contents: old?.contents.map(content => {
-          if (content.fromUserId === userId && content.noticeType === 'FOLLOW') {
-            return {
-              ...content,
-              isFollow: true,
-            };
-          }
+        pages: old?.pages.map(page => {
+          return {
+            ...page,
+            contents: page.contents.map(content => {
+              if (content.fromUserId === userId && content.noticeType === 'FOLLOW') {
+                return {
+                  ...content,
+                  isFollow: !content.isFollow,
+                };
+              }
 
-          return content;
+              return content;
+            }),
+          };
         }),
       };
     });

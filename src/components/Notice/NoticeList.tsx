@@ -12,7 +12,7 @@ type Props = {
   notice?: NoticeEntry[];
   hasNext: boolean;
   onClickMore: () => void;
-  onPressFollow: (userId: number) => void;
+  onPressFollow: (userId: number, isFollow: boolean) => void;
 };
 
 export const NoticeList = ({ title, notice, hasNext, onClickMore, onPressFollow }: Props) => {
@@ -37,8 +37,13 @@ export const NoticeList = ({ title, notice, hasNext, onClickMore, onPressFollow 
         renderItem={({ item }) => {
           return (
             <View style={styles.notice} key={item.noticeId}>
-              {item.fromUserId ? (
-                <FollowNotice notice={item} nickName={item.fromUserNickName} handlePressFollow={onPressFollow} />
+              {isFollowContent(item.content) ? (
+                <FollowNotice
+                  notice={item}
+                  nickName={item.fromUserNickName}
+                  handlePressFollow={onPressFollow}
+                  isFollow={item.isFollow}
+                />
               ) : (
                 <Notice notice={item} nickname={item.fromUserNickName} />
               )}
@@ -70,3 +75,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+const isFollowContent = (content: string | null) => content === null;

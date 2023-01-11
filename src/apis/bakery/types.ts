@@ -47,7 +47,7 @@ export type BakeryEntity = {
 
 export type SearchEntity = {
   bakeryId: number;
-  bakeryName: number;
+  bakeryName: string;
   reviewNum: number;
   distance: number;
 };

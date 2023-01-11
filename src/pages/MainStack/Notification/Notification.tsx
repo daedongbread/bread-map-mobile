@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { follow, unFollow } from '@/apis/profile';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { NoticeList } from '@/components/Notice/NoticeList';
 import { useNoticePagination } from '@/hooks/useNoticePagination';
@@ -10,10 +11,27 @@ const Notification = () => {
   const weekNotice = useNoticePagination({ unit: 'week' });
   const beforeNotice = useNoticePagination({ unit: 'before' });
 
-  const onPressFollow = (userId: number) => {
+  const toggleFollow = (userId: number, isFollow: boolean) => {
+    if (isFollow) {
+      unFollow({
+        userId,
+      });
+    } else {
+      follow({
+        userId,
+      });
+    }
+  };
+
+  const updateNoticeQuery = (userId: number) => {
     todayNotice.onUpdateFollow(userId);
     weekNotice.onUpdateFollow(userId);
     beforeNotice.onUpdateFollow(userId);
+  };
+
+  const onPressFollow = (userId: number, isFollow: boolean) => {
+    toggleFollow(userId, isFollow);
+    updateNoticeQuery(userId);
   };
 
   return (
