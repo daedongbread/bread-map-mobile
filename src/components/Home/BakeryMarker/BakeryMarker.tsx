@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Marker } from 'react-native-maps';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
-import { FlagColor } from '@/apis/flag';
 import { flagColorHexColors } from '@/containers/Bookmark';
 import styled from '@emotion/native';
 import { BreadCakeIcon, HeartIcon } from '@shared/Icons';
@@ -13,7 +12,7 @@ type Props = {
   activeMarkerId?: number;
   bakeryMapEntity: BakeryMapBakeryEntity;
   onPress: (bakeryMapEntity?: BakeryMapBakeryEntity) => void;
-  color?: FlagColor;
+  color?: string;
 };
 
 const BakeryMarker: React.FC<Props> = React.memo(({ activeMarkerId, bakeryMapEntity, onPress, color }) => {
@@ -28,10 +27,16 @@ const BakeryMarker: React.FC<Props> = React.memo(({ activeMarkerId, bakeryMapEnt
     onPress(bakeryMapEntity);
   }, [bakeryMapEntity, isActive, onPress]);
 
-  if (color) {
+  if (color && color in flagColorHexColors) {
+    const flagColor = color as keyof typeof flagColorHexColors;
+
     return (
       <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
-        {isActive ? <IcHeart32 color={flagColorHexColors[color]} /> : <HeartIcon color={flagColorHexColors[color]} />}
+        {isActive ? (
+          <IcHeart32 color={flagColorHexColors[flagColor]} />
+        ) : (
+          <HeartIcon color={flagColorHexColors[flagColor]} />
+        )}
       </Marker>
     );
   }

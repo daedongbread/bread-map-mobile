@@ -177,7 +177,6 @@ export const BakeryMapContainer: React.FC = () => {
         markers={markerCoordinates}
         onPressMarker={onPressMarker}
         selectedMarker={selectedMarker}
-        showMaker={showMaker}
         onPanDrag={onPanDrag}
         isWatch={isWatched}
         onRegionChange={onRegionChange}

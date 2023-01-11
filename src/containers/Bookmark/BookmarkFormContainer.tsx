@@ -11,6 +11,7 @@ type Navigation = ScreenProps['navigation'];
 
 export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof flagColors[number]> &
   Record<'ORANGE', '#ff6e40'> = {
+  GRAY: '#FF6E40',
   ORANGE: '#ff6e40',
   GREEN: '#1EC780',
   YELLOW: '#FFBF1B',
@@ -24,6 +25,7 @@ export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof fla
 };
 
 export const flagColors = [
+  '#FF6E40',
   '#1EC780',
   '#FFBF1B',
   '#00C7D3',

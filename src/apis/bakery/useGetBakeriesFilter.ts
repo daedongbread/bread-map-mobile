@@ -36,7 +36,7 @@ const useGetBakeriesFilter = ({
   sort,
   filter,
 }: UseGetBakeriesProps) => {
-  const queryKey = ['useGetBakeriesFilter', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const;
+  const queryKey = ['useGetBakeriesFilter'] as const;
 
   const { data, isLoading, isError, refetch } = useQuery(
     queryKey,
