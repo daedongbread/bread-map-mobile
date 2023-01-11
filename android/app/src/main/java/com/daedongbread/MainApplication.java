@@ -13,6 +13,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.facebook.react.views.text.ReactFontManager;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -51,6 +52,9 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    // Font
+    ReactFontManager.getInstance().addCustomFont(this, "NotoSansKR", R.font.notosanskr);
+
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
