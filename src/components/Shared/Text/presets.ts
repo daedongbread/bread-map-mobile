@@ -29,6 +29,7 @@ export const presets = StyleSheet.create(
     body2: {
       fontSize: 14,
       lineHeight: 20,
+      letterSpacing: -14 * 0.02,
     },
     number1: {
       fontSize: 16,
