@@ -8,8 +8,12 @@ import { EditBakery } from './EditBakery';
 import { EditDetail } from './EditDetail';
 
 export type EditBakeryStackParamList = {
-  EditBakery: undefined;
-  EditDetail: undefined;
+  EditBakery: {
+    bakeryId: number;
+  };
+  EditDetail: {
+    bakeryId: number;
+  };
   Camera: undefined;
   DeleteLocation: {
     type: 'Album' | 'Confirm';

@@ -23,7 +23,7 @@ export const useAuth = () => {
   }, [accessToken, dispatch, refreshToken]);
 
   return {
-    isLoggedIn: true,
+    isLoggedIn: !!accessToken,
     logIn: signIn,
     logOut: signOut,
   };

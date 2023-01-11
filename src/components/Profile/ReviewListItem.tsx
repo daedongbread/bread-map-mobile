@@ -5,7 +5,6 @@ import { StarIcon } from '@/components/Shared/Icons';
 import IcComment from '@/components/Shared/Icons/IcComment.svg';
 import IcLike from '@/components/Shared/Icons/IcLike.svg';
 import IcMapPin from '@/components/Shared/Icons/IcMapPin.svg';
-import IcMore from '@/components/Shared/Icons/IcMore.svg';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
@@ -67,7 +66,7 @@ export function ReviewListItem({ item }: any) {
         <View style={styles.ReviewTimeWrapRight}>
           <Text style={styles.ReviewTimeText}>{format(parseISO(item?.createdAt), 'yyyy.MM.dd')}</Text>
           <SplitColumn width={2} />
-          <IcMore color="#BDBDBD" />
+          {/* <IcMore color="#BDBDBD" /> */}
         </View>
       </View>
     </View>
