@@ -14,26 +14,24 @@ export const NoticeAvatar = ({ image }: Props) => {
 
 const getImageSource = (image: string | null) => {
   if (!image) {
-    return undefined;
+    return require('@/assets/noticeImage/michael-dam.jpg');
   }
 
-  if (image.includes('comment')) {
+  if (image.toLowerCase().includes('comment')) {
     return require('@/assets/noticeImage/comment.jpg');
   }
 
-  if (image.includes('bread')) {
+  if (image.toLowerCase().includes('bread')) {
     return require('@/assets/noticeImage/bread.jpg');
   }
 
-  if (image.includes('heart')) {
+  if (image.toLowerCase().includes('heart')) {
     return require('@/assets/noticeImage/heart.jpg');
   }
 
-  if (image.includes('like')) {
+  if (image.toLowerCase().includes('like')) {
     return require('@/assets/noticeImage/like.jpg');
   }
-
-  return require('@/assets/noticeImage/michael-dam.jpg');
 };
 
 const styles = StyleSheet.create({

@@ -1,17 +1,14 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { NoticeList } from '@/components/Notice/NoticeList';
-import { useAppSelector } from '@/hooks/redux';
 import { useNoticePagination } from '@/hooks/useNoticePagination';
 import { theme } from '@/styles/theme';
 
 const Notification = () => {
-  const { deviceToken } = useAppSelector(state => state.notice);
-
-  const todayNotice = useNoticePagination({ deviceToken, unit: 'today' });
-  const weekNotice = useNoticePagination({ deviceToken, unit: 'week' });
-  const beforeNotice = useNoticePagination({ deviceToken, unit: 'before' });
+  const todayNotice = useNoticePagination({ unit: 'today' });
+  const weekNotice = useNoticePagination({ unit: 'week' });
+  const beforeNotice = useNoticePagination({ unit: 'before' });
 
   const onPressFollow = (userId: number) => {
     todayNotice.onUpdateFollow(userId);
@@ -21,29 +18,31 @@ const Notification = () => {
 
   return (
     <SafeAreaView>
-      <NoticeList
-        title={'오늘'}
-        notice={todayNotice.data}
-        hasNext={!!todayNotice.hasNext}
-        onClickMore={todayNotice.onNextPage}
-        onPressFollow={onPressFollow}
-      />
-      <Divider style={styles.divider} />
-      <NoticeList
-        title={'이번주'}
-        notice={weekNotice.data}
-        hasNext={!!weekNotice.hasNext}
-        onClickMore={weekNotice.onNextPage}
-        onPressFollow={onPressFollow}
-      />
-      <Divider style={styles.divider} />
-      <NoticeList
-        title={'이전 활동'}
-        notice={beforeNotice.data}
-        hasNext={!!beforeNotice.hasNext}
-        onClickMore={beforeNotice.onNextPage}
-        onPressFollow={onPressFollow}
-      />
+      <ScrollView>
+        <NoticeList
+          title={'오늘'}
+          notice={todayNotice.data}
+          hasNext={!!todayNotice.hasNext}
+          onClickMore={todayNotice.onNextPage}
+          onPressFollow={onPressFollow}
+        />
+        <Divider style={styles.divider} />
+        <NoticeList
+          title={'이번주'}
+          notice={weekNotice.data}
+          hasNext={!!weekNotice.hasNext}
+          onClickMore={weekNotice.onNextPage}
+          onPressFollow={onPressFollow}
+        />
+        <Divider style={styles.divider} />
+        <NoticeList
+          title={'이전 활동'}
+          notice={beforeNotice.data}
+          hasNext={!!beforeNotice.hasNext}
+          onClickMore={beforeNotice.onNextPage}
+          onPressFollow={onPressFollow}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

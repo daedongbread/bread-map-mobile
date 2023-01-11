@@ -18,27 +18,32 @@ type Props = {
 export const NoticeList = ({ title, notice, hasNext, onClickMore, onPressFollow }: Props) => {
   return (
     <View style={styles.wrapper}>
-      <Text presets={['subtitle2', 'bold']}>{title}</Text>
+      <Text style={styles.title} presets={['subtitle2', 'bold']}>
+        {title}
+      </Text>
       <FlatList
+        scrollEnabled={false}
         data={notice}
         ItemSeparatorComponent={() => <View style={styles.divider} />}
-        ListFooterComponent={hasNext ? <Button onPress={onClickMore}>알림 더 보기</Button> : undefined}
+        ListFooterComponent={
+          hasNext ? (
+            <>
+              <View style={styles.divider} />
+              <Button onPress={onClickMore}>알림 더 보기</Button>
+            </>
+          ) : undefined
+        }
         ListEmptyComponent={() => <Text>{`${title} 알림 내역이 없습니다.`}</Text>}
         renderItem={({ item }) => {
-          const key = item.noticeId;
-
-          if (item.fromUserId) {
-            return (
-              <FollowNotice
-                key={key}
-                notice={item}
-                nickName={item.fromUserNickName}
-                handlePressFollow={onPressFollow}
-              />
-            );
-          }
-
-          return <Notice key={key} notice={item} nickname={item.fromUserNickName} />;
+          return (
+            <View style={styles.notice} key={item.noticeId}>
+              {item.fromUserId ? (
+                <FollowNotice notice={item} nickName={item.fromUserNickName} handlePressFollow={onPressFollow} />
+              ) : (
+                <Notice notice={item} nickname={item.fromUserNickName} />
+              )}
+            </View>
+          );
         }}
       />
     </View>
@@ -50,9 +55,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 12,
   },
+  title: {
+    color: 'black',
+    marginBottom: 8,
+  },
+  notice: {
+    paddingVertical: 12,
+  },
   divider: {
     height: 1,
     backgroundColor: theme.color.gray200,
-    marginVertical: 12,
+  },
+  footer: {
+    marginTop: 20,
   },
 });

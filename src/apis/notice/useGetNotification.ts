@@ -13,16 +13,15 @@ export type GetNoticeResponse = {
   };
 };
 
-type GetNoticeProps = Required<Omit<UseGetNoticeProps, 'deviceToken'>> & Pick<UseGetNoticeProps, 'deviceToken'>;
+type GetNoticeProps = Required<UseGetNoticeProps>;
 
 export type UseGetNoticeProps = {
-  deviceToken?: string | null;
   page?: number;
   unit?: 'today' | 'week' | 'before';
 };
 
-const getNotice = async ({ deviceToken, page, unit }: GetNoticeProps): Promise<GetNoticeResponse['data']> => {
-  const { data } = await fetcher.get<GetNoticeResponse>(`/notice?${unit}?page=${page}deviceToken:${deviceToken}`);
+const getNotice = async ({ page, unit }: GetNoticeProps): Promise<GetNoticeResponse['data']> => {
+  const { data } = await fetcher.get<GetNoticeResponse>(`/notice/${unit}?page=${page}`);
   return data.data;
 };
 
@@ -30,14 +29,13 @@ export const getNoticeQueryKey = (props: Omit<UseGetNoticeProps, 'page'>) => {
   return ['useGetNotice', { ...props }];
 };
 
-const useGetInfiniteNotice = ({ deviceToken, unit = 'today' }: UseGetNoticeProps) => {
+const useGetInfiniteNotice = ({ unit = 'today' }: UseGetNoticeProps) => {
   return useInfiniteQuery({
-    queryKey: getNoticeQueryKey({ deviceToken, unit }),
-    queryFn: ({ pageParam = 0 }) => getNotice({ deviceToken, page: pageParam, unit }),
-    enabled: !!deviceToken,
+    queryKey: getNoticeQueryKey({ unit }),
+    queryFn: args => getNotice({ page: args.pageParam, unit }),
     staleTime: 5000,
     getNextPageParam: (lastPage: GetNoticeResponse['data']) => {
-      if (lastPage.pageNumber < lastPage.totalPages) {
+      if (lastPage.pageNumber < lastPage.totalPages - 1) {
         return lastPage.pageNumber + 1;
       }
 
