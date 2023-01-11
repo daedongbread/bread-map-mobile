@@ -11,7 +11,7 @@ type Props = {
 
 export const RatingRow: React.FC<Props> = ({ bread, onUpdateBreadRating }) => {
   const onPressRatingStar = (rating: number) => {
-    onUpdateBreadRating({ id: bread.id, rating });
+    onUpdateBreadRating({ id: bread.id, rating, type: bread.type });
   };
 
   return (

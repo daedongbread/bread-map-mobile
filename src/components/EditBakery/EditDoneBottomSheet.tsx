@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 import happyBread from '@shared/Images/happyBread.png';
 import { BackdropComponent } from '../Profile';
 import { Button } from '../Shared/Button/Button';
@@ -10,10 +11,12 @@ import { SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
 
 export function EditDoneBottomSheet({ bottomSheetRef, title }: { bottomSheetRef: any; title: string }) {
+  const navigation = useNavigation();
   const snapPoints = useMemo(() => [274], []);
 
   const onConfirmClick = () => {
     bottomSheetRef.current?.close();
+    navigation.goBack();
   };
 
   return (

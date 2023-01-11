@@ -7,11 +7,13 @@ import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
-  title: string;
-  closePage: () => void;
+  title?: string;
+  onPressClose?: () => void;
+  isPrevButtonShown?: boolean;
+  isCloseButtonShown?: boolean;
 }
 
-export const Header = ({ title, closePage }: Props) => {
+export const Header = ({ title, onPressClose, isPrevButtonShown = false, isCloseButtonShown = false }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
@@ -19,18 +21,28 @@ export const Header = ({ title, closePage }: Props) => {
   };
 
   const onPressCloseBtn = () => {
-    closePage();
+    if (onPressClose) {
+      onPressClose();
+    }
   };
 
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={onPressPrevBtn}>
-        <PrevIcon />
-      </TouchableOpacity>
+      {isPrevButtonShown ? (
+        <TouchableOpacity onPress={onPressPrevBtn}>
+          <PrevIcon />
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
       <Text style={styles.headerText}>{title}</Text>
-      <TouchableOpacity onPress={onPressCloseBtn}>
-        <CloseIcon />
-      </TouchableOpacity>
+      {isCloseButtonShown ? (
+        <TouchableOpacity onPress={onPressCloseBtn}>
+          <CloseIcon />
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
     </View>
   );
 };

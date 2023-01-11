@@ -78,7 +78,7 @@ const MainStack = () => {
           headerTitleAlign: 'center',
         }}
       >
-        <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} />
+        <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen
           options={{ headerTitle: '알림', headerTitleAlign: 'center', headerStyle: { height: 52 } }}
           name={'NotificationModal'}
