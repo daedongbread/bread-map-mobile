@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
 
+import { flagColorHexColors } from '@/containers/Bookmark';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -22,6 +24,13 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   const [selectBookmark, setSelectBookmark] = useState<number>();
 
+  const { mutate, isSuccess } = useBookmarkBakery({ flagId: selectBookmark });
+  const { data } = useGetFlags();
+
+  const onSave = () => {
+    mutate({ bakeryId: Number(bakeryId) });
+  };
+
   const onClose = () => {
     goBack();
   };
@@ -33,9 +42,19 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   };
 
   const list = [
-    { id: 1, icon: CircleFlag, text: '가고싶어요' },
-    { id: 2, icon: HeartIcon, text: '가봤어요' },
+    { flagId: 0, icon: React.Fragment, name: 'header' },
+    ...(data || [])?.map((flag, index) => ({
+      ...flag,
+      color: flagColorHexColors[flag.color],
+      icon: index === 0 ? HeartIcon : CircleFlag,
+    })),
   ];
+
+  useEffect(() => {
+    if (isSuccess) {
+      goBack();
+    }
+  }, [isSuccess, goBack]);
 
   return (
     <BakeryBookmarksBottomSheet
@@ -45,7 +64,7 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
       onClose={onClose}
       selectBookmarkId={selectBookmark}
       onClick={setSelectBookmark}
-      onSave={() => {}}
+      onSave={onSave}
     />
   );
 };

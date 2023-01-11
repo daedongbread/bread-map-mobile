@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 36,
     paddingLeft: 20,
+    marginBottom: 16,
   },
   title: {
     fontSize: 14,

@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import Toast from 'react-native-easy-toast';
 import { follow, unFollow, useGetProfileInfo } from '@/apis/profile';
 import { ProfileComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
-import Toast from 'react-native-easy-toast';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 
 export function ProfileContainer() {
   const { userId } = useRoute<RootRouteProps<'Profile'>>().params ?? {};
@@ -46,10 +46,10 @@ export function ProfileContainer() {
 
   const onFollowButtonClick = async (userId: number) => {
     if (profileInfoData?.isFollow) {
-      const response = await unFollow({ accessToken: accessToken!!, userId: userId });
+      const response = await unFollow({ userId: userId });
       console.log(response);
     } else {
-      const response = await follow({ accessToken: accessToken!!, userId: userId });
+      const response = await follow({ userId: userId });
       console.log(response);
     }
     refetch();

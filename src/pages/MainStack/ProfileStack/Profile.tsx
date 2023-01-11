@@ -9,6 +9,9 @@ const Profile = () => {
   const onClickButton = () => {
     navigation.push('EditBakeryStack', {
       screen: 'EditBakery',
+      params: {
+        bakeryId: 30000000000003,
+      },
     });
   };
   return (
