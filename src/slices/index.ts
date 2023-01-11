@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import auth from './auth';
+import bakeryMap from './bakeryMap';
+import notice from './notice';
 import reviewWrite from './reviewWrite';
 
-import bakeryMap from './bakeryMap';
 import user from './user';
 
 const reducers = {
@@ -10,6 +11,7 @@ const reducers = {
   reviewWrite,
   auth,
   bakeryMap,
+  notice,
 };
 
 const rootReducer = combineReducers(reducers);

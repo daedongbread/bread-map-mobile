@@ -61,13 +61,13 @@ export const TextInput: React.FC<Props> = ({
 
         <View style={styles.hintContainer}>
           <View style={styles.errorContainer}>
-            {isAlert && (
+            {!!error && isAlert && (
               <>
                 <AlertIcon />
                 <Text> </Text>
               </>
             )}
-            {error && (
+            {!!error && (
               <Text presets={['number2', 'regular']} style={styles.errorText}>
                 {error}
               </Text>
