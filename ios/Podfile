@@ -10,6 +10,7 @@ target 'daedongbread' do
   pod 'react-native-google-maps', :path => rn_maps_path
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
   config = use_native_modules!
 
   use_react_native!(
@@ -34,4 +35,5 @@ target 'daedongbread' do
       react_native_post_install(installer)
       __apply_Xcode_12_5_M1_post_install_workaround(installer)
     end
+
 end

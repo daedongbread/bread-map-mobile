@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "864589104978",
+    "project_id": "bread-map-63d96",
+    "storage_bucket": "bread-map-63d96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864589104978:android:87605e95b93acd7cd8dc8b",
+        "android_client_info": {
+          "package_name": "com.daedongbread"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864589104978-b96q8miegg6ha2vr1kuuk9ir6fari36l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATGYfoSc_M0HjvlCw5US7015zgsB2eimU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864589104978-b96q8miegg6ha2vr1kuuk9ir6fari36l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
