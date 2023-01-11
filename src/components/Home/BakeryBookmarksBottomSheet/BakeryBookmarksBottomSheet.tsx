@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { FlatList, Pressable, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, Pressable, StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import { SvgProps } from 'react-native-svg';
 
+import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
 import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 
+import { Checkbox } from '@shared/Chcekbox/Checkbox';
 import { Text } from '@shared/Text';
 
 import { Footer } from './Footer';
@@ -14,9 +16,10 @@ import { Header } from './Header';
 import { StoreListHeader } from './StoreListHeader';
 
 type List = {
-  id: number;
+  flagId: number;
   icon: React.FC<SvgProps>;
-  text: string;
+  color?: string;
+  name: string;
 };
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
@@ -29,8 +32,6 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   onSave: () => void;
 };
 
-const snapPoints = ['40%'];
-
 type RenderItemProps = {
   item: List;
   isSelected: boolean;
@@ -39,13 +40,15 @@ type RenderItemProps = {
 
 const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) => {
   return (
-    <Pressable onPress={() => onClick(item.id)}>
+    <Pressable onPress={() => onClick(item.flagId)}>
       <View style={styles.itemContainer}>
         <View style={styles.iconWrapper}>
-          <item.icon width={32} height={32} />
+          <item.icon width={32} height={32} color={item.color || theme.color.primary500} />
         </View>
-        <Text presets={['body1', 'bold']}>{item.text}</Text>
-        <View style={styles.checkboxWrapper}>{isSelected ? <Text>Selected</Text> : <Text> unSelect</Text>}</View>
+        <Text style={styles.flex} presets={['body1', 'bold']}>
+          {item.name}
+        </Text>
+        <Checkbox checked={isSelected} />
       </View>
     </Pressable>
   );
@@ -53,18 +56,22 @@ const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) =>
 
 export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
   ({ bakery, list, onPressNewBookmark, selectBookmarkId, onClose, onClick, onSave }) => {
+    const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
+
     const bakeryName = bakery?.name || '';
 
     const bakeryRef = useRef<BottomSheet>(null);
 
+    const onLayout: ViewProps['onLayout'] = e => {
+      const height = e.nativeEvent.layout.height;
+      if (height) {
+        setSnapPoints([height + 30]);
+      }
+    };
+
     const onCloseBottomSheet = () => {
       bakeryRef.current?.close();
     };
-
-    const ListHeaderComponent = useCallback(
-      () => <StoreListHeader onPress={onPressNewBookmark} />,
-      [onPressNewBookmark]
-    );
 
     useEffect(() => {
       if (bakery) {
@@ -78,14 +85,22 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
           <View style={styles.background} />
         </TouchableWithoutFeedback>
         <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose} style={styles.bottomSheetContainer}>
-          <View>
+          <View onLayout={onLayout}>
             <Header name={bakeryName} />
             <FlatList
+              style={styles.listContainer}
               data={list}
-              renderItem={({ item }) => (
-                <RenderItem item={item} isSelected={item.id === selectBookmarkId} onClick={onClick} />
-              )}
-              ListHeaderComponent={ListHeaderComponent}
+              renderItem={({ item, index }) => {
+                return (
+                  <View style={styles.bookmarkItem}>
+                    {index === 0 ? (
+                      <StoreListHeader onPress={onPressNewBookmark} />
+                    ) : (
+                      <RenderItem item={item} isSelected={item.flagId === selectBookmarkId} onClick={onClick} />
+                    )}
+                  </View>
+                );
+              }}
             />
             <Footer onClose={onCloseBottomSheet} onSave={onSave} />
           </View>
@@ -97,14 +112,26 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
 
 const styles = StyleSheet.create(
   resizePixels({
+    flex: {
+      flex: 1,
+    },
     overlay: {
       flex: 1,
       justifyContent: 'flex-end',
     },
     background: {
       flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     bottomSheetContainer: {
+      backgroundColor: theme.color.gray200,
+    },
+    listContainer: {
+      backgroundColor: theme.color.gray200,
+    },
+    bookmarkItem: {
+      marginBottom: 1,
+      backgroundColor: 'white',
       paddingHorizontal: 20,
     },
     itemContainer: {
@@ -117,6 +144,9 @@ const styles = StyleSheet.create(
     },
     checkboxWrapper: {
       marginLeft: 'auto',
+    },
+    checkbox: {
+      borderRadius: 50,
     },
   })
 );

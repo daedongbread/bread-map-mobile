@@ -1,21 +1,9 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ColorInput } from '@/components/BookmarkForm/ColorInput';
-import { theme } from '@/styles/theme';
+import { flagColors } from '@/containers/Bookmark';
 import { Label } from '@shared/Label';
 import { TextInput } from '@shared/TextInput';
-
-const colors = [
-  theme.color.green,
-  '#FFBF1B',
-  '#00C7D3',
-  '#1A73E9',
-  '#50A0FF',
-  theme.color.purple,
-  '#AD44FF',
-  '#FF4141',
-  '#FF7294',
-];
 
 type Props = {
   name: string;
@@ -48,7 +36,7 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
       <View>
         <Label isRequire>색상선택</Label>
         <View style={styles.colorsContainer}>
-          {colors.map(item => (
+          {flagColors.map(item => (
             <ColorInput
               key={item}
               color={item}
