@@ -1,5 +1,5 @@
 import React from 'react';
-import { BakeryMenuListContainer } from '@/containers/BakeryDetail/BakeryMenuListContainer';
+import { BakeryMenuListContainer } from '@/containers/BakeryDetail/Menu/BakeryMenuListContainer';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 
 export type MenuItem = {
