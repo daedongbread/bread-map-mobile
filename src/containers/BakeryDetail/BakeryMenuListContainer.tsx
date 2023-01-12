@@ -4,8 +4,9 @@ import { useGetBakery } from '@/apis/bakery';
 import { BakeryMenuEntity } from '@/apis/bakery/types';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { TabHeader } from '@/components/BakeryDetail/TabHeader';
-
-import { Menus } from '@shared/Menu';
+import { Menus } from '@/components/Shared/Menu';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   bakeryId: number;
@@ -13,17 +14,17 @@ type Props = {
 
 export const BakeryMenuListContainer = ({ bakeryId }: Props) => {
   const { bakery } = useGetBakery({ bakeryId });
+  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuReviews'>['navigation']>();
 
   const onPress = (_menu: BakeryMenuEntity) => {
     if (!bakery) {
       return;
     }
 
-    // navigation.push('BakeryMenuReviews', {
-    //   info: bakery.info,
-    //   menu,
-    //   reviews,
-    // });
+    navigation.push('BakeryMenuReviews', {
+      bakeryId,
+      menu: _menu,
+    });
   };
 
   return (
@@ -34,6 +35,7 @@ export const BakeryMenuListContainer = ({ bakeryId }: Props) => {
         <Menus
           headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />}
           bakery={bakery}
+          bakeryId={bakeryId}
           onPress={onPress}
         />
       )}
@@ -44,6 +46,5 @@ export const BakeryMenuListContainer = ({ bakeryId }: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    marginTop: 32,
   },
 });
