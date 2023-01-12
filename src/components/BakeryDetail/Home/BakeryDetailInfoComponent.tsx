@@ -78,10 +78,10 @@ export const BakeryDetailInfoComponent = ({ bakeryId, bakeryInfo }: Props) => {
         </View>
 
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakeryInfo?.info.address || defaultMessage} />
+          <RowInfo icon={<MapPinIcon />} text={bakeryInfo?.info.address || defaultMessage} isCopyable />
           <RowInfo icon={<ClockIcon />} text={bakeryInfo?.info.hours || defaultMessage} />
           <RowInfo icon={<EarthIcon />} text={bakeryInfo?.info.websiteURL || defaultMessage} />
-          <RowInfo icon={<PhoneIcon />} text={bakeryInfo?.info.phoneNumber || defaultMessage} />
+          <RowInfo icon={<PhoneIcon />} text={bakeryInfo?.info.phoneNumber || defaultMessage} isCopyable />
           <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
