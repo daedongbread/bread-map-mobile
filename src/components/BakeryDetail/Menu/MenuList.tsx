@@ -1,6 +1,6 @@
 import React from 'react';
 import { BakeryMenuListContainer } from '@/containers/BakeryDetail/BakeryMenuListContainer';
-import { BakeryMenuStackNavigationProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 
 export type MenuItem = {
   name: string;
@@ -8,10 +8,8 @@ export type MenuItem = {
   rating: number;
 };
 
-// 다른부분들도 헤더탭부분 렌더링 변경하기
-const MenuList: React.FC<BakeryMenuStackNavigationProps<'BakeryMenus'>> = ({ route }) => {
-  const bakeryId = route.params.bakeryId;
-
+const MenuList: React.FC<BakeryDetailTabScreenProps<'BakeryDetailMenu'>> = ({ route }) => {
+  const { bakeryId } = route.params;
   return <BakeryMenuListContainer bakeryId={bakeryId} />;
 };
 

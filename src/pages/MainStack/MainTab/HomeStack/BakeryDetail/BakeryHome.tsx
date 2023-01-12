@@ -2,15 +2,14 @@ import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 
 import { BakeryDetailInfoContainer } from '@/containers/BakeryDetail/BakeryDetailInfoContainer';
-import { BakeryMenuListContainer } from '@/containers/BakeryDetail/BakeryMenuListContainer';
 import { BakeryReportContainer } from '@/containers/BakeryDetail/BakeryReportContainer';
-import { BakeryReviewContainer } from '@/containers/BakeryDetail/BakeryReviewContainer';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Bakery/TopTab';
+import { BakeryMenuBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryMenuBriefListContainer';
+import { BakeryReviewBriefListContainer } from '@/containers/BakeryDetail/Home/BakeryReviewBriefListContainer';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 
 // TODO: 일부 아이콘 변경 필요
-const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ route, navigation }) => {
+const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ navigation, route }) => {
   const bakeryId = route.params.bakeryId;
-
   useEffect(() => {
     navigation.setParams({
       bakeryId,
@@ -18,11 +17,11 @@ const BakeryHome: React.FC<BakeryDetailTabScreenProps<'BakeryDetailHome'>> = ({ 
   }, [navigation, bakeryId]);
 
   return (
-    <ScrollView style={{ marginTop: 32 }}>
+    <ScrollView style={{ height: '100%' }}>
       <BakeryDetailInfoContainer bakeryId={bakeryId} />
-      <BakeryMenuListContainer bakeryId={bakeryId} />
+      <BakeryMenuBriefListContainer bakeryId={bakeryId} />
       <BakeryReportContainer bakeryId={bakeryId} />
-      <BakeryReviewContainer bakeryId={bakeryId} />
+      <BakeryReviewBriefListContainer bakeryId={bakeryId} />
     </ScrollView>
   );
 };

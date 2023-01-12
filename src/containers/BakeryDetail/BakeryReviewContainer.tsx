@@ -22,20 +22,6 @@ export const BakeryReviewContainer = ({ bakeryId }: Props) => {
     if (!review) {
       return;
     }
-
-    navigation.push('MainTab', {
-      screen: 'HomeStack',
-      params: {
-        screen: 'Bakery',
-        params: {
-          screen: 'BakeryDetailReview',
-          params: {
-            screen: 'BakeryReviewDetail',
-            params: { reviewId: review.id },
-          },
-        },
-      },
-    });
   };
 
   const onPressAddBtn = () => {
