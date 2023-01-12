@@ -9,5 +9,5 @@ type Props = {
 export const BakeryDetailInfoContainer = ({ bakeryId }: Props) => {
   const { bakery } = useGetBakery({ bakeryId });
 
-  return <BakeryDetailInfoComponent bakeryInfo={bakery} />;
+  return <BakeryDetailInfoComponent bakeryId={bakeryId} bakeryInfo={bakery} />;
 };
