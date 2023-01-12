@@ -4,8 +4,10 @@ import { BakerySingleEntity } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/Home/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/Home/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/Home/RowInfo';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/native';
 import {
   CircleFlag,
   CirclePencil,
@@ -23,10 +25,28 @@ import {
 const defaultMessage = '미정';
 
 type Props = {
+  bakeryId: number;
   bakeryInfo?: BakerySingleEntity;
 };
 
-export const BakeryDetailInfoComponent = ({ bakeryInfo }: Props) => {
+export const BakeryDetailInfoComponent = ({ bakeryId, bakeryInfo }: Props) => {
+  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+
+  const onPressReviewWriteBtn = () => {
+    navigation.push('ReviewWriteStack', {
+      screen: 'ReviewSelect',
+    });
+  };
+
+  const onPressEditBakeryInfo = () => {
+    navigation.push('EditBakeryStack', {
+      screen: 'EditBakery',
+      params: {
+        bakeryId,
+      },
+    });
+  };
+
   return (
     <>
       <View style={styles.imageContainer}>
@@ -52,9 +72,9 @@ export const BakeryDetailInfoComponent = ({ bakeryInfo }: Props) => {
         </View>
 
         <View style={styles.actionButtonContainer}>
-          <BakeryButton text={'저장하기'} icon={<WishIcon />} />
-          <BakeryButton text={'리뷰작성'} icon={<EditIcon />} />
-          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} />
+          <BakeryButton text={'저장하기'} icon={<WishIcon />} onPress={() => null} />
+          <BakeryButton text={'리뷰작성'} icon={<EditIcon />} onPress={onPressReviewWriteBtn} />
+          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={() => null} />
         </View>
 
         <View style={styles.informationContainer}>
@@ -62,7 +82,7 @@ export const BakeryDetailInfoComponent = ({ bakeryInfo }: Props) => {
           <RowInfo icon={<ClockIcon />} text={bakeryInfo?.info.hours || defaultMessage} />
           <RowInfo icon={<EarthIcon />} text={bakeryInfo?.info.websiteURL || defaultMessage} />
           <RowInfo icon={<PhoneIcon />} text={bakeryInfo?.info.phoneNumber || defaultMessage} />
-          <TouchableOpacity style={styles.editButton}>
+          <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
           </TouchableOpacity>
