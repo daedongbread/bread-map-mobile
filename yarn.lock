@@ -1513,6 +1513,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-camera-roll/camera-roll/-/camera-roll-5.2.0.tgz#a30dca7c486379650c03fb8cc6fe35b7de6eeb82"
   integrity sha512-CIFkEqWeMtFo3fG/0nULrmLs8xikbOUuEty8wWxpyBWq7OM9Hi13pXJ1FWrIrxDcFuL7d0bxIqpqNrt59lAPrQ==
 
+"@react-native-clipboard/clipboard@^1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@react-native-clipboard/clipboard/-/clipboard-1.11.1.tgz#d3a9e685ce2383b1e92b89a334896c5575cc103d"
+  integrity sha512-nvSIIHzybVWqYxcJE5hpT17ekxAAg383Ggzw5WrYHtkKX61N1AwaKSNmXs5xHV7pmKSOe/yWjtSwxIzfW51I5Q==
+
 "@react-native-community/checkbox@^0.5.12":
   version "0.5.12"
   resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.12.tgz#1f55a38bbcd5f10ca853db0c6a9f1c4beccc37af"
