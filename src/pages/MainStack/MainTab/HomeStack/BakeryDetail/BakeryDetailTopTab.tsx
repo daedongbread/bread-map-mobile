@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native';
 import { BakeryReviewEntity, BakerySingleEntity } from '@/apis/bakery/types';
 import { Information, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
 import { MenuList } from '@/components/BakeryDetail/Menu/MenuList';
-import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
+import { Header } from '@/components/Shared/Header';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
@@ -36,17 +36,16 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ navigation, route }: HomeStackScreenProps<'Bakery'>) => {
+const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
   const { bakeryId } = route.params?.params || { bakeryId: 0 };
   const bakery = useBakeryDetail(bakeryId);
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        height: '100%',
       }}
     >
-      <NavigateHeader title={bakery.bakery?.info.name || ''} onPressPrevBtn={() => navigation.pop()} />
+      <Header title={bakery.bakery?.info.name || ''} isPrevButtonShown />
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{
