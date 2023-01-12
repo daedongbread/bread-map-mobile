@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useGetBakery } from '@/apis/bakery';
+import { BakerySingleEntity } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/Home/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/Home/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/Home/RowInfo';
@@ -23,28 +23,26 @@ import {
 const defaultMessage = '미정';
 
 type Props = {
-  bakeryId: number;
+  bakeryInfo?: BakerySingleEntity;
 };
 
-export const BakeryDetailInfoContainer = ({ bakeryId }: Props) => {
-  const { bakery } = useGetBakery({ bakeryId });
-
+export const BakeryDetailInfoComponent = ({ bakeryInfo }: Props) => {
   return (
     <>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: bakery?.info.image || 'https://via.placeholder.com/360' }}
+          source={{ uri: bakeryInfo?.info.image || 'https://via.placeholder.com/360' }}
           resizeMode="cover"
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.bakeryNameText}>{bakery?.info.name}</Text>
+        <Text style={styles.bakeryNameText}>{bakeryInfo?.info.name}</Text>
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
-            <ReviewSummary text={numberFormat(bakery?.info.flagNum || 0)} icon={<CircleFlag />} />
-            <ReviewSummary text={String(bakery?.info.rating!)} icon={<CircleStar />} />
-            <ReviewSummary text={String(bakery?.info.reviewNum)} icon={<CirclePencil />} />
+            <ReviewSummary text={numberFormat(bakeryInfo?.info.flagNum || 0)} icon={<CircleFlag />} />
+            <ReviewSummary text={String(bakeryInfo?.info.rating!)} icon={<CircleStar />} />
+            <ReviewSummary text={String(bakeryInfo?.info.reviewNum)} icon={<CirclePencil />} />
           </View>
 
           <View style={styles.reviewerContainer}>
@@ -60,10 +58,10 @@ export const BakeryDetailInfoContainer = ({ bakeryId }: Props) => {
         </View>
 
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakery?.info.address || defaultMessage} />
-          <RowInfo icon={<ClockIcon />} text={bakery?.info.hours || defaultMessage} />
-          <RowInfo icon={<EarthIcon />} text={bakery?.info.websiteURL || defaultMessage} />
-          <RowInfo icon={<PhoneIcon />} text={bakery?.info.phoneNumber || defaultMessage} />
+          <RowInfo icon={<MapPinIcon />} text={bakeryInfo?.info.address || defaultMessage} />
+          <RowInfo icon={<ClockIcon />} text={bakeryInfo?.info.hours || defaultMessage} />
+          <RowInfo icon={<EarthIcon />} text={bakeryInfo?.info.websiteURL || defaultMessage} />
+          <RowInfo icon={<PhoneIcon />} text={bakeryInfo?.info.phoneNumber || defaultMessage} />
           <TouchableOpacity style={styles.editButton}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
