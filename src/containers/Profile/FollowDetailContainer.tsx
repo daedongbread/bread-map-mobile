@@ -1,9 +1,9 @@
 import React from 'react';
-import { FollowDetailComponent } from '@/components/Profile';
 import { follow, unFollow, useGetFollower, useGetFollowing } from '@/apis/profile';
+import { FollowDetailComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
-import { useRoute } from '@react-navigation/native';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { useRoute } from '@react-navigation/native';
 
 export function FollowDetailContainer() {
   const {
@@ -35,10 +35,10 @@ export function FollowDetailContainer() {
     console.log(item, index);
 
     if (item?.isFollow) {
-      const response = await unFollow({ accessToken: accessToken!!, userId: item?.userId });
+      const response = await unFollow({ userId: item?.userId });
       console.log(response);
     } else {
-      const response = await follow({ accessToken: accessToken!!, userId: item?.userId });
+      const response = await follow({ userId: item?.userId });
       console.log(response);
     }
 

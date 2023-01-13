@@ -46,10 +46,10 @@ export function ProfileContainer() {
 
   const onFollowButtonClick = async (userId: number) => {
     if (profileInfoData?.isFollow) {
-      const response = await unFollow({ accessToken: accessToken!!, userId: userId });
+      const response = await unFollow({ userId: userId });
       console.log(response);
     } else {
-      const response = await follow({ accessToken: accessToken!!, userId: userId });
+      const response = await follow({ userId: userId });
       console.log(response);
     }
     refetch();

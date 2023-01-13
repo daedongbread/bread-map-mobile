@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/BakeryDetailTopTab';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import {
@@ -50,17 +51,9 @@ const facilityList: FacilityItem[] = [
   },
 ];
 
-const Information: React.FC = () => {
-  const { bakery } = useBakeryDetail();
-  const [facilities, setFacilities] = React.useState<FacilityItem[] | null>(null);
-
-  React.useEffect(() => {
-    if (!bakery) {
-      return;
-    }
-    const filtered = facilityList.filter(facility => bakery.facilityInfoList.includes(facility.category));
-    setFacilities(filtered);
-  }, [bakery]);
+const Information: React.FC<BakeryDetailTabScreenProps<'BakeryDetailInfo'>> = ({ route }) => {
+  const { bakeryId } = route.params;
+  const { bakery } = useBakeryDetail(bakeryId);
 
   return (
     <View style={styles.container}>
@@ -68,10 +61,17 @@ const Information: React.FC = () => {
       <View style={styles.facilitiesContainer}>
         <Text style={styles.title}>시설정보</Text>
         <View style={styles.facilities}>
-          {facilities?.map(facility => (
+          {facilityList.map(facility => (
             <View style={styles.facility} key={facility.category}>
-              {<facility.icon strokeColor={'orange'} />}
-              <Text style={styles.facilityName}>{facility.text}</Text>
+              {<facility.icon strokeColor={bakery?.facilityInfoList.includes(facility.category) ? 'orange' : 'gray'} />}
+              <Text
+                style={
+                  facilityNameStyle(bakery?.facilityInfoList.includes(facility.category) ? 'primary500' : 'gray500')
+                    .facilityName
+                }
+              >
+                {facility.text}
+              </Text>
             </View>
           ))}
         </View>
@@ -82,9 +82,17 @@ const Information: React.FC = () => {
 
 export { Information };
 
+const facilityNameStyle = (colorKey: keyof typeof theme.color) =>
+  StyleSheet.create({
+    facilityName: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      color: theme.color[colorKey],
+    },
+  });
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: 32,
     backgroundColor: 'white',
   },
   informationContainer: {
@@ -128,10 +136,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     margin: 5,
-  },
-  facilityName: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: theme.color.primary500,
   },
 });

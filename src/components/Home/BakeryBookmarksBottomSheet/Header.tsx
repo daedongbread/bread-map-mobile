@@ -21,6 +21,7 @@ const styles = StyleSheet.create(
   resizePixels({
     container: {
       paddingVertical: 12,
+      paddingHorizontal: 20,
     },
   })
 );

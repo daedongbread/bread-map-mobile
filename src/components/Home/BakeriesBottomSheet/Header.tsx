@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: resizePixel(18),
     fontWeight: 'bold',
+    color: 'black',
   },
   iconsContainer: {
     flexDirection: 'row',

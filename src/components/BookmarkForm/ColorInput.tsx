@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     width: 40,
     height: 40,
-    borderRadius: 20,
     padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: theme.color.gray300,
+    borderRadius: 20,
   },
   circle: {
     width: 24,

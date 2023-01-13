@@ -1,8 +1,8 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
+import { EmptyReviews } from '@/components/BakeryDetail/Review/EmptyReviews';
 import { resizePixels } from '@/utils';
-import { Button } from '../Button/Button';
 import Review from './Review';
 
 type ReviewsProps = {
@@ -14,15 +14,11 @@ type ReviewsProps = {
 const Reviews: React.FC<ReviewsProps> = ({ headerComponent, reviews, onPress }) => (
   <FlatList
     ListHeaderComponent={headerComponent}
-    ListHeaderComponentStyle={styles.header}
+    contentContainerStyle={styles.contain}
     data={reviews}
+    ListEmptyComponent={<EmptyReviews />}
     keyExtractor={review => review.id.toString()}
-    renderItem={({ item }) => <Review review={item} onPress={onPress} />}
-    ListFooterComponent={
-      <Button size="large" appearance="terdary" style={{ marginHorizontal: 20, marginVertical: 32 }}>
-        <Text style={styles.footerButtonText}>전체메뉴보기</Text>
-      </Button>
-    }
+    renderItem={({ item, index }) => <Review review={item} onPress={onPress} isEnd={reviews.length === index + 1} />}
   />
 );
 
@@ -30,12 +26,8 @@ export { Reviews };
 
 const styles = StyleSheet.create(
   resizePixels({
-    header: {
-      marginHorizontal: 20,
-    },
-    footerButtonText: {
-      fontSize: 14,
-      fontWeight: '700',
+    contain: {
+      paddingHorizontal: 20,
     },
   })
 );

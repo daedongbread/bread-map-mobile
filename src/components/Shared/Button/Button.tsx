@@ -5,13 +5,14 @@ import { PlusIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
 
 type Appearance = 'primary' | 'secondary' | 'terdary' | 'quaternary';
-type Size = 'big' | 'large';
+type Size = 'big' | 'large' | 'tiny';
 
 interface Props extends TouchableOpacityProps {
   style?: ViewProps['style'];
   appearance?: Appearance;
   size?: Size;
   icon?: boolean;
+  borderRadius?: number;
 }
 
 export const Button: React.FC<Props> = ({
@@ -20,12 +21,25 @@ export const Button: React.FC<Props> = ({
   style = {},
   icon,
   children,
+  borderRadius = 8,
   ...rest
 }) => {
   const appearanceStyle = appearanceStyles[appearance];
   const textStyle = textStyles[appearance];
   const iconColor = iconStyles[appearance].color;
   const sizeStyle = sizeStyles[size];
+
+  const defaultStyles = StyleSheet.create({
+    common: {
+      flexDirection: 'row',
+      borderRadius,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    icon: {
+      marginRight: 6,
+    },
+  });
 
   return (
     <View style={style}>
@@ -40,18 +54,6 @@ export const Button: React.FC<Props> = ({
     </View>
   );
 };
-
-const defaultStyles = StyleSheet.create({
-  common: {
-    flexDirection: 'row',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    marginRight: 6,
-  },
-});
 
 const appearanceStyles = StyleSheet.create({
   primary: {
@@ -108,5 +110,9 @@ const sizeStyles = StyleSheet.create({
   large: {
     paddingHorizontal: 12,
     paddingVertical: 12,
+  },
+  tiny: {
+    paddingVertical: 2,
+    paddingHorizontal: 10,
   },
 });
