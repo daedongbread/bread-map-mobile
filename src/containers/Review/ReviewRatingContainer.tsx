@@ -1,7 +1,7 @@
 import React from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { fetcher } from '@/apis/fetcher';
-import { ReviewRating } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewRating';
+import { ReviewRating } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import {

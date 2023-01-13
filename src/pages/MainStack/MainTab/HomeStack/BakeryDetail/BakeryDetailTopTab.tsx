@@ -1,18 +1,17 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { BakeryReviewEntity, BakerySingleEntity } from '@/apis/bakery/types';
-import { Information, ReviewDetail, ReviewList, ReviewReport } from '@/components/BakeryDetail';
-import { MenuList } from '@/components/BakeryDetail/Menu/MenuList';
-import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
+import { Header } from '@/components/Shared/Header';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeStackScreenProps } from '../Stack';
-import { BakeryHome } from './BakeryHome';
+import { BakeryHome } from './Tab/BakeryHome';
+import { BakeryInfo } from './Tab/BakeryInfo';
+import { BakeryMenu } from './Tab/BakeryMenu';
+import { BakeryReviewStack } from './Tab/BakeryReview/Stack';
 
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: {
@@ -36,17 +35,16 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ navigation, route }: HomeStackScreenProps<'Bakery'>) => {
+const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
   const { bakeryId } = route.params?.params || { bakeryId: 0 };
   const bakery = useBakeryDetail(bakeryId);
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        height: '100%',
       }}
     >
-      <NavigateHeader title={bakery.bakery?.info.name || ''} onPressPrevBtn={() => navigation.pop()} />
+      <Header title={bakery.bakery?.info.name || ''} isPrevButtonShown />
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{
@@ -61,7 +59,7 @@ const BakeryDetailTabNavigator = ({ navigation, route }: HomeStackScreenProps<'B
         <Tab.Screen name="BakeryDetailHome" component={BakeryHome} options={{ title: '홈' }} />
         <Tab.Screen
           name="BakeryDetailMenu"
-          component={MenuList}
+          component={BakeryMenu}
           options={{ title: '메뉴' }}
           initialParams={{ bakeryId }}
         />
@@ -73,7 +71,7 @@ const BakeryDetailTabNavigator = ({ navigation, route }: HomeStackScreenProps<'B
         />
         <Tab.Screen
           name="BakeryDetailInfo"
-          component={Information}
+          component={BakeryInfo}
           options={{ title: '정보' }}
           initialParams={{ bakeryId }}
         />
@@ -92,22 +90,5 @@ export type BakeryReviewStackParamList = {
   };
   BakeryReport: undefined;
 };
-
-export type BakeryReviewStackNavigationProps = StackNavigationProp<BakeryReviewStackParamList>;
-
-const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
-
-const BakeryReviewStack = ({ route }: any) => (
-  <ReviewStack.Navigator initialRouteName="BakeryReviews">
-    <ReviewStack.Screen
-      name="BakeryReviews"
-      initialParams={route.params}
-      options={{ headerShown: false }}
-      component={ReviewList}
-    />
-    <ReviewStack.Screen name="BakeryReviewDetail" options={{ headerShown: false }} component={ReviewDetail} />
-    <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={ReviewReport} />
-  </ReviewStack.Navigator>
-);
 
 export { BakeryDetailTabNavigator };
