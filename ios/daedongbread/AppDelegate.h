@@ -3,12 +3,8 @@
 #import <UserNotifications/UNUserNotificationCenter.h>
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
-
-@property (nonatomic, strong) UIWindow *window;
-
-// react-native-push-notification/ios
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, UNUserNotificationCenterDelegate>
 
+@property (nonatomic, strong) UIWindow *window;
 
 @end
