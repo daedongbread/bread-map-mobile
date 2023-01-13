@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { BakeryReviewEntity } from '@/apis/bakery/types';
-import { EmptyReviews } from '@/components/BakeryDetail/Review/EmptyReviews';
+import { EmptyReviews } from '@/components/BakeryDetail/BakeryReview/EmptyReviews';
 import { resizePixels } from '@/utils';
 import Review from './Review';
 

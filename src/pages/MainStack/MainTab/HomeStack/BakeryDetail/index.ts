@@ -1,1 +1,1 @@
-export * from './BakeryHome';
+export * from './BakeryDetailTopTab';

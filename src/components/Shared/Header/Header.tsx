@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     height: 24,
   },
   headerText: {
+    color: '#000000',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });

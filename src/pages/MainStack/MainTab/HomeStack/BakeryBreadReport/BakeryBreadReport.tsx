@@ -1,6 +1,6 @@
 import React from 'react';
 import { launchImageLibrary, Asset } from 'react-native-image-picker';
-import { PhotoSelect } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewRating/PhotoSelect';
+import { PhotoSelect } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating/PhotoSelect';
 import { Button } from '@/components/Shared/Button/Button';
 import { NavigateHeader } from '@/components/Shared/NavigateHeader/NavigateHeader';
 import { TextInputWithLabel } from '@/components/Shared/TextInput';
