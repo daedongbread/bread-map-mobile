@@ -3,7 +3,8 @@ import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 import { useGetBakeries } from '@/apis';
-import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
+import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
 import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -70,8 +71,18 @@ export const BakeryMapContainer: React.FC = () => {
     longitudeDelta: searchMapCameraLocation?.longitudeDelta,
   });
 
-  //TODO: 더미 데이터
-  const markerCoordinates = bakeries;
+  const { bakeries: bakeriesFilter } = useGetBakeriesFilter({
+    filter: showMaker,
+    sort,
+    latitude: searchMapCameraLocation?.latitude,
+    longitude: searchMapCameraLocation?.longitude,
+    latitudeDelta: searchMapCameraLocation?.latitudeDelta,
+    longitudeDelta: searchMapCameraLocation?.longitudeDelta,
+  });
+
+  const markerCoordinates: BakeryMapBakeryFilterEntity[] | BakeryMapBakeryEntity[] | undefined = showMaker
+    ? bakeriesFilter
+    : bakeries;
 
   //TODO: 마커를 눌렀을때 액션 추가(바텀시트에 보인다?)
   const onPressMarker = useCallback(
@@ -166,7 +177,6 @@ export const BakeryMapContainer: React.FC = () => {
         markers={markerCoordinates}
         onPressMarker={onPressMarker}
         selectedMarker={selectedMarker}
-        showMaker={showMaker}
         onPanDrag={onPanDrag}
         isWatch={isWatched}
         onRegionChange={onRegionChange}

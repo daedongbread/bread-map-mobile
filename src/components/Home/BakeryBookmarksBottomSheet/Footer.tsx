@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Button } from '@/components/Shared/Button/Button';
 
 import { resizePixels } from '@/utils';
 
@@ -13,10 +14,13 @@ export const Footer: React.FC<Props> = memo(({ onClose, onSave }) => {
   return (
     <View style={styles.container}>
       <View style={styles.button}>
-        <Button title={'취소하기'} onPress={onClose} />
+        <Button appearance={'terdary'} onPress={onClose}>
+          취소하기
+        </Button>
       </View>
+      <View style={styles.gap} />
       <View style={styles.button}>
-        <Button title={'선택완료'} onPress={onSave} />
+        <Button onPress={onSave}>선택완료</Button>
       </View>
     </View>
   );
@@ -25,7 +29,11 @@ export const Footer: React.FC<Props> = memo(({ onClose, onSave }) => {
 const styles = StyleSheet.create(
   resizePixels({
     container: {
+      paddingVertical: 12,
       flexDirection: 'row',
+    },
+    gap: {
+      width: 8,
     },
     button: {
       flex: 1,

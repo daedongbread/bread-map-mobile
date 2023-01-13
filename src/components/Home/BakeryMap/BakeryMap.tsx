@@ -3,14 +3,13 @@ import { StyleSheet } from 'react-native';
 import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
-import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { BakeryMarker } from '@/components/Home';
 
 type Props = MapViewProps & {
-  markers?: Array<BakeryMapBakeryEntity>;
+  markers?: Array<BakeryMapBakeryEntity> | Array<BakeryMapBakeryFilterEntity>;
   onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
   selectedMarker?: BakeryMapBakeryEntity;
-  showMaker: boolean;
   isWatch: boolean;
   handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
 };
@@ -25,7 +24,6 @@ export const BakeryMap = React.memo(
         onPressMarker,
         selectedMarker,
         onRegionChange,
-        showMaker,
         onPanDrag,
         isWatch,
         handleUserLocationChange,
@@ -61,23 +59,28 @@ export const BakeryMap = React.memo(
           zoomTapEnabled={false}
           onRegionChangeComplete={onRegionChange}
         >
-          {showMaker
-            ? markers?.map(marker => (
+          {markers?.map(marker => {
+            if ('color' in marker) {
+              return (
                 <BakeryMarker
                   key={marker.id}
                   bakeryMapEntity={marker}
                   onPress={onPressMarker}
                   activeMarkerId={selectedMarker?.id}
+                  color={marker.color}
                 />
-              ))
-            : markers?.map(marker => (
-                <BakeryMarker
-                  key={marker.id}
-                  bakeryMapEntity={marker}
-                  onPress={onPressMarker}
-                  activeMarkerId={selectedMarker?.id}
-                />
-              ))}
+              );
+            }
+
+            return (
+              <BakeryMarker
+                key={marker.id}
+                bakeryMapEntity={marker}
+                onPress={onPressMarker}
+                activeMarkerId={selectedMarker?.id}
+              />
+            );
+          })}
         </MapView>
       );
     }

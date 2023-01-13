@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View } from 'react-native';
 import { Text } from '@shared/Text';
 
 type Props = {
   isRequire?: boolean;
+  style?: StyleProp<any>;
 };
 
-export const Label: React.FC<Props> = memo(({ isRequire = false, children }) => {
+export const Label: React.FC<Props> = memo(({ isRequire = false, children, style }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.Text} presets={['body1', 'bold']}>
@@ -21,6 +22,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginBottom: 12,
+  },
+  text: {
+    fontSize: 14,
   },
   require: {
     marginLeft: 2,
