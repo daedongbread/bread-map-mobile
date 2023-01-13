@@ -30,6 +30,7 @@ export { WishIcon } from './WishIcon';
 export { EditIcon } from './EditIcon';
 export { CloseIcon } from './CloseIcon';
 export { ImageCloseIcon } from './ImageCloseIcon';
+export { CopyIcon } from './CopyIcon';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';

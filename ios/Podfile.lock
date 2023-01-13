@@ -424,6 +424,8 @@ PODS:
     - React-Core
   - RNCCheckbox (0.5.12):
     - React-Core
+  - RNCClipboard (1.11.1):
+    - React-Core
   - RNCMaskedView (0.1.11):
     - React
   - RNCPushNotificationIOS (1.10.1):
@@ -567,6 +569,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
@@ -698,6 +701,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNCCheckbox:
     :path: "../node_modules/@react-native-community/checkbox"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNCPushNotificationIOS:
@@ -789,6 +794,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNAppleAuthentication: 63c2127ace11985b94f852fc480eb84145653712
   RNCCheckbox: ed1b4ca295475b41e7251ebae046360a703b6eb5
+  RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8

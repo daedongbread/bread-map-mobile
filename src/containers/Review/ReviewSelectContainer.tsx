@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BreadEntity, useGetBreads } from '@/apis/bread';
-import { ReviewSelect } from '@/components/BakeryDetail/Review/ReviewWrite/ReviewSelect';
+import { ReviewSelect } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewSelect';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { RatedBread, resetSelectedBreads, updateAllSeletedBread } from '@/slices/reviewWrite';
