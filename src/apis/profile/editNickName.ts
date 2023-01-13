@@ -1,5 +1,5 @@
-import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
+import RNFetchBlob from 'rn-fetch-blob';
 
 type Props = {
   accessToken: string;
