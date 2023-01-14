@@ -3,6 +3,7 @@ import auth from './auth';
 import bakeryMap from './bakeryMap';
 import notice from './notice';
 import reviewWrite from './reviewWrite';
+import toast from './toast';
 
 import user from './user';
 
@@ -12,6 +13,7 @@ const reducers = {
   auth,
   bakeryMap,
   notice,
+  toast,
 };
 
 const rootReducer = combineReducers(reducers);

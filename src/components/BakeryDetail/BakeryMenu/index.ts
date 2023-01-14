@@ -1,0 +1,1 @@
+export { BakeryMenuComponent } from './BakeryMenuComponent';
