@@ -8,15 +8,27 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title?: string;
+  onPressPrev?: () => void;
   onPressClose?: () => void;
   isPrevButtonShown?: boolean;
   isCloseButtonShown?: boolean;
 }
 
-export const Header = ({ title, onPressClose, isPrevButtonShown = false, isCloseButtonShown = false }: Props) => {
+export const Header = ({
+  title,
+  onPressPrev,
+  onPressClose,
+  isPrevButtonShown = false,
+  isCloseButtonShown = false,
+}: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
+    if (onPressPrev) {
+      onPressPrev();
+      return;
+    }
+
     navigation.pop();
   };
 
@@ -28,35 +40,40 @@ export const Header = ({ title, onPressClose, isPrevButtonShown = false, isClose
 
   return (
     <View style={styles.headerContainer}>
-      {isPrevButtonShown ? (
-        <TouchableOpacity onPress={onPressPrevBtn}>
-          <PrevIcon />
-        </TouchableOpacity>
-      ) : (
-        <View />
-      )}
+      <View style={styles.icon}>
+        {isPrevButtonShown && (
+          <TouchableOpacity onPress={onPressPrevBtn}>
+            <PrevIcon />
+          </TouchableOpacity>
+        )}
+      </View>
       <Text style={styles.headerText}>{title}</Text>
-      {isCloseButtonShown ? (
-        <TouchableOpacity onPress={onPressCloseBtn}>
-          <CloseIcon />
-        </TouchableOpacity>
-      ) : (
-        <View />
-      )}
+      <View style={styles.icon}>
+        {isCloseButtonShown && (
+          <TouchableOpacity onPress={onPressCloseBtn}>
+            <CloseIcon />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 19.5,
     flexDirection: 'row',
-    paddingVertical: 14,
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 19.5,
+    paddingVertical: 14,
+  },
+  icon: {
+    width: 24,
+    height: 24,
   },
   headerText: {
+    color: '#000000',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
