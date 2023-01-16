@@ -4,6 +4,7 @@ import { BakerySingleEntity } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
+import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
@@ -26,11 +27,39 @@ const defaultMessage = '미정';
 
 type Props = {
   bakeryId: number;
-  bakeryInfo?: BakerySingleEntity;
+  bakery?: BakerySingleEntity;
+  isFlaged: boolean;
+  onBookmarkSuccess: (selectBookmark: BookmarkList) => void;
+  onPressBookmarkDisabled: () => void;
 };
 
-export const BakeryDetailInfoComponent = ({ bakeryId, bakeryInfo }: Props) => {
+export const BakeryDetailInfoComponent = ({
+  bakeryId,
+  bakery,
+  isFlaged,
+  onBookmarkSuccess,
+  onPressBookmarkDisabled,
+}: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+
+  const onPressSaveBtn = () => {
+    if (isFlaged) {
+      onPressBookmarkDisabled();
+    } else {
+      onNavBookmark();
+    }
+  };
+
+  const onNavBookmark = () => {
+    navigation.navigate('MainStack', {
+      screen: 'BookmarkBottomSheet',
+      params: {
+        bakeryId: bakeryId,
+        name: bakery?.info.name!,
+        onSaveSuccess: (selectBookmark: BookmarkList) => onBookmarkSuccess(selectBookmark),
+      },
+    });
+  };
 
   const onPressReviewWriteBtn = () => {
     navigation.push('ReviewWriteStack', {
@@ -52,17 +81,17 @@ export const BakeryDetailInfoComponent = ({ bakeryId, bakeryInfo }: Props) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: bakeryInfo?.info.image || 'https://via.placeholder.com/360' }}
+          source={{ uri: bakery?.info.image || 'https://via.placeholder.com/360' }}
           resizeMode="cover"
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.bakeryNameText}>{bakeryInfo?.info.name}</Text>
+        <Text style={styles.bakeryNameText}>{bakery?.info.name}</Text>
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
-            <ReviewSummary text={numberFormat(bakeryInfo?.info.flagNum || 0)} icon={<CircleFlag />} />
-            <ReviewSummary text={String(bakeryInfo?.info.rating!)} icon={<CircleStar />} />
-            <ReviewSummary text={String(bakeryInfo?.info.reviewNum)} icon={<CirclePencil />} />
+            <ReviewSummary text={numberFormat(bakery?.info.flagNum || 0)} icon={<CircleFlag />} />
+            <ReviewSummary text={String(bakery?.info.rating!)} icon={<CircleStar />} />
+            <ReviewSummary text={String(bakery?.info.reviewNum)} icon={<CirclePencil />} />
           </View>
 
           <View style={styles.reviewerContainer}>
@@ -72,16 +101,25 @@ export const BakeryDetailInfoComponent = ({ bakeryId, bakeryInfo }: Props) => {
         </View>
 
         <View style={styles.actionButtonContainer}>
-          <BakeryButton text={'저장하기'} icon={<WishIcon />} onPress={() => null} />
+          {isFlaged ? (
+            <BakeryButton
+              text={'저장됨'}
+              textColor={theme.color.primary500}
+              icon={<WishIcon fill={theme.color.primary500} />}
+              onPress={onPressSaveBtn}
+            />
+          ) : (
+            <BakeryButton text={'저장하기'} icon={<WishIcon fill={'#757575'} />} onPress={onPressSaveBtn} />
+          )}
           <BakeryButton text={'리뷰작성'} icon={<EditIcon />} onPress={onPressReviewWriteBtn} />
           <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={() => null} />
         </View>
 
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakeryInfo?.info.address || defaultMessage} isCopyable />
-          <RowInfo icon={<ClockIcon />} text={bakeryInfo?.info.hours || defaultMessage} />
-          <RowInfo icon={<EarthIcon />} text={bakeryInfo?.info.websiteURL || defaultMessage} />
-          <RowInfo icon={<PhoneIcon />} text={bakeryInfo?.info.phoneNumber || defaultMessage} isCopyable />
+          <RowInfo icon={<MapPinIcon />} text={bakery?.info.address || defaultMessage} isCopyable />
+          <RowInfo icon={<ClockIcon />} text={bakery?.info.hours || defaultMessage} />
+          <RowInfo icon={<EarthIcon />} text={bakery?.info.websiteURL || defaultMessage} />
+          <RowInfo icon={<PhoneIcon />} text={bakery?.info.phoneNumber || defaultMessage} isCopyable />
           <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
