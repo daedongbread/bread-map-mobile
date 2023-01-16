@@ -1,4 +1,5 @@
 import React from 'react';
+import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
@@ -22,6 +23,7 @@ export type MainStackParamList = {
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
+    onSaveSuccess?: (selectBookmark: BookmarkList) => void;
   };
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
   Bookmark: undefined;

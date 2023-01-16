@@ -92,6 +92,7 @@ export type BakerySingleEntity = {
     facebookURL: string;
     blogURL: string;
     phoneNumber: string;
+    isFlaged: boolean;
   };
   menu: BakeryMenuEntity[];
   facilityInfoList: Array<BakeryFacilityInfoType>;

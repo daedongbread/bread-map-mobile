@@ -1,9 +1,12 @@
+import React from 'react';
+import { SvgProps } from 'react-native-svg';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type ToastState = {
   isShow?: boolean;
   duration?: number;
   position?: 'bottom' | 'center' | 'top';
+  icon?: React.FC<SvgProps>;
   text: string;
 };
 

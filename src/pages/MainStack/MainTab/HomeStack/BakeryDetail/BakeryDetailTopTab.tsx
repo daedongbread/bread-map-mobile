@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BakeryReviewEntity, BakerySingleEntity } from '@/apis/bakery/types';
 import { Header } from '@/components/Shared/Header';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
@@ -36,12 +37,17 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
 const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
+  const insets = useSafeAreaInsets();
+
   const { bakeryId } = route.params?.params || { bakeryId: 0 };
   const bakery = useBakeryDetail(bakeryId);
+
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
+        height: '100%',
+        paddingTop: insets.top,
       }}
     >
       <Header title={bakery.bakery?.info.name || ''} isPrevButtonShown />
@@ -50,7 +56,6 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
         screenOptions={{
           tabBarContentContainerStyle: {
             flex: 1,
-            height: '100%',
           },
           tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
           tabBarLabelStyle: { fontWeight: 'bold' },
@@ -76,7 +81,7 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
           initialParams={{ bakeryId }}
         />
       </Tab.Navigator>
-    </SafeAreaView>
+    </View>
   );
 };
 
