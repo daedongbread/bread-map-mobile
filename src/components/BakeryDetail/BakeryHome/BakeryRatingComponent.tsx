@@ -17,14 +17,17 @@ export const BakeryRatingComponent = ({ bakery }: Props) => {
       <Divider />
       <View style={styles.wrapper}>
         <Text presets={['subtitle2', 'bold']} style={{ marginBottom: 4 }}>
-          {bakery?.info.name}
+          {bakery?.bakeryInfo.name}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
           <IcPersonCircle />
-          <Text presets={['caption1', 'regular']}> {numberFormat(bakery?.info.reviewNum || 0)}명이 평가했어요!</Text>
+          <Text presets={['caption1', 'regular']}>
+            {' '}
+            {numberFormat(bakery?.bakeryInfo.reviewNum || 0)}명이 평가했어요!
+          </Text>
         </View>
-        <Text style={styles.ratingText}>{bakery?.info.rating}</Text>
-        <RatingStars rating={bakery?.info.rating || 0} />
+        <Text style={styles.ratingText}>{bakery?.bakeryInfo.rating}</Text>
+        <RatingStars rating={bakery?.bakeryInfo.rating || 0} />
       </View>
     </>
   );
