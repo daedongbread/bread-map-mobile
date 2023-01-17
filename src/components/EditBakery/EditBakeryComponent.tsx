@@ -16,9 +16,18 @@ type Props = {
   onClickEdit: () => void;
   onClickDelete: () => void;
   DeleteBakeryBottomSheetRef: any;
+  bakeryId: number;
+  NavigationKey: string;
 };
 
-export function EditBakeryComponent({ onClickRight, onClickEdit, onClickDelete, DeleteBakeryBottomSheetRef }: Props) {
+export function EditBakeryComponent({
+  onClickRight,
+  onClickEdit,
+  onClickDelete,
+  DeleteBakeryBottomSheetRef,
+  bakeryId,
+  NavigationKey,
+}: Props) {
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <Header title="빵집 정보 수정" onClickRight={onClickRight} />
@@ -43,7 +52,11 @@ export function EditBakeryComponent({ onClickRight, onClickEdit, onClickDelete, 
       <Button onPress={onClickDelete} appearance="terdary" style={styles.Button}>
         장소 삭제 요청
       </Button>
-      <DeleteBakeryBottomSheet bottomSheetRef={DeleteBakeryBottomSheetRef} />
+      <DeleteBakeryBottomSheet
+        bottomSheetRef={DeleteBakeryBottomSheetRef}
+        bakeryId={bakeryId}
+        NavigationKey={NavigationKey}
+      />
     </SafeAreaView>
   );
 }

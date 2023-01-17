@@ -24,6 +24,7 @@ const editNickName = async ({ accessToken, nickName, userImage }: Props) => {
       type: 'application/json',
     },
   ];
+
   if (userImage) {
     const base64 = await RNFS.readFile(userImage, 'base64');
 

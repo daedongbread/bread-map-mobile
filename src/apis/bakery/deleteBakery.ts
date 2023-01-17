@@ -16,6 +16,7 @@ type ArrProps = {
 
 const deleteBakery = async ({ accessToken, bakeryId, userImage }: Props) => {
   let arr: ArrProps = [];
+
   const base64 = await RNFS.readFile(userImage, 'base64');
 
   arr.push({

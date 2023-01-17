@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 
 export function EditDetailContainer() {
   const {
-    params: { bakeryId },
+    params: { bakeryId, NavigationKey },
   } = useRoute<RootRouteProps<'EditDetail'>>();
   const { accessToken } = useAppSelector(state => state.auth);
   const editDoneBottomSheetRef = useRef<BottomSheet>(null);
@@ -18,10 +18,11 @@ export function EditDetailContainer() {
   const [errorState, setErrorState] = useState({
     name: false,
     location: false,
+    edit: false,
   });
 
   const onChange = useCallback(({ name: label, value }) => {
-    setErrorState({ name: false, location: false });
+    setErrorState({ name: false, location: false, edit: false });
     const changeFunctions = {
       name: setName,
       location: setLocation,
@@ -33,13 +34,17 @@ export function EditDetailContainer() {
     }
   }, []);
   const onConfirmClick = async () => {
-    if (name.length === 0 || location.length === 0) {
+    if (name.length === 0 || location.length === 0 || edit.length === 0) {
       if (name.length === 0) {
         setErrorState({ ...errorState, name: true });
         return;
       }
       if (location.length === 0) {
         setErrorState({ ...errorState, location: true });
+        return;
+      }
+      if (edit.length === 0) {
+        setErrorState({ ...errorState, edit: true });
         return;
       }
     } else {
@@ -67,6 +72,8 @@ export function EditDetailContainer() {
       onConfirmClick={onConfirmClick}
       editDoneBottomSheetRef={editDoneBottomSheetRef}
       errorState={errorState}
+      bakeryId={bakeryId}
+      NavigationKey={NavigationKey}
     />
   );
 }

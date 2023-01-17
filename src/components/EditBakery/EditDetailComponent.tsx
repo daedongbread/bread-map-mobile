@@ -22,7 +22,10 @@ type Props = {
   errorState: {
     name: boolean;
     location: boolean;
+    edit: boolean;
   };
+  bakeryId: number;
+  NavigationKey: string;
 };
 
 export function EditDetailComponent({
@@ -33,6 +36,8 @@ export function EditDetailComponent({
   onConfirmClick,
   editDoneBottomSheetRef,
   errorState,
+  bakeryId,
+  NavigationKey,
 }: Props) {
   const cancelBottomSheetRef = useRef<BottomSheet>(null);
 
@@ -74,7 +79,7 @@ export function EditDetailComponent({
           placeholder={'빵집 이름을 입력해주세요'}
           isAlert
           error={errorState.name ? '빵집 이름을 입력해주세요' : ''}
-          // maxLength={10}
+          maxLength={20}
           autoCorrect={false}
           style={styles.TextInput}
         />
@@ -89,7 +94,7 @@ export function EditDetailComponent({
           placeholder={'예시) 서울시 강남구 역삼동'}
           isAlert
           error={errorState.location ? '위치를 입력해주세요' : ''}
-          // maxLength={10}
+          maxLength={100}
           autoCorrect={false}
           style={styles.TextInput}
         />
@@ -102,7 +107,9 @@ export function EditDetailComponent({
           value={edit}
           onChange={handleChange}
           placeholder={'이 빵집의 어떤 정보를 수정할까요?!'}
-          // maxLength={10}
+          error={errorState.edit ? '수정사항을 입력해주세요' : ''}
+          isAlert
+          maxLength={500}
           autoCorrect={false}
           style={[styles.TextInput, styles.MultiText]}
           multiline
@@ -113,7 +120,12 @@ export function EditDetailComponent({
         </Button>
         <SplitRow height={18} />
       </ScrollView>
-      <EditDoneBottomSheet bottomSheetRef={editDoneBottomSheetRef} title="수정" />
+      <EditDoneBottomSheet
+        bottomSheetRef={editDoneBottomSheetRef}
+        title="수정"
+        bakeryId={bakeryId}
+        NavigationKey={NavigationKey}
+      />
       <CancelBottomSheet bottomSheetRef={cancelBottomSheetRef} />
     </SafeAreaView>
   );
