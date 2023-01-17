@@ -79,7 +79,7 @@ export type BakeryMenuEntity = {
 };
 
 export type BakerySingleEntity = {
-  info: {
+  bakeryInfo: {
     image: string | null;
     name: string;
     flagNum: number;
@@ -92,6 +92,9 @@ export type BakerySingleEntity = {
     facebookURL: string;
     blogURL: string;
     phoneNumber: string;
+  };
+  flagInfo: {
+    flagId: number;
     isFlaged: boolean;
   };
   menu: BakeryMenuEntity[];

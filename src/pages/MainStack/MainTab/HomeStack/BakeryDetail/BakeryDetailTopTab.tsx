@@ -40,7 +40,7 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
   const insets = useSafeAreaInsets();
 
   const { bakeryId } = route.params?.params || { bakeryId: 0 };
-  const bakery = useBakeryDetail(bakeryId);
+  const { bakery } = useBakeryDetail(bakeryId);
 
   return (
     <View
@@ -50,7 +50,7 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
         paddingTop: insets.top,
       }}
     >
-      <Header title={bakery.bakery?.info.name || ''} isPrevButtonShown />
+      <Header title={bakery?.bakeryInfo.name || ''} isPrevButtonShown />
       <Tab.Navigator
         backBehavior="history"
         screenOptions={{
@@ -91,7 +91,7 @@ export type BakeryReviewStackParamList = {
   };
   BakeryReviewDetail: {
     review: BakeryReviewEntity;
-    info: BakerySingleEntity['info'];
+    info: BakerySingleEntity['bakeryInfo'];
   };
   BakeryReport: undefined;
 };

@@ -14,7 +14,7 @@ export const BakeryDetailInfoContainer = () => {
   const bakeryId = route.params.bakeryId;
   const { bakery } = useGetBakery({ bakeryId });
 
-  const [isFlaged, setIsFlaged] = useState(bakery?.info.isFlaged || false);
+  const [isFlaged, setIsFlaged] = useState(bakery?.flagInfo.isFlaged || false);
 
   const onBookmarkSuccess = (selectBookmark: BookmarkList) => {
     setIsFlaged(true);

@@ -55,7 +55,7 @@ export const BakeryDetailInfoComponent = ({
       screen: 'BookmarkBottomSheet',
       params: {
         bakeryId: bakeryId,
-        name: bakery?.info.name!,
+        name: bakery?.bakeryInfo.name!,
         onSaveSuccess: (selectBookmark: BookmarkList) => onBookmarkSuccess(selectBookmark),
       },
     });
@@ -81,17 +81,17 @@ export const BakeryDetailInfoComponent = ({
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: bakery?.info.image || 'https://via.placeholder.com/360' }}
+          source={{ uri: bakery?.bakeryInfo.image || 'https://via.placeholder.com/360' }}
           resizeMode="cover"
         />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.bakeryNameText}>{bakery?.info.name}</Text>
+        <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.name}</Text>
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
-            <ReviewSummary text={numberFormat(bakery?.info.flagNum || 0)} icon={<CircleFlag />} />
-            <ReviewSummary text={String(bakery?.info.rating!)} icon={<CircleStar />} />
-            <ReviewSummary text={String(bakery?.info.reviewNum)} icon={<CirclePencil />} />
+            <ReviewSummary text={numberFormat(bakery?.bakeryInfo.flagNum || 0)} icon={<CircleFlag />} />
+            <ReviewSummary text={String(bakery?.bakeryInfo.rating!)} icon={<CircleStar />} />
+            <ReviewSummary text={String(bakery?.bakeryInfo.reviewNum)} icon={<CirclePencil />} />
           </View>
 
           <View style={styles.reviewerContainer}>
@@ -116,10 +116,10 @@ export const BakeryDetailInfoComponent = ({
         </View>
 
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakery?.info.address || defaultMessage} isCopyable />
-          <RowInfo icon={<ClockIcon />} text={bakery?.info.hours || defaultMessage} />
-          <RowInfo icon={<EarthIcon />} text={bakery?.info.websiteURL || defaultMessage} />
-          <RowInfo icon={<PhoneIcon />} text={bakery?.info.phoneNumber || defaultMessage} isCopyable />
+          <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address || defaultMessage} isCopyable />
+          <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours || defaultMessage} />
+          <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL || defaultMessage} />
+          <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.phoneNumber || defaultMessage} isCopyable />
           <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
