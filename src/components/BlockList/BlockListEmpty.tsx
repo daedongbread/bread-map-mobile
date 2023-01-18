@@ -15,7 +15,7 @@ export const BlockListEmpty = memo(() => {
           차단한 사용자가 없어요
         </Text>
       </View>
-      <View style={styles.gap}>
+      <View style={[styles.gap, styles.center]}>
         <Text presets={['number2']} style={styles.textColor}>
           불편한 사용자가 있다면 신고를 통해
         </Text>
@@ -30,6 +30,9 @@ export const BlockListEmpty = memo(() => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 120,
+    alignItems: 'center',
+  },
+  center: {
     alignItems: 'center',
   },
   gap: {
