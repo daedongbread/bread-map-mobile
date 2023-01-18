@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetBakery } from '@/apis/bakery';
+import { useBookmarkDisableBakery } from '@/apis/flag';
 import { BakeryDetailInfoComponent } from '@/components/BakeryDetail/BakeryHome';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { useAppDispatch } from '@/hooks/redux';
@@ -13,8 +14,13 @@ export const BakeryDetailInfoContainer = () => {
 
   const bakeryId = route.params.bakeryId;
   const { bakery } = useGetBakery({ bakeryId });
+  const { mutate: bookmarkDisable } = useBookmarkDisableBakery();
 
   const [isFlaged, setIsFlaged] = useState(bakery?.flagInfo.isFlaged || false);
+
+  useEffect(() => {
+    setIsFlaged(bakery?.flagInfo.isFlaged!);
+  }, [bakery?.flagInfo.isFlaged]);
 
   const onBookmarkSuccess = (selectBookmark: BookmarkList) => {
     setIsFlaged(true);
@@ -27,8 +33,21 @@ export const BakeryDetailInfoContainer = () => {
     );
   };
 
-  const onPressBookmarkDisabled = () => {
-    setIsFlaged(false);
+  const onPressBookmarkDisable = () => {
+    const flagId = bakery?.flagInfo.flagId;
+
+    if (flagId == null) {
+      return;
+    }
+
+    bookmarkDisable(
+      { bakeryId, flagId },
+      {
+        onSuccess: () => {
+          setIsFlaged(false);
+        },
+      }
+    );
   };
 
   return (
@@ -37,7 +56,7 @@ export const BakeryDetailInfoContainer = () => {
       bakery={bakery}
       isFlaged={isFlaged}
       onBookmarkSuccess={onBookmarkSuccess}
-      onPressBookmarkDisabled={onPressBookmarkDisabled}
+      onPressBookmarkDisable={onPressBookmarkDisable}
     />
   );
 };
