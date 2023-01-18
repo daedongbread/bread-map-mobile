@@ -59,7 +59,7 @@ export const BakeryMapContainer: React.FC = () => {
   const { searchMapCameraLocation, selectedMarker, sort } = useAppSelector(select => select.bakeryMap);
 
   const [initialRegion, setInitialRegion] = useState<Region>();
-  const [showMaker, setShowMaker] = useState<boolean>(false);
+  const [isFilterSaved, setIsFilterSaved] = useState<boolean>(false);
   const [showSearchButton, setShowSearchButton] = useState(false);
   const [cameraCoordinate, setCameraCoordinate] = useState<Region>();
 
@@ -72,7 +72,7 @@ export const BakeryMapContainer: React.FC = () => {
   });
 
   const { bakeries: bakeriesFilter } = useGetBakeriesFilter({
-    filter: showMaker,
+    filter: isFilterSaved,
     sort,
     latitude: searchMapCameraLocation?.latitude,
     longitude: searchMapCameraLocation?.longitude,
@@ -80,7 +80,7 @@ export const BakeryMapContainer: React.FC = () => {
     longitudeDelta: searchMapCameraLocation?.longitudeDelta,
   });
 
-  const markerCoordinates: BakeryMapBakeryFilterEntity[] | BakeryMapBakeryEntity[] | undefined = showMaker
+  const markerCoordinates: BakeryMapBakeryFilterEntity[] | BakeryMapBakeryEntity[] | undefined = isFilterSaved
     ? bakeriesFilter
     : bakeries;
 
@@ -94,7 +94,7 @@ export const BakeryMapContainer: React.FC = () => {
 
   //TODO: add handle press icon
   const onPressFlagIcon = useCallback(() => {
-    setShowMaker(prevState => !prevState);
+    setIsFilterSaved(prevState => !prevState);
   }, []);
 
   const onPressNavigationIcon = useCallback(() => {
@@ -181,6 +181,7 @@ export const BakeryMapContainer: React.FC = () => {
         isWatch={isWatched}
         onRegionChange={onRegionChange}
         handleUserLocationChange={onUserLocationChange}
+        markerIcon={isFilterSaved ? 'saved' : 'default'}
       />
 
       <BakeryMapOverlay
@@ -188,7 +189,7 @@ export const BakeryMapContainer: React.FC = () => {
         onPressFlagIcon={onPressFlagIcon}
         onPressNavigationIcon={onPressNavigationIcon}
         isWatched={isWatched}
-        showMaker={showMaker}
+        isFilterSaved={isFilterSaved}
         showSearchButton={showSearchButton}
         onPressSearchButton={onPressSearchButton}
       />

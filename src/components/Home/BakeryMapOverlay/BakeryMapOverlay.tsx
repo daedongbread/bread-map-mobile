@@ -10,7 +10,7 @@ import { Text } from '@shared/Text';
 
 type Props = {
   isWatched: boolean;
-  showMaker: boolean;
+  isFilterSaved: boolean;
   onPressSearch: () => void;
   onPressFlagIcon: () => void;
   onPressNavigationIcon: () => void;
@@ -21,7 +21,7 @@ type Props = {
 export const BakeryMapOverlay: React.FC<Props> = React.memo(
   ({
     isWatched,
-    showMaker,
+    isFilterSaved,
     onPressSearch,
     onPressFlagIcon,
     onPressNavigationIcon,
@@ -38,9 +38,12 @@ export const BakeryMapOverlay: React.FC<Props> = React.memo(
           <View style={styles.iconsWrapper}>
             <TouchableOpacity onPress={onPressFlagIcon}>
               <View
-                style={[styles.iconButton, showMaker ? styles.iconButtonActiveColor : styles.iconButtonInactiveButton]}
+                style={[
+                  styles.iconButton,
+                  isFilterSaved ? styles.iconButtonActiveColor : styles.iconButtonInactiveButton,
+                ]}
               >
-                <FlagIcon color={showMaker ? 'white' : 'black'} />
+                <FlagIcon color={isFilterSaved ? 'white' : 'black'} />
               </View>
             </TouchableOpacity>
 
