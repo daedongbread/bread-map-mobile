@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useGetBlockList } from '@/apis/auth/useBlockList';
+import { BlockListEmpty } from '@/components/BlockList/BlockListEmpty';
 import { BlockUser } from '@/components/BlockList/BlockUser';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
@@ -19,6 +20,7 @@ export const BlockListContainer = () => {
     <View style={style.wrapper}>
       <FlatList
         data={data}
+        ListEmptyComponent={BlockListEmpty}
         renderItem={({ item }) => <BlockUser key={item.userId} handlePressUnblock={onPressUnblock} {...item} />}
       />
     </View>
