@@ -30,7 +30,7 @@ type Props = {
   bakery?: BakerySingleEntity;
   isFlaged: boolean;
   onBookmarkSuccess: (selectBookmark: BookmarkList) => void;
-  onPressBookmarkDisabled: () => void;
+  onPressBookmarkDisable: () => void;
 };
 
 export const BakeryDetailInfoComponent = ({
@@ -38,13 +38,13 @@ export const BakeryDetailInfoComponent = ({
   bakery,
   isFlaged,
   onBookmarkSuccess,
-  onPressBookmarkDisabled,
+  onPressBookmarkDisable,
 }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
 
   const onPressSaveBtn = () => {
     if (isFlaged) {
-      onPressBookmarkDisabled();
+      onPressBookmarkDisable();
     } else {
       onNavBookmark();
     }
