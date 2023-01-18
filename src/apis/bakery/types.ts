@@ -28,6 +28,7 @@ export type BakeryMapBakeryEntity = {
   simpleReviewList: SimpleReview[];
   distance: number;
   popularNum: number;
+  color: string; // Orange
 };
 
 export type BakeryMapBakeryFilterEntity = {
