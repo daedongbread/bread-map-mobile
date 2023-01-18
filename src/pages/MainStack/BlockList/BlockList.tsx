@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { BlockListContainer } from '@/containers/BlockList/BlockListContainer';
 import { BlockListHeader } from '@/pages/MainStack/BlockList/StackHeader';
 import { UnblockUserBottomSheetContainer } from '@/pages/MainStack/BlockList/UnblockUserBottomSheetContainer';
@@ -12,11 +12,11 @@ export const BlockList = () => {
 
   return (
     <BottomSheetModalProvider>
-      <View style={styles.flex}>
+      <SafeAreaView style={styles.flex}>
         <BlockListHeader />
         <BlockListContainer />
         <UnblockUserBottomSheetContainer userId={userId} />
-      </View>
+      </SafeAreaView>
     </BottomSheetModalProvider>
   );
 };
