@@ -20,7 +20,7 @@ const requestGetFlag = async ({ accessToken, flagId }: UseGetFlagProps) => {
 };
 
 const useGetFlag = ({ accessToken, flagId }: UseGetFlagProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetFlag', { accessToken }], () =>
+  const { data, isLoading, isError, refetch } = useQuery(['useGetFlag', flagId], () =>
     requestGetFlag({ accessToken, flagId })
   );
 

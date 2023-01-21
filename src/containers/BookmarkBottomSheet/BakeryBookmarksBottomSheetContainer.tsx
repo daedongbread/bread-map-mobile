@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useQueryClient } from 'react-query';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
 
@@ -17,9 +18,10 @@ type Navigation = ScreenProps['navigation'];
 type Route = ScreenProps['route'];
 
 export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
+  const queryClient = useQueryClient();
   const { push, goBack } = useNavigation<Navigation>();
   const {
-    params: { bakeryId, name },
+    params: { bakeryId, name, flagId },
   } = useRoute<Route>();
 
   const [selectBookmark, setSelectBookmark] = useState<number>();
@@ -52,9 +54,12 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      if (flagId) {
+        queryClient.refetchQueries(['useGetFlag', flagId]);
+      }
       goBack();
     }
-  }, [isSuccess, goBack]);
+  }, [isSuccess, goBack, flagId, queryClient]);
 
   return (
     <BakeryBookmarksBottomSheet

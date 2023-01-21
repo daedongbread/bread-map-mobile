@@ -22,6 +22,7 @@ export type MainStackParamList = {
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
+    flagId?: number;
   };
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
   Bookmark: undefined;

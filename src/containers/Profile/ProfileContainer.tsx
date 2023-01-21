@@ -27,7 +27,6 @@ export function ProfileContainer() {
         params: {
           flagId: item?.flagId,
           name: item?.name,
-          len: item?.flagImageList?.length,
           color: item?.color,
         },
       });

@@ -4,8 +4,8 @@ import { resizePixels } from '@/utils';
 import { HeartIcon } from '../Shared/Icons';
 import IcFlag from '../Shared/Icons/IcFlag.svg';
 import { Text } from '../Shared/Text';
-import { SaveListItemImages } from './SaveListItemImages';
 import { FlagColors } from './ProfileComponent';
+import { SaveListItemImages } from './SaveListItemImages';
 
 export function SaveListItem({ item, onItemClick }: any) {
   const color =
