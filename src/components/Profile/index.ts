@@ -14,7 +14,6 @@ export { FollowDetailComponent } from './FollowDetailComponent';
 export { ListDetailComponent } from './ListDetailComponent';
 export { FollowDetailItem } from './FollowDetailItem';
 export { ListDetailItem } from './ListDetailItem';
-export { ListDetailItemBottomSheet } from './ListDetailItemBottomSheet';
 export { BackdropComponent } from './BackdropComponent';
 export { ListDetailInfoBottomSheet } from './ListDetailInfoBottomSheet';
 export { ListDetailInfoDeleteBottomSheet } from './ListDetailInfoDeleteBottomSheet';

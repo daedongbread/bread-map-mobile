@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -11,9 +11,8 @@ import IcHeart from '@shared/Icons/IcHeart.svg';
 import defaultProfile from '@shared/Images/defaultProfile.png';
 import { FlagColors } from './ProfileComponent';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-export function ListDetailItem({ item, bottomSheetRef, name, color }: any) {
-  const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
+export function ListDetailItem({ item, name, color, flagId }: any) {
+  const navigation = useNavigation<MainStackScreenProps<'BookmarkBottomSheet'>['navigation']>();
 
   const FlagColor =
     color === 'ORANGE'
@@ -37,12 +36,12 @@ export function ListDetailItem({ item, bottomSheetRef, name, color }: any) {
       : FlagColors.PINK;
 
   const onItemClick = () => {
-    // bottomSheetRef.current?.expand();
-    navigate('MainStack', {
+    navigation.navigate('MainStack', {
       screen: 'BookmarkBottomSheet',
       params: {
-        bakeryId: 1,
-        name: 1 + '',
+        bakeryId: item?.id,
+        name: item?.name,
+        flagId: flagId,
       },
     });
   };
