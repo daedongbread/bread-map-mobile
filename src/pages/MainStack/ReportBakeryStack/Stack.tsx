@@ -7,11 +7,12 @@ import { UpdateBakeryOnboarding } from '@/pages/MainStack/ReportBakeryStack/Upda
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { ReportPhoto } from './ReportPhoto/ReportPhoto';
 
 export type ReportBakeryStackParamList = {
   ReportBakeryOnboard: undefined;
   ReportBakery: undefined;
-
+  ReportPhoto: undefined;
   UpdateBakeryOnboarding: undefined;
   UpdateBaker: {
     bakeryId: number;
@@ -40,6 +41,9 @@ const ReportBakeryStack = () => {
         <Stack.Screen name={'UpdateBakeryOnboarding'} component={UpdateBakeryOnboarding} />
         <Stack.Screen name={'UpdateBaker'} component={UpdateBakery} />
         <Stack.Screen name={'DeleteBakery'} component={DeleteBakery} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name={'ReportPhoto'} component={ReportPhoto} />
       </Stack.Group>
     </Stack.Navigator>
   );
