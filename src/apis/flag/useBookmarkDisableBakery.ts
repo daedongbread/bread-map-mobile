@@ -7,7 +7,7 @@ type UseBookmarkDisableBakeryProps = {
 };
 
 const bookmarkDisable = ({ flagId, bakeryId }: UseBookmarkDisableBakeryProps) => {
-  return fetcher.delete<void>(`/flag/${flagId}/${bakeryId}`);
+  return fetcher.delete<void>(`/flag/${flagId}/bakery/${bakeryId}`);
 };
 
 export const useBookmarkDisableBakery = () => {
