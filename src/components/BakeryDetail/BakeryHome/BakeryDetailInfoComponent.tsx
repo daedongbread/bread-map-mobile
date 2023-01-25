@@ -29,6 +29,7 @@ type Props = {
   bakeryId: number;
   bakery?: BakerySingleEntity;
   isFlaged: boolean;
+  onPressReportPhoto: () => void;
   onBookmarkSuccess: (selectBookmark: BookmarkList) => void;
   onPressBookmarkDisable: () => void;
 };
@@ -37,6 +38,7 @@ export const BakeryDetailInfoComponent = ({
   bakeryId,
   bakery,
   isFlaged,
+  onPressReportPhoto,
   onBookmarkSuccess,
   onPressBookmarkDisable,
 }: Props) => {
@@ -84,6 +86,11 @@ export const BakeryDetailInfoComponent = ({
           source={{ uri: bakery?.bakeryInfo.image || 'https://via.placeholder.com/360' }}
           resizeMode="cover"
         />
+        <View style={styles.reportButtonContainer}>
+          <TouchableOpacity onPress={onPressReportPhoto}>
+            <Text style={styles.reportButtonText}>사진제보하기</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.name}</Text>
@@ -143,6 +150,22 @@ const styles = StyleSheet.create(
     },
     image: {
       height: '100%',
+    },
+    reportButtonContainer: {
+      position: 'absolute',
+      bottom: 16,
+      right: 16,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 100,
+      opacity: 0.8,
+      paddingVertical: 4,
+      paddingHorizontal: 8,
+    },
+    reportButtonText: {
+      color: theme.color.gray800,
+      fontSize: 10,
+      fontWeight: '600',
+      lineHeight: 14,
     },
     bakeryNameText: {
       fontSize: 18,

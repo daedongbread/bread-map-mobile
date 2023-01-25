@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { launchImageLibrary } from 'react-native-image-picker';
 import { useGetBakery } from '@/apis/bakery';
 import { useBookmarkDisableBakery } from '@/apis/flag';
 import { BakeryDetailInfoComponent } from '@/components/BakeryDetail/BakeryHome';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { useAppDispatch } from '@/hooks/redux';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { showToast } from '@/slices/toast';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+const PHOTO_LIMIT = 10;
 
 export const BakeryDetailInfoContainer = () => {
   const dispatch = useAppDispatch();
+
+  const navigation = useNavigation<MainStackScreenProps<'ReportBakeryStack'>['navigation']>();
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailHome'>['route']>();
 
   const bakeryId = route.params.bakeryId;
@@ -50,11 +56,30 @@ export const BakeryDetailInfoContainer = () => {
     );
   };
 
+  const onPressReportPhoto = async () => {
+    const { assets: photos, didCancel } = await launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: PHOTO_LIMIT,
+      presentationStyle: 'fullScreen',
+    });
+
+    if (!didCancel && photos && bakery?.bakeryInfo) {
+      navigation.push('ReportBakeryStack', {
+        screen: 'ReportPhoto',
+        params: {
+          bakeryName: bakery.bakeryInfo.name,
+          photos,
+        },
+      });
+    }
+  };
+
   return (
     <BakeryDetailInfoComponent
       bakeryId={bakeryId}
       bakery={bakery}
       isFlaged={isFlaged}
+      onPressReportPhoto={onPressReportPhoto}
       onBookmarkSuccess={onBookmarkSuccess}
       onPressBookmarkDisable={onPressBookmarkDisable}
     />
