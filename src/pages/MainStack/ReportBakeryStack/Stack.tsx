@@ -1,4 +1,5 @@
 import React from 'react';
+import { Asset } from 'react-native-image-picker';
 import { DeleteBakery } from '@/pages/MainStack/ReportBakeryStack/DeleteBakery';
 import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack/ReportBakery';
 import { ReportBakeryOnboarding } from '@/pages/MainStack/ReportBakeryStack/ReportBakeryOnboarding';
@@ -12,7 +13,10 @@ import { ReportPhoto } from './ReportPhoto/ReportPhoto';
 export type ReportBakeryStackParamList = {
   ReportBakeryOnboard: undefined;
   ReportBakery: undefined;
-  ReportPhoto: undefined;
+  ReportPhoto: {
+    bakeryName: string;
+    photos: Asset[];
+  };
   UpdateBakeryOnboarding: undefined;
   UpdateBaker: {
     bakeryId: number;
