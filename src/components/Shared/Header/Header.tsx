@@ -35,7 +35,10 @@ export const Header = ({
   const onPressCloseBtn = () => {
     if (onPressClose) {
       onPressClose();
+      return;
     }
+
+    navigation.pop();
   };
 
   return (
