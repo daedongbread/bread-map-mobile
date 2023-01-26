@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
@@ -19,6 +20,7 @@ const styles = StyleSheet.create(
   resizePixels({
     container: {
       flexDirection: 'row',
+      alignItems: 'center',
       marginRight: 12,
     },
     text: {

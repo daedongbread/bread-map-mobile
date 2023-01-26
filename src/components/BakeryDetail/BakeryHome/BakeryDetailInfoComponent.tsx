@@ -110,7 +110,7 @@ export const BakeryDetailInfoComponent = ({
             <Text style={styles.reviewerSuffixText}>님 개척</Text>
           </View>
         </View>
-
+        <SplitRow height={16} />
         <View style={styles.actionButtonContainer}>
           {isFlaged ? (
             <BakeryButton
@@ -178,19 +178,16 @@ const styles = StyleSheet.create(
     },
     reviewSummaryContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
       justifyContent: 'space-between',
     },
     summaryContainer: {
       flexDirection: 'row',
-      marginBottom: 20,
     },
     summaryText: {
       fontSize: 12,
     },
     reviewerContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 4,
