@@ -5,7 +5,7 @@ import { theme } from '@/styles/theme';
 
 import { resizePixels } from '@/utils';
 
-import { PlusIcon } from '@shared/Icons';
+import IcListPlus from '@shared/Icons/IcListPlus.svg';
 import { Text } from '@shared/Text';
 
 type Props = {
@@ -17,7 +17,7 @@ export const StoreListHeader: React.FC<Props> = React.memo(({ onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.itemContainer}>
         <View style={[styles.plusIconWrapper, styles.iconWrapper]}>
-          <PlusIcon />
+          <IcListPlus />
         </View>
         <Text presets={['body1', 'medium']} style={styles.hintText}>
           새 리스트
@@ -42,10 +42,6 @@ const styles = StyleSheet.create(
       height: 32,
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 1,
-      borderStyle: 'solid',
-      borderColor: theme.color.gray400,
-      borderRadius: 32,
     },
     hintText: {
       color: theme.color.gray600,

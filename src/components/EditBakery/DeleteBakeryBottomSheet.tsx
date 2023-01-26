@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Camera } from 'react-native-vision-camera';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -10,19 +11,21 @@ import { Button } from '../Shared/Button/Button';
 import { CloseIcon } from '../Shared/Icons';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
-import { Camera } from 'react-native-vision-camera';
 
-export function DeleteBakeryBottomSheet({ bottomSheetRef }: any) {
+export function DeleteBakeryBottomSheet({ bottomSheetRef, bakeryId, NavigationKey }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const snapPoints = useMemo(() => [184], []);
 
   const onClickCamera = async () => {
     await Camera.requestCameraPermission();
     const cameraPermission = await Camera.getCameraPermissionStatus();
-    console.log(cameraPermission);
     if (cameraPermission === 'authorized') {
       navigation.push('EditBakeryStack', {
         screen: 'Camera',
+        params: {
+          bakeryId: bakeryId,
+          NavigationKey: NavigationKey,
+        },
       });
       bottomSheetRef.current?.close();
     } else if (cameraPermission === 'not-determined') {
@@ -31,6 +34,10 @@ export function DeleteBakeryBottomSheet({ bottomSheetRef }: any) {
       } else {
         navigation.push('EditBakeryStack', {
           screen: 'Camera',
+          params: {
+            bakeryId: bakeryId,
+            NavigationKey: NavigationKey,
+          },
         });
         bottomSheetRef.current?.close();
       }
@@ -44,6 +51,8 @@ export function DeleteBakeryBottomSheet({ bottomSheetRef }: any) {
       screen: 'DeleteLocation',
       params: {
         type: 'Album',
+        bakeryId: bakeryId,
+        NavigationKey: NavigationKey,
       },
     });
     bottomSheetRef.current?.close();

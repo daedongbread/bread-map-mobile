@@ -1,5 +1,5 @@
-import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
+import RNFetchBlob from 'rn-fetch-blob';
 
 type Props = {
   accessToken: string;
@@ -24,6 +24,7 @@ const editNickName = async ({ accessToken, nickName, userImage }: Props) => {
       type: 'application/json',
     },
   ];
+
   if (userImage) {
     const base64 = await RNFS.readFile(userImage, 'base64');
 

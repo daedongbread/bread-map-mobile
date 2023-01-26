@@ -4,6 +4,7 @@ import FastImage from 'react-native-fast-image';
 import { Camera, CameraDevice } from 'react-native-vision-camera';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { useIsFocused } from '@react-navigation/native';
 import IcCameraButton from '@shared/Icons/IcCameraButton.svg';
 import IcMinusCircle from '@shared/Icons/IcMinusCircle.svg';
 import { CloseIcon } from '../Shared/Icons';
@@ -34,10 +35,17 @@ export function CameraComponent({
   tmpPhoto,
   galleryImage,
 }: Props) {
+  const isfocused = useIsFocused();
   return (
     <View style={styles.Container}>
       {device && (
-        <Camera ref={camera} photo={true} style={StyleSheet.absoluteFill} device={device} isActive={!isCameraClick} />
+        <Camera
+          ref={camera}
+          photo={true}
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={!isCameraClick && isfocused}
+        />
       )}
       {isCameraClick && <View style={styles.ResultBackground} />}
       <TouchableOpacity onPress={onCloseClick} style={styles.Header}>

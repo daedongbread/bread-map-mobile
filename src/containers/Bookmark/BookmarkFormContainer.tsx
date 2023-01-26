@@ -4,6 +4,7 @@ import { useCreateFlag, FlagColor } from '@/apis/flag';
 import { BookmarkForm } from '@/components/BookmarkForm';
 import { Button } from '@/components/Shared/Button/Button';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
 
 type ScreenProps = MainStackScreenProps<'Bookmark'>;
@@ -11,7 +12,7 @@ type Navigation = ScreenProps['navigation'];
 
 export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof flagColors[number]> &
   Record<'ORANGE', '#ff6e40'> = {
-  GRAY: '#FF6E40',
+  GRAY: theme.color.gray600,
   ORANGE: '#ff6e40',
   GREEN: '#1EC780',
   YELLOW: '#FFBF1B',
@@ -25,6 +26,7 @@ export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof fla
 };
 
 export const flagColors = [
+  theme.color.gray600,
   '#FF6E40',
   '#1EC780',
   '#FFBF1B',

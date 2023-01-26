@@ -10,13 +10,15 @@ import { Button } from '../Shared/Button/Button';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
 
-export function EditDoneBottomSheet({ bottomSheetRef, title }: { bottomSheetRef: any; title: string }) {
+export function EditDoneBottomSheet({ bottomSheetRef, title, bakeryId, NavigationKey }: any) {
   const navigation = useNavigation();
   const snapPoints = useMemo(() => [274], []);
 
   const onConfirmClick = () => {
     bottomSheetRef.current?.close();
-    navigation.goBack();
+    console.log(NavigationKey + ' ' + bakeryId);
+
+    navigation.navigate({ key: NavigationKey, params: { bakeryId: bakeryId } });
   };
 
   return (

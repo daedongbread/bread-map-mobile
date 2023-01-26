@@ -10,14 +10,21 @@ import { EditDetail } from './EditDetail';
 export type EditBakeryStackParamList = {
   EditBakery: {
     bakeryId: number;
+    NavigationKey: string;
   };
   EditDetail: {
     bakeryId: number;
+    NavigationKey: string;
   };
-  Camera: undefined;
+  Camera: {
+    bakeryId: number;
+    NavigationKey: string;
+  };
   DeleteLocation: {
     type: 'Album' | 'Confirm';
     url?: string;
+    bakeryId: number;
+    NavigationKey: string;
   };
 };
 

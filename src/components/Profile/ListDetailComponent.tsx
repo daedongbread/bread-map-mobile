@@ -1,13 +1,14 @@
 import React, { memo, useRef } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useRoute } from '@react-navigation/native';
 import { Text } from '../Shared/Text';
 import { Header } from './Header';
 import { ListDetailInfoBottomSheet } from './ListDetailInfoBottomSheet';
 import { ListDetailItem } from './ListDetailItem';
-import { ListDetailItemBottomSheet } from './ListDetailItemBottomSheet';
 
 type Props = {
   getFlagData: any;
@@ -18,12 +19,14 @@ type Props = {
 };
 
 export function ListDetailComponent({ getFlagData, loading, name, len, color }: Props) {
-  const infoBottomSheetRef = useRef<BottomSheet>(null);
   const editBottomSheetRef = useRef<BottomSheet>(null);
+  const {
+    params: { flagId },
+  } = useRoute<RootRouteProps<'ListDetail'>>();
+
   const onMoreClick = () => {
     editBottomSheetRef.current?.expand();
   };
-  console.log(getFlagData);
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
@@ -35,12 +38,11 @@ export function ListDetailComponent({ getFlagData, loading, name, len, color }: 
           contentContainerStyle={styles.Flatlist}
           data={getFlagData}
           renderItem={data => {
-            return <ListDetailItem item={data.item} bottomSheetRef={infoBottomSheetRef} name={name} color={color} />;
+            return <ListDetailItem item={data.item} name={name} color={color} flagId={flagId} />;
           }}
           keyExtractor={(item: any) => item?.id}
         />
       )}
-      <ListDetailItemBottomSheet bottomSheetRef={infoBottomSheetRef} />
       <ListDetailInfoBottomSheet bottomSheetRef={editBottomSheetRef} />
     </SafeAreaView>
   );
@@ -83,143 +85,143 @@ const styles = StyleSheet.create(
   })
 );
 
-const MockData = [
-  {
-    image: 'https://source.unsplash.com/collection/1',
-    icon: 'heart',
-    iconBackgroundColor: '#1A73E9',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡가나다라마바사',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-  {
-    image: 'https://source.unsplash.com/collection/2',
-    icon: 'flag',
-    iconBackgroundColor: 'blue',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-  {
-    image: 'https://source.unsplash.com/collection/3',
-    icon: 'heart',
-    iconBackgroundColor: 'blue',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-  {
-    image: 'https://source.unsplash.com/collection/1',
-    icon: 'heart',
-    iconBackgroundColor: 'blue',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-  {
-    image: 'https://source.unsplash.com/collection/1',
-    icon: 'heart',
-    iconBackgroundColor: 'blue',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-  {
-    image: 'https://source.unsplash.com/collection/1',
-    icon: 'heart',
-    iconBackgroundColor: 'blue',
-    name: '꼼다비뛰드',
-    flagCount: '1,200',
-    starCount: '150',
-    reviewCount: '1,180',
-    reviews: [
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-      {
-        text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
-      },
-    ],
-  },
-];
+// const MockData = [
+//   {
+//     image: 'https://source.unsplash.com/collection/1',
+//     icon: 'heart',
+//     iconBackgroundColor: '#1A73E9',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡가나다라마바사',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+//   {
+//     image: 'https://source.unsplash.com/collection/2',
+//     icon: 'flag',
+//     iconBackgroundColor: 'blue',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+//   {
+//     image: 'https://source.unsplash.com/collection/3',
+//     icon: 'heart',
+//     iconBackgroundColor: 'blue',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+//   {
+//     image: 'https://source.unsplash.com/collection/1',
+//     icon: 'heart',
+//     iconBackgroundColor: 'blue',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+//   {
+//     image: 'https://source.unsplash.com/collection/1',
+//     icon: 'heart',
+//     iconBackgroundColor: 'blue',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+//   {
+//     image: 'https://source.unsplash.com/collection/1',
+//     icon: 'heart',
+//     iconBackgroundColor: 'blue',
+//     name: '꼼다비뛰드',
+//     flagCount: '1,200',
+//     starCount: '150',
+//     reviewCount: '1,180',
+//     reviews: [
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//       {
+//         text: '한입 물었을 때 나오는 버터의존재감bbb 맛나요 빵♡',
+//       },
+//     ],
+//   },
+// ];

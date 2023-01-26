@@ -23,6 +23,7 @@ export type MainStackParamList = {
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
+    flagId?: number;
     onSaveSuccess?: (selectBookmark: BookmarkList) => void;
   };
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;

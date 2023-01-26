@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { SearchEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
@@ -21,9 +22,25 @@ const getSearch = async ({ word, latitude, longitude }: useSearchQuery): Promise
 };
 
 const useSearchQuery = ({ word, latitude, longitude }: useSearchQuery) => {
-  return useQuery(['search', { word, latitude, longitude }] as const, () => getSearch({ word, latitude, longitude }), {
-    enabled: !!(word && latitude && longitude),
-  });
+  const [bakeries, setBakeries] = useState<SearchEntity[]>();
+
+  const { data } = useQuery(
+    ['search', { word, latitude, longitude }] as const,
+    () => getSearch({ word, latitude, longitude }),
+    {
+      enabled: !!(word && latitude && longitude),
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setBakeries(data);
+    }
+  }, [data]);
+
+  return {
+    data: bakeries,
+  };
 };
 
 export { useSearchQuery };

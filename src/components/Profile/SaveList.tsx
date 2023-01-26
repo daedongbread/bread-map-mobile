@@ -37,137 +37,137 @@ const styles = StyleSheet.create(
   })
 );
 
-const mockSaveData = [
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/3',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/4',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/5',
-      },
-    ],
-    name: '가고싶어요',
-    icon: 'heart',
-    color: '#FF6E40',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-    ],
-    name: '가봤어요',
-    icon: 'flag',
-    color: '#FF6E40',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/3',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/3',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/4',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-  {
-    imageList: [
-      {
-        url: 'https://source.unsplash.com/collection/1',
-      },
-      {
-        url: 'https://source.unsplash.com/collection/2',
-      },
-    ],
-    name: '연남동빵지순례',
-    icon: 'heart',
-    color: '#1A73E9',
-  },
-];
+// const mockSaveData = [
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/3',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/4',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/5',
+//       },
+//     ],
+//     name: '가고싶어요',
+//     icon: 'heart',
+//     color: '#FF6E40',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//     ],
+//     name: '가봤어요',
+//     icon: 'flag',
+//     color: '#FF6E40',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/3',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/3',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/4',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+//   {
+//     imageList: [
+//       {
+//         url: 'https://source.unsplash.com/collection/1',
+//       },
+//       {
+//         url: 'https://source.unsplash.com/collection/2',
+//       },
+//     ],
+//     name: '연남동빵지순례',
+//     icon: 'heart',
+//     color: '#1A73E9',
+//   },
+// ];

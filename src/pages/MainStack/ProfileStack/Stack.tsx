@@ -17,7 +17,6 @@ export type ProfileStackParamList = {
   ListDetail: {
     flagId: number;
     name: string;
-    len: number;
     color: string;
   };
   FollowDetail: {
