@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
+import Toast from 'react-native-easy-toast';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import { Camera, useCameraDevices } from 'react-native-vision-camera';
 import { CameraComponent } from '@/components/EditBakery';
+import { RootRouteProps } from '@/pages/MainStack/EditBakeryStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { CameraRoll } from '@react-native-camera-roll/camera-roll';
-import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-easy-toast';
 import { phPathToFilePath } from '@/utils/phPathToFilePath';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function CameraContainer() {
+  const {
+    params: { bakeryId, NavigationKey },
+  } = useRoute<RootRouteProps<'EditBakery'>>();
   const toast = useRef<Toast>(null);
   const camera = useRef<Camera>(null);
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
@@ -42,6 +46,8 @@ export function CameraContainer() {
       screen: 'DeleteLocation',
       params: {
         type: 'Album',
+        bakeryId: bakeryId,
+        NavigationKey: NavigationKey,
       },
     });
   };
@@ -118,10 +124,12 @@ export function CameraContainer() {
         params: {
           type: 'Confirm',
           url: photo,
+          bakeryId: bakeryId,
+          NavigationKey: NavigationKey,
         },
       });
     }
-  }, [photo, navigation]);
+  }, [photo, navigation, bakeryId, NavigationKey]);
 
   useEffect(() => {
     toast.current?.show('폐업전경 사진을 제출해주세요');

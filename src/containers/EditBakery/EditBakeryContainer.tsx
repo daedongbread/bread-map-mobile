@@ -7,10 +7,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function EditBakeryContainer() {
   const {
-    params: { bakeryId },
+    params: { bakeryId, NavigationKey },
   } = useRoute<RootRouteProps<'EditBakery'>>();
   const DeleteBakeryBottomSheetRef = useRef<BottomSheet>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  // const NavigationKey = useNavigationState(state => state);
+  // console.log(editBakeryNavigationKey.routes[0].key);
 
   const onClickRight = () => {
     navigation.pop();
@@ -20,6 +22,7 @@ export default function EditBakeryContainer() {
       screen: 'EditDetail',
       params: {
         bakeryId: bakeryId,
+        NavigationKey: NavigationKey,
       },
     });
   };
@@ -34,6 +37,8 @@ export default function EditBakeryContainer() {
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
         DeleteBakeryBottomSheetRef={DeleteBakeryBottomSheetRef}
+        bakeryId={bakeryId}
+        NavigationKey={NavigationKey}
       />
     </>
   );

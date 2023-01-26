@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { LogBox } from 'react-native';
+import { useQueryClient } from 'react-query';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 
@@ -20,9 +21,10 @@ type Route = ScreenProps['route'];
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
 export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
+  const queryClient = useQueryClient();
   const { push, goBack } = useNavigation<Navigation>();
   const {
-    params: { bakeryId, name, onSaveSuccess },
+    params: { bakeryId, name, flagId, onSaveSuccess },
   } = useRoute<Route>();
 
   const [selectBookmark, setSelectBookmark] = useState<BookmarkList>();
@@ -62,9 +64,13 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
         onSaveSuccess(selectBookmark);
       }
 
+      if (flagId) {
+        queryClient.refetchQueries(['useGetFlag', flagId]);
+      }
+
       goBack();
     }
-  }, [isSuccess, selectBookmark, onSaveSuccess, goBack]);
+  }, [isSuccess, selectBookmark, onSaveSuccess, goBack, flagId, queryClient]);
 
   return (
     <BakeryBookmarksBottomSheet
