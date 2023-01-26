@@ -53,6 +53,7 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
       <Header title={bakery?.bakeryInfo.name || ''} isPrevButtonShown />
       <Tab.Navigator
         backBehavior="history"
+        initialRouteName="BakeryDetailHome"
         screenOptions={{
           tabBarContentContainerStyle: {
             flex: 1,
