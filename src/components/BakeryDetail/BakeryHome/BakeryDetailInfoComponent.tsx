@@ -9,7 +9,7 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import {
   CircleFlag,
   CirclePencil,
@@ -44,6 +44,7 @@ export const BakeryDetailInfoComponent = ({
   onPressBookmarkDisable,
 }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const NavigationKey = useNavigationState(state => state);
 
   const onPressSaveBtn = () => {
     if (isFlaged) {
@@ -75,6 +76,7 @@ export const BakeryDetailInfoComponent = ({
       screen: 'EditBakery',
       params: {
         bakeryId,
+        NavigationKey: NavigationKey.routes[0].key,
       },
     });
   };
