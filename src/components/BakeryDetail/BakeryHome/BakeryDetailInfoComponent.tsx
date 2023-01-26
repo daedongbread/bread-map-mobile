@@ -5,6 +5,7 @@ import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton'
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
@@ -94,6 +95,7 @@ export const BakeryDetailInfoComponent = ({
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.name}</Text>
+        <SplitRow height={8} />
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
             <ReviewSummary text={numberFormat(bakery?.bakeryInfo.flagNum || 0)} icon={<CircleFlag />} />
@@ -171,7 +173,6 @@ const styles = StyleSheet.create(
       fontSize: 18,
       fontWeight: 'bold',
       marginTop: 24,
-      marginBottom: 8,
     },
     reviewSummaryContainer: {
       flexDirection: 'row',
@@ -180,7 +181,6 @@ const styles = StyleSheet.create(
     },
     summaryContainer: {
       flexDirection: 'row',
-      marginTop: 16,
       marginBottom: 20,
     },
     summaryText: {
