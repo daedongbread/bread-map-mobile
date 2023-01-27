@@ -7,16 +7,16 @@ import { SplitColumn, SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
 import { BackdropComponent } from './BackdropComponent';
 
-export function ListDetailInfoDeleteBottomSheet({ bottomSheetRef }: any) {
+export function ListDetailInfoDeleteBottomSheet({ bottomSheetRef, onConfirmClick }: any) {
   const snapPoints = useMemo(() => [228], []);
 
   const onCancelClick = () => {
     bottomSheetRef.current?.close();
   };
 
-  const onConfirmClick = () => {
-    bottomSheetRef.current?.close();
-  };
+  // const onConfirmClick = () => {
+  //   bottomSheetRef.current?.close();
+  // };
 
   return (
     <BottomSheet

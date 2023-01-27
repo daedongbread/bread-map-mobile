@@ -63,15 +63,15 @@ export function ListDetailItem({ item, name, color, flagId }: any) {
         <Text style={styles.name}>{item?.name}</Text>
         <View style={styles.countItemsWrap}>
           <View style={styles.countItem}>
-            <CircleFlag />
+            <CircleFlag color={FlagColor} />
             <Text style={styles.countItemText}>{item?.flagNum}</Text>
           </View>
           <View style={styles.countItem}>
-            <CircleStar />
+            <CircleStar color={FlagColor} />
             <Text style={styles.countItemText}>{item?.rating}</Text>
           </View>
           <View style={styles.countItem}>
-            <CirclePencil />
+            <CirclePencil color={FlagColor} />
             <Text style={styles.countItemText}>{item?.reviewNum}</Text>
           </View>
         </View>
