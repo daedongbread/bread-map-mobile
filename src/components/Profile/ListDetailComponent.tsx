@@ -1,9 +1,8 @@
-import React, { memo, useRef } from 'react';
+import React, { memo } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { useRoute } from '@react-navigation/native';
 import { Text } from '../Shared/Text';
 import { Header } from './Header';
@@ -16,10 +15,21 @@ type Props = {
   name: string;
   len: number;
   color: string;
+  deleteBottomSheetRef: any;
+  editBottomSheetRef: any;
+  onListDeleteClick: () => void;
 };
 
-export function ListDetailComponent({ getFlagData, loading, name, len, color }: Props) {
-  const editBottomSheetRef = useRef<BottomSheet>(null);
+export function ListDetailComponent({
+  getFlagData,
+  loading,
+  name,
+  len,
+  color,
+  deleteBottomSheetRef,
+  editBottomSheetRef,
+  onListDeleteClick,
+}: Props) {
   const {
     params: { flagId },
   } = useRoute<RootRouteProps<'ListDetail'>>();
@@ -43,7 +53,11 @@ export function ListDetailComponent({ getFlagData, loading, name, len, color }: 
           keyExtractor={(item: any) => item?.id}
         />
       )}
-      <ListDetailInfoBottomSheet bottomSheetRef={editBottomSheetRef} />
+      <ListDetailInfoBottomSheet
+        bottomSheetRef={editBottomSheetRef}
+        deleteBottomSheetRef={deleteBottomSheetRef}
+        onListDeleteClick={onListDeleteClick}
+      />
     </SafeAreaView>
   );
 }

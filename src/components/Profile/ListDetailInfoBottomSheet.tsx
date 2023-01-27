@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
@@ -9,9 +9,8 @@ import { Text } from '../Shared/Text';
 import { BackdropComponent } from './BackdropComponent';
 import { ListDetailInfoDeleteBottomSheet } from './ListDetailInfoDeleteBottomSheet';
 
-export function ListDetailInfoBottomSheet({ bottomSheetRef }: any) {
+export function ListDetailInfoBottomSheet({ bottomSheetRef, deleteBottomSheetRef, onListDeleteClick }: any) {
   const { push } = useNavigation<MainStackScreenProps<'Bookmark'>['navigation']>();
-  const deleteBottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => [140], []);
 
   const onEditClick = () => {
@@ -48,7 +47,7 @@ export function ListDetailInfoBottomSheet({ bottomSheetRef }: any) {
           </TouchableOpacity>
         </View>
       </BottomSheet>
-      <ListDetailInfoDeleteBottomSheet bottomSheetRef={deleteBottomSheetRef} />
+      <ListDetailInfoDeleteBottomSheet bottomSheetRef={deleteBottomSheetRef} onConfirmClick={onListDeleteClick} />
     </>
   );
 }

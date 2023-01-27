@@ -2,8 +2,8 @@ import * as React from 'react';
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg';
 
 export const CirclePencil: React.FC<SvgProps> = props => (
-  <Svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" {...props}>
-    <Circle cx="8" cy="8" r="8" fill="#FF6E40" />
+  <Svg width="16" height="16" viewBox="0 0 16 16" color={'#FF6E40'} {...props}>
+    <Circle cx="8" cy="8" r="8" fill="currentColor" />
     <Path
       fill-rule="evenodd"
       clip-rule="evenodd"
