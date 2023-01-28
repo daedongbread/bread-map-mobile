@@ -15,7 +15,7 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import { StoreListHeader } from './StoreListHeader';
 
-type List = {
+export type BookmarkList = {
   flagId: number;
   icon: React.FC<SvgProps>;
   color?: string;
@@ -23,24 +23,24 @@ type List = {
 };
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
-  list: Array<List>;
+  list: Array<BookmarkList>;
   bakery?: { id: number; name: string } | null;
   onPressNewBookmark: () => void;
-  selectBookmarkId?: number;
+  selectBookmark?: BookmarkList;
   onClose: () => void;
-  onClick: (id: number) => void;
+  onClick: (bookmark: BookmarkList) => void;
   onSave: () => void;
 };
 
 type RenderItemProps = {
-  item: List;
+  item: BookmarkList;
   isSelected: boolean;
-  onClick: (id: number) => void;
+  onClick: (selectBookmark: BookmarkList) => void;
 };
 
 const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) => {
   return (
-    <Pressable onPress={() => onClick(item.flagId)}>
+    <Pressable onPress={() => onClick(item)}>
       <View style={styles.itemContainer}>
         <View style={styles.iconWrapper}>
           <item.icon width={32} height={32} color={item.color || theme.color.primary500} />
@@ -55,7 +55,7 @@ const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) =>
 };
 
 export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
-  ({ bakery, list, onPressNewBookmark, selectBookmarkId, onClose, onClick, onSave }) => {
+  ({ bakery, list, onPressNewBookmark, selectBookmark, onClose, onClick, onSave }) => {
     const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
     const bakeryName = bakery?.name || '';
@@ -84,7 +84,7 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
         <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
           <View style={styles.background} />
         </TouchableWithoutFeedback>
-        <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose} style={styles.bottomSheetContainer}>
+        <BottomSheet snapPoints={snapPoints} ref={bakeryRef} onClose={onClose}>
           <View onLayout={onLayout}>
             <Header name={bakeryName} />
             <FlatList
@@ -96,7 +96,7 @@ export const BakeryBookmarksBottomSheet: React.FC<Props> = React.memo(
                     {index === 0 ? (
                       <StoreListHeader onPress={onPressNewBookmark} />
                     ) : (
-                      <RenderItem item={item} isSelected={item.flagId === selectBookmarkId} onClick={onClick} />
+                      <RenderItem item={item} isSelected={item.flagId === selectBookmark?.flagId} onClick={onClick} />
                     )}
                   </View>
                 );
@@ -122,9 +122,6 @@ const styles = StyleSheet.create(
     background: {
       flex: 1,
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    bottomSheetContainer: {
-      backgroundColor: theme.color.gray200,
     },
     listContainer: {
       backgroundColor: theme.color.gray200,

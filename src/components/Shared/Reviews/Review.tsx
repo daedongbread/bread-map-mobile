@@ -6,25 +6,25 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { BreadRating } from '../Rating';
 
-// type MenuReview = {
-//   breadCategoryId: number;
-//   contents: string;
-//   imgPathList: string[];
-//   lastModifiedDateTime: string;
-//   memberId: number;
-//   memberName: string;
-//   menuId: number;
-//   menuName: string;
-//   menuReviewId: number;
-//   rating: number;
-// };
-// TODO 안쓰는 type 제거
-
 type ReviewProps = {
   review: BakeryReviewEntity;
   onPress: (review: BakeryReviewEntity) => void;
   isEnd: boolean;
 };
+
+type ProductRatingProps = {
+  item: {
+    productName: string;
+    rating: number;
+  };
+};
+
+const ProductRating = ({ item }: ProductRatingProps) => (
+  <View style={styles.breadRatingContainer}>
+    <Text style={styles.menuNameText}>{item?.productName}</Text>
+    <BreadRating rating={item?.rating} type={'review'} />
+  </View>
+);
 
 const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
   <View style={styles.container}>
@@ -47,12 +47,12 @@ const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
         </TouchableOpacity>
       </View>
       <View style={styles.breadRatingListContainer}>
-        {review?.productRatingList.map((i, idx) => (
-          <View style={styles.breadRatingContainer} key={idx}>
-            <Text style={styles.menuNameText}>{i?.productName}</Text>
-            <BreadRating rating={i?.rating} type={'review'} />
-          </View>
-        ))}
+        <FlatList
+          data={review.productRatingList}
+          renderItem={({ item, index }) => <ProductRating key={index} item={item} />}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
       </View>
     </View>
     <TouchableOpacity onPress={() => onPress(review)}>
@@ -73,7 +73,6 @@ const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
     </TouchableOpacity>
   </View>
 );
-// <UpdatedAt>{review?.lastModifiedDateTime}</UpdatedAt>
 
 export default Review;
 
@@ -115,6 +114,7 @@ const styles = StyleSheet.create(
     breadRatingListContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+      marginRight: -20,
     },
 
     socialInfo: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create(
       alignSelf: 'flex-start',
     },
     menuNameText: {
-      fontWeight: 'bold',
+      fontWeight: '700',
       fontSize: 12,
       color: theme.color.gray600,
       marginRight: 0,

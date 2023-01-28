@@ -70,7 +70,10 @@ export const ReviewRating: React.FC<Props> = ({
               <Text style={styles.wordCount}>{detailReview.length}자 / 최소 10자</Text>
             </View>
           </View>
-          <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+          <View style={styles.photoContainer}>
+            <Text style={styles.photoTitleText}>사진 업로드</Text>
+            <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+          </View>
         </ScrollView>
         <Button
           style={styles.confirmBtn}
@@ -142,6 +145,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
+  },
+  photoContainer: {
+    paddingTop: 36,
+    paddingLeft: 20,
+    marginBottom: 16,
+  },
+  photoTitleText: {
+    fontSize: 14,
+    fontWeight: '700',
   },
   confirmBtn: {
     paddingHorizontal: 20,

@@ -68,7 +68,7 @@ const reviewTypeStyles = StyleSheet.create(
       color: theme.color.gray600,
     },
     rating: {
-      marginLeft: 2,
+      marginLeft: 1.5,
       marginRight: 2,
       color: theme.color.primary500,
       fontSize: 12,

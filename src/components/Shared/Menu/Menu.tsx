@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { theme } from '@/styles/theme';
 import { BreadRating } from '../Rating';
 
@@ -7,17 +7,18 @@ type MenuProps = {
   name: string;
   price: number;
   rating: number;
+  image?: string | null;
 };
 
 // reviewLength 필요
-const Menu: React.FC<MenuProps> = ({ name, price, rating }) => (
+const Menu: React.FC<MenuProps> = ({ name, price, rating, image }) => (
   <View style={styles.container}>
     <View style={styles.textContainer}>
       <Text style={styles.name}>{name}</Text>
       <BreadRating type={'menu'} rating={rating} reviewLength={20} />
       <Text style={styles.price}>{price.toLocaleString()}원</Text>
     </View>
-    <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/100' }} />
+    {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
   </View>
 );
 
