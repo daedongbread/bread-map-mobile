@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const BakeryMenuBriefListContainer = () => {
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailHome'>['route']>();
-  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuReviews'>['navigation']>();
+  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuDetail'>['navigation']>();
 
   const bakeryId = route.params.bakeryId;
   const { menus = [] } = useGetMenus({ bakeryId });
@@ -17,7 +17,7 @@ export const BakeryMenuBriefListContainer = () => {
     if (!menu) {
       return;
     }
-    navigation.push('BakeryMenuReviews', {
+    navigation.push('BakeryMenuDetail', {
       bakeryId,
       menu,
     });
