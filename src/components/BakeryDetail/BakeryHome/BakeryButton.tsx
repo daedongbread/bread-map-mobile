@@ -6,15 +6,16 @@ import { resizePixels } from '@/utils';
 type Props = {
   icon: React.ReactNode;
   text: string;
+  textColor?: string;
   onPress: () => void;
 };
 
 // active 상태 구현 필요
-export const BakeryButton: React.FC<Props> = ({ text, icon, onPress }) => {
+export const BakeryButton: React.FC<Props> = ({ text, textColor = theme.color.gray600, icon, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       {icon}
-      <Text style={styles.text}>{text}</Text>
+      <Text style={{ ...styles.text, color: textColor }}>{text}</Text>
     </TouchableOpacity>
   );
 };

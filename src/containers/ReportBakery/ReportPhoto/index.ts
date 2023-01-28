@@ -1,0 +1,1 @@
+export { ReportPhotoContainer } from './ReportPhotoContainer';

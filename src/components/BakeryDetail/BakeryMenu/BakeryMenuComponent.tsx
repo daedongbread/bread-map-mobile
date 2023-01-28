@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
 import { Menus } from '@/components/Shared/Menu';
 import { Divider } from '../Divider';
@@ -14,7 +13,7 @@ type Props = {
 
 export const BakeryMenuComponent = ({ bakeryId, bakery, onPress }: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View>
       <Divider />
 
       {bakery && bakery.menu.length > 0 && (
@@ -25,12 +24,6 @@ export const BakeryMenuComponent = ({ bakeryId, bakery, onPress }: Props) => {
           onPress={onPress}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-  },
-});

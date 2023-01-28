@@ -11,18 +11,22 @@ type Props = {
 
 export const CopyButton = ({ onPress }: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text style={styles.text}>
-        <CopyIcon />
-        복사
-      </Text>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <CopyIcon />
+      <Text style={styles.text}>복사</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
     fontSize: 12,
     color: theme.color.gray400,
+    marginLeft: 2,
   },
 });

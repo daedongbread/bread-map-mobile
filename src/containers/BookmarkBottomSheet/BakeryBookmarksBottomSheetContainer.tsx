@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import { LogBox } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
-import { BakeryBookmarksBottomSheet } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 
 import { flagColorHexColors } from '@/containers/Bookmark';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -17,20 +18,24 @@ type ScreenProps = MainStackScreenProps<'BookmarkBottomSheet'>;
 type Navigation = ScreenProps['navigation'];
 type Route = ScreenProps['route'];
 
+LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
+
 export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   const queryClient = useQueryClient();
   const { push, goBack } = useNavigation<Navigation>();
   const {
-    params: { bakeryId, name, flagId },
+    params: { bakeryId, name, flagId, onSaveSuccess },
   } = useRoute<Route>();
 
-  const [selectBookmark, setSelectBookmark] = useState<number>();
+  const [selectBookmark, setSelectBookmark] = useState<BookmarkList>();
 
-  const { mutate, isSuccess } = useBookmarkBakery({ flagId: selectBookmark });
+  const { mutate, isSuccess } = useBookmarkBakery({ flagId: selectBookmark?.flagId });
   const { data } = useGetFlags();
 
   const onSave = () => {
-    mutate({ bakeryId: Number(bakeryId) });
+    if (selectBookmark) {
+      mutate({ bakeryId: Number(bakeryId) });
+    }
   };
 
   const onClose = () => {
@@ -54,12 +59,18 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      // navigation을 통해 함수를 넘겨 받았을경우 excute
+      if (onSaveSuccess && selectBookmark) {
+        onSaveSuccess(selectBookmark);
+      }
+
       if (flagId) {
         queryClient.refetchQueries(['useGetFlag', flagId]);
       }
+
       goBack();
     }
-  }, [isSuccess, goBack, flagId, queryClient]);
+  }, [isSuccess, selectBookmark, onSaveSuccess, goBack, flagId, queryClient]);
 
   return (
     <BakeryBookmarksBottomSheet
@@ -67,7 +78,7 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
       bakery={{ id: bakeryId, name }}
       onPressNewBookmark={onPressNewBookmark}
       onClose={onClose}
-      selectBookmarkId={selectBookmark}
+      selectBookmark={selectBookmark}
       onClick={setSelectBookmark}
       onSave={onSave}
     />
