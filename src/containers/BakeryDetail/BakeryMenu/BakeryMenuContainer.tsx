@@ -1,6 +1,6 @@
 import React from 'react';
-import { useGetBakery } from '@/apis/bakery';
-import { BakeryMenuEntity } from '@/apis/bakery/types';
+import { useGetMenus } from '@/apis/menu';
+import { MenuEntity } from '@/apis/menu/type';
 import { BakeryMenuComponent } from '@/components/BakeryDetail/BakeryMenu';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
@@ -11,18 +11,18 @@ export const BakeryMenuContainer = () => {
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailMenu'>['route']>();
 
   const bakeryId = route.params.bakeryId;
-  const { bakery } = useGetBakery({ bakeryId });
+  const { menus = [] } = useGetMenus({ bakeryId });
 
-  const onPress = (menu: BakeryMenuEntity) => {
-    if (!bakery) {
+  const onPress = (breads: MenuEntity) => {
+    if (!breads) {
       return;
     }
 
     navigation.push('BakeryMenuReviews', {
       bakeryId,
-      menu,
+      menu: breads,
     });
   };
 
-  return <BakeryMenuComponent bakeryId={bakeryId} bakery={bakery} onPress={onPress} />;
+  return <BakeryMenuComponent bakeryId={bakeryId} menus={menus} onPress={onPress} />;
 };

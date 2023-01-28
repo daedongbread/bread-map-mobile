@@ -1,5 +1,5 @@
 import React from 'react';
-import { BakeryMenuEntity } from '@/apis/bakery/types';
+import { MenuEntity } from '@/apis/menu/type';
 import { MenuReviewList } from '@/components/BakeryDetail';
 import { Home } from '@/pages/MainStack/MainTab/HomeStack/Home';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
@@ -13,8 +13,8 @@ export type HomeStackParamList = {
   Home: undefined;
   Bakery: NavigatorScreenParams<BakeryDetailTabParamList>;
   BakeryMenuReviews: {
-    menu: BakeryMenuEntity;
     bakeryId: number;
+    menu: MenuEntity;
   };
   BakeryBreadReport: {
     bakeryId: number;
