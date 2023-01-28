@@ -37,10 +37,9 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, menus, onPress 
         </TouchableOpacity>
       )}
       ListFooterComponent={
-        <Button size="large" appearance="terdary" style={{ marginVertical: 24 }} onPress={onPressAddButton}>
-          <Text style={styles.footerButtonText}>
-            <PlusIcon color={'#BDBDBD'} style={{ marginRight: 8 }} /> 빵 메뉴 제보하기
-          </Text>
+        <Button size="large" appearance="terdary" style={styles.footerButton} onPress={onPressAddButton}>
+          <PlusIcon color={'#BDBDBD'} style={styles.footerIcon} />
+          <Text style={styles.footerButtonText}>빵 메뉴 제보하기</Text>
         </Button>
       }
     />
@@ -53,6 +52,12 @@ const styles = StyleSheet.create(
   resizePixels({
     content: {
       paddingHorizontal: 20,
+    },
+    footerButton: {
+      marginVertical: 24,
+    },
+    footerIcon: {
+      marginRight: 8,
     },
     footerButtonText: {
       fontSize: 14,

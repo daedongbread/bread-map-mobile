@@ -18,7 +18,7 @@ export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
 
       {menus && menus.length > 0 && (
         <Menus
-          headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length || 0} />}
+          headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />}
           bakeryId={bakeryId}
           menus={menus}
           onPress={onPress}
