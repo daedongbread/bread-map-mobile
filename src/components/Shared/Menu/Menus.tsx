@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
+import { MenuEntity } from '@/apis/menu/type';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -11,13 +11,12 @@ import { Menu } from './Menu';
 
 interface MenuProps {
   headerComponent?: React.ReactElement;
-  bakery: BakerySingleEntity;
   bakeryId: number;
-  onPress: (menu: BakeryMenuEntity) => void;
+  menus: MenuEntity[];
+  onPress: (menu: MenuEntity) => void;
 }
 
-const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, bakery, onPress }) => {
-  const { menu } = bakery;
+const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, menus, onPress }) => {
   const navigate = useNavigation<HomeStackScreenProps<'BakeryBreadReport'>['navigation']>();
 
   const onPressAddButton = () => {
@@ -30,7 +29,7 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, bakery, onPress
     <FlatList
       ListHeaderComponent={headerComponent}
       contentContainerStyle={styles.content}
-      data={menu}
+      data={menus}
       keyExtractor={menu => menu.name}
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => onPress(item)}>
