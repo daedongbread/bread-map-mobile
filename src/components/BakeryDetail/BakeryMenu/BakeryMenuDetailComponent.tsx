@@ -1,15 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGetMenuReviews } from '@/apis/review/useGetMenuReviews';
+import { Header } from '@/components/Shared/Header';
 import { Reviews } from '@/components/Shared/Reviews';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { useRoute } from '@react-navigation/native';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
-const MenuReviewList: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ route }) => {
+export const BakeryMenuDetailComponent = () => {
+  const route = useRoute<HomeStackScreenProps<'BakeryMenuDetail'>['route']>();
+
   const { bakeryId, menu } = route.params;
 
   const { data } = useGetMenuReviews({ bakeryId, productName: menu.name });
+
   const onPress = () => {
     // navigation.push('BakeryMenuReviews', { screen: 'BakeryReviewDetail', params: { info, review } });
   };
@@ -18,8 +24,9 @@ const MenuReviewList: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ r
   }
 
   return (
-    <View>
-      <Text>{menu.name}</Text>
+    <SafeAreaView>
+      <Header title={menu.name} isPrevButtonShown />
+      <Text>상세화면임</Text>
       <Text>{menu.price}원</Text>
       <View style={styles.container}>
         <Divider />
@@ -31,11 +38,9 @@ const MenuReviewList: React.FC<HomeStackScreenProps<'BakeryMenuReviews'>> = ({ r
           onPress={onPress}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
-
-export { MenuReviewList };
 
 const styles = StyleSheet.create({
   container: {

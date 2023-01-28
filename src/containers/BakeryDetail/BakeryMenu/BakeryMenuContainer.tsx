@@ -7,7 +7,7 @@ import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const BakeryMenuContainer = () => {
-  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuReviews'>['navigation']>();
+  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuDetail'>['navigation']>();
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailMenu'>['route']>();
 
   const bakeryId = route.params.bakeryId;
@@ -18,7 +18,7 @@ export const BakeryMenuContainer = () => {
       return;
     }
 
-    navigation.push('BakeryMenuReviews', {
+    navigation.push('BakeryMenuDetail', {
       bakeryId,
       menu: breads,
     });

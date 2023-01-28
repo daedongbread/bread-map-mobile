@@ -1,6 +1,5 @@
 import React from 'react';
 import { MenuEntity } from '@/apis/menu/type';
-import { MenuReviewList } from '@/components/BakeryDetail';
 import { Home } from '@/pages/MainStack/MainTab/HomeStack/Home';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { NavigatorScreenParams } from '@react-navigation/native';
@@ -8,11 +7,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { BakeryBreadReport } from './BakeryBreadReport/BakeryBreadReport';
 import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail/BakeryDetailTopTab';
+import { BakeryMenuDetail } from './BakeryDetail/Tab';
 
 export type HomeStackParamList = {
   Home: undefined;
   Bakery: NavigatorScreenParams<BakeryDetailTabParamList>;
-  BakeryMenuReviews: {
+  BakeryMenuDetail: {
     bakeryId: number;
     menu: MenuEntity;
   };
@@ -31,7 +31,7 @@ const HomeStack = () => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Bakery" component={BakeryDetailTabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="BakeryMenuReviews" component={MenuReviewList} options={{ headerShown: false }} />
+        <Stack.Screen name="BakeryMenuDetail" component={BakeryMenuDetail} options={{ headerShown: false }} />
         <Stack.Screen name="BakeryBreadReport" component={BakeryBreadReport} options={{ headerShown: false }} />
       </Stack.Navigator>
     </BakeryDetailProvider>
