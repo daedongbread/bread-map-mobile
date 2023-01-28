@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
+import { MenuEntity } from '@/apis/menu/type';
 import { Button } from '@/components/Shared/Button/Button';
 import { Menu } from '@/components/Shared/Menu';
 import { Text } from '@/components/Shared/Text';
@@ -10,20 +10,19 @@ import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Props = {
-  bakery: BakerySingleEntity;
-  briefMenu: BakerySingleEntity['menu'];
-  onPress: (menu: BakeryMenuEntity) => void;
+  briefMenu: MenuEntity[];
+  totalCount: number;
+  onPress: (menu: MenuEntity) => void;
   onPressMoreButton: () => void;
 };
 
-export const BakeryMenuBriefListComponent = ({ bakery, briefMenu, onPress, onPressMoreButton }: Props) => {
+export const BakeryMenuBriefListComponent = ({ briefMenu, totalCount, onPress, onPressMoreButton }: Props) => {
   return (
     <>
       <Divider />
       <View style={styles.container}>
-        <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />
-        {bakery &&
-          bakery.menu.length > 0 &&
+        <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={totalCount} />
+        {briefMenu.length > 0 &&
           briefMenu.map((menuData, idx) => (
             <TouchableOpacity key={idx} onPress={() => onPress(menuData)}>
               <Menu name={menuData.name} price={Number(menuData.price)} rating={menuData.rating} />
