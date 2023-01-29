@@ -4,6 +4,7 @@ import { login, logout } from '@/slices/auth';
 
 export const useAuth = () => {
   const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
+  const { deviceToken } = useAppSelector(selector => selector.notice);
   const dispatch = useAppDispatch();
 
   const signIn = useCallback(
@@ -14,13 +15,17 @@ export const useAuth = () => {
   );
 
   const signOut = useCallback(() => {
+    if (!accessToken || !refreshToken) {
+      return;
+    }
     dispatch(
       logout({
-        accessToken: accessToken || undefined,
-        refreshToken: refreshToken || undefined,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        deviceToken: deviceToken || '',
       })
     );
-  }, [accessToken, dispatch, refreshToken]);
+  }, [accessToken, deviceToken, dispatch, refreshToken]);
 
   return {
     isLoggedIn: !!accessToken,

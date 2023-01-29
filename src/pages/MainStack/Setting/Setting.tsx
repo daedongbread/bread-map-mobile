@@ -33,7 +33,7 @@ export const Setting = () => {
     <SettingList
       isEnableNotice={enable}
       onChangeEnableNotice={onChangeNotice}
-      logout={() => logOut()}
+      logout={logOut}
       onPressDeleteAccount={() => navigation.push('DeleteAccountModal')}
       appVersion={VersionCheck.getCurrentVersion()}
       onPressPrivacyTerm={() => Alert.alert('navigate 개인정보 처리방침')}

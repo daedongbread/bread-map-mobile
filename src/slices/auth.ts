@@ -56,11 +56,7 @@ export const initAuth = createAsyncThunk('auth/initAuth', async () => {
 
 export const logout = createAsyncThunk(
   'auth/logout',
-  async ({ accessToken, refreshToken, deviceToken }: Partial<LogoutRequest>) => {
-    if (!accessToken || !refreshToken) {
-      return;
-    }
-
+  async ({ accessToken, refreshToken, deviceToken }: LogoutRequest) => {
     return requestLogout({ accessToken, refreshToken, deviceToken });
     // EncryptedStorage.clear();
     // removeHeader();
