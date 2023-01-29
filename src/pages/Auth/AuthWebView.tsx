@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView, { WebViewProps } from 'react-native-webview';
 import { useAuth } from '@/hooks/useAuth';
 import { RootStackScreenProps } from '@/pages/Stack';
+import { Config } from '@/utils';
 import { useRoute } from '@react-navigation/native';
 
 type Route = RootStackScreenProps<'AuthWebView'>['route'];
@@ -46,7 +47,7 @@ const AuthWebView = () => {
         }
         style={styles.container}
         onMessage={onMessage}
-        source={{ uri: `http://ec2-13-125-60-187.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${type}` }}
+        source={{ uri: `${Config.API_URI}/oauth2/authorization/${type}` }}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
