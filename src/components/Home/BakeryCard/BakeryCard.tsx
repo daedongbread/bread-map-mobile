@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
@@ -10,6 +10,8 @@ import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
 
 import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
+import EditIcon from '@shared/Icons/IcEdit.svg';
+import { Text } from '@shared/Text';
 
 type Props = {
   bakery: BakeryMapBakeryEntity;
@@ -57,16 +59,32 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {bakery.simpleReviewList.map(review => (
-            <View key={`${review.id}`} style={styles.reviewView}>
+          {bakery.simpleReviewList.length === 0 ? (
+            <View style={[styles.reviewView, styles.emptyReviewView]}>
               <View style={styles.reviewContent}>
-                <Quote />
-                <Text style={styles.countItemText} numberOfLines={2}>
-                  {review.content}
+                <View style={styles.editIcon}>
+                  <EditIcon />
+                </View>
+                <Text style={{ color: theme.color.gray600 }}>
+                  <Text presets={['caption1', 'bold']}>이 빵집 </Text>
+                  <Text presets={'caption1'} style={styles.countItemText} numberOfLines={2}>
+                    {'맛있었나요? \n첫 리뷰를 작성해주세요'}
+                  </Text>
                 </Text>
               </View>
             </View>
-          ))}
+          ) : (
+            bakery.simpleReviewList.map(review => (
+              <View key={`${review.id}`} style={styles.reviewView}>
+                <View style={styles.reviewContent}>
+                  <Quote />
+                  <Text style={styles.countItemText} numberOfLines={2}>
+                    {review.content}
+                  </Text>
+                </View>
+              </View>
+            ))
+          )}
         </ScrollView>
       </View>
     </View>
@@ -121,6 +139,16 @@ const styles = StyleSheet.create(
       borderRadius: 8,
       backgroundColor: theme.color.gray200,
       justifyContent: 'center',
+    },
+    emptyReviewView: {
+      backgroundColor: 'white',
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: theme.color.gray200,
+    },
+    editIcon: {
+      marginTop: 2,
+      marginRight: 6,
     },
     reviewContent: {
       flexDirection: 'row',
