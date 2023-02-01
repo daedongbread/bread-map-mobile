@@ -9,9 +9,7 @@ import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { HomeStackScreenProps } from '../Stack';
-import { BakeryHome } from './Tab/BakeryHome';
-import { BakeryInfo } from './Tab/BakeryInfo';
-import { BakeryMenu } from './Tab/BakeryMenu';
+import { BakeryHome, BakeryInfo, BakeryMenu } from './Tab';
 import { BakeryReviewStack } from './Tab/BakeryReview/Stack';
 
 export type BakeryDetailTabParamList = {
@@ -34,9 +32,20 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
   RootStackScreenProps<keyof RootStackParamList>
 >;
 
+export type BakeryReviewStackParamList = {
+  BakeryReviews: {
+    bakeryId: number;
+  };
+  BakeryReviewDetail: {
+    review: BakeryReviewEntity;
+    info: BakerySingleEntity['bakeryInfo'];
+  };
+  BakeryReport: undefined;
+};
+
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
+export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
   const insets = useSafeAreaInsets();
 
   const { bakeryId } = route.params?.params || { bakeryId: 0 };
@@ -85,16 +94,3 @@ const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => 
     </View>
   );
 };
-
-export type BakeryReviewStackParamList = {
-  BakeryReviews: {
-    bakeryId: number;
-  };
-  BakeryReviewDetail: {
-    review: BakeryReviewEntity;
-    info: BakerySingleEntity['bakeryInfo'];
-  };
-  BakeryReport: undefined;
-};
-
-export { BakeryDetailTabNavigator };

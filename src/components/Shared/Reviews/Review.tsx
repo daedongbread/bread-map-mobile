@@ -1,14 +1,14 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { BakeryReviewEntity } from '@/apis/bakery/types';
+import { ReviewContent } from '@/apis/bakery/types';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { BreadRating } from '../Rating';
 
 type ReviewProps = {
-  review: BakeryReviewEntity;
-  onPress: (review: BakeryReviewEntity) => void;
+  review: ReviewContent;
+  onPress: (review: ReviewContent) => void;
   isEnd: boolean;
 };
 
@@ -21,23 +21,23 @@ type ProductRatingProps = {
 
 const ProductRating = ({ item }: ProductRatingProps) => (
   <View style={styles.breadRatingContainer}>
-    <Text style={styles.menuNameText}>{item?.productName}</Text>
-    <BreadRating rating={item?.rating} type={'review'} />
+    <Text style={styles.menuNameText}>{item.productName}</Text>
+    <BreadRating rating={item.rating} type={'review'} />
   </View>
 );
 
-const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
+const Review = ({ review, onPress, isEnd }: ReviewProps) => (
   <View style={styles.container}>
     <View style={styles.reviewContent}>
       <View style={styles.reviewHeader}>
         <View style={styles.reviewerContainer}>
-          <Image style={styles.profileImage} source={{ uri: 'https://via.placeholder.com/100' }} />
+          <Image style={styles.profileImage} source={{ uri: review.userInfo.userImage }} />
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userNameText}>{review?.nickName}</Text>
+            <Text style={styles.userNameText}>{review.userInfo.nickName}</Text>
             <View style={styles.socialInfo}>
-              <Text style={styles.userInfoText}>리뷰 {review?.reviewNum}</Text>
+              <Text style={styles.userInfoText}>리뷰 {review.userInfo.reviewNum}</Text>
               <Text style={styles.divider}> | </Text>
-              <Text style={styles.userInfoText}>팔로워 {review.followerNum}</Text>
+              <Text style={styles.userInfoText}>팔로워 {review.userInfo.followerNum}</Text>
             </View>
           </View>
         </View>
@@ -48,7 +48,7 @@ const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
       </View>
       <View style={styles.breadRatingListContainer}>
         <FlatList
-          data={review.productRatingList}
+          data={review.reviewInfo.productRatingList}
           renderItem={({ item, index }) => <ProductRating key={index} item={item} />}
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -56,11 +56,11 @@ const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
       </View>
     </View>
     <TouchableOpacity onPress={() => onPress(review)}>
-      {review?.imageList.length > 0 && (
+      {review.reviewInfo.imageList.length > 0 && (
         <View style={styles.reviewContainer}>
           <FlatList
             style={styles.reviewImageContainer}
-            data={review?.imageList.map((i, ix) => ({ id: ix, src: i }))}
+            data={review.reviewInfo.imageList.map((i, ix) => ({ id: ix, src: i }))}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={img => img.id.toString()}
@@ -68,7 +68,7 @@ const Review: React.FC<ReviewProps> = ({ review, onPress, isEnd }) => (
           />
         </View>
       )}
-      <Text style={styles.reviewText}>{review?.content}</Text>
+      <Text style={styles.reviewText}>{review.reviewInfo.content}</Text>
       {isEnd || <Divider style={{ height: 1 }} />}
     </TouchableOpacity>
   </View>
@@ -78,10 +78,7 @@ export default Review;
 
 const styles = StyleSheet.create(
   resizePixels({
-    container: {
-      marginTop: 20,
-    },
-
+    container: {},
     reviewContent: {
       marginBottom: 12,
     },

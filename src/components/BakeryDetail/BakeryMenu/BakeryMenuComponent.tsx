@@ -1,26 +1,26 @@
 import React from 'react';
 import { View } from 'react-native';
-import { BakeryMenuEntity, BakerySingleEntity } from '@/apis/bakery/types';
+import { MenuEntity } from '@/apis/menu/type';
 import { Menus } from '@/components/Shared/Menu';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Props = {
   bakeryId: number;
-  bakery?: BakerySingleEntity;
-  onPress: (menu: BakeryMenuEntity) => void;
+  menus: MenuEntity[];
+  onPress: (menu: MenuEntity) => void;
 };
 
-export const BakeryMenuComponent = ({ bakeryId, bakery, onPress }: Props) => {
+export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
   return (
     <View>
       <Divider />
 
-      {bakery && bakery.menu.length > 0 && (
+      {menus && menus.length > 0 && (
         <Menus
-          headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={bakery?.menu.length || 0} />}
-          bakery={bakery}
+          headerComponent={<TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />}
           bakeryId={bakeryId}
+          menus={menus}
           onPress={onPress}
         />
       )}

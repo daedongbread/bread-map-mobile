@@ -1,0 +1,1 @@
+export { useGetMenus } from './useGetMenus';
