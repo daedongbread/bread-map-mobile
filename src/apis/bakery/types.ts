@@ -124,6 +124,7 @@ export type BakeryReviewEntity = {
 };
 
 type ReviewUserInfo = {
+  userId: number;
   userImage: string;
   nickName: string;
   reviewNum: number;

@@ -9,12 +9,13 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { NavNotification, NavProfile } from '@shared/Icons';
 import IcNavHome from '@shared/Icons/IcNavHome.svg';
 import { NavReport } from '@shared/Icons/NavReport';
+import { ProfileStackParamList } from '../ProfileStack/Stack';
 
 export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
   ReportBakery: undefined;
   Notification: undefined;
-  Profile: undefined;
+  Profile: ProfileStackParamList['Profile'];
 };
 
 export type MainTabNavigation<T extends keyof MainTabParamList> = CompositeScreenProps<
