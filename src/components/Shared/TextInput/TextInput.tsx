@@ -68,14 +68,14 @@ export const TextInput: React.FC<TextInputPropsType> = ({
               </>
             )}
             {!!error && (
-              <Text presets={['number2', 'regular']} style={styles.errorText}>
+              <Text presets={['body2', 'medium']} style={styles.errorText}>
                 {error}
               </Text>
             )}
           </View>
           <View>
             {hint && (
-              <Text presets={['number2', 'regular']} style={styles.hintText}>
+              <Text presets={['body2', 'medium']} style={styles.hintText}>
                 {hint}
               </Text>
             )}

@@ -16,10 +16,10 @@ export const BlockListEmpty = memo(() => {
         </Text>
       </View>
       <View style={[styles.gap, styles.center]}>
-        <Text presets={['number2']} style={styles.textColor}>
+        <Text presets={['body2']} style={styles.textColor}>
           불편한 사용자가 있다면 신고를 통해
         </Text>
-        <Text presets={['number2']} style={styles.textColor}>
+        <Text presets={['body2']} style={styles.textColor}>
           더 편안 대동빵지도를 즐기세요!
         </Text>
       </View>

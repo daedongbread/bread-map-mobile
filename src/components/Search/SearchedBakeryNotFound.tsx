@@ -21,10 +21,10 @@ const SearchedBakeryNotFound: React.FC<Props> = memo(({ onPress }) => {
         </Text>
       </View>
       <View style={styles.gap}>
-        <Text presets={['number2']} style={styles.textColor}>
+        <Text presets={['body2']} style={styles.textColor}>
           찾으시는 빵집이 없으신가요?
         </Text>
-        <Text presets={['number2']} style={styles.textColor}>
+        <Text presets={['body2']} style={styles.textColor}>
           나만의 빵 맛집을 제보해주세요!
         </Text>
       </View>
