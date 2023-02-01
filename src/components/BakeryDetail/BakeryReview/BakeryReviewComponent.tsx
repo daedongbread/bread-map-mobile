@@ -1,34 +1,63 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { BakeryReviewEntity } from '@/apis/bakery/types';
-import { Reviews } from '@/components/Shared/Reviews';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ReviewEntity } from '@/apis/bakery/types';
+import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
+import Review from '@/components/Shared/Reviews/Review';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/native';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Props = {
-  reviews: BakeryReviewEntity[];
-  onPress: (review: BakeryReviewEntity) => void;
-  onPressAddBtn: () => void;
+  reviews?: ReviewEntity;
+  activeTab: string;
+  onPressTab: (tab: string) => void;
 };
 
-export const BakeryReviewComponent = ({ reviews, onPress, onPressAddBtn }: Props) => {
+const tabItems = [
+  { value: 'latest', label: '최신순' },
+  { value: 'high', label: '별점높은순' },
+  { value: 'low', label: '별점낮은순' },
+];
+
+export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab }: Props) => {
+  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+
+  const onPressReviewWriteBtn = () => {
+    navigation.push('ReviewWriteStack', {
+      screen: 'ReviewSelect',
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Divider />
-      <Reviews
-        headerComponent={
-          <TabHeader
-            title={'리뷰'}
-            totalCount={reviews?.length || 0}
-            addBtnText={'리뷰 작성'}
-            onPressAddBtn={onPressAddBtn}
-          />
-        }
-        reviews={reviews!}
-        onPress={onPress}
-      />
-    </View>
+      <View style={styles.reviewContainer}>
+        <TabHeader
+          onPressAddBtn={onPressReviewWriteBtn}
+          title={'리뷰'}
+          totalCount={reviews?.contents.length || 0}
+          addBtnText={'리뷰작성'}
+        />
+        <View>
+          <View style={styles.tabContainer}>
+            {tabItems.map(({ value, label }) => (
+              <TabIcon key={value} value={value} activeTab={activeTab} onPress={onPressTab}>
+                {label}
+              </TabIcon>
+            ))}
+          </View>
+          <SplitRow height={28} />
+          {reviews &&
+            reviews.contents.map((review, idx) => (
+              <Review review={review} onPress={() => null} key={idx} isEnd={reviews.contents.length - 1 === idx} />
+            ))}
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -36,6 +65,12 @@ const styles = StyleSheet.create(
   resizePixels({
     container: {
       backgroundColor: 'white',
+    },
+    reviewContainer: {
+      paddingHorizontal: 20,
+    },
+    tabContainer: {
+      flexDirection: 'row',
     },
   })
 );
