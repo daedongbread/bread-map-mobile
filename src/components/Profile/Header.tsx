@@ -57,7 +57,7 @@ export const Header = ({ type, title, onClickRight }: Props) => {
     return (
       <View style={styles.DetailContainer}>
         <View style={styles.TextWrap}>
-          <Text style={styles.Text} presets={['bold', 'subtitle2']}>
+          <Text style={styles.Text} presets={['subhead', 'bold']}>
             {title}
           </Text>
         </View>

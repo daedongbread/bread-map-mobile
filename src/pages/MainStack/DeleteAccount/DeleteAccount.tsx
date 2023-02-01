@@ -30,7 +30,7 @@ export const DeleteAccount = () => {
   return (
     <SafeAreaView style={styles.flex}>
       <View style={[styles.wrapper, styles.flex]}>
-        <Text presets={['subtitle1', 'bold']} style={styles.title}>
+        <Text presets={['body1', 'bold']} style={styles.title}>
           {'잠깐만요! 탈퇴하기 전에 \n읽어보세요.'}
         </Text>
         {labels.map((label, index) => (

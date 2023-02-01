@@ -61,10 +61,10 @@ export function EditDetailComponent({
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
         <View style={styles.TitleWrap}>
-          <Text presets={['subtitle1', 'bold']} style={styles.Text}>
+          <Text presets={['body1', 'bold']} style={styles.Text}>
             <Text style={styles.Primary}>어떤 정보</Text>를
           </Text>
-          <Text presets={['subtitle1', 'bold']} style={styles.Text}>
+          <Text presets={['body1', 'bold']} style={styles.Text}>
             수정 요청 하시나요?
           </Text>
         </View>

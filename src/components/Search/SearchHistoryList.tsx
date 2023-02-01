@@ -27,7 +27,7 @@ const SearchHistoryList: React.FC<Props> = memo(({ searchHistory, onPressBakery 
   if (!searchHistory?.length) {
     return (
       <View style={styles.emptyContainer}>
-        <Text presets={['body1', 'regular']} style={styles.emptyText}>
+        <Text presets={['body1', 'medium']} style={styles.emptyText}>
           최근검색 내역이 없습니다.
         </Text>
       </View>

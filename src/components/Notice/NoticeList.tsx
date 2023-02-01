@@ -18,7 +18,7 @@ type Props = {
 export const NoticeList = ({ title, notice, hasNext, onClickMore, onPressFollow }: Props) => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title} presets={['subtitle2', 'bold']}>
+      <Text style={styles.title} presets={['subhead', 'bold']}>
         {title}
       </Text>
       <FlatList
