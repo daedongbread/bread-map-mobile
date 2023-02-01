@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { TabItem } from '@/containers/Home';
 
 import { theme } from '@/styles/theme';
 
-import { resizePixel } from '@/utils';
+import { Text } from '@shared/Text';
 
 type TabIconProps = {
   value: TabItem;
@@ -22,7 +22,9 @@ export const TabIcon: React.FC<TabIconProps> = ({ value, activeTab, onPress, chi
     return (
       <TouchableOpacity style={styles.iconWrapper} onPress={handlePress}>
         <View style={[styles.activeTab, styles.icon]} />
-        <Text style={styles.tabText}>{children}</Text>
+        <Text presets={['caption1', 'medium']} style={styles.activeText}>
+          {children}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -30,16 +32,14 @@ export const TabIcon: React.FC<TabIconProps> = ({ value, activeTab, onPress, chi
   return (
     <TouchableOpacity style={styles.iconWrapper} onPress={handlePress}>
       <View style={[styles.inactiveTab, styles.icon]} />
-      <Text style={[styles.tabText, styles.inactiveText]}>{children}</Text>
+      <Text presets={['caption1', 'medium']} style={[styles.inactiveText]}>
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  tabText: {
-    fontSize: resizePixel(12),
-    fontWeight: '400',
-  },
   iconWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
   },
   inactiveTab: {
     backgroundColor: theme.color.gray400,
+  },
+  activeText: {
+    color: theme.color.gray900,
   },
   inactiveText: {
     color: theme.color.gray400,

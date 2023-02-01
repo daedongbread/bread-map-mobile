@@ -19,7 +19,7 @@ export function ReviewListItem({ item }: any) {
       </Text>
       <View style={styles.Location}>
         <IcMapPin />
-        <Text style={styles.LocationText} presets={['caption1', 'regular']}>
+        <Text style={styles.LocationText} presets={['caption1', 'medium']}>
           {item?.bakeryAddress}
         </Text>
       </View>

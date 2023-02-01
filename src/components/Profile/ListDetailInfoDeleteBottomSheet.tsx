@@ -30,11 +30,11 @@ export function ListDetailInfoDeleteBottomSheet({ bottomSheetRef, onConfirmClick
     >
       <View style={styles.Container}>
         <SplitRow height={24} />
-        <Text presets={['subtitle2', 'bold']} style={styles.Title}>
+        <Text presets={['subhead', 'bold']} style={styles.Title}>
           저장목록을 삭제할까요?
         </Text>
         <SplitRow height={16} />
-        <Text presets={['body2', 'regular']} style={styles.SubTitle}>
+        <Text presets={['body2', 'medium']} style={styles.SubTitle}>
           삭제한 리스트는 되돌릴 수 없으니신중히 생각해주세요!
         </Text>
         <SplitRow height={32} />

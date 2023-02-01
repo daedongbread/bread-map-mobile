@@ -107,7 +107,7 @@ const RenderItem = ({
     <View style={[styles.fullScreen]}>
       <View style={[styles.fullScreen, styles.carouselItemContainer]}>
         <View style={styles.carouselItemTextContainer}>
-          <Text presets={['bold', 'number1']} style={styles.carouselItemText}>
+          <Text presets={['body1', 'bold']} style={styles.carouselItemText}>
             {item.text}
           </Text>
         </View>

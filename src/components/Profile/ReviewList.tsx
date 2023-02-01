@@ -30,10 +30,10 @@ const ItemSeparatorComponent = memo(() => (
 const ReviewListEmptyComponent = memo(() => (
   <View style={styles.EmptyContainer}>
     <FastImage style={styles.EmptyImage} source={EmptyData} />
-    <Text presets={['body2', 'regular']} style={styles.EmptyText}>
+    <Text presets={['body2', 'medium']} style={styles.EmptyText}>
       아직 리뷰가 없어요
     </Text>
-    <Text presets={['body2', 'regular']} style={styles.EmptyText}>
+    <Text presets={['body2', 'medium']} style={styles.EmptyText}>
       첫 리뷰를 남겨주세요
     </Text>
   </View>

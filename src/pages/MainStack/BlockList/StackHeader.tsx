@@ -16,7 +16,7 @@ export const BlockListHeader = () => {
       <TouchableOpacity style={styles.iconWrapper} onPress={goBack}>
         <ChevronLeftIcon width={24} height={24} />
       </TouchableOpacity>
-      <Text presets={['subtitle2', 'bold']} style={styles.text}>
+      <Text presets={['subhead', 'bold']} style={styles.text}>
         차단한 사용자
       </Text>
     </View>
