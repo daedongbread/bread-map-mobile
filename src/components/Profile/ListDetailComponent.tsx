@@ -65,10 +65,10 @@ export function ListDetailComponent({
 const ListHeaderComponent = (name: string, len: number) =>
   memo(() => (
     <View style={styles.Title}>
-      <Text style={styles.TitleTextName} presets={['bold', 'number1']}>
+      <Text style={styles.TitleTextName} presets={['body1', 'bold']}>
         {name}
       </Text>
-      <Text style={styles.TitleTextCount} presets={['bold', 'subtitle2']}>
+      <Text style={styles.TitleTextCount} presets={['subhead', 'bold']}>
         &nbsp;{len}
       </Text>
     </View>

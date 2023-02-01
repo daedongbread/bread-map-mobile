@@ -52,13 +52,13 @@ const ListEmptyComponent = (index: number) =>
     return (
       <View style={styles.EmptyContainer}>
         <FastImage source={SadBreadGray} style={styles.EmptyImage} resizeMode="contain" />
-        <Text style={styles.EmptyTitle} presets={['number1', 'bold']}>
+        <Text style={styles.EmptyTitle} presets={['body1', 'bold']}>
           <Text>아직 </Text>
           <Text>{index === 0 ? '팔로잉한 빵순이가' : '팔로워가'}</Text>
           <Text> 없어요</Text>
         </Text>
 
-        <Text style={styles.EmptySubTitle} presets={['number2', 'regular']}>
+        <Text style={styles.EmptySubTitle} presets={['body2', 'medium']}>
           {index === 0
             ? '마음에 드는 빵순이를 팔로잉해\n다양한 리뷰들을 만나보세요!'
             : '리뷰를 많이 남길수록\n팔로워가 늘어날거예요!'}

@@ -26,10 +26,10 @@ export const UnblockUserBottomSheet = ({ onPressUnblock, onPressCancel, bottomSh
         onDismiss={onPressCancel}
       >
         <View style={[styles.flex, styles.body]}>
-          <Text presets={['subtitle2', 'bold']} style={styles.title}>
+          <Text presets={['subhead', 'bold']} style={styles.title}>
             정말 차단 해제하시겠어요?
           </Text>
-          <Text presets={['body2', 'regular']} style={styles.subtitle}>
+          <Text presets={['body2', 'medium']} style={styles.subtitle}>
             {'빵으로살찐자님에게는 회원님이\n차단을 해제했다는 정보를 알리지 않습니다.'}
           </Text>
           <View style={styles.buttonWrapper}>
