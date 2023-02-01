@@ -39,8 +39,9 @@ const styles = StyleSheet.create(
       alignItems: 'center',
     },
     tabName: {
-      fontWeight: 'bold',
+      color: theme.color.gray900,
       fontSize: 18,
+      fontWeight: 'bold',
     },
     totalCount: {
       color: theme.color.primary500,
@@ -58,12 +59,8 @@ const styles = StyleSheet.create(
     buttonText: {
       color: theme.color.white,
       fontSize: 14,
+      lineHeight: 20,
       fontWeight: 'bold',
     },
   })
 );
-
-// color: ${({ theme }) => theme.color.primary500};
-//   font-weight: bold;
-//   font-size: 16px;
-//   margin-left: 3px;

@@ -10,7 +10,8 @@ type MenuProps = {
   image?: string | null;
 };
 
-// reviewLength 필요
+const tempImage = 'https://cdn.paris.spl.li/wp-content/uploads/까방베르-치즈-후레쉬번_썸네일1-1280x1280.png';
+
 const Menu: React.FC<MenuProps> = ({ name, price, rating, image }) => (
   <View style={styles.container}>
     <View style={styles.textContainer}>
@@ -18,10 +19,10 @@ const Menu: React.FC<MenuProps> = ({ name, price, rating, image }) => (
       <BreadRating type={'menu'} rating={rating} reviewLength={20} />
       <Text style={styles.price}>{price.toLocaleString()}원</Text>
     </View>
-    {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
+    {/* {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />} */}
+    <Image style={styles.image} source={{ uri: tempImage }} />
   </View>
 );
-
 export default Menu;
 
 const styles = StyleSheet.create({

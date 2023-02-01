@@ -1,18 +1,35 @@
 import { useQuery } from 'react-query';
-import { requestGetReviews } from './useGetReview';
+import { ReviewEntity } from '../bakery/types';
+import { fetcher } from '../fetcher';
 
-type UseGetReviewProps = {
+type UseGetMenuReviewsProps = {
   bakeryId: number;
-  productName: string;
+  productId: number;
+  sortBy?: string;
 };
 
-const useGetMenuReviews = ({ bakeryId, productName }: UseGetReviewProps) => {
-  return useQuery(['useGetReview', { bakeryId }], () => requestGetReviews({ bakeryId }), {
-    select: data =>
-      data.filter(review => {
-        review.productRatingList.filter(product => product.productName === productName).length > 0;
-      }),
-  });
+type GetMenuReviewsResponse = {
+  data: ReviewEntity;
+};
+
+const requestGetMenuReviews = async ({ bakeryId, productId, sortBy }: UseGetMenuReviewsProps) => {
+  const res = await fetcher.get<GetMenuReviewsResponse>(
+    `/review/bakery/${bakeryId}/product/${productId}?sortBy=${sortBy}`
+  );
+  return res.data.data;
+};
+
+const useGetMenuReviews = ({ bakeryId, productId, sortBy }: UseGetMenuReviewsProps) => {
+  const { data, isLoading, isError, refetch } = useQuery(['useGetMenuReviews', { bakeryId, productId }], () =>
+    requestGetMenuReviews({ bakeryId, productId, sortBy })
+  );
+
+  return {
+    reviews: data,
+    loading: isLoading,
+    error: isError,
+    refetch,
+  };
 };
 
 export { useGetMenuReviews };
