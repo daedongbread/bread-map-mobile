@@ -18,7 +18,7 @@ export const BreadRating: React.FC<Props> = ({ type, menuName, rating, reviewLen
       return (
         <View style={menuTypeStyles.container}>
           <StarIcon size={14} fillColor={'orange'} />
-          <Text style={menuTypeStyles.rating}>{rating}</Text>
+          <Text style={menuTypeStyles.rating}>{rating.toFixed(1)}</Text>
           <Text style={menuTypeStyles.count}>({reviewLength})</Text>
         </View>
       );
