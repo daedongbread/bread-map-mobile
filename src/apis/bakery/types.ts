@@ -122,3 +122,39 @@ export type BakeryReviewEntity = {
   createdAt: string;
   averageRating: number;
 };
+
+type ReviewUserInfo = {
+  userImage: string;
+  nickName: string;
+  reviewNum: number;
+  followerNum: number;
+  isFollow: boolean;
+  isMe: boolean;
+};
+
+type ReviewInfo = {
+  id: number;
+  productRatingList: Array<{
+    productName: string;
+    rating: number;
+  }>;
+  imageList: Array<string>;
+  content: string;
+  likeNum: number;
+  commentNum: number;
+  createdAt: string;
+  averageRating: number;
+};
+
+export type ReviewContent = {
+  userInfo: ReviewUserInfo;
+  reviewInfo: ReviewInfo;
+};
+
+export type ReviewEntity = {
+  pageNumber: number;
+  numberOfElements: number;
+  size: number;
+  hasNext: boolean;
+  contents: ReviewContent[];
+};
