@@ -4,7 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { ReviewEntity } from '@/apis/bakery/types';
 import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
 import Review from '@/components/Shared/Reviews/Review';
-import { SplitRow } from '@/components/Shared/SplitSpace';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -50,7 +49,6 @@ export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab }: Props)
               </TabIcon>
             ))}
           </View>
-          <SplitRow height={28} />
           {reviews &&
             reviews.contents.map((review, idx) => (
               <Review review={review} onPress={() => null} key={idx} isEnd={reviews.contents.length - 1 === idx} />
