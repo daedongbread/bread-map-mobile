@@ -1,5 +1,6 @@
 import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
+import { Config } from '@/utils';
 
 type Props = {
   accessToken: string;
@@ -38,7 +39,7 @@ const editNickName = async ({ accessToken, nickName, userImage }: Props) => {
 
   const resp = await RNFetchBlob.fetch(
     'post',
-    'http://13.125.60.187/user/nickname',
+    `${Config.API_URI}/user/nickname`,
     {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'multipart/form-data',

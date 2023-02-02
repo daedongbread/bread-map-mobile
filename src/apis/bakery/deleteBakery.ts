@@ -1,5 +1,6 @@
 import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
+import { Config } from '@/utils';
 
 type Props = {
   accessToken: string;
@@ -28,7 +29,7 @@ const deleteBakery = async ({ accessToken, bakeryId, userImage }: Props) => {
 
   const resp = await RNFetchBlob.fetch(
     'post',
-    `http://13.125.60.187/bakery/report/${bakeryId}/delete`,
+    `${Config.API_URI}/bakery/report/${bakeryId}/delete`,
     {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'multipart/form-data',
