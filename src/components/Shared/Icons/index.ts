@@ -31,6 +31,9 @@ export { EditIcon } from './EditIcon';
 export { CloseIcon } from './CloseIcon';
 export { ImageCloseIcon } from './ImageCloseIcon';
 export { CopyIcon } from './CopyIcon';
+export { ViewMoreIcon } from './ViewMoreIcon';
+export { IcLike } from './IcLike';
+export { IcComment } from './IcComment';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';

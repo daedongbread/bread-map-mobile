@@ -14,6 +14,7 @@ type Props = {
   reviews?: ReviewEntity;
   activeTab: string;
   onPressTab: (tab: string) => void;
+  refetchReview: () => void;
 };
 
 const tabItems = [
@@ -22,7 +23,7 @@ const tabItems = [
   { value: 'low', label: '별점낮은순' },
 ];
 
-export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab }: Props) => {
+export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchReview }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
 
   const onPressReviewWriteBtn = () => {
@@ -51,7 +52,13 @@ export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab }: Props)
           </View>
           {reviews &&
             reviews.contents.map((review, idx) => (
-              <Review review={review} onPress={() => null} key={idx} isEnd={reviews.contents.length - 1 === idx} />
+              <Review
+                key={idx}
+                review={review}
+                refetchReview={refetchReview}
+                onPress={() => null}
+                isEnd={reviews.contents.length - 1 === idx}
+              />
             ))}
         </View>
       </View>
