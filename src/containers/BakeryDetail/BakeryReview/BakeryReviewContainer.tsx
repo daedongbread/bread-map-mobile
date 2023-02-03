@@ -22,5 +22,7 @@ export const BakeryReviewContainer = () => {
     setActiveTab(tab);
   };
 
-  return <BakeryReviewComponent reviews={reviews} activeTab={activeTab} onPressTab={onPressTab} />;
+  return (
+    <BakeryReviewComponent reviews={reviews} activeTab={activeTab} onPressTab={onPressTab} refetchReview={refetch} />
+  );
 };
