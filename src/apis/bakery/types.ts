@@ -133,6 +133,18 @@ type ReviewUserInfo = {
   isMe: boolean;
 };
 
+type ReviewComment = {
+  id: number;
+  userId: number;
+  userImage: string;
+  nickName: string;
+  commentNickName: string;
+  content: string;
+  createdAt: string;
+  likeNum: number;
+  commentList: ReviewComment[];
+};
+
 type ReviewInfo = {
   id: number;
   productRatingList: Array<{
@@ -158,4 +170,15 @@ export type ReviewEntity = {
   size: number;
   hasNext: boolean;
   contents: ReviewContent[];
+};
+
+export type ReviewDetailEntity = {
+  bakeryInfo: {
+    bakeryId: number;
+    bkaeryImage: string;
+    bakeryName: string;
+    bakeryAddress: string;
+  };
+  reviewDto: ReviewContent;
+  comments: ReviewComment;
 };
