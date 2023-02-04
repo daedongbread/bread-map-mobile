@@ -34,6 +34,7 @@ export { CopyIcon } from './CopyIcon';
 export { ViewMoreIcon } from './ViewMoreIcon';
 export { IcLike } from './IcLike';
 export { IcComment } from './IcComment';
+export { LocationMarker } from './LocationMarker';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';

@@ -1,15 +1,18 @@
 import React from 'react';
+import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview';
-import { BakeryReviewStackParamList } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useRoute } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export const BakeryReviewDetailContainer = () => {
-  const route = useRoute<NativeStackScreenProps<BakeryReviewStackParamList, 'BakeryReviewDetail'>['route']>();
+  const route = useRoute<HomeStackScreenProps<'BakeryReviewDetail'>['route']>();
 
-  const {
-    params: { review, info },
-  } = route;
+  const { reviewId } = route.params;
+  const { review } = useGetReview({ reviewId });
 
-  return <BakeryReviewDetailComponent review={review} info={info} />;
+  if (!review) {
+    return null;
+  }
+
+  return <BakeryReviewDetailComponent review={review} />;
 };
