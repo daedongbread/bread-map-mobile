@@ -1,33 +1,48 @@
 import { useQuery } from 'react-query';
-import { BakeryReviewEntity, ReviewEntity } from '@/apis/bakery/types';
+import { ReviewDetailEntity, ReviewEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
-type UseGetReviewProps = {
+type UseGetReviewsProps = {
   bakeryId: number;
   sortBy?: string;
 };
 
-type GetReviewResponse = {
+type UseGetReviewProps = {
+  reviewId: number;
+};
+
+type GetReviewsResponse = {
   data: ReviewEntity;
 };
 
-export const requestGetReviews = async ({ bakeryId, sortBy }: UseGetReviewProps) => {
-  const resp = await fetcher.get<GetReviewResponse>(`/review/bakery/${bakeryId}?sortBy=${sortBy}`);
+type GetReviewResponse = {
+  data: ReviewDetailEntity;
+};
+
+export const requestGetReviews = async ({ bakeryId, sortBy }: UseGetReviewsProps) => {
+  const resp = await fetcher.get<GetReviewsResponse>(`/review/bakery/${bakeryId}?sortBy=${sortBy}`);
   return resp.data.data;
 };
 
 export const requestGetReview = async ({ reviewId }: { reviewId: number }) => {
-  const resp = await fetcher.get<{
-    data: BakeryReviewEntity;
-  }>(`/review/${reviewId}`);
+  const resp = await fetcher.get<GetReviewResponse>(`/review/${reviewId}`);
   return resp.data.data;
 };
 
-const useGetReview = ({ reviewId }: { reviewId: number }) => {
-  return useQuery(['useGetReviewByReviewId', { reviewId }], () => requestGetReview({ reviewId }));
+const useGetReview = ({ reviewId }: UseGetReviewProps) => {
+  const { data, isLoading, isError, refetch } = useQuery(['UseGetReview', { reviewId }], () =>
+    requestGetReview({ reviewId })
+  );
+
+  return {
+    review: data,
+    loading: isLoading,
+    error: isError,
+    refetch,
+  };
 };
 
-const useGetReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewProps) => {
+const useGetReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
   const { data, isLoading, isError, refetch } = useQuery(['useGetReviews', { bakeryId }], () =>
     requestGetReviews({ bakeryId, sortBy })
   );
