@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BakeryReviewDetail,
-  BakeryReview,
-  BakeryReviewReport,
-} from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
+import { BakeryReview, BakeryReviewReport } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { BakeryReviewStackParamList } from '../../BakeryDetailTopTab';
@@ -20,7 +16,6 @@ export const BakeryReviewStack = ({ route }: any) => (
       options={{ headerShown: false }}
       component={BakeryReview}
     />
-    <ReviewStack.Screen name="BakeryReviewDetail" options={{ headerShown: false }} component={BakeryReviewDetail} />
     <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={BakeryReviewReport} />
   </ReviewStack.Navigator>
 );

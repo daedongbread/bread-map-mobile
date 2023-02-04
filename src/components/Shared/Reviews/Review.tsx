@@ -44,6 +44,19 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
   const { mutateAsync: likeReview } = useLikeReview();
   const { mutateAsync: unLikeReview } = useUnLikeReview();
 
+  const onPressReview = (reviewId: number) => {
+    // navation type 선언시 아래같은 중첩 구조가 아닌 CompositeScreenProps 같은거 사용해서 할 수 있는 방법?
+    navigation.push('MainTab', {
+      screen: 'HomeStack',
+      params: {
+        screen: 'BakeryReviewDetail',
+        params: {
+          reviewId,
+        },
+      },
+    });
+  };
+
   const onPressProfileImage = (userId: number) => {
     navigation.push('MainTab', {
       screen: 'Profile',
@@ -110,7 +123,7 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
         />
       </View>
       <SplitRow height={11} />
-      <TouchableWithoutFeedback onPress={() => onPress(review)}>
+      <TouchableWithoutFeedback onPress={() => onPressReview(review.reviewInfo.id)}>
         {review.reviewInfo.imageList.length > 0 && (
           <View style={styles.reviewContainer}>
             <FlatList
