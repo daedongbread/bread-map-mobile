@@ -1,11 +1,11 @@
 import React from 'react';
 import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { useRoute } from '@react-navigation/native';
 
 export const BakeryReviewDetailContainer = () => {
-  const route = useRoute<HomeStackScreenProps<'BakeryReviewDetail'>['route']>();
+  const route = useRoute<BakeryReviewStackScreenProps<'BakeryReviewDetail'>['route']>();
 
   const { reviewId } = route.params;
   const { review } = useGetReview({ reviewId });
