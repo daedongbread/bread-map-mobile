@@ -10,14 +10,14 @@ type Props = {
   bakery: BakerySingleEntity | null;
 };
 
-export const BakeryReviewReportComponent = ({ bakery }: Props) => {
+export const ReportReviewComponent = ({}: Props) => {
   return (
     <>
       <Divider />
       <View style={styles.wrapper}>
-        <Text style={styles.h1Text}>{bakery?.info.name}</Text>
+        <Text style={styles.h1Text}>test</Text>
         <ReviewSummary text={'1,200'} icon={<CircleFlag />} />
-        <Text style={styles.ratingText}>{bakery?.info.rating}</Text>
+        <Text style={styles.ratingText}>test2</Text>
         <View style={styles.ratingWrapper}>
           <StarIcon size={16} fillColor="orange" />
           <StarIcon size={16} fillColor="orange" />
