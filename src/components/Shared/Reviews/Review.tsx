@@ -5,7 +5,7 @@ import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -39,21 +39,15 @@ type ReviewProps = {
 const CONTENT_TEXT_LIMIT = 60;
 
 const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
-  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const navigation = useNavigation<BakeryReviewStackScreenProps<'BakeryReview'>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
   const { mutateAsync: unLikeReview } = useUnLikeReview();
 
   const onPressReview = (reviewId: number) => {
     // navation type 선언시 아래같은 중첩 구조가 아닌 CompositeScreenProps 같은거 사용해서 할 수 있는 방법?
-    navigation.push('MainTab', {
-      screen: 'HomeStack',
-      params: {
-        screen: 'BakeryReviewDetail',
-        params: {
-          reviewId,
-        },
-      },
+    navigation.push('BakeryReviewDetail', {
+      reviewId,
     });
   };
 
@@ -88,6 +82,13 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
 
   const onPressAddCommentButton = () => {
     // navigate
+  };
+
+  const onPressMoreButton = (userId: number, reviewId: number) => {
+    navigation.navigate('ReviewMoreBottomSheet', {
+      reviewId,
+      userId,
+    });
   };
 
   return (
@@ -166,11 +167,11 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
             />
           </View>
           <View style={styles.footerRightContainer}>
-            <Text style={styles.dateText}>2022.01.05</Text>
-            <TouchableWithoutFeedback>
-              <SplitColumn width={6} />
+            <Text style={styles.dateText}>{review.reviewInfo.createdAt}</Text>
+            <SplitColumn width={6} />
+            <TouchableWithoutFeedback onPress={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}>
+              <ViewMoreIcon />
             </TouchableWithoutFeedback>
-            <ViewMoreIcon />
           </View>
         </View>
         <SplitRow height={25} />
