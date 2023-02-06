@@ -31,6 +31,7 @@ export const BakeryReviewDetailComponent = ({ review }: Props) => {
           <SplitRow height={5} />
           <View style={styles.bakeryAddressContainer}>
             <LocationMarker />
+            <SplitColumn width={2} />
             <Text style={styles.bakeryAddress}>{review.bakeryInfo.bakeryAddress}</Text>
           </View>
         </View>
