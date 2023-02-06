@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BakeryReviewEntity, BakerySingleEntity } from '@/apis/bakery/types';
 import { Header } from '@/components/Shared/Header';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
@@ -31,17 +30,6 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
   MaterialTopTabScreenProps<BakeryDetailTabParamList, T>,
   RootStackScreenProps<keyof RootStackParamList>
 >;
-
-export type BakeryReviewStackParamList = {
-  BakeryReviews: {
-    bakeryId: number;
-  };
-  BakeryReviewDetail: {
-    review: BakeryReviewEntity;
-    info: BakerySingleEntity['bakeryInfo'];
-  };
-  BakeryReport: undefined;
-};
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
