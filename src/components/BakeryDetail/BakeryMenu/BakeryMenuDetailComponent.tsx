@@ -20,11 +20,12 @@ type Props = {
   menu: MenuEntity;
   activeTab: string;
   onPressTab: (tab: string) => void;
+  refetchReview: () => void;
 };
 
 const tempImage = 'https://cdn.paris.spl.li/wp-content/uploads/까방베르-치즈-후레쉬번_썸네일1-1280x1280.png';
 
-export const BakeryMenuDetailComponent = ({ menu, reviews, activeTab, onPressTab }: Props) => {
+export const BakeryMenuDetailComponent = ({ menu, reviews, activeTab, onPressTab, refetchReview }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
 
   const tabItems = [
@@ -79,7 +80,13 @@ export const BakeryMenuDetailComponent = ({ menu, reviews, activeTab, onPressTab
             <SplitRow height={28} />
             {reviews &&
               reviews.contents.map((review, idx) => (
-                <Review review={review} onPress={() => null} key={idx} isEnd={reviews.contents.length - 1 === idx} />
+                <Review
+                  mode="preview"
+                  review={review}
+                  key={idx}
+                  isEnd={reviews.contents.length - 1 === idx}
+                  refetchReview={refetchReview}
+                />
               ))}
           </View>
         </View>

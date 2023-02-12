@@ -1,11 +1,11 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,8 @@ import { BreadRating } from '../Rating';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { FollowButton, FollowType } from './FollowButton';
 import { InteractionButton } from './InteractionButton';
+
+const { width } = Dimensions.get('window');
 
 type ProductRatingProps = {
   item: {
@@ -30,23 +32,22 @@ const ProductRating = ({ item }: ProductRatingProps) => (
 );
 
 type ReviewProps = {
+  mode: 'preview' | 'detail';
   review: ReviewContent;
   isEnd: boolean;
-  onPress: (review: ReviewContent) => void;
   refetchReview: () => void;
 };
 
 const CONTENT_TEXT_LIMIT = 60;
 
-const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
-  const navigation = useNavigation<BakeryReviewStackScreenProps<'BakeryReview'>['navigation']>();
+const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+  const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
   const { mutateAsync: unLikeReview } = useUnLikeReview();
 
   const onPressReview = (reviewId: number) => {
-    // navation type 선언시 아래같은 중첩 구조가 아닌 CompositeScreenProps 같은거 사용해서 할 수 있는 방법?
-    navigation.push('BakeryReviewDetail', {
+    navigation.navigate('BakeryReviewDetail', {
       reviewId,
     });
   };
@@ -81,7 +82,7 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
   };
 
   const onPressAddCommentButton = () => {
-    // navigate
+    // TO DO
   };
 
   const onPressMoreButton = (userId: number, reviewId: number) => {
@@ -124,16 +125,20 @@ const Review = ({ review, isEnd, onPress, refetchReview }: ReviewProps) => {
         />
       </View>
       <SplitRow height={11} />
-      <TouchableWithoutFeedback onPress={() => onPressReview(review.reviewInfo.id)}>
+      <TouchableWithoutFeedback onPress={() => (mode === 'preview' ? onPressReview(review.reviewInfo.id) : null)}>
         {review.reviewInfo.imageList.length > 0 && (
           <View style={styles.reviewContainer}>
             <FlatList
               style={styles.reviewImageContainer}
               data={review.reviewInfo.imageList.map((i, ix) => ({ id: ix, src: i }))}
               horizontal
+              ListHeaderComponent={<SplitColumn width={20} />}
               showsHorizontalScrollIndicator={false}
               keyExtractor={img => img.id.toString()}
-              renderItem={({ item }) => <Image style={styles.reviewImage} source={{ uri: item.src as any }} />}
+              pagingEnabled
+              renderItem={({ item }) => (
+                <Image style={styles[`${mode}ReviewImage`]} source={{ uri: item.src as any }} />
+              )}
             />
           </View>
         )}
@@ -250,15 +255,24 @@ const styles = StyleSheet.create(
       color: theme.color.gray600,
       marginRight: 0,
     },
-    reviewContainer: {},
+    reviewContainer: {
+      marginRight: -20,
+      marginLeft: -20,
+    },
     // 여기에 문제있음
     reviewImageContainer: {
       flexDirection: 'row',
       left: 0,
     },
-    reviewImage: {
+    previewReviewImage: {
       width: 140,
       height: 140,
+      borderRadius: 8,
+      marginRight: 8,
+    },
+    detailReviewImage: {
+      width: width - 70,
+      height: width - 50,
       borderRadius: 8,
       marginRight: 8,
     },
