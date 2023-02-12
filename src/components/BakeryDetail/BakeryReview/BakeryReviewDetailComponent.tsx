@@ -27,18 +27,18 @@ export const BakeryReviewDetailComponent = ({ review }: Props) => {
         <Image style={styles.bakeryImage} source={{ uri: tempImage }} />
         <SplitColumn width={8} />
         <View style={styles.bkaeryInfoContainer}>
-          <Text style={styles.bakeryName}>{review.bakeryInfo.bakeryName}</Text>
+          <Text style={styles.bakeryName}>{review.reviewDto.bakeryInfo.bakeryName}</Text>
           <SplitRow height={5} />
           <View style={styles.bakeryAddressContainer}>
             <LocationMarker />
             <SplitColumn width={2} />
-            <Text style={styles.bakeryAddress}>{review.bakeryInfo.bakeryAddress}</Text>
+            <Text style={styles.bakeryAddress}>{review.reviewDto.bakeryInfo.bakeryAddress}</Text>
           </View>
         </View>
       </View>
       <ScrollView>
         <View style={styles.reviewContainer}>
-          <Review review={review.reviewDto} isEnd={true} onPress={() => null} refetchReview={() => null} />
+          <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={() => null} />
         </View>
         <Divider />
         <View style={styles.commentContainer}>
