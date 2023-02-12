@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
@@ -21,7 +20,7 @@ export const Header = ({
   isPrevButtonShown = false,
   isCloseButtonShown = false,
 }: Props) => {
-  const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
+  const navigation = useNavigation();
 
   const onPressPrevBtn = () => {
     if (onPressPrev) {
@@ -29,7 +28,7 @@ export const Header = ({
       return;
     }
 
-    navigation.pop();
+    navigation.goBack();
   };
 
   const onPressCloseBtn = () => {
@@ -38,7 +37,7 @@ export const Header = ({
       return;
     }
 
-    navigation.pop();
+    navigation.goBack();
   };
 
   return (
