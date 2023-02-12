@@ -20,7 +20,14 @@ type GetReviewResponse = {
 };
 
 export const requestGetReviews = async ({ bakeryId, sortBy }: UseGetReviewsProps) => {
-  const resp = await fetcher.get<GetReviewsResponse>(`/review/bakery/${bakeryId}?sortBy=${sortBy}`);
+  const resp = await fetcher.get<GetReviewsResponse>(`/review/bakery/${bakeryId}`, {
+    params: {
+      sortBy,
+      // lastId: null,
+      // lastRating: null,
+      page: 0,
+    },
+  });
   return resp.data.data;
 };
 

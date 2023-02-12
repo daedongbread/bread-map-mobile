@@ -162,6 +162,12 @@ type ReviewInfo = {
 export type ReviewContent = {
   userInfo: ReviewUserInfo;
   reviewInfo: ReviewInfo;
+  bakeryInfo: {
+    bakeryId: number;
+    bkaeryImage: string;
+    bakeryName: string;
+    bakeryAddress: string;
+  };
 };
 
 export type ReviewEntity = {
@@ -173,12 +179,6 @@ export type ReviewEntity = {
 };
 
 export type ReviewDetailEntity = {
-  bakeryInfo: {
-    bakeryId: number;
-    bkaeryImage: string;
-    bakeryName: string;
-    bakeryAddress: string;
-  };
   reviewDto: ReviewContent;
   comments: ReviewComment;
 };

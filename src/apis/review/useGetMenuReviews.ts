@@ -13,9 +13,16 @@ type GetMenuReviewsResponse = {
 };
 
 const requestGetMenuReviews = async ({ bakeryId, productId, sortBy }: UseGetMenuReviewsProps) => {
-  const res = await fetcher.get<GetMenuReviewsResponse>(
-    `/review/bakery/${bakeryId}/product/${productId}?sortBy=${sortBy}`
-  );
+  console.log(sortBy);
+
+  const res = await fetcher.get<GetMenuReviewsResponse>(`/review/bakery/${bakeryId}/product/${productId}`, {
+    params: {
+      sortBy,
+      // lastId: null,
+      // lastRating: null,
+      page: 0,
+    },
+  });
   return res.data.data;
 };
 
