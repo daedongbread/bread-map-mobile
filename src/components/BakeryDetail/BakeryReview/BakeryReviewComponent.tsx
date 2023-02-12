@@ -4,9 +4,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { ReviewEntity } from '@/apis/bakery/types';
 import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
 import Review from '@/components/Shared/Reviews/Review';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
@@ -23,8 +24,13 @@ const tabItems = [
   { value: 'low', label: '별점낮은순' },
 ];
 
+type Navigation = CompositeScreenProps<
+  BakeryReviewStackScreenProps<'BakeryReview'>,
+  MainStackScreenProps<keyof MainStackParamList>
+>['navigation'];
+
 export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchReview }: Props) => {
-  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const navigation = useNavigation<Navigation>();
 
   const onPressReviewWriteBtn = () => {
     navigation.push('ReviewWriteStack', {
@@ -53,10 +59,10 @@ export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchR
           {reviews &&
             reviews.contents.map((review, idx) => (
               <Review
+                mode="preview"
                 key={idx}
                 review={review}
                 refetchReview={refetchReview}
-                onPress={() => null}
                 isEnd={reviews.contents.length - 1 === idx}
               />
             ))}
