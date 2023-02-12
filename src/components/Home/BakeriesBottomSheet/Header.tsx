@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
 
-import { resizePixel } from '@/utils';
-
+import { Text } from '@shared/Text';
 import { TabIcon } from './TabIcon';
 
 type Props = {
@@ -20,7 +19,9 @@ export const Header: React.FC<Props> = memo(({ activeTab, onPress }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>내 주변 빵집</Text>
+      <Text presets={['subhead', 'bold']} style={styles.title}>
+        내 주변 빵집
+      </Text>
       <View style={styles.iconsContainer}>
         {tabItems.map(({ value, label }) => (
           <TabIcon key={value} value={value} activeTab={activeTab} onPress={onPress}>
@@ -39,8 +40,6 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontSize: resizePixel(18),
-    fontWeight: 'bold',
     color: 'black',
   },
   iconsContainer: {

@@ -15,7 +15,7 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
         <View style={styles.iconContainer}>
           <BreadCakeIcon width={26} height={26} />
         </View>
-        <Text presets={['body1', 'regular']}>{name}</Text>
+        <Text presets={['body1', 'medium']}>{name}</Text>
       </View>
     </Pressable>
   );

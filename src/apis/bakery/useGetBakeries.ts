@@ -22,7 +22,7 @@ const requestGetBakeries = async ({
   longitudeDelta,
 }: UseGetBakeriesProps) => {
   const resp = await fetcher.get<GetBakeriesResponse>(
-    `/bakery?sort=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
+    `/bakery?sortBy=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
   );
   return resp.data.data;
 };

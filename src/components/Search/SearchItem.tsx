@@ -19,8 +19,8 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
           <BreadCakeIcon width={26} height={26} />
         </View>
         <View style={styles.wrapper}>
-          <Text presets={['body1', 'regular']}>{bakery.bakeryName}</Text>
-          <Text presets={['caption1', 'regular']} style={styles.hint}>
+          <Text presets={['body1', 'medium']}>{bakery.bakeryName}</Text>
+          <Text presets={['caption1', 'medium']} style={styles.hint}>
             리뷰 {bakery.reviewNum}
           </Text>
         </View>
