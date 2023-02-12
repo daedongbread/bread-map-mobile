@@ -1,67 +1,58 @@
 import { StyleSheet } from 'react-native';
 import { resizePixels } from '@/utils';
 
+const FONT_FAMILY = {
+  bold: 'Pretendard-Bold',
+  semibold: 'Pretendard-SemiBold',
+  medium: 'Pretendard-Medium',
+};
 export const presets = StyleSheet.create(
   resizePixels({
     h1: {
       fontSize: 36,
-      fontWeight: 'bold',
+      fontFamily: FONT_FAMILY.bold,
       lineHeight: 42,
       letterSpacing: -(36 * 0.02),
     },
     h2: {
       fontSize: 30,
-      fontWeight: 'bold',
+      fontFamily: FONT_FAMILY.bold,
       lineHeight: 38,
     },
-    subtitle1: {
-      fontSize: 24,
-      lineHeight: 32,
-    },
-    subtitle2: {
+    subhead: {
       fontSize: 18,
       lineHeight: 24,
+      fontFamily: FONT_FAMILY.bold,
     },
     body1: {
       fontSize: 16,
       lineHeight: 22,
+      fontFamily: FONT_FAMILY.medium,
     },
     body2: {
       fontSize: 14,
       lineHeight: 20,
       letterSpacing: -14 * 0.02,
-    },
-    number1: {
-      fontSize: 16,
-      lineHeight: 22,
-    },
-    number2: {
-      fontSize: 14,
-      lineHeight: 20,
-    },
-    number3: {
-      fontSize: 12,
-      lineHeight: 16,
+      fontFamily: FONT_FAMILY.medium,
     },
     caption1: {
-      fontSize: 12,
+      fontSize: 13,
       lineHeight: 18,
+      fontFamily: FONT_FAMILY.medium,
     },
     caption2: {
-      fontSize: 11,
+      fontSize: 12,
       lineHeight: 16,
+      fontFamily: FONT_FAMILY.medium,
     },
     bold: {
-      fontWeight: 'bold',
+      fontFamily: FONT_FAMILY.bold,
+    },
+    semibold: {
+      fontFamily: FONT_FAMILY.semibold,
     },
     medium: {
-      fontWeight: '500',
-    },
-    regular: {
-      fontWeight: '400',
-    },
-    light: {
-      fontWeight: '300',
+      fontFamily: FONT_FAMILY.medium,
     },
   })
 );

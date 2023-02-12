@@ -36,10 +36,10 @@ export const ReportSuccessBottomSheet: React.FC<Props> = ({ bottomSheetRef, titl
         <SplitRow height={20} />
         <FastImage style={styles.Image} source={happyBread} />
         <SplitRow height={20} />
-        <Text presets={['subtitle2', 'bold']} style={styles.Title}>
+        <Text presets={['subhead', 'bold']} style={styles.Title}>
           {`${title} 감사해요!`}
         </Text>
-        <Text presets={['subtitle2', 'bold']} style={styles.Title}>
+        <Text presets={['subhead', 'bold']} style={styles.Title}>
           심사과정을 거쳐 반영할게요!
         </Text>
         <SplitRow height={30} />
