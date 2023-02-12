@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
@@ -14,8 +15,10 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 import IcX24 from '@shared/Icons/IcX24.svg';
+import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
+import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
 
 export type MainStackParamList = {
@@ -27,6 +30,17 @@ export type MainStackParamList = {
     onSaveSuccess?: (selectBookmark: BookmarkList) => void;
   };
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
+  ModalStack: NavigatorScreenParams<ModalStackParamList>;
+  ReviewMoreBottomSheet: {
+    reviewId: number;
+    userId: number;
+  };
+  BlockUserBottomSheet: {
+    userId: number;
+  };
+  SuccessBottomSheet: {
+    content: string;
+  };
   Bookmark: undefined;
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
@@ -52,12 +66,19 @@ const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName={'MainTab'} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
-      <Stack.Screen
-        name={'BookmarkBottomSheet'}
-        component={BookmarkBottomSheet}
-        options={{ presentation: 'transparentModal', cardOverlayEnabled: false }}
-      />
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
+      <Stack.Screen
+        name={'ModalStack'}
+        options={{ presentation: 'transparentModal', gestureEnabled: false }}
+        component={ModalStack}
+      />
+
+      <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal', cardOverlayEnabled: false }}>
+        <Stack.Screen name={'BookmarkBottomSheet'} component={BookmarkBottomSheet} />
+        <Stack.Screen name="ReviewMoreBottomSheet" component={ReviewMoreBottomSheet} />
+        <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
+        <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />
+      </Stack.Group>
 
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />

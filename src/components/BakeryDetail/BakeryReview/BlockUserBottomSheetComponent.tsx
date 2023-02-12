@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import { Button } from '@/components/Shared/Button/Button';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -21,54 +22,52 @@ const BackdropComponent = ({ onClose }: BackdropComponentProps) => (
 type Props = {
   blockUser: () => void;
   onClose: () => void;
+  closeBottomSheet: () => void;
 };
 
-export const BlockUserBottomSheetComponent = ({ blockUser, onClose }: Props) => {
-  const ref = useRef<BottomSheet>(null);
-  const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
+export const BlockUserBottomSheetComponent = React.forwardRef<BottomSheet, Props>(
+  ({ blockUser, onClose, closeBottomSheet }, ref) => {
+    const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
-  const onLayout: ViewProps['onLayout'] = e => {
-    const height = e.nativeEvent.layout.height;
-    if (height) {
-      setSnapPoints([height + 50]);
-    }
-  };
+    const onLayout: ViewProps['onLayout'] = e => {
+      const height = e.nativeEvent.layout.height;
+      if (height) {
+        setSnapPoints([height + 50]);
+      }
+    };
 
-  const onPressCloseButton = () => {
-    ref.current?.close();
-  };
-
-  return (
-    <BottomSheet
-      ref={ref}
-      snapPoints={snapPoints}
-      onClose={onClose}
-      handleIndicatorStyle={styles.indicator}
-      backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
-    >
-      <View style={styles.container} onLayout={onLayout}>
-        <SplitRow height={24} />
-        <Text presets={['subtitle2', 'bold']} style={styles.title}>
-          이 사용자를 차단하시겠어요?
-        </Text>
-        <SplitRow height={16} />
-        <Text presets={['body2', 'regular']} style={styles.subTitle}>
-          더이상 사용자의 게시물을 볼 수 없으며,{'\n'}상대방에게 회원님의 차단 정보는 알리지 않습니다.
-        </Text>
-        <SplitRow height={32} />
-        <View style={styles.footer}>
-          <Button style={styles.button} appearance={'terdary'} onPress={onPressCloseButton}>
-            아니오
-          </Button>
-          <SplitColumn width={8} />
-          <Button style={styles.button} appearance={'primary'} onPress={blockUser}>
-            네
-          </Button>
+    return (
+      <BottomSheet
+        ref={ref}
+        snapPoints={snapPoints}
+        onClose={onClose}
+        handleIndicatorStyle={styles.indicator}
+        backdropComponent={() => <BackdropComponent onClose={closeBottomSheet} />}
+      >
+        <View style={styles.container} onLayout={onLayout}>
+          <SplitRow height={24} />
+          <Text presets={['subhead', 'bold']} style={styles.title}>
+            이 사용자를 차단하시겠어요?
+          </Text>
+          <SplitRow height={16} />
+          <Text presets={['body2', 'semibold']} style={styles.subTitle}>
+            더이상 사용자의 게시물을 볼 수 없으며,{'\n'}상대방에게 회원님의 차단 정보는 알리지 않습니다.
+          </Text>
+          <SplitRow height={32} />
+          <View style={styles.footer}>
+            <Button style={styles.button} appearance={'terdary'} onPress={closeBottomSheet}>
+              아니오
+            </Button>
+            <SplitColumn width={8} />
+            <Button style={styles.button} appearance={'primary'} onPress={blockUser}>
+              네
+            </Button>
+          </View>
         </View>
-      </View>
-    </BottomSheet>
-  );
-};
+      </BottomSheet>
+    );
+  }
+);
 
 const styles = StyleSheet.create(
   resizePixels({
@@ -86,7 +85,7 @@ const styles = StyleSheet.create(
       color: '#000000',
     },
     subTitle: {
-      color: '#4D4D4D',
+      color: theme.color.gray700,
       textAlign: 'center',
     },
     footer: {

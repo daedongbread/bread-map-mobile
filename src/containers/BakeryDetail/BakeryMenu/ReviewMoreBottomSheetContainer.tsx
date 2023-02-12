@@ -1,10 +1,12 @@
 import React from 'react';
 import { ReviewMoreBottomSheetComponent } from '@/components/BakeryDetail/BakeryReview';
-import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useRoute } from '@react-navigation/native';
 
+type Route = MainStackScreenProps<'ReviewMoreBottomSheet'>['route'];
+
 export const ReviewMoreBottomSheetContainer = () => {
-  const route = useRoute<BakeryReviewStackScreenProps<'ReviewMoreBottomSheet'>['route']>();
+  const route = useRoute<Route>();
 
   const { reviewId, userId } = route.params;
 
