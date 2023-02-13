@@ -1,1 +1,1 @@
-export { ReviewRating } from './ReviewRating';
+export { ReviewRatingComponent } from './ReviewRatingComponent';

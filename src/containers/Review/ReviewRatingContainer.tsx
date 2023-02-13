@@ -1,7 +1,7 @@
 import React from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { fetcher } from '@/apis/fetcher';
-import { ReviewRating } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
+import { ReviewRatingComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import {
@@ -83,7 +83,7 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   return (
-    <ReviewRating
+    <ReviewRatingComponent
       selectedBreads={[...selectedBreads, ...manualSelectedBreads]}
       detailReview={detailReview}
       images={images}
