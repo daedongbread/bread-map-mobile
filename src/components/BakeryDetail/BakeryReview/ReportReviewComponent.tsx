@@ -64,7 +64,7 @@ export const ReportReviewComponent = React.memo(({ form, onChange, onSubmit }: P
     <SafeAreaView style={styles.fullScreen}>
       <Header title="리뷰 신고하기" isCloseButtonShown onPressClose={() => navigation.goBack()} />
       <KeyboardAwareScrollView style={styles.container}>
-        <Text presets={['subtitle1', 'bold']} style={styles.title}>
+        <Text presets={['heading1', 'bold']} style={styles.title}>
           리뷰를 신고하는{'\n'}이유를 알려주세요!
         </Text>
         <SplitRow height={12} />
