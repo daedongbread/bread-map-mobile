@@ -124,12 +124,25 @@ export type BakeryReviewEntity = {
 };
 
 type ReviewUserInfo = {
+  userId: number;
   userImage: string;
   nickName: string;
   reviewNum: number;
   followerNum: number;
   isFollow: boolean;
   isMe: boolean;
+};
+
+type ReviewComment = {
+  id: number;
+  userId: number;
+  userImage: string;
+  nickName: string;
+  commentNickName: string;
+  content: string;
+  createdAt: string;
+  likeNum: number;
+  commentList: ReviewComment[];
 };
 
 type ReviewInfo = {
@@ -149,6 +162,12 @@ type ReviewInfo = {
 export type ReviewContent = {
   userInfo: ReviewUserInfo;
   reviewInfo: ReviewInfo;
+  bakeryInfo: {
+    bakeryId: number;
+    bkaeryImage: string;
+    bakeryName: string;
+    bakeryAddress: string;
+  };
 };
 
 export type ReviewEntity = {
@@ -157,4 +176,9 @@ export type ReviewEntity = {
   size: number;
   hasNext: boolean;
   contents: ReviewContent[];
+};
+
+export type ReviewDetailEntity = {
+  reviewDto: ReviewContent;
+  comments: ReviewComment;
 };

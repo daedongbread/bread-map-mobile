@@ -1,26 +1,24 @@
 import React from 'react';
-import {
-  BakeryReviewDetail,
-  BakeryReview,
-  BakeryReviewReport,
-} from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { BakeryReviewStackParamList } from '../../BakeryDetailTopTab';
+import { BakeryReview } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BakeryDetailTabParamList, BakeryDetailTabScreenProps } from '../..';
+
+export type BakeryReviewStackParamList = {
+  BakeryReview: {
+    bakeryId: number;
+  };
+};
 
 const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
 
-export type BakeryReviewStackNavigationProps = StackNavigationProp<BakeryReviewStackParamList>;
+export type BakeryReviewStackScreenProps<T extends keyof BakeryReviewStackParamList> = CompositeScreenProps<
+  NativeStackScreenProps<BakeryReviewStackParamList, T>,
+  BakeryDetailTabScreenProps<keyof BakeryDetailTabParamList>
+>;
 
 export const BakeryReviewStack = ({ route }: any) => (
-  <ReviewStack.Navigator initialRouteName="BakeryReviews">
-    <ReviewStack.Screen
-      name="BakeryReviews"
-      initialParams={route.params}
-      options={{ headerShown: false }}
-      component={BakeryReview}
-    />
-    <ReviewStack.Screen name="BakeryReviewDetail" options={{ headerShown: false }} component={BakeryReviewDetail} />
-    <ReviewStack.Screen name="BakeryReport" options={{ headerShown: false }} component={BakeryReviewReport} />
+  <ReviewStack.Navigator initialRouteName="BakeryReview" screenOptions={{ headerShown: false }}>
+    <ReviewStack.Screen name="BakeryReview" initialParams={route.params} component={BakeryReview} />
   </ReviewStack.Navigator>
 );

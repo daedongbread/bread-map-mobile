@@ -4,7 +4,7 @@ import { theme } from '@/styles/theme';
 import { PlusIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
 
-type Appearance = 'primary' | 'secondary' | 'terdary' | 'quaternary';
+type Appearance = 'primary' | 'secondary' | 'terdary' | 'quaternary' | 'quinary';
 type Size = 'big' | 'large' | 'tiny';
 
 interface Props extends TouchableOpacityProps {
@@ -70,6 +70,9 @@ const appearanceStyles = StyleSheet.create({
   quaternary: {
     backgroundColor: theme.color.gray400,
   },
+  quinary: {
+    backgroundColor: theme.color.primary200,
+  },
 });
 
 const textStyles = StyleSheet.create({
@@ -83,6 +86,9 @@ const textStyles = StyleSheet.create({
     color: theme.color.gray700,
   },
   quaternary: {
+    color: theme.color.white,
+  },
+  quinary: {
     color: theme.color.white,
   },
 });
@@ -99,6 +105,9 @@ const iconStyles = StyleSheet.create({
   },
   quaternary: {
     color: textStyles.quaternary.color,
+  },
+  quinary: {
+    color: textStyles.primary.color,
   },
 });
 
