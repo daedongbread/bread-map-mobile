@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { BreadEntity } from '@/apis/bread';
+import { MenuForReviewEntity } from '@/apis/menu/type';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { RatedBread } from '@/slices/reviewWrite';
@@ -12,11 +12,11 @@ import { ContentsList } from './ContentsList';
 import { ReviewSearch } from './ReviewSearch';
 
 type Props = {
-  breads: BreadEntity[];
+  breads: MenuForReviewEntity[];
   searchValue: string;
-  selectedBreads: BreadEntity[];
+  selectedBreads: MenuForReviewEntity[];
   manualSelectedBreads: RatedBread[];
-  manualInputs: BreadEntity[];
+  manualInputs: MenuForReviewEntity[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;

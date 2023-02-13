@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { BreadEntity } from '@/apis/bread';
+import { MenuForReviewEntity } from '@/apis/menu/type';
+import { CustomCheckBox } from '@/components/Shared/Chcekbox/CustomCheckBox';
 import { useAppDispatch } from '@/hooks/redux';
 import { updateSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import CheckBox from '@react-native-community/checkbox';
 
-interface Props extends BreadEntity {
-  selectedBreads: BreadEntity[];
+interface Props extends MenuForReviewEntity {
+  selectedBreads: MenuForReviewEntity[];
 }
 
 export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
@@ -25,13 +25,8 @@ export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
       <View style={styles.rightContainer}>
         <Image style={styles.breadImage} source={require('@/components/Shared/Images/bread.png')} />
         <View>
-          <CheckBox
-            style={styles.checkbox}
-            animationDuration={0}
-            tintColor={theme.color.gray400}
-            onTintColor={theme.color.primary500}
-            onFillColor={theme.color.primary500}
-            onCheckColor={'white'}
+          <CustomCheckBox
+            strokeWidth={2}
             value={isChecked}
             onValueChange={value => {
               dispatch(updateSelectedBread({ bread, isChecked: value }));
@@ -76,10 +71,5 @@ const styles = StyleSheet.create({
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    marginHorizontal: 2,
   },
 });
