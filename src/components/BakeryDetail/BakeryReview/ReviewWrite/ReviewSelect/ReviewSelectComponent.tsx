@@ -24,7 +24,7 @@ type Props = {
   closePage: () => void;
 };
 
-export const ReviewSelect: React.FC<Props> = ({
+export const ReviewSelectComponent: React.FC<Props> = ({
   breads,
   searchValue,
   selectedBreads,

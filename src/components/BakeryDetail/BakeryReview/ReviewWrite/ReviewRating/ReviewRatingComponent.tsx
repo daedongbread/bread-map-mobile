@@ -26,7 +26,7 @@ type Props = {
   closePage: () => void;
 };
 
-export const ReviewRating: React.FC<Props> = ({
+export const ReviewRatingComponent: React.FC<Props> = ({
   selectedBreads,
   detailReview,
   images,
