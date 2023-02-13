@@ -3,7 +3,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { fetcher } from '@/apis/fetcher';
 import { ReviewRatingComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import {
   updateDetailReview,
   updateImages,
@@ -11,14 +11,19 @@ import {
   updateSeletedBreadRating,
   UpdateSeletedBreadRating,
 } from '@/slices/reviewWrite';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const PHOTO_LIMIT = 10;
 
+type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
+type Route = ReviewWriteStackNavigationProps<'ReviewRating'>['route'];
+
 export const ReviewRatingContainer: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
 
-  const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
+  const { bakeryId } = route.params;
 
   const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
