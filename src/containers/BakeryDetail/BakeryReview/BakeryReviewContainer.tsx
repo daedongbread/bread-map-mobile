@@ -1,30 +1,33 @@
-import React from 'react';
-import { BakeryReviewEntity } from '@/apis/bakery/types';
+import React, { useState } from 'react';
 import { useGetReviews } from '@/apis/review';
-import { BakeryReviewComponent } from '@/components/BakeryDetail/BakeryReview';
-import { BakeryReviewStackParamList } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { useRoute } from '@react-navigation/native';
 
 export const BakeryReviewContainer = () => {
-  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
-  const route = useRoute<NativeStackScreenProps<BakeryReviewStackParamList, 'BakeryReviews'>['route']>();
+  const route = useRoute<BakeryReviewStackScreenProps<'BakeryReview'>['route']>();
 
   const bakeryId = route.params.bakeryId;
-  const { reviews } = useGetReviews({ bakeryId });
+  const [activeTab, setActiveTab] = useState<string>('latest');
 
-  const onPress = (review: BakeryReviewEntity) => {
-    if (!review) {
-      return;
-    }
+  const { reviews, refetch } = useGetReviews({ bakeryId, sortBy: activeTab });
+
+  useDidMountEffect(() => {
+    refetch();
+  }, [activeTab]);
+
+  const onPressTab = (tab: string) => {
+    setActiveTab(tab);
   };
 
-  const onPressAddBtn = () => {
-    navigation.push('ReviewWriteStack', {
-      screen: 'ReviewSelect',
-    });
-  };
-
-  return <BakeryReviewComponent reviews={reviews!} onPress={onPress} onPressAddBtn={onPressAddBtn} />;
+  return (
+    <BakeryReviewListComponent
+      reviews={reviews?.contents}
+      reviewCount={reviews?.contents.length}
+      activeTab={activeTab}
+      onPressTab={onPressTab}
+      refetchReview={refetch}
+    />
+  );
 };

@@ -1,16 +1,21 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
+import { follow, unFollow } from '@/apis/profile';
+import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/native';
+import { IcComment, IcLike, ViewMoreIcon } from '../Icons';
 import { BreadRating } from '../Rating';
+import { SplitColumn, SplitRow } from '../SplitSpace';
+import { FollowButton, FollowType } from './FollowButton';
+import { InteractionButton } from './InteractionButton';
 
-type ReviewProps = {
-  review: ReviewContent;
-  onPress: (review: ReviewContent) => void;
-  isEnd: boolean;
-};
+const { width } = Dimensions.get('window');
 
 type ProductRatingProps = {
   item: {
@@ -26,11 +31,74 @@ const ProductRating = ({ item }: ProductRatingProps) => (
   </View>
 );
 
-const Review = ({ review, onPress, isEnd }: ReviewProps) => (
-  <View style={styles.container}>
-    <View style={styles.reviewContent}>
+type ReviewProps = {
+  mode: 'preview' | 'detail';
+  review: ReviewContent;
+  isEnd: boolean;
+  refetchReview: () => void;
+};
+
+const CONTENT_TEXT_LIMIT = 60;
+
+const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+  const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
+
+  const { mutateAsync: likeReview } = useLikeReview();
+  const { mutateAsync: unLikeReview } = useUnLikeReview();
+
+  const onPressReview = (reviewId: number) => {
+    navigation.navigate('BakeryReviewDetail', {
+      reviewId,
+    });
+  };
+
+  const onPressProfileImage = (userId: number) => {
+    navigation.push('MainTab', {
+      screen: 'Profile',
+      params: {
+        userId,
+      },
+    });
+  };
+
+  const onPressFollowButton = async (type: FollowType, userId: number) => {
+    if (type === 'follow') {
+      await follow({ userId });
+    } else if (type === 'unFollow') {
+      await unFollow({ userId });
+    }
+
+    refetchReview();
+  };
+
+  const onPressLikeButton = async (isLiked: boolean, reviewId: number) => {
+    if (isLiked) {
+      await unLikeReview(reviewId);
+    } else {
+      await likeReview(reviewId);
+    }
+
+    refetchReview();
+  };
+
+  const onPressAddCommentButton = () => {
+    // TO DO
+  };
+
+  const onPressMoreButton = (userId: number, reviewId: number) => {
+    navigation.navigate('ReviewMoreBottomSheet', {
+      reviewId,
+      userId,
+    });
+  };
+
+  return (
+    <View style={styles.container}>
       <View style={styles.reviewHeader}>
-        <View style={styles.reviewerContainer}>
+        <TouchableWithoutFeedback
+          style={styles.reviewerContainer}
+          onPress={() => onPressProfileImage(review.userInfo.userId)}
+        >
           <Image style={styles.profileImage} source={{ uri: review.userInfo.userImage }} />
           <View style={styles.userInfoContainer}>
             <Text style={styles.userNameText}>{review.userInfo.nickName}</Text>
@@ -40,11 +108,13 @@ const Review = ({ review, onPress, isEnd }: ReviewProps) => (
               <Text style={styles.userInfoText}>팔로워 {review.userInfo.followerNum}</Text>
             </View>
           </View>
-        </View>
-        {/*TODO 팔로우 버튼 동작*/}
-        <TouchableOpacity style={styles.followButton}>
-          <Text style={styles.followButtonText}>팔로우</Text>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
+        {!review.userInfo.isMe && (
+          <FollowButton
+            isFollow={review.userInfo.isFollow}
+            onPress={type => onPressFollowButton(type, review.userInfo.userId)}
+          />
+        )}
       </View>
       <View style={styles.breadRatingListContainer}>
         <FlatList
@@ -54,33 +124,74 @@ const Review = ({ review, onPress, isEnd }: ReviewProps) => (
           horizontal
         />
       </View>
-    </View>
-    <TouchableOpacity onPress={() => onPress(review)}>
-      {review.reviewInfo.imageList.length > 0 && (
-        <View style={styles.reviewContainer}>
-          <FlatList
-            style={styles.reviewImageContainer}
-            data={review.reviewInfo.imageList.map((i, ix) => ({ id: ix, src: i }))}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={img => img.id.toString()}
-            renderItem={({ item }) => <Image style={styles.reviewImage} source={{ uri: item.src as any }} />}
-          />
+      <SplitRow height={11} />
+      <TouchableWithoutFeedback onPress={() => (mode === 'preview' ? onPressReview(review.reviewInfo.id) : null)}>
+        {review.reviewInfo.imageList.length > 0 && (
+          <View style={styles.reviewContainer}>
+            <FlatList
+              style={styles.reviewImageContainer}
+              data={review.reviewInfo.imageList.map((i, ix) => ({ id: ix, src: i }))}
+              horizontal
+              ListHeaderComponent={<SplitColumn width={20} />}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={img => img.id.toString()}
+              pagingEnabled
+              renderItem={({ item }) => (
+                <Image style={styles[`${mode}ReviewImage`]} source={{ uri: item.src as any }} />
+              )}
+            />
+          </View>
+        )}
+        <SplitRow height={16} />
+        <Text style={styles.reviewText} numberOfLines={2}>
+          {review.reviewInfo.content.trim().length > CONTENT_TEXT_LIMIT ? (
+            <>
+              {review.reviewInfo.content.trim().substring(0, CONTENT_TEXT_LIMIT)}
+              <Text style={styles.reviewTextSuffix}>...더보기</Text>
+            </>
+          ) : (
+            review.reviewInfo.content.trim()
+          )}
+        </Text>
+        <SplitRow height={20} />
+        <View style={styles.footerContainer}>
+          <View style={styles.footerLeftContainer}>
+            <InteractionButton
+              icon={IcLike}
+              count={review.reviewInfo.likeNum}
+              defaultText={'좋아요'}
+              isActive={true}
+              onPress={() => onPressLikeButton(true, review.reviewInfo.id)}
+            />
+            <SplitColumn width={8} />
+            <InteractionButton
+              icon={IcComment}
+              count={review.reviewInfo.commentNum}
+              defaultText={'댓글달기'}
+              onPress={onPressAddCommentButton}
+            />
+          </View>
+          <View style={styles.footerRightContainer}>
+            <Text style={styles.dateText}>{review.reviewInfo.createdAt}</Text>
+            <SplitColumn width={6} />
+            <TouchableWithoutFeedback onPress={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}>
+              <ViewMoreIcon />
+            </TouchableWithoutFeedback>
+          </View>
         </View>
-      )}
-      <Text style={styles.reviewText}>{review.reviewInfo.content}</Text>
+        <SplitRow height={25} />
+      </TouchableWithoutFeedback>
       {isEnd || <Divider style={{ height: 1 }} />}
-    </TouchableOpacity>
-  </View>
-);
+    </View>
+  );
+};
 
 export default Review;
 
 const styles = StyleSheet.create(
   resizePixels({
-    container: {},
-    reviewContent: {
-      marginBottom: 12,
+    container: {
+      paddingTop: 30,
     },
     reviewHeader: {
       flexDirection: 'row',
@@ -126,16 +237,6 @@ const styles = StyleSheet.create(
       color: theme.color.gray600,
       marginTop: 2,
     },
-    followButton: {
-      backgroundColor: theme.color.primary100,
-      paddingVertical: 6,
-      paddingHorizontal: 10,
-      borderRadius: 4,
-    },
-    followButtonText: {
-      color: theme.color.primary500,
-      fontWeight: 'bold',
-    },
     breadRatingContainer: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -154,26 +255,49 @@ const styles = StyleSheet.create(
       color: theme.color.gray600,
       marginRight: 0,
     },
-    reviewContainer: {},
+    reviewContainer: {
+      marginRight: -20,
+      marginLeft: -20,
+    },
     // 여기에 문제있음
     reviewImageContainer: {
       flexDirection: 'row',
       left: 0,
-      marginBottom: 12,
     },
-    reviewImage: {
+    previewReviewImage: {
       width: 140,
       height: 140,
       borderRadius: 8,
       marginRight: 8,
     },
-    reviewTextContainer: {
-      paddingTop: 20,
+    detailReviewImage: {
+      width: width - 70,
+      height: width - 50,
+      borderRadius: 8,
+      marginRight: 8,
     },
     reviewText: {
       color: theme.color.gray700,
       fontSize: 14,
-      paddingBottom: 20,
+    },
+    reviewTextSuffix: {
+      color: theme.color.gray500,
+    },
+    footerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    footerLeftContainer: {
+      flexDirection: 'row',
+    },
+    footerRightContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    dateText: {
+      color: theme.color.gray600,
+      fontSize: 12,
+      fontWeight: '500',
     },
   })
 );

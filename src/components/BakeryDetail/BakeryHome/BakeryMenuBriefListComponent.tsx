@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MenuEntity } from '@/apis/menu/type';
-import { Button } from '@/components/Shared/Button/Button';
 import { Menu } from '@/components/Shared/Menu';
-import { Text } from '@/components/Shared/Text';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { resizePixels } from '@/utils';
 import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
+import { MoreButton } from './MoreButton';
 
 type Props = {
   briefMenu: MenuEntity[];
@@ -29,14 +29,9 @@ export const BakeryMenuBriefListComponent = ({ briefMenu, totalCount, onPress, o
             </TouchableOpacity>
           ))}
       </View>
-      <Button
-        onPress={onPressMoreButton}
-        size="large"
-        appearance="terdary"
-        style={{ marginHorizontal: 20, marginVertical: 24 }}
-      >
-        <Text style={styles.footerButtonText}>전체메뉴보기</Text>
-      </Button>
+
+      <SplitRow height={24} />
+      <MoreButton text="전체메뉴보기" onPress={onPressMoreButton} />
     </>
   );
 };
@@ -47,10 +42,6 @@ const styles = StyleSheet.create(
       backgroundColor: 'white',
 
       paddingHorizontal: 20,
-    },
-    footerButtonText: {
-      fontSize: 14,
-      fontWeight: '700',
     },
   })
 );

@@ -1,54 +1,53 @@
-import React from 'react';
-import { BakeryReviewEntity } from '@/apis/bakery/types';
+import React, { useState } from 'react';
 import { useGetReviews } from '@/apis/review';
-import { BakeryReviewBriefListComponent } from '@/components/BakeryDetail/BakeryHome';
+import { MoreButton } from '@/components/BakeryDetail/BakeryHome';
+import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
+
+type Navigation = CompositeScreenProps<
+  BakeryDetailTabScreenProps<'BakeryDetailHome'>,
+  MainStackScreenProps<keyof MainStackParamList>
+>['navigation'];
+type Route = BakeryDetailTabScreenProps<'BakeryDetailHome'>['route'];
 
 export const BakeryReviewBriefListContainer = () => {
-  const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailHome'>['route']>();
+  const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
 
   const bakeryId = route.params.bakeryId;
-  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const [activeTab, setActiveTab] = useState<string>('latest');
 
-  const { reviews } = useGetReviews({ bakeryId });
+  const { reviews, refetch: refetchReview } = useGetReviews({ bakeryId });
+
+  useDidMountEffect(() => {
+    refetchReview({});
+  }, [activeTab]);
+
+  const onPressTab = (tab: string) => {
+    setActiveTab(tab);
+  };
 
   const onPressMoreButton = () => {
-    //TODO  navigation 타입 정리 필요함
-    (navigation as any).jumpTo('BakeryDetailReview', { bakeryId });
-  };
-
-  const onPress = (review: BakeryReviewEntity) => {
-    if (!review) {
-      return;
-    }
-
-    navigation.push('MainTab', {
-      screen: 'HomeStack',
-      params: {
-        screen: 'Bakery',
-        params: {
-          screen: 'BakeryDetailReview',
-          params: { bakeryId: bakeryId },
-        },
-      },
+    navigation.navigate('BakeryDetailReview', {
+      bakeryId,
     });
   };
 
-  const onPressAddBtn = () => {
-    navigation.push('ReviewWriteStack', {
-      screen: 'ReviewSelect',
-    });
-  };
-  const briefReviews = reviews?.slice(0, 3) || [];
+  const briefReviews = reviews?.contents.slice(0, 3) || [];
+
   return (
-    <BakeryReviewBriefListComponent
-      reviews={reviews!}
-      briefReviews={briefReviews}
-      onPress={onPress}
-      onPressAddBtn={onPressAddBtn}
-      onPressMoreButton={onPressMoreButton}
-    />
+    <>
+      <BakeryReviewListComponent
+        reviews={briefReviews}
+        reviewCount={reviews?.contents.length}
+        activeTab={activeTab}
+        onPressTab={onPressTab}
+        refetchReview={refetchReview}
+      />
+      <MoreButton text="전체리뷰보기" onPress={onPressMoreButton} />
+    </>
   );
 };
