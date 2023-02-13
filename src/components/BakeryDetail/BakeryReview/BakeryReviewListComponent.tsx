@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { ReviewEntity } from '@/apis/bakery/types';
+import { ReviewContent } from '@/apis/bakery/types';
 import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
 import Review from '@/components/Shared/Reviews/Review';
 import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
@@ -12,7 +11,8 @@ import { Divider } from '../Divider';
 import { TabHeader } from '../TabHeader';
 
 type Props = {
-  reviews?: ReviewEntity;
+  reviews?: ReviewContent[];
+  reviewCount?: number;
   activeTab: string;
   onPressTab: (tab: string) => void;
   refetchReview: () => void;
@@ -29,7 +29,7 @@ type Navigation = CompositeScreenProps<
   MainStackScreenProps<keyof MainStackParamList>
 >['navigation'];
 
-export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchReview }: Props) => {
+export const BakeryReviewListComponent = ({ reviews, reviewCount, activeTab, onPressTab, refetchReview }: Props) => {
   const navigation = useNavigation<Navigation>();
 
   const onPressReviewWriteBtn = () => {
@@ -39,13 +39,13 @@ export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchR
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Divider />
       <View style={styles.reviewContainer}>
         <TabHeader
           onPressAddBtn={onPressReviewWriteBtn}
           title={'리뷰'}
-          totalCount={reviews?.contents.length || 0}
+          totalCount={reviewCount || reviews?.length || 0}
           addBtnText={'리뷰작성'}
         />
         <View>
@@ -57,18 +57,18 @@ export const BakeryReviewComponent = ({ reviews, activeTab, onPressTab, refetchR
             ))}
           </View>
           {reviews &&
-            reviews.contents.map((review, idx) => (
+            reviews.map((review, idx) => (
               <Review
                 mode="preview"
                 key={idx}
                 review={review}
                 refetchReview={refetchReview}
-                isEnd={reviews.contents.length - 1 === idx}
+                isEnd={reviews.length - 1 === idx}
               />
             ))}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

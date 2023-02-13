@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useGetMenuReviews } from '@/apis/review';
 import { BakeryMenuDetailComponent } from '@/components/BakeryDetail/BakeryMenu';
+import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useRoute } from '@react-navigation/native';
@@ -24,12 +26,15 @@ export const BakeryMenuDetailContainer = () => {
   };
 
   return (
-    <BakeryMenuDetailComponent
-      menu={menu}
-      reviews={reviews}
-      activeTab={activeTab}
-      onPressTab={onPressTab}
-      refetchReview={refetchReview}
-    />
+    <ScrollView>
+      <BakeryMenuDetailComponent menu={menu} />
+      <BakeryReviewListComponent
+        reviews={reviews?.contents}
+        reviewCount={reviews?.contents.length}
+        activeTab={activeTab}
+        onPressTab={onPressTab}
+        refetchReview={refetchReview}
+      />
+    </ScrollView>
   );
 };
