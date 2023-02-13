@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
-import { ValidateErrorText } from '@/components/Shared/Text';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { Text, ValidateErrorText } from '@/components/Shared/Text';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 import { PhotoSelect } from './PhotoSelect';
@@ -52,10 +53,14 @@ export const ReviewRatingComponent: React.FC<Props> = ({
           isCloseButtonShown
         />
         <ScrollView style={styles.contentsContainer}>
+          <SplitRow height={12} />
           <Title />
+          <SplitRow height={28} />
           <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
           <View style={styles.detailReviewContainer}>
-            <Text style={styles.title}>상세한 후기</Text>
+            <Text presets={['body2', 'bold']} style={styles.title}>
+              상세한 후기
+            </Text>
             <TextInput
               multiline
               onChangeText={onChangeDetailReviewText}
@@ -71,7 +76,9 @@ export const ReviewRatingComponent: React.FC<Props> = ({
             </View>
           </View>
           <View style={styles.photoContainer}>
-            <Text style={styles.photoTitleText}>사진 업로드</Text>
+            <Text presets={['body2', 'bold']} style={styles.photoTitleText}>
+              사진 업로드
+            </Text>
             <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
           </View>
         </ScrollView>
@@ -106,11 +113,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '700',
+    color: theme.color.gray800,
   },
   detailReviewContainer: {
-    paddingTop: 28,
     paddingLeft: 20,
   },
   detailReviewTextInput: {
@@ -152,8 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   photoTitleText: {
-    fontSize: 14,
-    fontWeight: '700',
+    color: theme.color.gray900,
   },
   confirmBtn: {
     paddingHorizontal: 20,
