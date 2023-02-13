@@ -32,10 +32,17 @@ type Navigation = CompositeScreenProps<
 export const BakeryReviewListComponent = ({ reviews, reviewCount, activeTab, onPressTab, refetchReview }: Props) => {
   const navigation = useNavigation<Navigation>();
 
+  const bakeryId = reviews?.length ? reviews[0].bakeryInfo.bakeryId : null;
+
   const onPressReviewWriteBtn = () => {
-    navigation.push('ReviewWriteStack', {
-      screen: 'ReviewSelect',
-    });
+    if (bakeryId !== null) {
+      navigation.navigate('ReviewWriteStack', {
+        screen: 'ReviewSelect',
+        params: {
+          bakeryId: bakeryId,
+        },
+      });
+    }
   };
 
   return (
