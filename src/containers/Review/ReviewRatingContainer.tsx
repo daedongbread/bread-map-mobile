@@ -1,6 +1,6 @@
 import React from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { fetcher } from '@/apis/fetcher';
+import { usePostReview } from '@/apis/review';
 import { ReviewRatingComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
@@ -24,6 +24,7 @@ export const ReviewRatingContainer: React.FC = () => {
   const route = useRoute<Route>();
 
   const { bakeryId } = route.params;
+  const { mutateAsync: postReview } = usePostReview();
 
   const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
@@ -36,9 +37,11 @@ export const ReviewRatingContainer: React.FC = () => {
       dispatch(updateManualBreadRating(props));
     }
   };
+
   const onChangeDetailReviewText = (text: string) => {
     dispatch(updateDetailReview({ detailReview: text }));
   };
+
   const onSelectPhotos = async () => {
     const { assets, didCancel } = await launchImageLibrary({ mediaType: 'photo', selectionLimit: PHOTO_LIMIT });
 
@@ -47,6 +50,7 @@ export const ReviewRatingContainer: React.FC = () => {
       dispatch(updateImages([...images, ...assets]));
     }
   };
+
   const deSelectPhoto = (uri?: string) => {
     dispatch(updateImages(images.filter(image => image.uri !== uri)));
   };
@@ -59,32 +63,28 @@ export const ReviewRatingContainer: React.FC = () => {
       return { productType: 'BREAD', productName: bread.name, rating: bread.rating };
     });
 
-    const formData = new FormData();
-    images.forEach(image => {
-      const file = {
-        uri: image.uri,
-        type: image.type,
-        name: image.fileName,
-      };
+    const request = { productRatingList, noExistProductRatingRequestList, content: detailReview };
 
-      formData.append('files', file);
+    const { data } = await postReview({
+      bakeryId,
+      images,
+      data: request,
     });
 
-    const { data } = await fetcher.post(`/review/${bakeryId}`, {
-      productRatingList,
-      noExistProductRatingRequestList,
-      content: detailReview,
-    });
+    if (data.code === 201) {
+      closePage();
+      goNavSuccessBottomSheet();
+    }
+  };
 
-    await fetcher.post(`/review/${data.data.reviewId}/image`, formData, {
-      headers: { 'content-type': 'multipart/form-data' },
-      transformRequest: _data => _data,
+  const goNavSuccessBottomSheet = () => {
+    navigation.navigate('SuccessBottomSheet', {
+      content: '리뷰 등록이\n완료 되었어요!',
     });
   };
 
-  //react-navigation 에서 현재 stack 자체를 pop 할 수 없는 방법이 없어 동적으로 .pop(number)에 값을 줘서 해결
   const closePage = () => {
-    navigation.pop(2);
+    navigation.getParent()?.goBack();
   };
 
   return (
@@ -97,7 +97,6 @@ export const ReviewRatingContainer: React.FC = () => {
       onSelectPhotos={onSelectPhotos}
       deSelectPhoto={deSelectPhoto}
       saveReview={saveReview}
-      closePage={closePage}
     />
   );
 };
