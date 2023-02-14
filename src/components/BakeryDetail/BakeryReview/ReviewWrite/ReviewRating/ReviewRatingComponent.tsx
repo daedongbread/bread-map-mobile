@@ -7,12 +7,12 @@ import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text, ValidateErrorText } from '@/components/Shared/Text';
+import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
+import { useNavigation } from '@react-navigation/native';
 import { PhotoSelect } from './PhotoSelect';
-import { QuestionPopup } from './QuestionPopup';
 import { RatingList } from './RatingList';
-import { SuccessPopup } from './SuccessPopup';
 import { Title } from './Title';
 
 type Props = {
@@ -24,8 +24,9 @@ type Props = {
   onSelectPhotos: () => void;
   deSelectPhoto: (uri?: string) => void;
   saveReview: () => void;
-  closePage: () => void;
 };
+
+type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
 
 export const ReviewRatingComponent: React.FC<Props> = ({
   selectedBreads,
@@ -36,22 +37,28 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   onSelectPhotos,
   deSelectPhoto,
   saveReview,
-  closePage,
 }) => {
-  const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
-  const [isShowSuccessPopup, setIsShowSuccessPopup] = useState(false);
+  const navigation = useNavigation<Navigation>();
+
+  const onPressClose = () => {
+    navigation.navigate('QuestionBottomSheet');
+  };
+
+  const onPressSave = () => {
+    if (detailReview.length < 10) {
+      setIsShowErrorMessage(true);
+    } else {
+      setIsShowErrorMessage(false);
+      saveReview();
+    }
+  };
 
   const [isShowErrorMessage, setIsShowErrorMessage] = useState(false);
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Header
-          title={'리뷰작성'}
-          onPressClose={() => setIsShowQuestionPopup(true)}
-          isPrevButtonShown
-          isCloseButtonShown
-        />
+        <Header title={'리뷰작성'} onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
         <ScrollView style={styles.contentsContainer}>
           <SplitRow height={12} />
           <Title />
@@ -82,25 +89,10 @@ export const ReviewRatingComponent: React.FC<Props> = ({
             <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
           </View>
         </ScrollView>
-        <Button
-          style={styles.confirmBtn}
-          // layer popup 전역, 공통화 필요 (추후 layer popup 공통화 branch에서 작업 예정)
-          onPress={() => {
-            if (detailReview.length < 10) {
-              setIsShowErrorMessage(true);
-              return;
-            } else {
-              setIsShowErrorMessage(false);
-            }
-            saveReview();
-            setIsShowSuccessPopup(true);
-          }}
-        >
+        <Button style={styles.confirmBtn} onPress={onPressSave}>
           {'확인'}
         </Button>
       </SafeAreaView>
-      {isShowQuestionPopup && <QuestionPopup closePopup={() => setIsShowQuestionPopup(false)} closePage={closePage} />}
-      {isShowSuccessPopup && <SuccessPopup closePage={closePage} />}
     </>
   );
 };
