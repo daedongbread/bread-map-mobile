@@ -16,6 +16,7 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
+import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
 import {
@@ -48,6 +49,7 @@ export type MainStackParamList = {
   SuccessBottomSheet: {
     content: string;
   };
+  QuestionBottomSheet: undefined;
   Bookmark: undefined;
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
@@ -87,6 +89,7 @@ const MainStack = () => {
         <Stack.Screen name="ReviewMoreBottomSheet" component={ReviewMoreBottomSheet} />
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
         <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />
+        <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
