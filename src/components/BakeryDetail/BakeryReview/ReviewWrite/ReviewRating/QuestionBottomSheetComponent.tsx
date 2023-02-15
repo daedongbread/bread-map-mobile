@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import { Button } from '@/components/Shared/Button/Button';
@@ -25,6 +25,8 @@ type Props = {
 };
 
 export const QuestionBottomSheetComponent = ({ closePage, closeBottomSheet }: Props) => {
+  const ref = useRef<BottomSheet>(null);
+
   const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
   const onLayout: ViewProps['onLayout'] = e => {
@@ -34,12 +36,17 @@ export const QuestionBottomSheetComponent = ({ closePage, closeBottomSheet }: Pr
     }
   };
 
+  const onPressCloseButton = () => {
+    ref.current?.close();
+  };
+
   return (
     <BottomSheet
+      ref={ref}
       snapPoints={snapPoints}
       onClose={closeBottomSheet}
       handleIndicatorStyle={styles.indicator}
-      backdropComponent={() => <BackdropComponent onClose={closeBottomSheet} />}
+      backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
     >
       <View style={styles.container} onLayout={onLayout}>
         <SplitRow height={24} />
@@ -52,7 +59,7 @@ export const QuestionBottomSheetComponent = ({ closePage, closeBottomSheet }: Pr
         </Text>
         <SplitRow height={32} />
         <View style={styles.footer}>
-          <Button style={styles.button} appearance={'terdary'} onPress={closeBottomSheet}>
+          <Button style={styles.button} appearance={'terdary'} onPress={onPressCloseButton}>
             계속 쓸래요
           </Button>
           <SplitColumn width={8} />
