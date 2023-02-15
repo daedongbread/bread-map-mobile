@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
+import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { AddButton } from '../ReviewSelect/AddButton';
 import { RatingRow } from './RatingRow';
@@ -17,27 +19,29 @@ export const RatingList: React.FC<Props> = ({ selectedBreads, onUpdateBreadRatin
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>빵 평점</Text>
+      <Text presets={['body2', 'bold']} style={styles.title}>
+        빵 평점
+      </Text>
       {selectedBreads.map((bread, index) => (
         <RatingRow key={index} bread={bread} onUpdateBreadRating={onUpdateBreadRating} />
       ))}
+      <SplitRow height={32} />
       <AddButton
         onPress={() => {
           navigation.pop();
         }}
         buttonText="메뉴 추가하기"
       />
+      <SplitRow height={40} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 28,
     paddingLeft: 20,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '700',
+    color: theme.color.gray900,
   },
 });

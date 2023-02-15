@@ -1,10 +1,10 @@
 import { Asset } from 'react-native-image-picker';
-import { BreadEntity } from '@/apis/bread';
+import { MenuForReviewEntity } from '@/apis/menu/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type BreadType = 'auto' | 'manual';
 
-export type RatedBread = BreadEntity & {
+export type RatedBread = MenuForReviewEntity & {
   type?: BreadType;
   rating?: number;
 };
@@ -17,7 +17,7 @@ type BreadState = {
 };
 
 export type UpdateSelectedBread = {
-  bread: BreadEntity;
+  bread: MenuForReviewEntity;
   isChecked: boolean;
 };
 
@@ -47,7 +47,7 @@ const slice = createSlice({
   name: 'reviewWrite',
   initialState,
   reducers: {
-    updateAllSeletedBread(state, { payload }: PayloadAction<BreadEntity[]>) {
+    updateAllSeletedBread(state, { payload }: PayloadAction<MenuForReviewEntity[]>) {
       const ratedBreads: RatedBread[] = payload.map(bread => {
         return {
           rating: 1,

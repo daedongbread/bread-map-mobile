@@ -8,10 +8,11 @@ type Props = {
   width?: number;
   height?: number;
   strokeWidth?: number;
+  disabled?: boolean;
   onValueChange?: (value: boolean) => void;
 };
 
-export const CustomCheckBox = React.memo(({ value, onValueChange, ...rest }: Props) => {
+export const CustomCheckBox = React.memo(({ value, disabled = false, onValueChange, ...rest }: Props) => {
   const [isChecked, setIsChecked] = useState(value);
 
   useDidMountEffect(() => {
@@ -19,6 +20,10 @@ export const CustomCheckBox = React.memo(({ value, onValueChange, ...rest }: Pro
   }, [value]);
 
   const onPress = () => {
+    if (disabled) {
+      return;
+    }
+
     if (onValueChange) {
       onValueChange(!isChecked);
     }

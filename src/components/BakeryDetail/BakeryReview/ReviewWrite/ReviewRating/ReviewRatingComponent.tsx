@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
-import { ValidateErrorText } from '@/components/Shared/Text';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { Text, ValidateErrorText } from '@/components/Shared/Text';
+import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
+import { useNavigation } from '@react-navigation/native';
 import { PhotoSelect } from './PhotoSelect';
-import { QuestionPopup } from './QuestionPopup';
 import { RatingList } from './RatingList';
-import { SuccessPopup } from './SuccessPopup';
 import { Title } from './Title';
 
 type Props = {
@@ -23,10 +24,11 @@ type Props = {
   onSelectPhotos: () => void;
   deSelectPhoto: (uri?: string) => void;
   saveReview: () => void;
-  closePage: () => void;
 };
 
-export const ReviewRating: React.FC<Props> = ({
+type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
+
+export const ReviewRatingComponent: React.FC<Props> = ({
   selectedBreads,
   detailReview,
   images,
@@ -35,28 +37,42 @@ export const ReviewRating: React.FC<Props> = ({
   onSelectPhotos,
   deSelectPhoto,
   saveReview,
-  closePage,
 }) => {
-  const [isShowQuestionPopup, setIsShowQuestionPopup] = useState(false);
-  const [isShowSuccessPopup, setIsShowSuccessPopup] = useState(false);
+  const navigation = useNavigation<Navigation>();
+
+  const contentInputRef = useRef<TextInput>(null);
+
+  const onPressClose = () => {
+    navigation.navigate('QuestionBottomSheet');
+  };
+
+  const onPressSave = () => {
+    if (detailReview.length < 10) {
+      setIsShowErrorMessage(true);
+      contentInputRef.current?.focus();
+    } else {
+      setIsShowErrorMessage(false);
+      saveReview();
+    }
+  };
 
   const [isShowErrorMessage, setIsShowErrorMessage] = useState(false);
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Header
-          title={'리뷰작성'}
-          onPressClose={() => setIsShowQuestionPopup(true)}
-          isPrevButtonShown
-          isCloseButtonShown
-        />
+        <Header title={'리뷰작성'} onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
         <ScrollView style={styles.contentsContainer}>
+          <SplitRow height={12} />
           <Title />
+          <SplitRow height={28} />
           <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
           <View style={styles.detailReviewContainer}>
-            <Text style={styles.title}>상세한 후기</Text>
+            <Text presets={['body2', 'bold']} style={styles.title}>
+              상세한 후기
+            </Text>
             <TextInput
+              ref={contentInputRef}
               multiline
               onChangeText={onChangeDetailReviewText}
               defaultValue={detailReview}
@@ -71,29 +87,16 @@ export const ReviewRating: React.FC<Props> = ({
             </View>
           </View>
           <View style={styles.photoContainer}>
-            <Text style={styles.photoTitleText}>사진 업로드</Text>
+            <Text presets={['body2', 'bold']} style={styles.photoTitleText}>
+              사진 업로드
+            </Text>
             <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
           </View>
         </ScrollView>
-        <Button
-          style={styles.confirmBtn}
-          // layer popup 전역, 공통화 필요 (추후 layer popup 공통화 branch에서 작업 예정)
-          onPress={() => {
-            if (detailReview.length < 10) {
-              setIsShowErrorMessage(true);
-              return;
-            } else {
-              setIsShowErrorMessage(false);
-            }
-            saveReview();
-            setIsShowSuccessPopup(true);
-          }}
-        >
+        <Button style={styles.confirmBtn} onPress={onPressSave}>
           {'확인'}
         </Button>
       </SafeAreaView>
-      {isShowQuestionPopup && <QuestionPopup closePopup={() => setIsShowQuestionPopup(false)} closePage={closePage} />}
-      {isShowSuccessPopup && <SuccessPopup closePage={closePage} />}
     </>
   );
 };
@@ -106,11 +109,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '700',
+    color: theme.color.gray800,
   },
   detailReviewContainer: {
-    paddingTop: 28,
     paddingLeft: 20,
   },
   detailReviewTextInput: {
@@ -152,8 +153,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   photoTitleText: {
-    fontSize: 14,
-    fontWeight: '700',
+    color: theme.color.gray900,
   },
   confirmBtn: {
     paddingHorizontal: 20,

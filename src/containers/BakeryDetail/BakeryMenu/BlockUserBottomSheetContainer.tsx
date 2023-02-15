@@ -1,7 +1,10 @@
+import { AxiosError } from 'axios';
 import React, { useRef } from 'react';
 import { useBlockUser } from '@/apis/auth/useBlockUser';
 import { BlockUserBottomSheetComponent } from '@/components/BakeryDetail/BakeryReview';
+import { useAppDispatch } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { showToast } from '@/slices/toast';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -9,6 +12,8 @@ type Navigation = MainStackScreenProps<'BlockUserBottomSheet'>['navigation'];
 type Route = MainStackScreenProps<'BlockUserBottomSheet'>['route'];
 
 export const BlockUserBottomSheetContainer = () => {
+  const dispatch = useAppDispatch();
+
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
@@ -18,8 +23,22 @@ export const BlockUserBottomSheetContainer = () => {
   const ref = useRef<BottomSheet>(null);
 
   const blockUser = async () => {
-    await mutateBlockuser(userId);
-    goNavSuccessPopup();
+    await mutateBlockuser(userId)
+      .then(() => {
+        goNavSuccessPopup();
+      })
+      .catch((error: AxiosError) => {
+        if (error.response?.data.code === 40913) {
+          dispatch(
+            showToast({
+              text: '이미 차단한 사용자 입니다.',
+              duration: 5000,
+            })
+          );
+        }
+
+        closeBottomSheet();
+      });
   };
 
   const closeBottomSheet = () => {
