@@ -6,3 +6,10 @@ export type MenuEntity = {
   price: number;
   image?: string;
 };
+
+export type MenuForReviewEntity = {
+  id: number;
+  name: string;
+  price?: number;
+  image?: string;
+};
