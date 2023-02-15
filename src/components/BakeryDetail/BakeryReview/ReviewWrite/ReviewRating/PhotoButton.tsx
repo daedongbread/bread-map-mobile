@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const PhotoButton = ({ selectCount, onPress }: Props) => (
-  <TouchableOpacity onPress={onPress}>
+  <TouchableOpacity onPress={onPress} disabled={selectCount === 10}>
     <View style={styles.container}>
       <CameraIcon strokeWidth={2} />
       <SplitRow height={9} />

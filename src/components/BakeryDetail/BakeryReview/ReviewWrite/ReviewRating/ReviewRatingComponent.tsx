@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
@@ -40,6 +40,8 @@ export const ReviewRatingComponent: React.FC<Props> = ({
 }) => {
   const navigation = useNavigation<Navigation>();
 
+  const contentInputRef = useRef<TextInput>(null);
+
   const onPressClose = () => {
     navigation.navigate('QuestionBottomSheet');
   };
@@ -47,6 +49,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   const onPressSave = () => {
     if (detailReview.length < 10) {
       setIsShowErrorMessage(true);
+      contentInputRef.current?.focus();
     } else {
       setIsShowErrorMessage(false);
       saveReview();
@@ -69,6 +72,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
               상세한 후기
             </Text>
             <TextInput
+              ref={contentInputRef}
               multiline
               onChangeText={onChangeDetailReviewText}
               defaultValue={detailReview}

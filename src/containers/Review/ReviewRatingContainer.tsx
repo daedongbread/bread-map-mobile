@@ -43,7 +43,10 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   const onSelectPhotos = async () => {
-    const { assets, didCancel } = await launchImageLibrary({ mediaType: 'photo', selectionLimit: PHOTO_LIMIT });
+    const { assets, didCancel } = await launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: PHOTO_LIMIT - images.length,
+    });
 
     if (!didCancel && assets) {
       // 이미지 중복 제거 방안이 필요해 보임
@@ -65,13 +68,13 @@ export const ReviewRatingContainer: React.FC = () => {
 
     const request = { productRatingList, noExistProductRatingRequestList, content: detailReview };
 
-    const { data } = await postReview({
+    const { respInfo } = await postReview({
       bakeryId,
       images,
       data: request,
     });
 
-    if (data.code === 201) {
+    if (respInfo.status === 201) {
       closePage();
       goNavSuccessBottomSheet();
     }
