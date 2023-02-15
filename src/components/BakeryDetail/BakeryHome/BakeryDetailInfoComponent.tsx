@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Share from 'react-native-share';
 import { BakerySingleEntity } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
@@ -71,6 +72,16 @@ export const BakeryDetailInfoComponent = ({
     });
   };
 
+  const onPressShareBtn = async () => {
+    const shareOptions = {
+      title: 'Share file',
+      failOnCancel: false,
+      message: 'app store url 입니다 https://appstore',
+    };
+
+    Share.open(shareOptions).catch(e => null);
+  };
+
   const onPressEditBakeryInfo = () => {
     navigation.push('EditBakeryStack', {
       screen: 'EditBakery',
@@ -123,7 +134,7 @@ export const BakeryDetailInfoComponent = ({
             <BakeryButton text={'저장하기'} icon={<WishIcon fill={'#757575'} />} onPress={onPressSaveBtn} />
           )}
           <BakeryButton text={'리뷰작성'} icon={<EditIcon />} onPress={onPressReviewWriteBtn} />
-          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={() => null} />
+          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={onPressShareBtn} />
         </View>
 
         <View style={styles.informationContainer}>
