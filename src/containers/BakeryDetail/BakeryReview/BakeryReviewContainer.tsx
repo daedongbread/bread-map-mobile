@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useGetReviews } from '@/apis/review';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
@@ -22,12 +23,14 @@ export const BakeryReviewContainer = () => {
   };
 
   return (
-    <BakeryReviewListComponent
-      reviews={reviews?.contents}
-      reviewCount={reviews?.contents.length}
-      activeTab={activeTab}
-      onPressTab={onPressTab}
-      refetchReview={refetch}
-    />
+    <ScrollView>
+      <BakeryReviewListComponent
+        reviews={reviews?.contents}
+        reviewCount={reviews?.contents.length}
+        activeTab={activeTab}
+        onPressTab={onPressTab}
+        refetchReview={refetch}
+      />
+    </ScrollView>
   );
 };
