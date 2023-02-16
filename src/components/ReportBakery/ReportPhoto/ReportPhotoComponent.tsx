@@ -9,29 +9,23 @@ import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
-import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
-import { ReportSuccessBottomSheet } from '../ReportSuccessBottomSheet';
 
 const TEXT_MAX_LIMIT = 12;
 
 type Props = {
   bakeryName: string;
   photos: Asset[];
-  reportSuccessBottomSheetRef: React.ForwardedRef<BottomSheet>;
   onPressPhotoSelectButton: () => void;
   onPressPhotoDeleteButton: (uri?: string) => void;
   onPressReportButton: () => void;
-  closeSuccessPopup: () => void;
 };
 
 export const ReportPhotoComponent = ({
   bakeryName,
   photos,
-  reportSuccessBottomSheetRef,
   onPressPhotoSelectButton,
   onPressPhotoDeleteButton,
   onPressReportButton,
-  closeSuccessPopup,
 }: Props) => (
   <SafeAreaView style={styles.container}>
     <Header isCloseButtonShown />
@@ -55,11 +49,6 @@ export const ReportPhotoComponent = ({
     <Button style={styles.button} onPress={onPressReportButton}>
       제보하기
     </Button>
-    <ReportSuccessBottomSheet
-      bottomSheetRef={reportSuccessBottomSheetRef}
-      title="사진 제보"
-      onPress={closeSuccessPopup}
-    />
   </SafeAreaView>
 );
 
