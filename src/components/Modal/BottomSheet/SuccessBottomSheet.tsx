@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
+import { Modal, StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 import { Button } from '@/components/Shared/Button/Button';
@@ -10,7 +10,7 @@ import { resizePixels } from '@/utils';
 
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import happyBread from '@shared/Images/happyBread.png';
 
 type BackdropComponentProps = {
@@ -30,6 +30,7 @@ export const SuccessBottomSheet = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
+  const focused = useIsFocused();
   const ref = useRef<BottomSheet>(null);
   const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
@@ -51,30 +52,30 @@ export const SuccessBottomSheet = () => {
   };
 
   return (
-    <BottomSheet
-      ref={ref}
-      snapPoints={snapPoints}
-      onClose={onClose}
-      handleIndicatorStyle={styles.indicator}
-      backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
-    >
-      <View onLayout={onLayout}>
-        <View style={styles.container}>
-          <SplitRow height={20} />
-          <FastImage style={styles.image} source={happyBread} />
-          <SplitRow height={20} />
-          <Text presets={['subhead', 'bold']} style={styles.title}>
-            {content}
-          </Text>
+    <Modal visible={focused} animationType={'fade'} transparent statusBarTranslucent>
+      <BottomSheet
+        ref={ref}
+        snapPoints={snapPoints}
+        onClose={onClose}
+        handleIndicatorStyle={styles.indicator}
+        backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
+      >
+        <View onLayout={onLayout}>
+          <View style={styles.container}>
+            <SplitRow height={20} />
+            <FastImage style={styles.image} source={happyBread} />
+            <SplitRow height={20} />
+            <Text presets={['subhead', 'bold']} style={styles.title}>
+              {content}
+            </Text>
+          </View>
+          <SplitRow height={30} />
+          <View style={styles.footer}>
+            <Button onPress={onPressCloseButton}>확인</Button>
+          </View>
         </View>
-        <SplitRow height={30} />
-        <View style={styles.footer}>
-          <Button onPress={onPressCloseButton} style={styles.button}>
-            확인
-          </Button>
-        </View>
-      </View>
-    </BottomSheet>
+      </BottomSheet>
+    </Modal>
   );
 };
 
@@ -101,6 +102,5 @@ const styles = StyleSheet.create(
     footer: {
       paddingHorizontal: 20,
     },
-    button: {},
   })
 );

@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { BreadEntity } from '@/apis/bread';
+import { MenuForReviewEntity } from '@/apis/menu/type';
+import { CustomCheckBox } from '@/components/Shared/Chcekbox/CustomCheckBox';
 import { useAppDispatch } from '@/hooks/redux';
 import { addManualSelectedBread, RatedBread, updateManualSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import CheckBox from '@react-native-community/checkbox';
 
-type Props = BreadEntity & {
+type Props = MenuForReviewEntity & {
   manualSelectedBreads: RatedBread[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
@@ -104,17 +104,7 @@ export const ManualInputRow: React.FC<Props> = ({
           keyboardType={'number-pad'}
         />
       </View>
-      <CheckBox
-        style={styles.checkbox}
-        animationDuration={0}
-        tintColor={theme.color.gray400}
-        disabled={!isCheckable}
-        value={isChecked}
-        onTintColor={theme.color.primary500}
-        onFillColor={theme.color.primary500}
-        onCheckColor={'white'}
-        onValueChange={setIsChecked}
-      />
+      <CustomCheckBox value={isChecked} strokeWidth={2} disabled={!isCheckable} onValueChange={setIsChecked} />
     </View>
   );
 };

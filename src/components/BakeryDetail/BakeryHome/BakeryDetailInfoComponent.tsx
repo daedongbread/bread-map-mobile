@@ -69,6 +69,9 @@ export const BakeryDetailInfoComponent = ({
   const onPressReviewWriteBtn = () => {
     navigation.push('ReviewWriteStack', {
       screen: 'ReviewSelect',
+      params: {
+        bakeryId,
+      },
     });
   };
 
