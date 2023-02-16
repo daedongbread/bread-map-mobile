@@ -14,6 +14,7 @@ export type ReportBakeryStackParamList = {
   ReportBakeryOnboard: undefined;
   ReportBakery: undefined;
   ReportPhoto: {
+    bakeryId: number;
     bakeryName: string;
     photos: Asset[];
   };
