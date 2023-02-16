@@ -3,6 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { ImageCloseIcon } from '@/components/Shared/Icons';
+import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { PhotoButton } from './PhotoButton';
 
 type Props = {
@@ -17,6 +18,7 @@ export const PhotoSelect = ({ images, onSelectPhotos, deSelectPhoto }: Props) =>
       <PhotoButton selectCount={images.length} onPress={onSelectPhotos} />
       <FlatList
         data={images}
+        ListHeaderComponent={<SplitColumn width={12} />}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.imageListContainer}
         horizontal={true}

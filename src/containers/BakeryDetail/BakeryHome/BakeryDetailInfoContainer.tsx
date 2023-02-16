@@ -67,6 +67,7 @@ export const BakeryDetailInfoContainer = () => {
       navigation.push('ReportBakeryStack', {
         screen: 'ReportPhoto',
         params: {
+          bakeryId,
           bakeryName: bakery.bakeryInfo.name,
           photos,
         },

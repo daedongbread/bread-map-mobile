@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 16,
   },
   buttonIcon: {
     color: theme.color.gray800,
@@ -32,7 +31,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    color: theme.color.gray800,
     fontSize: 14,
     fontWeight: '700',
+    lineHeight: 20,
   },
 });

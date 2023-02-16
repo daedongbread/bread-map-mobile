@@ -1,1 +1,1 @@
-export * from './ReviewSelect';
+export { ReviewSelectComponent } from './ReviewSelectComponent';
