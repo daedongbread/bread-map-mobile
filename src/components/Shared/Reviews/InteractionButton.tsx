@@ -25,9 +25,13 @@ export const InteractionButton = ({ icon, count, defaultText, isActive, onPress 
       <item.icon fill={iconColor} />
       <SplitColumn width={2} />
       {count > 0 ? (
-        <Text style={[styles.container, { color: textColor }]}>{count}</Text>
+        <Text presets={['caption1', 'medium']} style={[styles.count, { color: textColor }]}>
+          {count}
+        </Text>
       ) : (
-        <Text style={[styles.defaultText]}>{defaultText}</Text>
+        <Text presets={['caption2', 'medium']} style={[styles.defaultText]}>
+          {defaultText}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -41,13 +45,9 @@ const styles = StyleSheet.create(
     },
     count: {
       color: theme.color.gray700,
-      fontSize: 12,
-      fontWeight: '500',
     },
     defaultText: {
-      color: '#666666',
-      fontSize: 12,
-      fontWeight: '400',
+      color: theme.color.gray700,
     },
   })
 );
