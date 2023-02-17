@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ReviewDetailEntity } from '@/apis/bakery/types';
 import { Header } from '@/components/Shared/Header';
 import { LocationMarker } from '@/components/Shared/Icons';
-import Review from '@/components/Shared/Reviews/Review';
+import { Review } from '@/components/Shared/Reviews';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { resizePixels } from '@/utils';
-import { Divider } from '../Divider';
+import { Divider } from '../../Divider';
 
 type Props = {
   review: ReviewDetailEntity;
