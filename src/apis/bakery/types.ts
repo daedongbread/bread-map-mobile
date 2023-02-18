@@ -159,15 +159,17 @@ type ReviewInfo = {
   averageRating: number;
 };
 
+export type BakeryInfo = {
+  bakeryId: number;
+  bkaeryImage: string;
+  bakeryName: string;
+  bakeryAddress: string;
+};
+
 export type ReviewContent = {
   userInfo: ReviewUserInfo;
   reviewInfo: ReviewInfo;
-  bakeryInfo: {
-    bakeryId: number;
-    bkaeryImage: string;
-    bakeryName: string;
-    bakeryAddress: string;
-  };
+  bakeryInfo: BakeryInfo;
 };
 
 export type ReviewEntity = {
