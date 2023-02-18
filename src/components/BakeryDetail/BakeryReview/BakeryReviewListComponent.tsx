@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ReviewContent } from '@/apis/bakery/types';
 import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
-import Review from '@/components/Shared/Reviews/Review';
+import { Review } from '@/components/Shared/Reviews';
 import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
@@ -67,7 +67,7 @@ export const BakeryReviewListComponent = ({ reviews, reviewCount, activeTab, onP
             reviews.map((review, idx) => (
               <Review
                 mode="preview"
-                key={idx}
+                key={review.reviewInfo.id}
                 review={review}
                 refetchReview={refetchReview}
                 isEnd={reviews.length - 1 === idx}

@@ -19,11 +19,11 @@ import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
+import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import {
-  BakeryReviewDetail,
-  BlockUserBottomSheet,
-  ReviewMoreBottomSheet,
-} from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
+  BakeryReviewDetailParamList,
+  BakeryReviewDetailStack,
+} from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
 import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
 
 export type MainStackParamList = {
@@ -35,9 +35,7 @@ export type MainStackParamList = {
     onSaveSuccess?: (selectBookmark: BookmarkList) => void;
   };
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
-  BakeryReviewDetail: {
-    reviewId: number;
-  };
+  BakeryReviewDetailStack: NavigatorScreenParams<BakeryReviewDetailParamList>;
   ModalStack: NavigatorScreenParams<ModalStackParamList>;
   ReviewMoreBottomSheet: {
     reviewId: number;
@@ -76,7 +74,7 @@ const MainStack = () => {
     <Stack.Navigator initialRouteName={'MainTab'} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
-      <Stack.Screen name="BakeryReviewDetail" component={BakeryReviewDetail} />
+      <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
 
       <Stack.Screen
         name={'ModalStack'}
