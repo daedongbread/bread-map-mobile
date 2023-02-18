@@ -37,6 +37,7 @@ export { IcComment } from './IcComment';
 export { LocationMarker } from './LocationMarker';
 export { IcChecked } from './IcChecked';
 export { IcUnchecked } from './IcUnchecked';
+export { UploadIcon } from './UploadIcon';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';
