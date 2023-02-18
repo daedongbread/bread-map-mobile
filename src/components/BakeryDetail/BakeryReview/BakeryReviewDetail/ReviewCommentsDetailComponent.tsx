@@ -37,7 +37,7 @@ export const ReviewCommentsDetailComponent = ({ review, onPressLikeButton }: Pro
             icon={IcLike}
             count={review.reviewDto.reviewInfo.likeNum}
             defaultText={'좋아요'}
-            isActive={true}
+            isActive={false}
             onPress={() => onPressLikeButton(true)}
           />
           <SplitColumn width={8} />
