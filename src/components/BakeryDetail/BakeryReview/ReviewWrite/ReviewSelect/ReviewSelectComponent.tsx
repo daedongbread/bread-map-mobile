@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MenuForReviewEntity } from '@/apis/menu/type';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
@@ -41,6 +42,7 @@ export const ReviewSelectComponent: React.FC<Props> = ({
   closePage,
 }) => {
   const navigation = useNavigation<Navigation>();
+  const insets = useSafeAreaInsets();
 
   const onPressHeaderCloseButton = () => {
     if (selectedBreads.length > 0) {
@@ -84,6 +86,8 @@ export const ReviewSelectComponent: React.FC<Props> = ({
       >
         확인
       </Button>
+
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     paddingHorizontal: 20,
-    paddingBottom: 8,
+    // paddingBottom: 8,
   },
   confirmBtnText: {
     color: '#ffffff',
