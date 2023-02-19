@@ -13,8 +13,10 @@ type Props = {
 export const AddButton: React.FC<Props> = ({ buttonText, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <PlusIcon style={styles.buttonIcon} strokeWidth={'2'} />
-      <Text style={styles.buttonText}>{buttonText}</Text>
+      <PlusIcon style={styles.icon} strokeWidth={'2'} />
+      <Text presets={['body2', 'bold']} style={styles.text}>
+        {buttonText}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -25,15 +27,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonIcon: {
+  icon: {
     color: theme.color.gray800,
     marginRight: 4,
     alignItems: 'center',
   },
-  buttonText: {
+  text: {
     color: theme.color.gray800,
-    fontSize: 14,
-    fontWeight: '700',
-    lineHeight: 20,
   },
 });

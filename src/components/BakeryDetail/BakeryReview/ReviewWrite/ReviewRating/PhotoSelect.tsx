@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { ImageCloseIcon } from '@/components/Shared/Icons';
-import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { PhotoButton } from './PhotoButton';
+
+const { width } = Dimensions.get('window');
 
 type Props = {
   images: Asset[];
@@ -18,18 +19,17 @@ export const PhotoSelect = ({ images, onSelectPhotos, deSelectPhoto }: Props) =>
       <PhotoButton selectCount={images.length} onPress={onSelectPhotos} />
       <FlatList
         data={images}
-        ListHeaderComponent={<SplitColumn width={12} />}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.imageListContainer}
         horizontal={true}
         renderItem={({ item }) => {
           return (
-            <>
+            <View>
               <Image style={styles.uploadImage} source={{ uri: item.uri }} />
               <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
                 <ImageCloseIcon />
               </TouchableOpacity>
-            </>
+            </View>
           );
         }}
       />
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
   },
   imageListContainer: {
     paddingTop: 12,
+    paddingLeft: 20,
   },
   uploadImage: {
-    width: 88,
-    height: 88,
+    width: width * 0.25,
+    height: width * 0.25,
     borderRadius: 8,
     marginRight: 12,
   },
