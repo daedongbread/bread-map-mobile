@@ -94,12 +94,14 @@ export type BakerySingleEntity = {
     blogURL: string;
     phoneNumber: string;
   };
-  flagInfo: {
-    flagId: number;
-    isFlaged: boolean;
-  };
+  flagInfo: FlagInfo;
   menu: BakeryMenuEntity[];
   facilityInfoList: Array<BakeryFacilityInfoType>;
+};
+
+export type FlagInfo = {
+  flagId?: number;
+  isFlaged: boolean;
 };
 
 export type BakeryReviewEntity = {
