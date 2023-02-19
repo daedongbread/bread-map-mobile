@@ -4,27 +4,32 @@ import { Text } from '@shared/Text';
 
 type Props = {
   isRequire?: boolean;
+  defaultContainerStyleEnabeld?: boolean;
   style?: StyleProp<any>;
 };
 
-export const Label: React.FC<Props> = memo(({ isRequire = false, children, style }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.Text} presets={['body1', 'bold']}>
-        {children}
-      </Text>
-      {isRequire ? <View style={styles.require} /> : null}
-    </View>
-  );
-});
+export const Label: React.FC<Props> = memo(
+  ({ isRequire = false, defaultContainerStyleEnabeld = true, children, style }) => {
+    const containerStyle = [styles.row, defaultContainerStyleEnabeld ? styles.container : null];
+    const textStyle = style ? style : styles.text;
+
+    return (
+      <View style={containerStyle}>
+        <Text style={textStyle} presets={['body1', 'bold']}>
+          {children}
+        </Text>
+        {isRequire ? <View style={styles.require} /> : null}
+      </View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
-  container: {
+  row: {
     flexDirection: 'row',
-    marginBottom: 12,
   },
-  text: {
-    fontSize: 14,
+  container: {
+    marginBottom: 12,
   },
   require: {
     marginLeft: 2,
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF6E40',
     borderRadius: 4,
   },
-  Text: {
+  text: {
     color: '#424242',
   },
 });
