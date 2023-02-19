@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CameraIcon } from '@/components/Shared/Icons/Camera';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { PHOTO_LIMIT } from '@/containers/Review/ReviewRatingContainer';
 import { theme } from '@/styles/theme';
+
+const { width } = Dimensions.get('window');
 
 type Props = {
   selectCount: number;
@@ -18,7 +20,7 @@ export const PhotoButton = ({ selectCount, onPress }: Props) => (
       <CameraIcon strokeWidth={2} />
       <SplitRow height={9} />
       <Text style={styles.text}>
-        <Text style={selectCount > 0 ? styles.selectText : styles.text}>{selectCount}</Text> /{PHOTO_LIMIT}
+        <Text style={selectCount > 0 ? styles.selectText : styles.text}>{selectCount}</Text>/{PHOTO_LIMIT}
       </Text>
     </View>
   </TouchableOpacity>
@@ -26,19 +28,18 @@ export const PhotoButton = ({ selectCount, onPress }: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    width: 88,
-    height: 88,
+    width: width * 0.25,
+    height: width * 0.25,
     backgroundColor: theme.color.gray100,
-    marginTop: 12,
     borderRadius: 8,
+    marginTop: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    fontSize: 12,
-    color: theme.color.gray500,
-  },
   selectText: {
     color: theme.color.gray800,
+  },
+  text: {
+    color: theme.color.gray500,
   },
 });
