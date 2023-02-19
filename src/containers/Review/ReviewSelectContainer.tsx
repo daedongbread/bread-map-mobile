@@ -39,7 +39,6 @@ export const ReviewSelectContainer = () => {
     return Boolean(allBreads.find(bread => bread.name === manualBreadName));
   };
 
-  //react-navigation 에서 현재 stack 자체를 pop 할 수 없는 방법이 없어 동적으로 .pop(number)에 값을 줘서 해결
   const closePage = () => {
     navigation.pop(1);
   };

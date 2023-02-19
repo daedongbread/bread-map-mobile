@@ -5,8 +5,10 @@ import { MenuForReviewEntity } from '@/apis/menu/type';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
+import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
+import { useNavigation } from '@react-navigation/native';
 import { BreadToggleList } from './BreadToggleList';
 import { ContentsHeader } from './ContentsHeader';
 import { ContentsList } from './ContentsList';
@@ -25,6 +27,8 @@ type Props = {
   closePage: () => void;
 };
 
+type Navigation = ReviewWriteStackNavigationProps<'ReviewSelect'>['navigation'];
+
 export const ReviewSelectComponent: React.FC<Props> = ({
   breads,
   searchValue,
@@ -37,12 +41,25 @@ export const ReviewSelectComponent: React.FC<Props> = ({
   isExistBread,
   closePage,
 }) => {
+  const navigation = useNavigation<Navigation>();
   const insets = useSafeAreaInsets();
+
+  const onPressHeaderCloseButton = () => {
+    if (selectedBreads.length > 0) {
+      goNavQuestionBottomSheet();
+    } else {
+      closePage();
+    }
+  };
+
+  const goNavQuestionBottomSheet = () => {
+    navigation.navigate('QuestionBottomSheet');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Header title={'리뷰작성'} onPressClose={closePage} isCloseButtonShown />
+        <Header title={'리뷰작성'} onPressClose={onPressHeaderCloseButton} isCloseButtonShown />
         <BreadToggleList selectedBreads={selectedBreads} manualSelectedBreads={manualSelectedBreads} />
         <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
       </View>
