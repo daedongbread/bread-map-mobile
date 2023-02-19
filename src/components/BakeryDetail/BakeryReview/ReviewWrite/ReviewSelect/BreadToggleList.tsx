@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { BreadEntity } from '@/apis/bread';
+import { RatedBread } from '@/slices/reviewWrite';
 import { BreadToggle } from './BreadToggle';
 
 type Props = {
-  selectedBreads: BreadEntity[];
-  manualSelectedBreads: BreadEntity[];
+  selectedBreads: RatedBread[];
+  manualSelectedBreads: RatedBread[];
 };
 
 export const BreadToggleList: React.FC<Props> = ({ selectedBreads, manualSelectedBreads }) => {
