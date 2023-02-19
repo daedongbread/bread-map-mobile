@@ -32,7 +32,7 @@ export const BreadToggle = ({ bread }: Props) => {
 
   return (
     <TouchableOpacity style={containerStyle} onPress={() => setIsTouched(bool => !bool)}>
-      <Text presets={['caption1', 'bold']} numberOfLines={1} ellipsizeMode="tail" style={styles.breadNameText}>
+      <Text presets={['caption1', 'semibold']} numberOfLines={1} ellipsizeMode="tail" style={styles.breadNameText}>
         {bread.name}
       </Text>
       {isTouched && (
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.primary500,
     borderRadius: 100,
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingVertical: 6,
     marginRight: 8,
   },
   touchedContainer: {
@@ -63,8 +63,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   button: {
-    marginLeft: 8,
-    backgroundColor: '#ffffff',
+    marginLeft: 4,
     borderRadius: 100,
   },
 });
