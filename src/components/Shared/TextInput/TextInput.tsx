@@ -1,5 +1,13 @@
-import React, { useCallback, useMemo } from 'react';
-import { Pressable, StyleSheet, TextInput as OriginTextInput, TextInputProps, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  TextInput as OriginTextInput,
+  TextInputProps,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { theme } from '@/styles/theme';
 import { XCircle } from '@shared/Icons/XCircle';
 import { Text } from '@shared/Text';
@@ -13,6 +21,7 @@ export type TextInputPropsType = Omit<TextInputProps, 'value' | 'onChange'> & {
   error?: string;
   backgroundColor?: string;
   isAlert?: boolean;
+  defaultStyleEnable?: boolean;
 };
 
 export const TextInput: React.FC<TextInputPropsType> = ({
@@ -23,9 +32,12 @@ export const TextInput: React.FC<TextInputPropsType> = ({
   hint,
   backgroundColor,
   isAlert,
+  defaultStyleEnable = true,
   ...props
 }) => {
   const { value, multiline } = props;
+
+  const [style, setStyle] = useState<StyleProp<ViewStyle>>();
 
   const handleChangeText = useCallback(
     (text: string) => {
@@ -39,6 +51,16 @@ export const TextInput: React.FC<TextInputPropsType> = ({
     handleChangeText('');
   }, [handleChangeText]);
 
+  const onFocus = () => {
+    if (!error) {
+      setStyle(styles.focusInputStyle);
+    }
+  };
+
+  const onBlur = () => {
+    setStyle(styles.defaultInputStyle);
+  };
+
   const inputContainerStyle = useMemo(() => {
     const override = {
       backgroundColor,
@@ -47,11 +69,26 @@ export const TextInput: React.FC<TextInputPropsType> = ({
     return [styles.inputContainer, override];
   }, [backgroundColor]);
 
+  useEffect(() => {
+    if (error) {
+      setStyle(styles.errorInputStyle);
+    } else {
+      setStyle(styles.defaultInputStyle);
+    }
+  }, [error]);
+
   return (
     <View style={styles.container}>
       <View style={inputContainerStyle}>
         <View style={styles.input}>
-          <OriginTextInput placeholderTextColor={theme.color.gray500} onChangeText={handleChangeText} {...props} />
+          <OriginTextInput
+            placeholderTextColor={theme.color.gray500}
+            onChangeText={handleChangeText}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            {...props}
+            style={[props.style, defaultStyleEnable && style]}
+          />
           {value.length && !multiline ? (
             <Pressable style={styles.closeButton} onPress={onClear}>
               <XCircle />
@@ -99,6 +136,18 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: 'center',
+  },
+  defaultInputStyle: {
+    borderColor: theme.color.gray200,
+    borderWidth: 1,
+  },
+  focusInputStyle: {
+    borderColor: theme.color.gray800,
+    borderWidth: 1,
+  },
+  errorInputStyle: {
+    borderColor: theme.color.red,
+    borderWidth: 1,
   },
   closeButton: {
     position: 'absolute',
