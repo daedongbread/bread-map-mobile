@@ -12,6 +12,7 @@ import { theme } from '@/styles/theme';
 import { XCircle } from '@shared/Icons/XCircle';
 import { Text } from '@shared/Text';
 import { AlertIcon } from '../Icons/AlertIcon';
+import { presets } from '../Text/presets';
 
 export type TextInputPropsType = Omit<TextInputProps, 'value' | 'onChange'> & {
   value: string;
@@ -24,104 +25,109 @@ export type TextInputPropsType = Omit<TextInputProps, 'value' | 'onChange'> & {
   defaultStyleEnable?: boolean;
 };
 
-export const TextInput: React.FC<TextInputPropsType> = ({
-  onChangeText,
-  onChange,
-  label = '',
-  error,
-  hint,
-  backgroundColor,
-  isAlert,
-  defaultStyleEnable = true,
-  ...props
-}) => {
-  const { value, multiline } = props;
+export const TextInput = React.forwardRef<OriginTextInput, TextInputPropsType>(
+  (
+    { onChangeText, onChange, label = '', error, hint, backgroundColor, isAlert, defaultStyleEnable = true, ...props },
+    ref
+  ) => {
+    const { value, multiline } = props;
 
-  const [style, setStyle] = useState<StyleProp<ViewStyle>>();
+    const [isFocused, setIsFocused] = useState(false);
+    const [borderStyle, setBorderStyle] = useState<StyleProp<ViewStyle>>();
+    const textInputStyle = defaultStyleEnable ? [borderStyle, styles.inputStyle, props.style] : [props.style];
 
-  const handleChangeText = useCallback(
-    (text: string) => {
-      onChange?.({ label, value: text });
-      onChangeText?.(text);
-    },
-    [label, onChange, onChangeText]
-  );
+    const handleChangeText = useCallback(
+      (text: string) => {
+        onChange?.({ label, value: text });
+        onChangeText?.(text);
+      },
+      [label, onChange, onChangeText]
+    );
 
-  const onClear = useCallback(() => {
-    handleChangeText('');
-  }, [handleChangeText]);
+    const onClear = useCallback(() => {
+      handleChangeText('');
+    }, [handleChangeText]);
 
-  const onFocus = () => {
-    if (!error) {
-      setStyle(styles.focusInputStyle);
-    }
-  };
+    const onFocus = () => {
+      if (!error) {
+        setBorderStyle(styles.focusInputStyle);
+      }
 
-  const onBlur = () => {
-    setStyle(styles.defaultInputStyle);
-  };
-
-  const inputContainerStyle = useMemo(() => {
-    const override = {
-      backgroundColor,
+      setIsFocused(true);
     };
 
-    return [styles.inputContainer, override];
-  }, [backgroundColor]);
+    const onBlur = () => {
+      if (!error) {
+        setBorderStyle(styles.defaultInputStyle);
+      }
 
-  useEffect(() => {
-    if (error) {
-      setStyle(styles.errorInputStyle);
-    } else {
-      setStyle(styles.defaultInputStyle);
-    }
-  }, [error]);
+      setIsFocused(false);
+    };
 
-  return (
-    <View style={styles.container}>
-      <View style={inputContainerStyle}>
-        <View style={styles.input}>
-          <OriginTextInput
-            placeholderTextColor={theme.color.gray500}
-            onChangeText={handleChangeText}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            {...props}
-            style={[props.style, defaultStyleEnable && style]}
-          />
-          {value.length && !multiline ? (
-            <Pressable style={styles.closeButton} onPress={onClear}>
-              <XCircle />
-            </Pressable>
-          ) : null}
-        </View>
+    const inputContainerStyle = useMemo(() => {
+      const override = {
+        backgroundColor,
+      };
 
-        <View style={styles.hintContainer}>
-          <View style={styles.errorContainer}>
-            {!!error && isAlert && (
-              <>
-                <AlertIcon />
-                <Text> </Text>
-              </>
-            )}
-            {!!error && (
-              <Text presets={['body2', 'medium']} style={styles.errorText}>
-                {error}
-              </Text>
-            )}
+      return [styles.inputContainer, override];
+    }, [backgroundColor]);
+
+    useEffect(() => {
+      if (error) {
+        setBorderStyle(styles.errorInputStyle);
+      } else {
+        setBorderStyle(isFocused ? styles.focusInputStyle : styles.defaultInputStyle);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error]);
+
+    return (
+      <View style={styles.container}>
+        <View style={inputContainerStyle}>
+          <View style={styles.input}>
+            <OriginTextInput
+              ref={ref}
+              placeholderTextColor={theme.color.gray500}
+              onChangeText={handleChangeText}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              {...props}
+              style={textInputStyle}
+            />
+            {value.length && !multiline ? (
+              <Pressable style={styles.closeButton} onPress={onClear}>
+                <XCircle />
+              </Pressable>
+            ) : null}
           </View>
-          <View>
-            {hint && (
-              <Text presets={['body2', 'medium']} style={styles.hintText}>
-                {hint}
-              </Text>
-            )}
+
+          <View style={styles.hintContainer}>
+            <View style={styles.errorContainer}>
+              {!!error && isAlert && (
+                <>
+                  <AlertIcon />
+                  <Text> </Text>
+                </>
+              )}
+              {!!error && (
+                <Text presets={['caption1', 'medium']} style={styles.errorText}>
+                  {error}
+                </Text>
+              )}
+            </View>
+            <View>
+              {hint && (
+                <Text presets={['caption1', 'medium']} style={styles.hintText}>
+                  {hint}
+                </Text>
+              )}
+            </View>
           </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -136,6 +142,10 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: 'center',
+  },
+  inputStyle: {
+    ...presets.body2,
+    ...presets.medium,
   },
   defaultInputStyle: {
     borderColor: theme.color.gray200,
@@ -164,10 +174,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: theme.color.red,
-    fontSize: 12,
   },
   hintText: {
     color: theme.color.gray500,
-    fontSize: 12,
   },
 });
