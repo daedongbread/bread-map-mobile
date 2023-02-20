@@ -1,8 +1,8 @@
 import React, { ComponentProps } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { TextInput } from '@/components/Shared/TextInput';
 import { ChevronLeftIcon } from '@shared/Icons/ChevronLeftIcon';
-import { TextInput } from '@shared/TextInput';
 
 type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText'> &
   Pick<ComponentProps<typeof TouchableOpacity>, 'onPress'> & {};
@@ -19,6 +19,7 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
           backgroundColor={'white'}
           onChangeText={onChangeText}
           placeholder={'빵집 이름을 검색해보세요'}
+          defaultStyleEnable={false}
         />
       </View>
       <Divider />
