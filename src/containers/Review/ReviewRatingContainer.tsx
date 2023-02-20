@@ -59,6 +59,11 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   const saveReview = async () => {
+    if (selectedBreads.length === 0) {
+      navigation.pop();
+      return;
+    }
+
     const productRatingList = selectedBreads.map(bread => {
       return { productId: bread.id, rating: bread.rating };
     });

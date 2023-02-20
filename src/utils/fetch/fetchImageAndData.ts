@@ -47,5 +47,11 @@ export const fetchImageAndData = async ({ url, images, data, dataKey = 'request'
     });
   }
 
-  return await RNFetchBlob.fetch('POST', URI, headers, body);
+  const res = await RNFetchBlob.fetch('POST', URI, headers, body);
+
+  if (!(res.respInfo.status >= 200 && res.respInfo.status < 300)) {
+    throw res.data;
+  }
+
+  return res;
 };
