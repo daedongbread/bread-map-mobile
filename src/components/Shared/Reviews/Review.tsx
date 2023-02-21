@@ -9,7 +9,7 @@ import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stac
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
-import { IcComment, IcLike, ViewMoreIcon } from '../Icons';
+import { IcLike, ViewMoreIcon } from '../Icons';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 import { FollowButton, FollowType } from './FollowButton';
@@ -186,16 +186,16 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
               icon={IcLike}
               count={review.reviewInfo.likeNum}
               defaultText={'좋아요'}
-              isActive={true}
+              isActive={false}
               onPress={() => onPressLikeButton(true, review.reviewInfo.id)}
             />
             <SplitColumn width={8} />
-            <InteractionButton
+            {/* <InteractionButton
               icon={IcComment}
               count={review.reviewInfo.commentNum}
               defaultText={'댓글달기'}
               onPress={onPressAddCommentButton}
-            />
+            /> */}
           </View>
           <View style={styles.footerRightContainer}>
             <Text presets={['caption1', 'medium']} style={styles.dateText}>
