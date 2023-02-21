@@ -24,7 +24,7 @@ export const ReviewRatingContainer: React.FC = () => {
   const route = useRoute<Route>();
 
   const { bakeryId } = route.params;
-  const { mutateAsync: postReview } = usePostReview();
+  const { mutateAsync: postReview, isLoading: isSaving } = usePostReview();
 
   const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
@@ -49,7 +49,6 @@ export const ReviewRatingContainer: React.FC = () => {
     });
 
     if (!didCancel && assets) {
-      // 이미지 중복 제거 방안이 필요해 보임
       dispatch(updateImages([...images, ...assets]));
     }
   };
@@ -64,6 +63,10 @@ export const ReviewRatingContainer: React.FC = () => {
       return;
     }
 
+    if (isSaving) {
+      return;
+    }
+
     const productRatingList = selectedBreads.map(bread => {
       return { productId: bread.id, rating: bread.rating };
     });
@@ -73,16 +76,19 @@ export const ReviewRatingContainer: React.FC = () => {
 
     const request = { productRatingList, noExistProductRatingRequestList, content: detailReview };
 
-    const { respInfo } = await postReview({
-      bakeryId,
-      images,
-      data: request,
-    });
-
-    if (respInfo.status === 201) {
-      closePage();
-      goNavSuccessBottomSheet();
-    }
+    await postReview(
+      {
+        bakeryId,
+        images,
+        data: request,
+      },
+      {
+        onSuccess: () => {
+          closePage();
+          goNavSuccessBottomSheet();
+        },
+      }
+    );
   };
 
   const goNavSuccessBottomSheet = () => {

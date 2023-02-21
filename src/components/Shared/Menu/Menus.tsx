@@ -2,9 +2,10 @@ import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MenuEntity } from '@/apis/menu/type';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { Button } from '../Button/Button';
 import { PlusIcon } from '../Icons';
 import { Menu } from './Menu';
@@ -16,11 +17,16 @@ interface MenuProps {
   onPress: (menu: MenuEntity) => void;
 }
 
+type Navigation = CompositeScreenProps<
+  BakeryDetailTabScreenProps<'BakeryDetailMenu'>,
+  MainStackScreenProps<keyof MainStackParamList>
+>['navigation'];
+
 const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, menus, onPress }) => {
-  const navigate = useNavigation<HomeStackScreenProps<'BakeryBreadReport'>['navigation']>();
+  const navigate = useNavigation<Navigation>();
 
   const onPressAddButton = () => {
-    navigate.push('BakeryBreadReport', {
+    navigate.navigate('ReportMenu', {
       bakeryId,
     });
   };
