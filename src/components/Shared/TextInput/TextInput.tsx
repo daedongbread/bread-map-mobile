@@ -116,11 +116,9 @@ export const TextInput = React.forwardRef<OriginTextInput, TextInputPropsType>(
               )}
             </View>
             <View>
-              {hint && (
-                <Text presets={['caption1', 'medium']} style={styles.hintText}>
-                  {hint}
-                </Text>
-              )}
+              <Text presets={['caption1', 'medium']} style={styles.hintText}>
+                {hint ? hint : ' '}
+              </Text>
             </View>
           </View>
         </View>

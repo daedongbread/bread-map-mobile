@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 import { Button } from '../Shared/Button/Button';
 import { Header } from '../Shared/Header';
@@ -15,6 +15,7 @@ type Props = {
 };
 
 export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePage, onPressReport }) => {
+  const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
 
   return (
@@ -40,6 +41,7 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePa
       <Button style={styles.bottomButton} onPress={onPressReport}>
         제보하기
       </Button>
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -47,7 +49,6 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePa
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 18,
   },
   fullScreen: {
     flex: 1,
