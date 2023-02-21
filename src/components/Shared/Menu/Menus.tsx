@@ -7,7 +7,6 @@ import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stac
 import { resizePixels } from '@/utils';
 import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { Button } from '../Button/Button';
-import { PlusIcon } from '../Icons';
 import { Menu } from './Menu';
 
 interface MenuProps {
@@ -43,8 +42,7 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, menus, onPress 
         </TouchableOpacity>
       )}
       ListFooterComponent={
-        <Button size="large" appearance="terdary" style={styles.footerButton} onPress={onPressAddButton}>
-          <PlusIcon color={'#BDBDBD'} style={styles.footerIcon} />
+        <Button size="large" appearance="terdary" icon style={styles.footerButton} onPress={onPressAddButton}>
           <Text style={styles.footerButtonText}>빵 메뉴 제보하기</Text>
         </Button>
       }
@@ -64,10 +62,13 @@ const styles = StyleSheet.create(
     },
     footerIcon: {
       marginRight: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     footerButtonText: {
       fontSize: 14,
       fontWeight: '700',
+      textAlignVertical: 'center',
     },
   })
 );
