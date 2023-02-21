@@ -40,10 +40,11 @@ export const PhotoSelect = ({ images, onSelectPhotos, deSelectPhoto }: Props) =>
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    marginRight: -20,
   },
   imageListContainer: {
     paddingTop: 12,
-    paddingLeft: 20,
+    paddingLeft: 12,
   },
   uploadImage: {
     width: width * 0.25,

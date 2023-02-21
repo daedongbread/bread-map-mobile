@@ -1,21 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { Dimensions, StyleSheet, TextInput as OriginTextInput, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
-import { Text, ValidateErrorText } from '@/components/Shared/Text';
+import { TextInput } from '@/components/Shared/TextInput';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
-import { presets } from '@shared/Text/presets';
 import { PhotoSelect } from './PhotoSelect';
 import { RatingList } from './RatingList';
 import { SubTitle } from './SubTitle';
 import { Title } from './Title';
+
+const { height } = Dimensions.get('screen');
 
 type Props = {
   selectedBreads: RatedBread[];
@@ -43,7 +44,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   const navigation = useNavigation<Navigation>();
   const insets = useSafeAreaInsets();
 
-  const contentInputRef = useRef<TextInput>(null);
+  const contentInputRef = useRef<OriginTextInput>(null);
 
   const onPressClose = () => {
     navigation.navigate('QuestionBottomSheet');
@@ -69,31 +70,21 @@ export const ReviewRatingComponent: React.FC<Props> = ({
         <Title />
         <SplitRow height={28} />
         <View style={styles.formContainer}>
-          <View>
-            <SubTitle isRequire>빵 평점</SubTitle>
-            <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
-          </View>
+          <SubTitle isRequire>빵 평점</SubTitle>
+          <RatingList selectedBreads={selectedBreads} onUpdateBreadRating={onUpdateBreadRating} />
 
-          <View>
-            <SubTitle isRequire>상세한 후기</SubTitle>
-            <SplitRow height={12} />
+          <SubTitle isRequire>상세한 후기</SubTitle>
+          <View style={styles.inputContainer}>
             <TextInput
-              ref={contentInputRef}
-              multiline
-              onChangeText={onChangeDetailReviewText}
-              defaultValue={detailReview}
-              style={[styles.detailReviewTextInput, presets.body2, presets.medium]}
+              style={[styles.detailReviewTextInput]}
               placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
+              value={detailReview}
+              multiline
+              isAlert
+              hint={`${detailReview.length}자 / 최소 10자`}
+              error={isShowErrorMessage && detailReview.trim().length < 10 ? '10자이상 입력해주세요' : ''}
+              onChangeText={onChangeDetailReviewText}
             />
-          </View>
-
-          <View style={styles.textContainer}>
-            <ValidateErrorText isValid={!isShowErrorMessage || detailReview.trim().length >= 10}>
-              10자이상 입력해주세요
-            </ValidateErrorText>
-            <Text presets={['caption1', 'medium']} style={styles.wordCount}>
-              {detailReview.length}자 / 최소 10자
-            </Text>
           </View>
 
           <View style={styles.photoContainer}>
@@ -118,12 +109,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   formContainer: {
-    paddingLeft: 20,
+    paddingHorizontal: 20,
+  },
+  inputContainer: {
+    marginHorizontal: -20,
+    paddingHorizontal: 6,
   },
   detailReviewTextInput: {
     color: theme.color.gray800,
-    marginRight: 20,
-    height: 100,
+    height: height * 0.15,
     borderRadius: 8,
     backgroundColor: theme.color.gray100,
     textAlignVertical: 'top',
@@ -135,21 +129,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
   },
-  errTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  wordCountErr: {
-    color: '#F3213B',
-    paddingLeft: 4,
-    fontSize: 12,
-  },
-  wordCount: {
-    paddingRight: 20,
-    color: '#9E9E9E',
-  },
   photoContainer: {
-    paddingTop: 36,
+    paddingTop: 20,
     marginBottom: 16,
   },
   confirmBtn: {

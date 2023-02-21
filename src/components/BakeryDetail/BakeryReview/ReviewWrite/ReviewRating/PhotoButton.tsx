@@ -20,7 +20,10 @@ export const PhotoButton = ({ selectCount, onPress }: Props) => (
       <CameraIcon strokeWidth={2} />
       <SplitRow height={9} />
       <Text style={styles.text}>
-        <Text style={selectCount > 0 ? styles.selectText : styles.text}>{selectCount}</Text>/{PHOTO_LIMIT}
+        <Text presets={['caption2', 'medium']} style={selectCount > 0 ? styles.selectText : styles.text}>
+          {selectCount}
+        </Text>
+        /{PHOTO_LIMIT}
       </Text>
     </View>
   </TouchableOpacity>
