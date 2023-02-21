@@ -20,11 +20,13 @@ const BackdropComponent = ({ onClose }: BackdropComponentProps) => (
 );
 
 type Props = {
+  title: string;
+  subTitle: string;
   closePage: () => void;
   closeBottomSheet: () => void;
 };
 
-export const QuestionBottomSheetComponent = ({ closePage, closeBottomSheet }: Props) => {
+export const QuestionBottomSheetComponent = ({ title, subTitle, closePage, closeBottomSheet }: Props) => {
   const ref = useRef<BottomSheet>(null);
 
   const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
@@ -51,11 +53,11 @@ export const QuestionBottomSheetComponent = ({ closePage, closeBottomSheet }: Pr
       <View style={styles.container} onLayout={onLayout}>
         <SplitRow height={24} />
         <Text presets={['subhead', 'bold']} style={styles.title}>
-          리뷰작성을 그만할까요?
+          {title}
         </Text>
         <SplitRow height={16} />
         <Text presets={['body2', 'semibold']} style={styles.subTitle}>
-          삭제한 리뷰는 되돌릴 수 없으니{'\n'}신중히 생각해주세요!
+          {subTitle}
         </Text>
         <SplitRow height={32} />
         <View style={styles.footer}>

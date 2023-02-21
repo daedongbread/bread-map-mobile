@@ -19,6 +19,7 @@ import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
+import { ReportMenu } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryMenu/ReportMenu';
 import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import {
   BakeryReviewDetailParamList,
@@ -47,10 +48,17 @@ export type MainStackParamList = {
   SuccessBottomSheet: {
     content: string;
   };
-  QuestionBottomSheet: undefined;
+  QuestionBottomSheet: {
+    title: string;
+    subTitle: string;
+    onClose?: () => void;
+  };
   Bookmark: undefined;
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
+  ReportMenu: {
+    bakeryId: number;
+  };
   NotificationModal: undefined;
   ProfileModal: undefined;
   SettingModal: undefined;
@@ -113,6 +121,7 @@ const MainStack = () => {
         }}
       >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
+        <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
         <Stack.Screen
           options={{ headerTitle: '알림', headerTitleAlign: 'center', headerStyle: { height: 52 } }}
           name={'NotificationModal'}
