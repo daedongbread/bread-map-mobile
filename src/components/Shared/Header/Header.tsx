@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
+import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { Text } from '../Text';
 
 interface Props {
   title?: string;
@@ -49,7 +51,9 @@ export const Header = ({
           </TouchableOpacity>
         )}
       </View>
-      <Text style={styles.headerText}>{title}</Text>
+      <Text presets={['subhead', 'bold']} style={styles.headerText}>
+        {title}
+      </Text>
       <View style={styles.icon}>
         {isCloseButtonShown && (
           <TouchableOpacity onPress={onPressCloseBtn}>
@@ -74,8 +78,6 @@ const styles = StyleSheet.create({
     height: 24,
   },
   headerText: {
-    color: '#000000',
-    fontSize: 18,
-    fontWeight: '700',
+    color: theme.color.gray900,
   },
 });

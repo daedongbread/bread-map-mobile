@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MenuEntity } from '@/apis/menu/type';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
@@ -8,6 +8,8 @@ import { resizePixels } from '@/utils';
 import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { Button } from '../Button/Button';
 import { PlusIcon } from '../Icons';
+import { SplitColumn } from '../SplitSpace';
+import { Text } from '../Text';
 import { Menu } from './Menu';
 
 interface MenuProps {
@@ -44,8 +46,13 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, bakeryId, menus, onPress 
       )}
       ListFooterComponent={
         <Button size="large" appearance="terdary" style={styles.footerButton} onPress={onPressAddButton}>
-          <PlusIcon color={'#BDBDBD'} style={styles.footerIcon} />
-          <Text style={styles.footerButtonText}>빵 메뉴 제보하기</Text>
+          <View style={styles.buttonContainer}>
+            <PlusIcon color={'#BDBDBD'} style={styles.footerIcon} />
+            <SplitColumn width={4} />
+            <Text presets={['body2', 'bold']} style={styles.footerButtonText}>
+              빵 메뉴 제보하기
+            </Text>
+          </View>
         </Button>
       }
     />
@@ -61,13 +68,17 @@ const styles = StyleSheet.create(
     },
     footerButton: {
       marginVertical: 24,
+      justifyContent: 'center',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
     },
     footerIcon: {
-      marginRight: 8,
+      alignItems: 'center',
+      alignSelf: 'center',
     },
     footerButtonText: {
-      fontSize: 14,
-      fontWeight: '700',
+      textAlignVertical: 'center',
     },
   })
 );

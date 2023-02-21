@@ -53,7 +53,10 @@ export const ReviewSelectComponent: React.FC<Props> = ({
   };
 
   const goNavQuestionBottomSheet = () => {
-    navigation.navigate('QuestionBottomSheet');
+    navigation.navigate('QuestionBottomSheet', {
+      title: '리뷰작성을 그만할까요?',
+      subTitle: '삭제한 리뷰는 되돌릴 수 없으니\n신중히 생각해주세요!',
+    });
   };
 
   return (
