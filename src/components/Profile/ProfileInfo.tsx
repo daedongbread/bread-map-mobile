@@ -8,7 +8,7 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 
-export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButtonClick, userId }: any) {
+export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButtonClick, userId, otherId }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
 
   const onClickFollowButton = (index: number, userId: number) => {
@@ -42,7 +42,7 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
         </View>
       </View>
       <TouchableOpacity
-        onPress={userId ? () => onFollowButtonClick(userId) : onClickUpdateButton}
+        onPress={otherId ? () => onFollowButtonClick(userId) : onClickUpdateButton}
         style={[
           styles.Button,
           {
@@ -58,7 +58,7 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
             { color: userId && !profileInfoData?.isFollow ? theme.color.primary500 : theme.color.gray700 },
           ]}
         >
-          {userId ? (profileInfoData?.isFollow ? '팔로잉' : '팔로우') : '수정'}
+          {otherId ? (profileInfoData?.isFollow ? '팔로잉' : '팔로우') : '수정'}
         </Text>
       </TouchableOpacity>
     </View>

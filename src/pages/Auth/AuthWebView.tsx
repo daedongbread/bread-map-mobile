@@ -18,9 +18,9 @@ const AuthWebView = () => {
   const onMessage: WebViewProps['onMessage'] = nativeEvent => {
     const data = nativeEvent.nativeEvent.data;
     const responseData = JSON.parse(data);
-    const { accessToken, refreshToken } = responseData;
+    const { accessToken, refreshToken, userId } = responseData;
 
-    logIn({ accessToken, refreshToken });
+    logIn({ accessToken, refreshToken, userId });
   };
 
   return (

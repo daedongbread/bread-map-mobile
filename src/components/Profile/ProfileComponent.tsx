@@ -6,19 +6,19 @@ import { Header } from './Header';
 import { ListButtonWrap } from './ListButtonWrap';
 import { ProfileInfo } from './ProfileInfo';
 import { ReviewList } from './ReviewList';
-import { SaveList } from '.';
-import { useNavigation } from '@react-navigation/native';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { SaveList } from './SaveList';
 
 type Props = {
   profileInfoData: any;
+  flagData: any;
   loading: boolean;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
   onItemClick: (item: any) => void;
   onClickUpdateButton: () => void;
   onFollowButtonClick: (userId: number) => void;
-  userId: any;
+  userId: number;
+  otherId: number;
 };
 
 export const FlagColors = {
@@ -36,6 +36,7 @@ export const FlagColors = {
 
 export const ProfileComponent = ({
   profileInfoData,
+  flagData,
   loading,
   buttonType,
   setButtonType,
@@ -43,6 +44,7 @@ export const ProfileComponent = ({
   onClickUpdateButton,
   onFollowButtonClick,
   userId,
+  otherId,
 }: Props) => {
   return (
     <>
@@ -52,29 +54,30 @@ export const ProfileComponent = ({
           bounces={false}
           ListHeaderComponent={() => (
             <>
-              <Header type={userId ? 'OTHER' : 'ME'} />
+              <Header type={otherId ? 'OTHER' : 'ME'} />
               <SplitRow height={16} />
               <ProfileInfo
                 profileInfoData={profileInfoData}
                 onClickUpdateButton={onClickUpdateButton}
                 onFollowButtonClick={onFollowButtonClick}
                 userId={userId}
+                otherId={otherId}
               />
               <SplitRow height={16} />
             </>
           )}
           renderSectionHeader={() => (
             <View style={styles.Header}>
-              <ListButtonWrap profileInfoData={profileInfoData} buttonType={buttonType} setButtonType={setButtonType} />
+              <ListButtonWrap flagData={flagData} buttonType={buttonType} setButtonType={setButtonType} />
             </View>
           )}
           stickySectionHeadersEnabled
           key={buttonType === 0 ? 'G' : 'L'}
           renderItem={() =>
             buttonType === 0 ? (
-              <SaveList userFlagList={profileInfoData?.userFlagList} onItemClick={onItemClick} />
+              <SaveList userFlagList={flagData} onItemClick={onItemClick} />
             ) : (
-              <ReviewList userReviewList={profileInfoData?.userReviewList} />
+              <ReviewList userId={userId} />
             )
           }
         />

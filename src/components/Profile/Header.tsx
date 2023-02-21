@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import IcArea from '@/components/Shared/Icons/IcArea.svg';
 import IcMore from '@/components/Shared/Icons/IcMore.svg';
 import IcSetting from '@/components/Shared/Icons/IcSetting.svg';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
@@ -34,9 +33,9 @@ export const Header = ({ type, title, onClickRight }: Props) => {
   if (type === 'ME') {
     return (
       <View style={styles.MeContainer}>
-        <TouchableOpacity onPress={navigateNotice}>
+        {/* <TouchableOpacity onPress={navigateNotice}>
           <IcArea />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <SplitColumn width={16} />
         <TouchableOpacity onPress={navigateSetting}>
           <IcSetting />
