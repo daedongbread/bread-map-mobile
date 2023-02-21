@@ -10,25 +10,32 @@ export interface AuthState {
   loading: boolean;
   accessToken: string | null;
   refreshToken: string | null;
+  userId: number | null;
 }
 
 const initialState: AuthState = {
   loading: false,
   accessToken: null,
   refreshToken: null,
+  userId: null,
 };
 
-type Tokens = {
+interface Tokens {
   accessToken: string;
   refreshToken: string;
-};
+}
 
-const storeTokens = ({ accessToken, refreshToken }: Tokens) => {
+interface StoreTokens extends Tokens {
+  userId: number;
+}
+
+const storeTokens = ({ accessToken, refreshToken, userId }: StoreTokens) => {
   return EncryptedStorage.setItem(
     USER_KEY,
     JSON.stringify({
       refreshToken,
       accessToken,
+      userId,
     })
   );
 };
@@ -47,11 +54,11 @@ export const initAuth = createAsyncThunk('auth/initAuth', async () => {
     return;
   }
 
-  const { refreshToken, accessToken } = JSON.parse(user);
+  const { refreshToken, accessToken, userId } = JSON.parse(user);
   const { data } = await requestRefresh({ accessToken, refreshToken });
-  storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken });
+  storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, userId: userId });
 
-  return data;
+  return { ...data, userId };
 });
 
 export const logout = createAsyncThunk(
@@ -70,19 +77,21 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
-      const { accessToken, refreshToken } = action.payload;
+      const { accessToken, refreshToken, userId } = action.payload;
 
-      storeTokens({ accessToken, refreshToken });
+      storeTokens({ accessToken, refreshToken, userId });
       setHeader(accessToken);
 
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
+      state.userId = userId;
     },
     logout(state) {
       EncryptedStorage.clear();
       removeHeader();
 
       state.accessToken = null;
+      state.userId = null;
     },
   },
   extraReducers: builder => {
@@ -97,14 +106,15 @@ export const authSlice = createSlice({
           return;
         }
 
-        const { accessToken, refreshToken } = action.payload;
+        const { accessToken, refreshToken, userId } = action.payload;
 
-        storeTokens({ accessToken, refreshToken });
+        storeTokens({ accessToken, refreshToken, userId });
         setHeader(accessToken);
 
         state.loading = false;
         state.accessToken = accessToken;
         state.refreshToken = refreshToken;
+        state.userId = userId;
       })
       .addCase(initAuth.rejected, state => {
         state.loading = false;

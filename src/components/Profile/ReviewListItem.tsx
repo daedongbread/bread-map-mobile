@@ -1,4 +1,3 @@
-import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { StarIcon } from '@/components/Shared/Icons';
@@ -15,12 +14,12 @@ export function ReviewListItem({ item }: any) {
   return (
     <View>
       <Text presets={['body1', 'bold']} style={styles.Name}>
-        {item?.bakeryName}
+        {item?.bakeryInfo?.bakeryName}
       </Text>
       <View style={styles.Location}>
         <IcMapPin />
         <Text style={styles.LocationText} presets={['caption1', 'medium']}>
-          {item?.bakeryAddress}
+          {item?.bakeryInfo?.bakeryAddress}
         </Text>
       </View>
       <FlatList
@@ -28,7 +27,7 @@ export function ReviewListItem({ item }: any) {
         contentContainerStyle={{ paddingLeft: 20 }}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
-        data={item?.productRatingList}
+        data={item?.reviewInfo?.productRatingList}
         horizontal
         renderItem={({ item }) => {
           return (
@@ -48,23 +47,23 @@ export function ReviewListItem({ item }: any) {
 
       <SplitRow height={12} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.ContentContainer}>
-        {item?.imageList.map((image: any, index: number) => {
+        {item?.reviewInfo?.imageList.map((image: any, index: number) => {
           return <ReviewListItemInImageItem url={image?.url} key={index} />;
         })}
       </ScrollView>
       <SplitRow height={12} />
       <View style={styles.Content}>
-        <MoreInfo linesToTruncate={2} text={item?.content} />
+        <MoreInfo linesToTruncate={2} text={item?.reviewInfo?.content} />
       </View>
       <SplitRow height={12} />
       <View style={styles.ReviewTimeWrap}>
         <IcLike />
-        <Text style={styles.ReviewTimeText}> {item?.likeNum}</Text>
+        <Text style={styles.ReviewTimeText}> {item?.reviewInfo?.likeNum}</Text>
         <SplitColumn width={4} />
         <IcComment />
-        <Text style={styles.ReviewTimeText}> {item?.commentNum}</Text>
+        <Text style={styles.ReviewTimeText}> {item?.userInfo?.reviewNum}</Text>
         <View style={styles.ReviewTimeWrapRight}>
-          <Text style={styles.ReviewTimeText}>{format(parseISO(item?.createdAt), 'yyyy.MM.dd')}</Text>
+          <Text style={styles.ReviewTimeText}>{item?.reviewInfo?.createdAt}</Text>
           <SplitColumn width={2} />
           {/* <IcMore color="#BDBDBD" /> */}
         </View>

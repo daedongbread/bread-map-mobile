@@ -8,8 +8,8 @@ export const useAuth = () => {
   const dispatch = useAppDispatch();
 
   const signIn = useCallback(
-    ({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }) => {
-      dispatch(login({ accessToken, refreshToken }));
+    ({ accessToken, refreshToken, userId }: { accessToken: string; refreshToken: string; userId: number }) => {
+      dispatch(login({ accessToken, refreshToken, userId }));
     },
     [dispatch]
   );

@@ -6,12 +6,12 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 
 type Props = {
-  profileInfoData: any;
+  flagData: any;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
 };
 
-export function ListButtonWrap({ profileInfoData, buttonType, setButtonType }: Props) {
+export function ListButtonWrap({ flagData, buttonType, setButtonType }: Props) {
   const onButtonClick = (index: number) => {
     setButtonType(index);
   };
@@ -27,7 +27,7 @@ export function ListButtonWrap({ profileInfoData, buttonType, setButtonType }: P
         </Text>
         <SplitColumn width={5} />
         <Text presets={['bold', 'body2']} style={{ color: theme.color.primary500 }}>
-          {profileInfoData?.userFlagList.length}
+          {flagData?.length}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -39,7 +39,7 @@ export function ListButtonWrap({ profileInfoData, buttonType, setButtonType }: P
         </Text>
         <SplitColumn width={5} />
         <Text presets={['bold', 'body2']} style={{ color: theme.color.primary500 }}>
-          {profileInfoData?.userReviewList.length}
+          {0}
         </Text>
       </TouchableOpacity>
     </View>

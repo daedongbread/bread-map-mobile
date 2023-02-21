@@ -2,26 +2,21 @@ import { useQuery } from 'react-query';
 import { fetcher } from '../fetcher';
 
 type UseGetProfileInfoProps = {
-  accessToken: string;
-  type: 'me' | number;
+  userId: number;
 };
 
 type GetProfileInfoResponse = {
   data: any;
 };
 
-const requestGetProfileInfo = async ({ accessToken, type }: UseGetProfileInfoProps) => {
-  const resp = await fetcher.get<GetProfileInfoResponse>(`/user/${type}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+const requestGetProfileInfo = async ({ userId }: UseGetProfileInfoProps) => {
+  const resp = await fetcher.get<GetProfileInfoResponse>(`/user/${userId}`);
   return resp.data.data;
 };
 
-const useGetProfileInfo = ({ accessToken, type }: UseGetProfileInfoProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetProfileInfo', { accessToken }], () =>
-    requestGetProfileInfo({ accessToken, type })
+const useGetProfileInfo = ({ userId }: UseGetProfileInfoProps) => {
+  const { data, isLoading, isError, refetch } = useQuery(['useGetProfileInfo'], () =>
+    requestGetProfileInfo({ userId })
   );
 
   return {

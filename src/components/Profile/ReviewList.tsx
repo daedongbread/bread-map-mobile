@@ -1,23 +1,65 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { useGetReviews } from '@/apis/profile/useGetReviews';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import EmptyData from '@shared/Images/emptyData.png';
 import { Text } from '../Shared/Text';
 import { ReviewListItem } from './ReviewListItem';
 
-export function ReviewList({ userReviewList }: any) {
+export function ReviewList({ userId }: { userId: number }) {
+  const {
+    data: reviewData,
+    loading: reviewLoading,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  } = useGetReviews({ userId: userId });
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+  const getRefreshData = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+
+  const onRefresh = () => {
+    if (!refreshing) {
+      getRefreshData();
+    }
+  };
+
   return (
-    <FlatList
-      data={userReviewList}
-      renderItem={data => {
-        return <ReviewListItem item={data?.item} />;
-      }}
-      ItemSeparatorComponent={ItemSeparatorComponent}
-      ListEmptyComponent={ReviewListEmptyComponent}
-      style={styles.Flatlist}
-    />
+    <>
+      {!reviewLoading && (
+        <FlatList
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.7}
+          data={reviewData?.pages
+            ?.map(page => {
+              return page.contents;
+            })
+            .flat()}
+          renderItem={data => {
+            return <ReviewListItem item={data?.item} />;
+          }}
+          keyExtractor={item => {
+            return item?.reviewInfo?.id;
+          }}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          ListEmptyComponent={ReviewListEmptyComponent}
+          style={styles.Flatlist}
+        />
+      )}
+    </>
   );
 }
 
