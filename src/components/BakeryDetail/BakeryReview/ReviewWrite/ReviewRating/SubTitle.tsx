@@ -5,7 +5,7 @@ import { presets } from '@/components/Shared/Text/presets';
 import { theme } from '@/styles/theme';
 
 type Props = {
-  isRequire: boolean;
+  isRequire?: boolean;
   children: React.ReactChild;
 };
 
