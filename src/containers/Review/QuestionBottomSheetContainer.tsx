@@ -1,12 +1,16 @@
 import React from 'react';
 import { QuestionBottomSheetComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 type Navigation = MainStackScreenProps<'QuestionBottomSheet'>['navigation'];
+type Route = MainStackScreenProps<'QuestionBottomSheet'>['route'];
 
 export const QuestionBottomSheetContainer = () => {
   const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
+
+  const { title, subTitle } = route.params;
 
   const closePage = () => {
     navigation.pop(2);
@@ -16,5 +20,12 @@ export const QuestionBottomSheetContainer = () => {
     navigation.goBack();
   };
 
-  return <QuestionBottomSheetComponent closePage={closePage} closeBottomSheet={closeBottomSheet} />;
+  return (
+    <QuestionBottomSheetComponent
+      title={title}
+      subTitle={subTitle}
+      closePage={closePage}
+      closeBottomSheet={closeBottomSheet}
+    />
+  );
 };

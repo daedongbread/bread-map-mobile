@@ -13,7 +13,7 @@ export const ReportPhotoContainer = () => {
   const route = useRoute<ReportBakeryStackScreenProps<'ReportPhoto'>['route']>();
 
   const { bakeryId, bakeryName, photos: photoList } = route.params;
-  const { mutateAsync: reportPhoto } = useReportPhoto();
+  const { mutateAsync: reportPhoto, isLoading: isSaving } = useReportPhoto();
 
   const [photos, setPhotos] = useState<Asset[]>(photoList);
 
@@ -33,6 +33,10 @@ export const ReportPhotoContainer = () => {
   };
 
   const onPressReportButton = async () => {
+    if (isSaving) {
+      return;
+    }
+
     const formData = new FormData();
 
     if (photos.length > 0) {
@@ -45,15 +49,18 @@ export const ReportPhotoContainer = () => {
       });
     }
 
-    const { status } = await reportPhoto({
-      bakeryId,
-      formData,
-    });
-
-    if (status === 201) {
-      closePage();
-      goNavSuccessBottomSheet();
-    }
+    await reportPhoto(
+      {
+        bakeryId,
+        formData,
+      },
+      {
+        onSuccess: () => {
+          closePage();
+          goNavSuccessBottomSheet();
+        },
+      }
+    );
   };
 
   const goNavSuccessBottomSheet = () => {
