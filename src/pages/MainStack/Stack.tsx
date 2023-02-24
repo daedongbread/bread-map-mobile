@@ -13,6 +13,7 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { Header } from '@shared/Header';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
@@ -60,7 +61,13 @@ const MainStack = () => {
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
 
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
-        <Stack.Screen name={'Bookmark'} component={Bookmark} />
+        <Stack.Screen
+          options={{
+            header: () => <Header isPrevButtonShown title={'새 리스트'} />,
+          }}
+          name={'Bookmark'}
+          component={Bookmark}
+        />
         <Stack.Screen
           name={'Search'}
           component={Search}

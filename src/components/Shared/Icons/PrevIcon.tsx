@@ -4,11 +4,8 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 export const PrevIcon: React.FC<SvgProps> = props => (
   <Svg width="24" height="24" viewBox="0 0 12 21" fill="none" {...props}>
     <Path
-      d="M10.5 19.5L1.5 10.5L10.5 1.5"
-      stroke="#222222"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      d="M15.675 20.475C15.375 20.475 15.075 20.375 14.875 20.075L7.375 12.575C6.875 12.075 6.875 11.375 7.375 10.875L14.875 3.375C15.375 2.875 16.075 2.875 16.575 3.375C17.075 3.875 17.075 4.575 16.575 5.075L9.775 11.775L16.475 18.475C16.975 18.975 16.975 19.675 16.475 20.175C16.275 20.375 15.975 20.475 15.675 20.475Z"
+      fill="#222222"
     />
   </Svg>
 );
