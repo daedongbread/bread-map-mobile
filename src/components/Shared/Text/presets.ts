@@ -54,6 +54,9 @@ export const presets = StyleSheet.create(
     medium: {
       fontFamily: FONT_FAMILY.medium,
     },
+    black: {
+      color: 'black',
+    },
   })
 );
 

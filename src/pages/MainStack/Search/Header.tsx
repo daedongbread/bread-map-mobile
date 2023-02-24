@@ -12,13 +12,14 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
     <View>
       <View style={[styles.container, styles.TextInputContainer]}>
         <TouchableOpacity onPress={onPress}>
-          <ChevronLeftIcon />
+          <ChevronLeftIcon width={24} height={24} />
         </TouchableOpacity>
         <TextInput
           value={value}
           backgroundColor={'white'}
           onChangeText={onChangeText}
           placeholder={'빵집 이름을 검색해보세요'}
+          style={styles.searchbarText}
         />
       </View>
       <Divider />
@@ -39,6 +40,9 @@ const styles = StyleSheet.create({
   TextInput: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  searchbarText: {
+    fontSize: 14,
   },
 });
 
