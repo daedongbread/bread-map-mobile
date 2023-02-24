@@ -23,7 +23,7 @@ const requestGetBakeriesFilter = async ({
   longitudeDelta,
 }: Omit<UseGetBakeriesProps, 'filter'>) => {
   const resp = await fetcher.get<GetBakeriesResponse>(
-    `/bakery/filter?sort=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
+    `/bakery/filter?sortBy=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
   );
   return resp.data.data;
 };
