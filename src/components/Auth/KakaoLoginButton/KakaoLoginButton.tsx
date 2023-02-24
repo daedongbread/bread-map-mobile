@@ -1,22 +1,21 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
-import { GoogleLogo } from '@/components/Shared/Icons';
-import { theme } from '@/styles/theme';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import KakaoLogo from '@shared/Icons/IcLogoKakao.svg';
 
 type Props = {
   onPress: () => void;
 };
 
-const GoogleLoginButton = ({ onPress }: Props) => (
+const KakaoLoginButton = ({ onPress }: Props) => (
   <TouchableWithoutFeedback onPress={onPress}>
     <View style={styles.container}>
-      <GoogleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>구글 계정으로 로그인</Text>
+      <KakaoLogo style={styles.logo} />
+      <Text style={styles.buttonText}>카카오 계정으로 로그인</Text>
     </View>
   </TouchableWithoutFeedback>
 );
 
-export { GoogleLoginButton };
+export { KakaoLoginButton };
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 16,
     borderRadius: 8,
-    backgroundColor: theme.color.white,
+    backgroundColor: '#f7e317',
     width: 320,
     height: 56,
   },
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 8,
+    marginBottom: 4,
   },
 
   buttonText: {

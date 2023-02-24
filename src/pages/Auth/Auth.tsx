@@ -5,7 +5,6 @@ import { KakaoLoginButton, GoogleLoginButton } from '@/components/Auth';
 import { DaebbangFlag } from '@/components/Shared/Icons';
 import { TitleTextLogo } from '@/components/Shared/Icons/TitleTextLogo';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -56,19 +55,17 @@ const Container = styled(SafeAreaView)`
 `;
 
 //TODO: 사이즈가 고정값아니고 유연하게 진행
-const styles = StyleSheet.create(
-  resizePixels({
-    iconContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 150,
-    },
-    iconSize: {
-      width: 160,
-      height: 119,
-    },
-    titleText: {
-      marginTop: 12,
-    },
-  })
-);
+const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 150,
+  },
+  iconSize: {
+    width: 160,
+    height: 119,
+  },
+  titleText: {
+    marginTop: 12,
+  },
+});
