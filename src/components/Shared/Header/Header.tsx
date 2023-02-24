@@ -1,10 +1,11 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { Text } from '../Text';
 
 interface Props {
   title?: string;
@@ -21,7 +22,7 @@ export const Header = ({
   isPrevButtonShown = false,
   isCloseButtonShown = false,
 }: Props) => {
-  const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
+  const navigation = useNavigation();
 
   const onPressPrevBtn = () => {
     if (onPressPrev) {
@@ -29,7 +30,7 @@ export const Header = ({
       return;
     }
 
-    navigation.pop();
+    navigation.goBack();
   };
 
   const onPressCloseBtn = () => {
@@ -38,11 +39,11 @@ export const Header = ({
       return;
     }
 
-    navigation.pop();
+    navigation.goBack();
   };
 
   return (
-    <SafeAreaView style={styles.headerContainer}>
+    <View style={styles.headerContainer}>
       <View style={styles.icon}>
         {isPrevButtonShown && (
           <TouchableOpacity onPress={onPressPrevBtn}>
@@ -50,7 +51,9 @@ export const Header = ({
           </TouchableOpacity>
         )}
       </View>
-      <Text style={styles.headerText}>{title}</Text>
+      <Text presets={['subhead', 'bold']} style={styles.headerText}>
+        {title}
+      </Text>
       <View style={styles.icon}>
         {isCloseButtonShown && (
           <TouchableOpacity onPress={onPressCloseBtn}>
@@ -58,7 +61,7 @@ export const Header = ({
           </TouchableOpacity>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -75,8 +78,6 @@ const styles = StyleSheet.create({
     height: 24,
   },
   headerText: {
-    color: '#000000',
-    fontSize: 18,
-    fontWeight: '700',
+    color: theme.color.gray900,
   },
 });

@@ -25,7 +25,7 @@ export type ReportBakeryValidFormData = {
 
 export const ReportBaekryContainer: React.FC = ({}) => {
   const navigation = useNavigation<ReportBakeryStackScreenProps<'ReportBakery'>['navigation']>();
-  const { mutate } = useMutation({
+  const { mutate, isLoading: isSaving } = useMutation({
     mutationFn: usePostReport,
     onSuccess: () => {
       reportSuccessBottomSheetRef.current?.expand();
@@ -62,8 +62,8 @@ export const ReportBaekryContainer: React.FC = ({}) => {
   }, [form.location, form.name]);
 
   const onPressConfirm = () => {
-    if (!validate()) {
-      return null;
+    if (!validate() || isSaving) {
+      return;
     }
 
     mutate(form);

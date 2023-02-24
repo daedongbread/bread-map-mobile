@@ -8,16 +8,16 @@ const FONT_FAMILY = {
 };
 export const presets = StyleSheet.create(
   resizePixels({
-    h1: {
-      fontSize: 36,
+    heading1: {
+      fontSize: 24,
       fontFamily: FONT_FAMILY.bold,
-      lineHeight: 42,
+      lineHeight: 32,
       letterSpacing: -(36 * 0.02),
     },
-    h2: {
-      fontSize: 30,
+    heading2: {
+      fontSize: 20,
       fontFamily: FONT_FAMILY.bold,
-      lineHeight: 38,
+      lineHeight: 28,
     },
     subhead: {
       fontSize: 18,

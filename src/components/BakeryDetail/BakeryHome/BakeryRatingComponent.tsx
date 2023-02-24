@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { BakerySingleEntity } from '@/apis/bakery/types';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { numberFormat } from '@/utils';
 import IcPersonCircle from '@shared/Icons/IcPersonCircle.svg';
@@ -28,6 +29,7 @@ export const BakeryRatingComponent = ({ bakery }: Props) => {
         </View>
         <Text style={styles.ratingText}>{bakery?.bakeryInfo.rating}</Text>
         <RatingStars rating={bakery?.bakeryInfo.rating || 0} />
+        <SplitRow height={24} />
       </View>
     </>
   );

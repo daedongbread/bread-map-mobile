@@ -2,7 +2,6 @@ import { useQuery } from 'react-query';
 import { fetcher } from '../fetcher';
 
 type UseGetFollowerProps = {
-  accessToken: string;
   enabled: boolean;
   userId: number;
 };
@@ -11,23 +10,15 @@ type GetFollowerResponse = {
   data: any;
 };
 
-const requestGetFollower = async ({ accessToken, userId }: UseGetFollowerProps) => {
-  const resp = await fetcher.get<GetFollowerResponse>(`/user/${userId ? `${userId}/` : ''}follower`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+const requestGetFollower = async ({ userId }: { userId: number }) => {
+  const resp = await fetcher.get<GetFollowerResponse>(`/user/${userId ? `${userId}/` : ''}follower`);
   return resp.data.data;
 };
 
-const useGetFollower = ({ accessToken, enabled, userId }: UseGetFollowerProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(
-    ['useGetFollower', { accessToken }],
-    () => requestGetFollower({ accessToken, enabled, userId }),
-    {
-      enabled: enabled,
-    }
-  );
+const useGetFollower = ({ enabled, userId }: UseGetFollowerProps) => {
+  const { data, isLoading, isError, refetch } = useQuery(['useGetFollower'], () => requestGetFollower({ userId }), {
+    enabled: enabled,
+  });
 
   return {
     followerData: data,

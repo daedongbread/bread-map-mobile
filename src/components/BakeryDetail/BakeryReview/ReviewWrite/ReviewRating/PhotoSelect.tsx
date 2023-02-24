@@ -1,9 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { ImageCloseIcon } from '@/components/Shared/Icons';
 import { PhotoButton } from './PhotoButton';
+
+const { width } = Dimensions.get('window');
 
 type Props = {
   images: Asset[];
@@ -22,12 +24,12 @@ export const PhotoSelect = ({ images, onSelectPhotos, deSelectPhoto }: Props) =>
         horizontal={true}
         renderItem={({ item }) => {
           return (
-            <>
+            <View>
               <Image style={styles.uploadImage} source={{ uri: item.uri }} />
               <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
                 <ImageCloseIcon />
               </TouchableOpacity>
-            </>
+            </View>
           );
         }}
       />
@@ -38,13 +40,15 @@ export const PhotoSelect = ({ images, onSelectPhotos, deSelectPhoto }: Props) =>
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    marginRight: -20,
   },
   imageListContainer: {
     paddingTop: 12,
+    paddingLeft: 12,
   },
   uploadImage: {
-    width: 88,
-    height: 88,
+    width: width * 0.25,
+    height: width * 0.25,
     borderRadius: 8,
     marginRight: 12,
   },

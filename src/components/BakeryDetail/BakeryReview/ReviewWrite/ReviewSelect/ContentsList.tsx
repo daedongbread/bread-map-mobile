@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { BreadEntity } from '@/apis/bread';
+import { MenuForReviewEntity } from '@/apis/menu/type';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { RatedBread } from '@/slices/reviewWrite';
 import { AddButton } from './AddButton';
 import { Bread } from './Bread';
@@ -8,7 +9,7 @@ import { ManualInputRow } from './ManualInputRow';
 import { NoDataRow } from './NoDataRow';
 
 type Props = {
-  breads: BreadEntity[];
+  breads: MenuForReviewEntity[];
   selectedBreads: RatedBread[];
   manualSelectedBreads: RatedBread[];
   manualInputs: RatedBread[];
@@ -17,13 +18,13 @@ type Props = {
 };
 
 type BreadListProps = {
-  breads: BreadEntity[];
-  selectedBreads: BreadEntity[];
+  breads: MenuForReviewEntity[];
+  selectedBreads: MenuForReviewEntity[];
 };
 
 type ManualBreadListProps = {
   manualSelectedBreads: RatedBread[];
-  manualInputs: BreadEntity[];
+  manualInputs: MenuForReviewEntity[];
   setManualInputs: Dispatch<SetStateAction<RatedBread[]>>;
   isExistBread: (manualBreadName: string) => boolean;
 };
@@ -91,7 +92,10 @@ export const ContentsList: React.FC<Props> = ({
         setManualInputs={setManualInputs}
         isExistBread={isExistBread}
       />
+
+      <SplitRow height={16} />
       <AddButton buttonText="메뉴 직접입력하기" onPress={onPress} />
+      <SplitRow height={16} />
     </ScrollView>
   );
 };

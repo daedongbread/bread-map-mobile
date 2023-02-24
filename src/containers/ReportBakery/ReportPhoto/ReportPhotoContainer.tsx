@@ -1,25 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Asset } from 'react-native-image-picker';
+import { useReportPhoto } from '@/apis/bakery/useReportPhoto';
 import { ReportPhotoComponent } from '@/components/ReportBakery/ReportPhoto';
 import { ReportBakeryStackScreenProps } from '@/pages/MainStack/ReportBakeryStack/Stack';
-import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const PHOTO_LIMIT = 10;
 
 export const ReportPhotoContainer = () => {
+  const navigation = useNavigation<ReportBakeryStackScreenProps<'ReportPhoto'>['navigation']>();
   const route = useRoute<ReportBakeryStackScreenProps<'ReportPhoto'>['route']>();
-  const nvaigation = useNavigation<ReportBakeryStackScreenProps<'ReportPhoto'>['navigation']>();
 
-  const reportSuccessBottomSheetRef = useRef<BottomSheet>(null);
-  const [photos, setPhotos] = useState<Asset[]>(route.params.photos);
+  const { bakeryId, bakeryName, photos: photoList } = route.params;
+  const { mutateAsync: reportPhoto, isLoading: isSaving } = useReportPhoto();
+
+  const [photos, setPhotos] = useState<Asset[]>(photoList);
 
   const onPressPhotoSelectButton = async () => {
-    const { assets, didCancel } = await launchImageLibrary({ mediaType: 'photo', selectionLimit: PHOTO_LIMIT });
+    const { assets, didCancel } = await launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: PHOTO_LIMIT - photos.length,
+    });
 
     if (!didCancel && assets) {
-      setPhotos(assets);
+      setPhotos([...photos, ...assets]);
     }
   };
 
@@ -27,24 +32,57 @@ export const ReportPhotoContainer = () => {
     setPhotos(_photos => _photos.filter(_photo => _photo.uri !== uri));
   };
 
-  const onPressReportButton = () => {
-    // TO DO : 사진 서버에 저장하는 로직 필요 (현재 api 찾는중!)
-    reportSuccessBottomSheetRef.current?.expand();
+  const onPressReportButton = async () => {
+    if (isSaving) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    if (photos.length > 0) {
+      photos.forEach(photo => {
+        formData.append('files', {
+          uri: photo.uri,
+          name: photo.fileName,
+          type: photo.type,
+        });
+      });
+    }
+
+    await reportPhoto(
+      {
+        bakeryId,
+        formData,
+      },
+      {
+        onSuccess: () => {
+          closePage();
+          goNavSuccessBottomSheet();
+        },
+      }
+    );
   };
 
-  const closeSuccessPopup = () => {
-    nvaigation.pop();
+  const goNavSuccessBottomSheet = () => {
+    navigation.navigate('MainStack', {
+      screen: 'SuccessBottomSheet',
+      params: {
+        content: '사진 제보 감사해요!\n심사과정을 거쳐 반영할게요!',
+      },
+    });
+  };
+
+  const closePage = () => {
+    navigation.goBack();
   };
 
   return (
     <ReportPhotoComponent
-      bakeryName={route.params.bakeryName}
+      bakeryName={bakeryName}
       photos={photos}
-      reportSuccessBottomSheetRef={reportSuccessBottomSheetRef}
       onPressPhotoSelectButton={onPressPhotoSelectButton}
       onPressPhotoDeleteButton={onPressPhotoDeleteButton}
       onPressReportButton={onPressReportButton}
-      closeSuccessPopup={closeSuccessPopup}
     />
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { BakerySingleEntity } from '@/apis/bakery/types';
+import Share from 'react-native-share';
+import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
@@ -29,7 +30,7 @@ const defaultMessage = '미정';
 type Props = {
   bakeryId: number;
   bakery?: BakerySingleEntity;
-  isFlaged: boolean;
+  flagInfo: FlagInfo;
   onPressReportPhoto: () => void;
   onBookmarkSuccess: (selectBookmark: BookmarkList) => void;
   onPressBookmarkDisable: () => void;
@@ -38,7 +39,7 @@ type Props = {
 export const BakeryDetailInfoComponent = ({
   bakeryId,
   bakery,
-  isFlaged,
+  flagInfo,
   onPressReportPhoto,
   onBookmarkSuccess,
   onPressBookmarkDisable,
@@ -47,7 +48,7 @@ export const BakeryDetailInfoComponent = ({
   const NavigationKey = useNavigationState(state => state);
 
   const onPressSaveBtn = () => {
-    if (isFlaged) {
+    if (flagInfo.isFlaged) {
       onPressBookmarkDisable();
     } else {
       onNavBookmark();
@@ -68,7 +69,20 @@ export const BakeryDetailInfoComponent = ({
   const onPressReviewWriteBtn = () => {
     navigation.push('ReviewWriteStack', {
       screen: 'ReviewSelect',
+      params: {
+        bakeryId,
+      },
     });
+  };
+
+  const onPressShareBtn = async () => {
+    const shareOptions = {
+      title: 'Share file',
+      failOnCancel: false,
+      message: 'app store url 입니다 https://appstore',
+    };
+
+    Share.open(shareOptions).catch(() => null);
   };
 
   const onPressEditBakeryInfo = () => {
@@ -112,7 +126,7 @@ export const BakeryDetailInfoComponent = ({
         </View>
         <SplitRow height={16} />
         <View style={styles.actionButtonContainer}>
-          {isFlaged ? (
+          {flagInfo.isFlaged ? (
             <BakeryButton
               text={'저장됨'}
               textColor={theme.color.primary500}
@@ -123,7 +137,7 @@ export const BakeryDetailInfoComponent = ({
             <BakeryButton text={'저장하기'} icon={<WishIcon fill={'#757575'} />} onPress={onPressSaveBtn} />
           )}
           <BakeryButton text={'리뷰작성'} icon={<EditIcon />} onPress={onPressReviewWriteBtn} />
-          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={() => null} />
+          <BakeryButton text={'공유하기'} icon={<ShareSolidIcon />} onPress={onPressShareBtn} />
         </View>
 
         <View style={styles.informationContainer}>

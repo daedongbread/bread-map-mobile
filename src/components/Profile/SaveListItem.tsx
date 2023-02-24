@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { resizePixels } from '@/utils';
-import { HeartIcon } from '../Shared/Icons';
+import { HeartIcon } from '@shared/Icons';
+import { Text } from '@shared/Text';
 import IcFlag from '../Shared/Icons/IcFlag.svg';
-import { Text } from '../Shared/Text';
 import { FlagColors } from './ProfileComponent';
 import { SaveListItemImages } from './SaveListItemImages';
 
@@ -31,7 +31,7 @@ export function SaveListItem({ item, onItemClick }: any) {
 
   return (
     <TouchableOpacity onPress={onItemClick(item)} style={styles.Container}>
-      <SaveListItemImages num={item?.flagImageList.length} images={item?.flagImageList} />
+      <SaveListItemImages num={item?.bakeryImageList.length} images={item?.bakeryImageList} />
       <View style={styles.Info}>
         <View style={[styles.IconBackground, { backgroundColor: color }]}>
           {item?.name !== '가봤어요' ? <HeartIcon width={18} /> : <IcFlag width={12} />}

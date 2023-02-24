@@ -3,19 +3,19 @@ import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-nativ
 import FastImage from 'react-native-fast-image';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
-import { SplitColumn } from '../Shared/SplitSpace';
-import { Text } from '../Shared/Text';
 import defaultProfile from '@shared/Images/defaultProfile.png';
+import { SplitColumn } from '@shared/SplitSpace';
+import { Text } from '@shared/Text';
 
 export const FollowDetailItem =
   (onFollowButtonClick: any) =>
   ({ item }: any) => {
     const ButtonStyle = {
-      backgroundColor: item?.isFollowing ? 'white' : theme.color.primary100,
-      borderWidth: item?.isFollowing ? 1 : 0,
+      backgroundColor: item?.isFollow ? 'white' : theme.color.primary100,
+      borderWidth: item?.isFollow ? 1 : 0,
     };
     const ButtonTextStyle = {
-      color: item?.isFollowing ? theme.color.gray600 : theme.color.primary500,
+      color: item?.isFollow ? theme.color.gray600 : theme.color.primary500,
     };
 
     return (

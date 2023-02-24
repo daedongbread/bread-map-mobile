@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useGetBakery } from '@/apis/bakery';
+import { FlagInfo } from '@/apis/bakery/types';
 import { useBookmarkDisableBakery } from '@/apis/flag';
 import { BakeryDetailInfoComponent } from '@/components/BakeryDetail/BakeryHome';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
@@ -22,14 +23,22 @@ export const BakeryDetailInfoContainer = () => {
   const { bakery } = useGetBakery({ bakeryId });
   const { mutate: bookmarkDisable } = useBookmarkDisableBakery();
 
-  const [isFlaged, setIsFlaged] = useState(bakery?.flagInfo.isFlaged || false);
+  const [flagInfo, setFlagInfo] = useState<FlagInfo>({
+    isFlaged: false,
+  });
 
   useEffect(() => {
-    setIsFlaged(bakery?.flagInfo.isFlaged!);
-  }, [bakery?.flagInfo.isFlaged]);
+    if (bakery?.flagInfo) {
+      setFlagInfo(bakery?.flagInfo);
+    }
+  }, [bakery?.flagInfo]);
 
   const onBookmarkSuccess = (selectBookmark: BookmarkList) => {
-    setIsFlaged(true);
+    setFlagInfo({
+      isFlaged: true,
+      flagId: selectBookmark.flagId,
+    });
+
     dispatch(
       showToast({
         text: `${selectBookmark?.name}에 저장되었습니다.`,
@@ -40,7 +49,7 @@ export const BakeryDetailInfoContainer = () => {
   };
 
   const onPressBookmarkDisable = () => {
-    const flagId = bakery?.flagInfo.flagId;
+    const flagId = flagInfo.flagId;
 
     if (flagId == null) {
       return;
@@ -50,7 +59,9 @@ export const BakeryDetailInfoContainer = () => {
       { bakeryId, flagId },
       {
         onSuccess: () => {
-          setIsFlaged(false);
+          setFlagInfo({
+            isFlaged: false,
+          });
         },
       }
     );
@@ -67,6 +78,7 @@ export const BakeryDetailInfoContainer = () => {
       navigation.push('ReportBakeryStack', {
         screen: 'ReportPhoto',
         params: {
+          bakeryId,
           bakeryName: bakery.bakeryInfo.name,
           photos,
         },
@@ -78,7 +90,7 @@ export const BakeryDetailInfoContainer = () => {
     <BakeryDetailInfoComponent
       bakeryId={bakeryId}
       bakery={bakery}
-      isFlaged={isFlaged}
+      flagInfo={flagInfo}
       onPressReportPhoto={onPressReportPhoto}
       onBookmarkSuccess={onBookmarkSuccess}
       onPressBookmarkDisable={onPressBookmarkDisable}

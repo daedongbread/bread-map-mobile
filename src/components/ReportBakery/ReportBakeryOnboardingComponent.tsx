@@ -1,21 +1,21 @@
+import LottieView from 'lottie-react-native';
 import React from 'react';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Carousel from 'react-native-snap-carousel';
-import { Button } from '../Shared/Button/Button';
-import { Header } from '../Shared/Header';
-import { SplitRow } from '../Shared/SplitSpace';
-import { Text } from '../Shared/Text';
-import { OnboardCard } from './OnboardCard';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Button } from '@shared/Button/Button';
+import { Header } from '@shared/Header';
+import { SplitRow } from '@shared/SplitSpace';
+import { Text } from '@shared/Text';
+
+const { height } = Dimensions.get('window');
 
 type Props = {
-  data: any;
   closePage: () => void;
   onPressReport: () => void;
 };
 
-export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePage, onPressReport }) => {
-  const { width } = useWindowDimensions();
+export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ closePage, onPressReport }) => {
+  const insets = useSafeAreaInsets();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,8 +26,8 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePa
             우와,{'\n'}빵집 개척자님!{'\n'}반가워요👋
           </Text>
         </View>
-        <SplitRow height={100} />
-        <Carousel
+        {/* <SplitRow height={300} /> */}
+        {/* <Carousel
           layout={'default'}
           data={data}
           renderItem={({ item }) => <OnboardCard item={item} />}
@@ -35,11 +35,19 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePa
           itemWidth={width * 0.5}
           firstItem={1}
           useScrollView
+        /> */}
+        <LottieView
+          style={{ bottom: -(height * 0.07) }}
+          source={require('@/assets/lottiles/bakery_onboarding.json')}
+          loop
+          autoPlay
+          resizeMode={'center'}
         />
       </View>
       <Button style={styles.bottomButton} onPress={onPressReport}>
         제보하기
       </Button>
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -47,7 +55,6 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ data, closePa
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 18,
   },
   fullScreen: {
     flex: 1,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from '@/components/Shared/Text';
+import { View } from 'react-native';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { useNavigation } from '@react-navigation/native';
@@ -16,28 +16,18 @@ export const RatingList: React.FC<Props> = ({ selectedBreads, onUpdateBreadRatin
   const navigation = useNavigation<MainStackScreenProps<'ReviewWriteStack'>['navigation']>();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>빵 평점</Text>
+    <View>
       {selectedBreads.map((bread, index) => (
         <RatingRow key={index} bread={bread} onUpdateBreadRating={onUpdateBreadRating} />
       ))}
+      <SplitRow height={32} />
       <AddButton
         onPress={() => {
           navigation.pop();
         }}
         buttonText="메뉴 추가하기"
       />
+      <SplitRow height={40} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 28,
-    paddingLeft: 20,
-  },
-  title: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-});
