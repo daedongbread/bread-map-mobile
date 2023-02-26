@@ -10,7 +10,7 @@ type GetFlagResponse = {
   data: any;
 };
 
-const requestGetReviews = async ({ userId, pageParam }: UseGetReviewsProps) => {
+export const requestGetReviews = async ({ userId, pageParam }: UseGetReviewsProps) => {
   const resp = await fetcher.get<GetFlagResponse>(`/review/user/${userId}?page=${pageParam}`);
   return resp.data.data;
 };

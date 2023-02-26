@@ -76,12 +76,16 @@ export function DeleteBakeryBottomSheet({ bottomSheetRef, bakeryId, NavigationKe
           <CloseIcon />
         </TouchableOpacity>
         <SplitRow height={15} />
-        <Button onPress={onClickCamera} appearance="terdary" style={styles.Button}>
-          <Text>사진찍기</Text>
+        <Button onPress={onClickCamera} appearance="terdary" style={styles.Button} cameraIcon>
+          <Text style={styles.text} presets={['body1', 'bold']}>
+            사진찍기
+          </Text>
         </Button>
         <SplitRow height={8} />
-        <Button onPress={onClickAlbum} appearance="terdary" style={styles.Button}>
-          앨범에서 사진선택
+        <Button onPress={onClickAlbum} appearance="terdary" style={styles.Button} albumIcon>
+          <Text presets={['body1', 'bold']} style={styles.text}>
+            앨범에서 사진선택
+          </Text>
         </Button>
       </View>
     </BottomSheet>
@@ -124,6 +128,9 @@ const styles = StyleSheet.create(
     },
     Button: {
       marginHorizontal: 20,
+      color: theme.color.gray700,
+    },
+    text: {
       color: theme.color.gray700,
     },
   })

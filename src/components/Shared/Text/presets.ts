@@ -54,6 +54,10 @@ export const presets = StyleSheet.create(
     medium: {
       fontFamily: FONT_FAMILY.medium,
     },
+    subTitle1: {
+      fontSize: 24,
+      fontWeight: '700',
+    },
   })
 );
 

@@ -19,6 +19,7 @@ type Props = {
   onFollowButtonClick: (userId: number) => void;
   userId: number;
   otherId: number;
+  reviewCount: number;
 };
 
 export const FlagColors = {
@@ -45,6 +46,7 @@ export const ProfileComponent = ({
   onFollowButtonClick,
   userId,
   otherId,
+  reviewCount,
 }: Props) => {
   return (
     <>
@@ -68,7 +70,12 @@ export const ProfileComponent = ({
           )}
           renderSectionHeader={() => (
             <View style={styles.Header}>
-              <ListButtonWrap flagData={flagData} buttonType={buttonType} setButtonType={setButtonType} />
+              <ListButtonWrap
+                flagData={flagData}
+                buttonType={buttonType}
+                setButtonType={setButtonType}
+                reviewCount={reviewCount}
+              />
             </View>
           )}
           stickySectionHeadersEnabled

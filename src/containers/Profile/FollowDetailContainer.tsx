@@ -28,11 +28,9 @@ export function FollowDetailContainer() {
 
   const onFollowButtonClick = async (item: any) => {
     if (item?.isFollow) {
-      const response = await unFollow({ userId: item?.userId });
-      console.log(response);
+      await unFollow({ userId: item?.userId });
     } else {
-      const response = await follow({ userId: item?.userId });
-      console.log(response);
+      await follow({ userId: item?.userId });
     }
 
     if (index === 0) {

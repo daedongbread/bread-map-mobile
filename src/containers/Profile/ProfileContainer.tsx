@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Toast from 'react-native-easy-toast';
 import { follow, unFollow, useGetProfileInfo } from '@/apis/profile';
 import { useGetFlags } from '@/apis/profile/useGetFlags';
+import { requestGetReviews } from '@/apis/profile/useGetReviews';
 import { ProfileComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
@@ -14,10 +15,11 @@ export function ProfileContainer() {
   const userId = otherId || myId!;
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const toast = useRef<Toast>(null);
-  const [buttonType, setButtonType] = useState(0);
   const { profileInfoData, loading: profileLoading, refetch } = useGetProfileInfo({ userId: userId });
-  const { data: flagData, loading: flagLoading } = useGetFlags();
+  const { data: flagData, loading: flagLoading } = useGetFlags(userId);
   const isLoading = profileLoading || flagLoading;
+  const [buttonType, setButtonType] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
 
   const onItemClick = (item: any) => () => {
     if (item?.bakeryImageList?.length === 0) {
@@ -44,13 +46,11 @@ export function ProfileContainer() {
     });
   };
 
-  const onFollowButtonClick = async (userId: number) => {
+  const onFollowButtonClick = async (followUserId: number) => {
     if (profileInfoData?.isFollow) {
-      const response = await unFollow({ userId: userId });
-      console.log(response);
+      await unFollow({ userId: followUserId });
     } else {
-      const response = await follow({ userId: userId });
-      console.log(response);
+      await follow({ userId: followUserId });
     }
     refetch();
   };
@@ -58,8 +58,18 @@ export function ProfileContainer() {
   useFocusEffect(
     useCallback(() => {
       refetch();
-    }, [])
+    }, [refetch])
   );
+
+  useEffect(() => {
+    if (userId) {
+      const getReviewCount = async () => {
+        const data = await requestGetReviews({ userId: userId, pageParam: 0 });
+        setReviewCount(data?.totalElements || 0);
+      };
+      getReviewCount();
+    }
+  }, [userId]);
 
   return (
     <>
@@ -74,6 +84,7 @@ export function ProfileContainer() {
         onFollowButtonClick={onFollowButtonClick}
         userId={userId}
         otherId={otherId}
+        reviewCount={reviewCount}
       />
       <Toast ref={toast} />
     </>

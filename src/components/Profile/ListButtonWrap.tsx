@@ -9,9 +9,10 @@ type Props = {
   flagData: any;
   buttonType: number;
   setButtonType: Dispatch<SetStateAction<number>>;
+  reviewCount: number;
 };
 
-export function ListButtonWrap({ flagData, buttonType, setButtonType }: Props) {
+export function ListButtonWrap({ flagData, buttonType, setButtonType, reviewCount }: Props) {
   const onButtonClick = (index: number) => {
     setButtonType(index);
   };
@@ -39,7 +40,7 @@ export function ListButtonWrap({ flagData, buttonType, setButtonType }: Props) {
         </Text>
         <SplitColumn width={5} />
         <Text presets={['bold', 'body2']} style={{ color: theme.color.primary500 }}>
-          {0}
+          {reviewCount}
         </Text>
       </TouchableOpacity>
     </View>

@@ -45,9 +45,11 @@ export const FollowDetailItem =
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => onFollowButtonClick(item)} style={[styles.Button, ButtonStyle]}>
-          <Text style={[styles.FollowText, ButtonTextStyle]}>{item?.isFollow ? '팔로잉' : '팔로우'}</Text>
-        </TouchableOpacity>
+        {item?.isMe ? null : (
+          <TouchableOpacity onPress={() => onFollowButtonClick(item)} style={[styles.Button, ButtonStyle]}>
+            <Text style={[styles.FollowText, ButtonTextStyle]}>{item?.isFollow ? '팔로잉' : '팔로우'}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -80,6 +82,7 @@ const styles = StyleSheet.create(
     InfoWrap: {
       width: 104,
       height: 40,
+      flex: 1,
     },
     Button: {
       width: 53,
@@ -104,6 +107,7 @@ const styles = StyleSheet.create(
       color: 'black',
       fontSize: 14,
       fontWeight: '500',
+      flex: 1,
     },
     InfoSubInfo: {
       display: 'flex',

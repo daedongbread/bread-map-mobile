@@ -61,10 +61,10 @@ export function EditDetailComponent({
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
         <View style={styles.TitleWrap}>
-          <Text presets={['body1', 'bold']} style={styles.Text}>
+          <Text presets={['subTitle1', 'bold']} style={styles.Text}>
             <Text style={styles.Primary}>어떤 정보</Text>를
           </Text>
-          <Text presets={['body1', 'bold']} style={styles.Text}>
+          <Text presets={['subTitle1', 'bold']} style={styles.Text}>
             수정 요청 하시나요?
           </Text>
         </View>
@@ -81,7 +81,7 @@ export function EditDetailComponent({
           error={errorState.name ? '빵집 이름을 입력해주세요' : ''}
           maxLength={20}
           autoCorrect={false}
-          style={styles.TextInput}
+          style={[styles.TextInput, { borderColor: errorState.name ? theme.color.red : theme.color.gray200 }]}
         />
         <SplitRow height={18} />
         <View style={styles.Label}>
@@ -96,7 +96,7 @@ export function EditDetailComponent({
           error={errorState.location ? '위치를 입력해주세요' : ''}
           maxLength={100}
           autoCorrect={false}
-          style={styles.TextInput}
+          style={[styles.TextInput, { borderColor: errorState.location ? theme.color.red : theme.color.gray200 }]}
         />
         <SplitRow height={18} />
         <View style={styles.Label}>
@@ -111,7 +111,11 @@ export function EditDetailComponent({
           isAlert
           maxLength={500}
           autoCorrect={false}
-          style={[styles.TextInput, styles.MultiText]}
+          style={[
+            styles.TextInput,
+            styles.MultiText,
+            { borderColor: errorState.edit ? theme.color.red : theme.color.gray200 },
+          ]}
           multiline
         />
         <SplitRow height={38} />
@@ -153,7 +157,7 @@ const styles = StyleSheet.create(
       width: '100%',
       height: 48,
       borderRadius: 8,
-      backgroundColor: theme.color.gray100,
+      backgroundColor: theme.color.gray50,
       paddingHorizontal: 16,
       fontSize: 14,
       color: theme.color.gray800,

@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps, View, ViewProps } from 'react-native';
+import IcAlbum from '@/components/Shared/Icons/IcAlbum.svg';
+import IcCameraGray from '@/components/Shared/Icons/IcCameraGray.svg';
 import { theme } from '@/styles/theme';
 import { PlusIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
@@ -12,6 +14,8 @@ interface Props extends TouchableOpacityProps {
   appearance?: Appearance;
   size?: Size;
   icon?: boolean;
+  cameraIcon?: boolean;
+  albumIcon?: boolean;
   borderRadius?: number;
 }
 
@@ -20,6 +24,8 @@ export const Button: React.FC<Props> = ({
   size = 'large',
   style = {},
   icon,
+  cameraIcon,
+  albumIcon,
   children,
   borderRadius = 8,
   ...rest
@@ -46,6 +52,8 @@ export const Button: React.FC<Props> = ({
       <TouchableOpacity {...rest}>
         <View style={[appearanceStyle, sizeStyle, defaultStyles.common]}>
           {icon && <PlusIcon color={iconColor} style={defaultStyles.icon} />}
+          {cameraIcon && <IcCameraGray style={defaultStyles.icon} />}
+          {albumIcon && <IcAlbum style={defaultStyles.icon} />}
           <Text style={textStyle} presets={['body1', 'bold']}>
             {children}
           </Text>

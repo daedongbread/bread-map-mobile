@@ -5,13 +5,13 @@ type GetFlagResponse = {
   data: any;
 };
 
-const requestGetFlags = async () => {
-  const resp = await fetcher.get<GetFlagResponse>('/flag');
+const requestGetFlags = async (userId: number) => {
+  const resp = await fetcher.get<GetFlagResponse>(`/flag/user/${userId}`);
   return resp.data.data;
 };
 
-const useGetFlags = () => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetFlag'], () => requestGetFlags());
+const useGetFlags = (userId: number) => {
+  const { data, isLoading, isError, refetch } = useQuery(['useGetFlag'], () => requestGetFlags(userId));
 
   return {
     data,

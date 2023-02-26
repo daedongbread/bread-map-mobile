@@ -25,6 +25,7 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage, 
     },
     [onChange]
   );
+
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <Header type="DETAIL" title="프로필 수정" />
@@ -46,7 +47,7 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage, 
         error={errorMsg + ''}
         maxLength={10}
         autoCorrect={false}
-        style={styles.TextInput}
+        style={[styles.TextInput, { borderColor: errorMsg ? theme.color.red : theme.color.gray200 }]}
       />
       <View style={styles.Button}>
         <Button onPress={onConfirmClick}>확인</Button>
@@ -68,12 +69,11 @@ const styles = StyleSheet.create(
     TextInput: {
       height: 48,
       borderRadius: 8,
-      backgroundColor: theme.color.gray100,
+      backgroundColor: theme.color.gray50,
       paddingHorizontal: 16,
       fontSize: 14,
       color: theme.color.gray800,
       borderWidth: 1,
-      borderColor: theme.color.gray300,
     },
     Button: {
       marginHorizontal: 21,

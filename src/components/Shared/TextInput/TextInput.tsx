@@ -130,6 +130,7 @@ export const TextInput = React.forwardRef<OriginTextInput, TextInputPropsType>(
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    borderColor: theme.color.red,
   },
   inputContainer: {
     paddingVertical: 12,

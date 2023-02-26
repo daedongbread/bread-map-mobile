@@ -2,9 +2,8 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import IcCamera from '@/components/Shared/Icons/IcCamera.svg';
-import { getRandomImageUrl, resizePixels } from '@/utils';
+import { resizePixels } from '@/utils';
 import defaultProfile from '@shared/Images/defaultProfile.png';
-import breadImage from '@shared/Images/bread.png';
 
 type Props = {
   onCameraClick: () => void;
