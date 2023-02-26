@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { StyleSheet, SectionList, View } from 'react-native';
 import { resizePixels } from '@/utils';
-import { SplitRow } from '../Shared/SplitSpace';
+import { SplitRow } from '@shared/SplitSpace';
 import { Header } from './Header';
 import { ListButtonWrap } from './ListButtonWrap';
 import { ProfileInfo } from './ProfileInfo';

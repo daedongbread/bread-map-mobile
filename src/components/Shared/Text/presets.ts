@@ -58,6 +58,9 @@ export const presets = StyleSheet.create(
       fontSize: 24,
       fontWeight: '700',
     },
+    black: {
+      color: 'black',
+    },
   })
 );
 

@@ -6,7 +6,7 @@ export const PrevIcon: React.FC<SvgProps> = props => (
     <Path
       d="M10.5 19.5L1.5 10.5L10.5 1.5"
       stroke="#222222"
-      stroke-width="1.5"
+      strokeWidth="2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />

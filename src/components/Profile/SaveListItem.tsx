@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { resizePixels } from '@/utils';
-import { HeartIcon } from '../Shared/Icons';
+import { HeartIcon } from '@shared/Icons';
+import { Text } from '@shared/Text';
 import IcFlag from '../Shared/Icons/IcFlag.svg';
-import { Text } from '../Shared/Text';
 import { FlagColors } from './ProfileComponent';
 import { SaveListItemImages } from './SaveListItemImages';
 

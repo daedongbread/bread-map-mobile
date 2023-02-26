@@ -5,7 +5,7 @@ import { useGetReviews } from '@/apis/profile/useGetReviews';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import EmptyData from '@shared/Images/emptyData.png';
-import { Text } from '../Shared/Text';
+import { Text } from '@shared/Text';
 import { ReviewListItem } from './ReviewListItem';
 
 export function ReviewList({ userId }: { userId: number }) {

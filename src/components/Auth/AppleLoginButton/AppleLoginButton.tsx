@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { AppleLogo } from '@/components/Shared/Icons';
 import { resizePixels } from '@/utils';
 import styled from '@emotion/native';
+import { AppleLogo } from '@shared/Icons';
 
 type Props = {
   onPress: () => void;

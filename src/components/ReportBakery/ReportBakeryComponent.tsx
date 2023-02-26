@@ -6,12 +6,12 @@ import { UsePostReportRequest } from '@/apis/report/usePostReport';
 import { ReportBakeryValidFormData } from '@/containers/ReportBakery/ReportBakery';
 import { theme } from '@/styles/theme';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
+import { Button } from '@shared/Button/Button';
+import { Header } from '@shared/Header';
+import { SplitRow } from '@shared/SplitSpace';
+import { Text } from '@shared/Text';
+import { TextInput } from '@shared/TextInput';
 import { SubTitle } from '../BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
-import { Button } from '../Shared/Button/Button';
-import { Header } from '../Shared/Header';
-import { SplitRow } from '../Shared/SplitSpace';
-import { Text } from '../Shared/Text';
-import { TextInput } from '../Shared/TextInput';
 import { CancelBottomSheet } from './CancelBottomSheet';
 import { ReportSuccessBottomSheet } from './ReportSuccessBottomSheet';
 

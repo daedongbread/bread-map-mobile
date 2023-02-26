@@ -4,8 +4,8 @@ import FastImage from 'react-native-fast-image';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import defaultProfile from '@shared/Images/defaultProfile.png';
-import { SplitColumn } from '../Shared/SplitSpace';
-import { Text } from '../Shared/Text';
+import { SplitColumn } from '@shared/SplitSpace';
+import { Text } from '@shared/Text';
 
 export const FollowDetailItem =
   (onFollowButtonClick: any) =>

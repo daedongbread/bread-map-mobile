@@ -1,1 +1,1 @@
-export { AppleLoginButton } from './AppleLoginButton';
+export { KakaoLoginButton } from './KakaoLoginButton';

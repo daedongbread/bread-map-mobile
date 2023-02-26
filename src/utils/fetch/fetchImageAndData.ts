@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import { Asset } from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 import store from '@/slices';
-import { Config } from '../config';
+import { Config } from '@/utils';
 
 type Props = {
   url: string;
