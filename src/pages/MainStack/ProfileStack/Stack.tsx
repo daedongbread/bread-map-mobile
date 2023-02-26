@@ -18,6 +18,7 @@ export type ProfileStackParamList = {
     flagId: number;
     name: string;
     color: string;
+    isMe: boolean;
   };
   FollowDetail: {
     index: number;

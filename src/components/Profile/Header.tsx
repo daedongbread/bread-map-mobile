@@ -13,17 +13,14 @@ type Props = {
   type: 'ME' | 'OTHER' | 'DETAIL';
   title?: string;
   onClickRight?: () => void;
+  isMe: boolean;
 };
 
-export const Header = ({ type, title, onClickRight }: Props) => {
+export const Header = ({ type, title, onClickRight, isMe }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'ProfileStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
     navigation.pop();
-  };
-
-  const navigateNotice = () => {
-    navigation.push('NotificationModal');
   };
 
   const navigateSetting = () => {
@@ -33,9 +30,6 @@ export const Header = ({ type, title, onClickRight }: Props) => {
   if (type === 'ME') {
     return (
       <View style={styles.MeContainer}>
-        {/* <TouchableOpacity onPress={navigateNotice}>
-          <IcArea />
-        </TouchableOpacity> */}
         <SplitColumn width={16} />
         <TouchableOpacity onPress={navigateSetting}>
           <IcSetting />
@@ -65,7 +59,7 @@ export const Header = ({ type, title, onClickRight }: Props) => {
           <PrevIcon />
         </TouchableOpacity>
 
-        {onClickRight ? (
+        {isMe && onClickRight ? (
           <TouchableOpacity style={styles.RightIcon} onPress={onClickRight}>
             <IcMore color="#222222" />
           </TouchableOpacity>

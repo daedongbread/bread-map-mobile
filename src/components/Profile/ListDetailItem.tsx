@@ -11,7 +11,7 @@ import IcHeart from '@shared/Icons/IcHeart.svg';
 import defaultProfile from '@shared/Images/defaultProfile.png';
 import { FlagColors } from './ProfileComponent';
 
-export function ListDetailItem({ item, name, color, flagId }: any) {
+export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
   const navigation = useNavigation<MainStackScreenProps<'BookmarkBottomSheet'>['navigation']>();
 
   const FlagColor =
@@ -47,7 +47,7 @@ export function ListDetailItem({ item, name, color, flagId }: any) {
   };
 
   return (
-    <TouchableOpacity onPress={onItemClick} style={styles.cardContainer}>
+    <TouchableOpacity disabled={!isMe} onPress={onItemClick} style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
         <View>
           <View style={styles.Placeholder}>

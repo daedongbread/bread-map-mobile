@@ -15,11 +15,9 @@ export function ListDetailContainer() {
     params: { flagId, name, color },
   } = useRoute<RootRouteProps<'ListDetail'>>();
   const { data: getFlagData, loading } = useGetFlag({ accessToken: accessToken || '', flagId });
-  console.log(getFlagData);
 
   const onListDeleteClick = async () => {
     const response = await deleteFlag({ accessToken: accessToken!!, flagId: flagId });
-    console.log(response);
     if (response.status === 204) {
       deleteBottomSheetRef.current?.close();
       navigation.goBack();

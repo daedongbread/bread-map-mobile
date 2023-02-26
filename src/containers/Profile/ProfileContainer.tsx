@@ -31,6 +31,7 @@ export function ProfileContainer() {
           flagId: item?.flagId,
           name: item?.name,
           color: item?.color,
+          isMe: otherId ? false : true,
         },
       });
     }

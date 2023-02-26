@@ -35,11 +35,11 @@ export function ListDetailInfoBottomSheet({ bottomSheetRef, deleteBottomSheetRef
         snapPoints={snapPoints}
       >
         <View style={styles.Container}>
-          <TouchableOpacity onPress={onEditClick} style={styles.ButtonWrap}>
+          {/* <TouchableOpacity onPress={onEditClick} style={styles.ButtonWrap}>
             <Text style={styles.Text} presets={['body1', 'medium']}>
               저장목록 수정하기
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity onPress={onDeleteClick} style={styles.ButtonWrap}>
             <Text style={styles.Text} presets={['body1', 'medium']}>
               저장목록 삭제하기
