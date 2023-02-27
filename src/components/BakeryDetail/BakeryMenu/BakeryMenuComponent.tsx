@@ -13,26 +13,23 @@ type Props = {
 
 export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
   return (
-    <View>
-      {menus && menus.length > 0 && (
-        <Menus
-          headerComponent={
-            <>
-              <Divider style={styles.dividerStyle} />
-              <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />
-            </>
-          }
-          bakeryId={bakeryId}
-          menus={menus}
-          onPress={onPress}
-        />
-      )}
+    <View style={styles.container}>
+      <Divider />
+
+      <View style={styles.header}>
+        <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />
+      </View>
+
+      {menus && menus.length > 0 && <Menus bakeryId={bakeryId} menus={menus} onPress={onPress} />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  dividerStyle: {
-    marginHorizontal: -20,
+  container: {
+    flex: 1,
+  },
+  header: {
+    paddingHorizontal: 20,
   },
 });

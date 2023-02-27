@@ -94,7 +94,7 @@ export const TextInput = React.forwardRef<OriginTextInput, TextInputPropsType>(
               {...props}
               style={textInputStyle}
             />
-            {value.length && !multiline ? (
+            {value.length && !multiline && isFocused ? (
               <Pressable style={styles.closeButton} onPress={onClear}>
                 <XCircle />
               </Pressable>

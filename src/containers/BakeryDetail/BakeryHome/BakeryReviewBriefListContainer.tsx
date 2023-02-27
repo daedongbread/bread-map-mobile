@@ -44,10 +44,11 @@ export const BakeryReviewBriefListContainer = () => {
         reviews={briefReviews}
         reviewCount={reviews?.contents.length}
         activeTab={activeTab}
+        isBrief
         onPressTab={onPressTab}
         refetchReview={refetchReview}
       />
-      <MoreButton text="전체리뷰보기" onPress={onPressMoreButton} />
+      {!!briefReviews.length && <MoreButton text="전체리뷰보기" onPress={onPressMoreButton} />}
     </>
   );
 };
