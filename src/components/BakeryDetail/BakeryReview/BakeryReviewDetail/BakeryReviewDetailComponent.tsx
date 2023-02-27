@@ -7,7 +7,6 @@ import { Header } from '@/components/Shared/Header';
 import { Review } from '@/components/Shared/Reviews';
 import { resizePixels } from '@/utils';
 import { Divider } from '../../Divider';
-import { NoComments } from './NoComments';
 import { ReviewDetailHeader } from './ReviewDetailHeader';
 
 type Props = {
@@ -25,9 +24,9 @@ export const BakeryReviewDetailComponent = ({ review }: Props) => {
           <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={() => null} />
         </View>
         <Divider />
-        <View style={styles.commentContainer}>
+        {/* <View style={styles.commentContainer}>
           <NoComments />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
