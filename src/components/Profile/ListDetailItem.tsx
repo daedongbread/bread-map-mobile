@@ -56,7 +56,7 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
           <FastImage style={styles.Image} source={{ uri: item?.image }} />
         </View>
         <View style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
-          {name !== '가봤어요' ? <IcHeart width={17.5} /> : <IcFlag width={17.5} />}
+          {name !== '가봤어요' ? <IcHeart width={28} height={28} /> : <IcFlag width={18} height={18} />}
         </View>
       </View>
       <View style={styles.infoContainer}>
