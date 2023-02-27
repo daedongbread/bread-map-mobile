@@ -1,13 +1,11 @@
 import LottieView from 'lottie-react-native';
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@shared/Button/Button';
 import { Header } from '@shared/Header';
 import { SplitRow } from '@shared/SplitSpace';
 import { Text } from '@shared/Text';
-
-const { height } = Dimensions.get('window');
 
 type Props = {
   closePage: () => void;
@@ -36,13 +34,14 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ closePage, on
           firstItem={1}
           useScrollView
         /> */}
-        <LottieView
-          style={{ bottom: -(height * 0.07) }}
-          source={require('@/assets/lottiles/bakery_onboarding.json')}
-          loop
-          autoPlay
-          resizeMode={'center'}
-        />
+        <View style={styles.container}>
+          <LottieView
+            source={require('@/assets/lottiles/bakery_onboarding.json')}
+            loop
+            autoPlay
+            resizeMode={'center'}
+          />
+        </View>
       </View>
       <Button style={styles.bottomButton} onPress={onPressReport}>
         제보하기
