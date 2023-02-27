@@ -47,7 +47,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
+      <Header onPressClose={onPressClose} isCloseButtonShown />
       <KeyboardAwareScrollView style={styles.fullScreen}>
         <SplitRow height={12} />
         <View>
