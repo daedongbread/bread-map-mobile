@@ -32,7 +32,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
         screen: 'BakeryDetailHome',
         params: {
           // bakeryId: id,
-          bakeryId: id,
+          bakeryId: 30300001400004,
         },
       });
     },

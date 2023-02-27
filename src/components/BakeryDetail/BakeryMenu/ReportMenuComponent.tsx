@@ -44,13 +44,13 @@ export const ReportMenuComponent = ({
       <Header onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
       <KeyboardAwareScrollView style={styles.fullScreen}>
         <SplitRow height={12} />
-        <View>
+        <View style={styles.paddingHorizontal}>
           <Text presets={['heading1', 'bold']} style={styles.titleText}>
             <Text style={styles.titleHighlightText}>어떤 빵</Text>을{'\n'}제보하시나요?
           </Text>
         </View>
         <SplitRow height={40} />
-        <View>
+        <View style={styles.paddingHorizontal}>
           <SubTitle isRequire>메뉴명</SubTitle>
           <View style={styles.inputContainer}>
             <TextInput
@@ -75,11 +75,15 @@ export const ReportMenuComponent = ({
               onChangeText={text => onChange('price', text)}
             />
           </View>
-
-          <SubTitle>사진 업로드</SubTitle>
-          <PhotoSelect images={form.images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
         </View>
+
+        <View style={styles.paddingHorizontal}>
+          <SubTitle>사진 업로드</SubTitle>
+        </View>
+
+        <PhotoSelect images={form.images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
       </KeyboardAwareScrollView>
+
       <Button style={styles.bottomButton} onPress={onPressConfirm}>
         확인
       </Button>
@@ -94,6 +98,8 @@ const styles = StyleSheet.create({
   },
   fullScreen: {
     flex: 1,
+  },
+  paddingHorizontal: {
     paddingHorizontal: 20,
   },
   titleText: {

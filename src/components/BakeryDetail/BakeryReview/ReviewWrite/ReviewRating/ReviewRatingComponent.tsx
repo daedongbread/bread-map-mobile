@@ -90,10 +90,15 @@ export const ReviewRatingComponent: React.FC<Props> = ({
             />
           </View>
 
-          <View style={styles.photoContainer}>
+          <View>
             <SubTitle isRequire={false}>사진 업로드</SubTitle>
-            <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+
+            <View style={styles.photoContainer}>
+              <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+            </View>
           </View>
+
+          <SplitRow height={16} />
         </View>
       </ScrollView>
       <Button style={styles.confirmBtn} onPress={onPressSave}>
@@ -133,8 +138,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   photoContainer: {
-    paddingTop: 20,
-    marginBottom: 16,
+    marginHorizontal: -20,
   },
   confirmBtn: {
     paddingHorizontal: 20,
