@@ -33,8 +33,10 @@ const styles = StyleSheet.create({
   container: {
     width: width * 0.25,
     height: width * 0.25,
-    backgroundColor: theme.color.gray100,
+    backgroundColor: theme.color.gray50,
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.color.gray200,
     justifyContent: 'center',
     alignItems: 'center',
   },

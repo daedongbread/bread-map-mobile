@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     color: theme.color.gray800,
     height: height * 0.15,
     borderRadius: 8,
-    backgroundColor: theme.color.gray100,
+    backgroundColor: theme.color.gray50,
     textAlignVertical: 'top',
     paddingTop: 12,
     paddingHorizontal: 16,
