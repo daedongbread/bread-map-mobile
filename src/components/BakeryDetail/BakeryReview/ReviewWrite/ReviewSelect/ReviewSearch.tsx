@@ -45,10 +45,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   searchIconWrapper: {
+    justifyContent: 'center',
     marginRight: 10,
   },
   textInput: {
     fontSize: resizePixel(14),
+    textAlignVertical: 'center',
     fontWeight: 'bold',
     margin: 0,
     padding: 0,
