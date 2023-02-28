@@ -91,7 +91,7 @@ export const BakeryReviewListComponent = ({
           ) : (
             <>
               <SplitRow height={isBrief ? 30 : height * 0.19} />
-              <NoData title="메뉴가 없어요" subTitle="첫 메뉴를 제보해주세요." />
+              <NoData title="리뷰가 없어요" subTitle="첫 리뷰를 제보해주세요." />
               {isBrief && <SplitRow height={height * 0.09} />}
             </>
           )}

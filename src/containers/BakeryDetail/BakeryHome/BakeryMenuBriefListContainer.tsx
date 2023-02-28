@@ -3,12 +3,18 @@ import { useGetMenus } from '@/apis/menu';
 import { MenuEntity } from '@/apis/menu/type';
 import { BakeryMenuBriefListComponent } from '@/components/BakeryDetail/BakeryHome';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { HomeStackParamList, HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
+
+type Navigation = CompositeScreenProps<
+  BakeryDetailTabScreenProps<'BakeryDetailHome'>,
+  CompositeScreenProps<HomeStackScreenProps<keyof HomeStackParamList>, MainStackScreenProps<keyof MainStackParamList>>
+>['navigation'];
 
 export const BakeryMenuBriefListContainer = () => {
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailHome'>['route']>();
-  const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuDetail'>['navigation']>();
+  const navigation = useNavigation<Navigation>();
 
   const bakeryId = route.params.bakeryId;
   const { menus = [] } = useGetMenus({ bakeryId });
@@ -28,6 +34,12 @@ export const BakeryMenuBriefListContainer = () => {
     (navigation as any).jumpTo('BakeryDetailMenu', { bakeryId });
   };
 
+  const onPressReportButton = () => {
+    navigation.navigate('ReportMenu', {
+      bakeryId,
+    });
+  };
+
   if (!menus) {
     return <></>;
   }
@@ -40,6 +52,7 @@ export const BakeryMenuBriefListContainer = () => {
       totalCount={menus.length}
       onPress={onPress}
       onPressMoreButton={onPressMoreButton}
+      onPressReportButton={onPressReportButton}
     />
   );
 };
