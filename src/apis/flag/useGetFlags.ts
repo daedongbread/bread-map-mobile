@@ -6,14 +6,16 @@ type getFlagRes = {
   data: Flag[];
 };
 
-const getFlags = async () => {
-  const { data } = await fetcher.get<getFlagRes>('/flag');
+const getFlags = async (userId?: number | null) => {
+  const { data } = await fetcher.get<getFlagRes>(`/flag/user/${userId}`);
 
   return data.data;
 };
 
-const useGetFlags = () => {
-  return useQuery(['useGetFlags'], () => getFlags());
+const useGetFlags = (userId: number | null) => {
+  return useQuery(['useGetFlags'], () => getFlags(userId), {
+    enabled: userId !== null,
+  });
 };
 
 export { useGetFlags };

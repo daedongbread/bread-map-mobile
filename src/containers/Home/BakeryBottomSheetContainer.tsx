@@ -31,8 +31,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
       navigate('Bakery', {
         screen: 'BakeryDetailHome',
         params: {
-          // bakeryId: id,
-          bakeryId: 30300001400004,
+          bakeryId: id,
         },
       });
     },

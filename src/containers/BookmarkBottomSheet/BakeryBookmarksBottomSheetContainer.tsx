@@ -6,6 +6,7 @@ import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 
 import { flagColorHexColors } from '@/containers/Bookmark';
+import { useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -29,8 +30,9 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
 
   const [selectBookmark, setSelectBookmark] = useState<BookmarkList>();
 
+  const { userId } = useAppSelector(selector => selector.auth);
   const { mutate, isSuccess } = useBookmarkBakery({ flagId: selectBookmark?.flagId });
-  const { data } = useGetFlags();
+  const { data } = useGetFlags(userId);
 
   const onSave = () => {
     if (selectBookmark) {
