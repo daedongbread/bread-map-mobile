@@ -20,7 +20,7 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ closePage, on
       <Header onPressClose={closePage} isCloseButtonShown />
       <View style={styles.fullScreen}>
         <View style={styles.titleTextContainer}>
-          <Text style={styles.titleText}>
+          <Text presets={['heading1', 'bold']} color={'#000000'}>
             우와,{'\n'}빵집 개척자님!{'\n'}반가워요👋
           </Text>
         </View>
@@ -61,11 +61,6 @@ const styles = StyleSheet.create({
   titleTextContainer: {
     paddingTop: 12,
     paddingLeft: 20,
-  },
-  titleText: {
-    color: '#000000',
-    fontSize: 24,
-    fontWeight: '800',
   },
   bottomButton: {
     marginHorizontal: 20,
