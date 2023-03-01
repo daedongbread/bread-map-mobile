@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { useAuth } from '@/hooks/useAuth';
 import { Auth } from '@/pages/Auth';
 import { AuthWebView } from '@/pages/Auth/AuthWebView';
@@ -25,21 +26,24 @@ const RootNavigation = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {isLoggedIn ? (
-          <>
-            <Stack.Screen name={'MainStack'} component={MainStack} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name={'Onboarding'} component={Onboarding} />
-            <Stack.Screen name={'Auth'} component={Auth} />
-            <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle={'dark-content'} />
+      <NavigationContainer theme={navigationTheme}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {isLoggedIn ? (
+            <>
+              <Stack.Screen name={'MainStack'} component={MainStack} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name={'Onboarding'} component={Onboarding} />
+              <Stack.Screen name={'Auth'} component={Auth} />
+              <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 
