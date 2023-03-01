@@ -1,4 +1,7 @@
 #import "AppDelegate.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import "RNSplashScreen.h"
+#import <RNCPushNotificationIOS.h>
 
 #if RCT_DEV
 #import <React/RCTDevLoadingView.h>
@@ -16,10 +19,7 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-#import <GoogleMaps/GoogleMaps.h>
-#import "RNSplashScreen.h"
 #import <UserNotifications/UserNotifications.h>
-#import <RNCPushNotificationIOS.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -38,8 +38,10 @@ static void InitializeFlipper(UIApplication *application) {
 {
   NSString *mapsApiKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY_IOS"];
   [GMSServices provideAPIKey:mapsApiKey];
-    #ifdef FB_SONARKIT_ENABLED
+    #if DEBUG
+      #ifdef FB_SONARKIT_ENABLED
         InitializeFlipper(application);
+      #endif
     #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
