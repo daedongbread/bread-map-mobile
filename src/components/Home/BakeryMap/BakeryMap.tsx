@@ -55,6 +55,7 @@ export const BakeryMap = React.memo(
           initialRegion={initialRegion}
           style={styles.container}
           showsUserLocation
+          showsMyLocationButton={false}
           followsUserLocation={isWatch}
           onPanDrag={onPanDrag}
           onUserLocationChange={onUserLocationChange}

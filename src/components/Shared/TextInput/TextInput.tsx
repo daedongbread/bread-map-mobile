@@ -101,26 +101,28 @@ export const TextInput = React.forwardRef<OriginTextInput, TextInputPropsType>(
             ) : null}
           </View>
 
-          <View style={styles.hintContainer}>
-            <View style={styles.errorContainer}>
-              {!!error && isAlert && (
-                <>
-                  <AlertIcon />
-                  <Text> </Text>
-                </>
-              )}
-              {!!error && (
-                <Text presets={['caption1', 'medium']} style={styles.errorText}>
-                  {error}
+          {defaultStyleEnable && (
+            <View style={styles.hintContainer}>
+              <View style={styles.errorContainer}>
+                {!!error && isAlert && (
+                  <>
+                    <AlertIcon />
+                    <Text> </Text>
+                  </>
+                )}
+                {!!error && (
+                  <Text presets={['caption1', 'medium']} style={styles.errorText}>
+                    {error}
+                  </Text>
+                )}
+              </View>
+              <View>
+                <Text presets={['caption1', 'medium']} style={styles.hintText}>
+                  {hint ? hint : ' '}
                 </Text>
-              )}
+              </View>
             </View>
-            <View>
-              <Text presets={['caption1', 'medium']} style={styles.hintText}>
-                {hint ? hint : ' '}
-              </Text>
-            </View>
-          </View>
+          )}
         </View>
       </View>
     );

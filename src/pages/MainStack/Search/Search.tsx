@@ -8,6 +8,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/Search/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { theme } from '@/styles/theme';
 import { getStorageSearchHistory, setStorageSearchHistory } from '@/utils/storage/searchHistory';
 import { Text } from '@shared/Text';
 
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   historyTitle: {
+    color: theme.color.gray900,
     marginBottom: 16,
   },
 });

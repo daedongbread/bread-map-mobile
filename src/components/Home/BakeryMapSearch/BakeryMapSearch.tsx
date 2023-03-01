@@ -16,7 +16,7 @@ export const BakeryMapSearch: React.FC<Props> = ({ onPress }) => {
         <View style={styles.searchIconWrapper}>
           <SearchIcon />
         </View>
-        <Text presets={['body1']} style={styles.text}>
+        <Text presets={['body2', 'semibold']} style={styles.text}>
           빵집을 검색해보세요
         </Text>
       </View>
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     },
     shadowColor: 'black',
     shadowOpacity: 0.1,
+    elevation: 10,
     alignItems: 'center',
   },
   searchIconWrapper: {

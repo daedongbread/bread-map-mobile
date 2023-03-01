@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   icon: {
-    width: 24,
-    height: 24,
+    justifyContent: 'center',
   },
   headerText: {
     color: theme.color.gray900,

@@ -9,6 +9,7 @@ import IcReset from '@shared/Icons/IcReset.svg';
 import { Text } from '@shared/Text';
 
 type Props = {
+  topInsets: number;
   isWatched: boolean;
   isFilterSaved: boolean;
   onPressSearch: () => void;
@@ -20,6 +21,7 @@ type Props = {
 
 export const BakeryMapOverlay: React.FC<Props> = React.memo(
   ({
+    topInsets,
     isWatched,
     isFilterSaved,
     onPressSearch,
@@ -30,7 +32,7 @@ export const BakeryMapOverlay: React.FC<Props> = React.memo(
   }) => {
     return (
       <>
-        <View style={styles.container}>
+        <View style={[styles.container, { top: topInsets + 20 }]}>
           <View style={styles.searchWrapper}>
             <BakeryMapSearch onPress={onPressSearch} />
           </View>
@@ -81,7 +83,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     right: 20,
-    top: 60,
   },
   searchWrapper: {
     position: 'absolute',

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useGetBakeries } from '@/apis';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
@@ -53,6 +54,7 @@ export const BakeryMapContainer: React.FC = () => {
 
   const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
   const { currentPositionRef, geolocationAuthorization, currentPosition } = useGeolocation();
+  const { top: topInsets } = useSafeAreaInsets();
   const [isWatched, setIsWatched] = useState(true);
 
   const dispatch = useAppDispatch();
@@ -185,6 +187,7 @@ export const BakeryMapContainer: React.FC = () => {
       />
 
       <BakeryMapOverlay
+        topInsets={topInsets}
         onPressSearch={onPressSearch}
         onPressFlagIcon={onPressFlagIcon}
         onPressNavigationIcon={onPressNavigationIcon}

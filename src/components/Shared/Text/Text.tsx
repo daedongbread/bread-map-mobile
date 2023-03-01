@@ -27,7 +27,7 @@ export const Text: React.FC<Props> = memo(({ presets, style: styleOverride, colo
     },
   });
 
-  const style = [...parsingPresets(), styleOverride, styles.color];
+  const style = [...parsingPresets(), styles.color, styleOverride];
 
   return <ReactNativeText style={style} {...rest} />;
 });
