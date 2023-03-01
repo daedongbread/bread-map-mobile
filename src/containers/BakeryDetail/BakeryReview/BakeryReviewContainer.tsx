@@ -25,6 +25,7 @@ export const BakeryReviewContainer = () => {
   return (
     <ScrollView>
       <BakeryReviewListComponent
+        bakeryId={bakeryId}
         reviews={reviews?.contents}
         reviewCount={reviews?.contents.length}
         activeTab={activeTab}

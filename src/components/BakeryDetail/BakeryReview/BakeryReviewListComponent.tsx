@@ -13,6 +13,7 @@ import { NoData } from '../NoData';
 import { TabHeader } from '../TabHeader';
 
 type Props = {
+  bakeryId: number;
   reviews?: ReviewContent[];
   reviewCount?: number;
   activeTab: string;
@@ -35,6 +36,7 @@ type Navigation = CompositeScreenProps<
 const { height } = Dimensions.get('screen');
 
 export const BakeryReviewListComponent = ({
+  bakeryId,
   reviews,
   reviewCount,
   activeTab,
@@ -44,17 +46,13 @@ export const BakeryReviewListComponent = ({
 }: Props) => {
   const navigation = useNavigation<Navigation>();
 
-  const bakeryId = reviews?.length ? reviews[0].bakeryInfo.bakeryId : null;
-
   const onPressReviewWriteBtn = () => {
-    if (bakeryId !== null) {
-      navigation.navigate('ReviewWriteStack', {
-        screen: 'ReviewSelect',
-        params: {
-          bakeryId: bakeryId,
-        },
-      });
-    }
+    navigation.navigate('ReviewWriteStack', {
+      screen: 'ReviewSelect',
+      params: {
+        bakeryId: bakeryId,
+      },
+    });
   };
 
   return (

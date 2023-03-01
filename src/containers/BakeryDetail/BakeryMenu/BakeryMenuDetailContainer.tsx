@@ -29,6 +29,7 @@ export const BakeryMenuDetailContainer = () => {
     <ScrollView>
       <BakeryMenuDetailComponent menu={menu} />
       <BakeryReviewListComponent
+        bakeryId={bakeryId}
         reviews={reviews?.contents}
         reviewCount={reviews?.contents.length}
         activeTab={activeTab}

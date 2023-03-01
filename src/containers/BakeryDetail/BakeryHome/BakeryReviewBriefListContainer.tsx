@@ -41,6 +41,7 @@ export const BakeryReviewBriefListContainer = () => {
   return (
     <>
       <BakeryReviewListComponent
+        bakeryId={bakeryId}
         reviews={briefReviews}
         reviewCount={reviews?.contents.length}
         activeTab={activeTab}
