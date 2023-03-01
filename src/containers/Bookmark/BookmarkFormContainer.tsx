@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useCreateFlag, FlagColor } from '@/apis/flag';
 import { BookmarkForm } from '@/components/BookmarkForm';
 import { Button } from '@/components/Shared/Button/Button';
+import { Header } from '@/components/Shared/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
@@ -79,6 +80,7 @@ export const BookmarkFormContainer: React.VFC = () => {
   }, [isSuccess, navigate]);
   return (
     <SafeAreaView style={styles.container}>
+      <Header isPrevButtonShown title={'새 리스트'} />
       <BookmarkForm name={name} color={color} onChange={onChange} />
       <View style={styles.buttonInputContainer}>
         <View style={styles.fullScreen}>

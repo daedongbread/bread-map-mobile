@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ColorInput } from '@/components/BookmarkForm/ColorInput';
 import { flagColors } from '@/containers/Bookmark';
+import { theme } from '@/styles/theme';
 import { Label } from '@shared/Label';
 import { TextInput } from '@shared/TextInput';
 
@@ -22,8 +23,11 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nameInputContainer}>
-        <Label isRequire>리스트명</Label>
+        <Label style={styles.paddingLeft} defaultContainerStyleEnabeld={false} isRequire>
+          리스트명
+        </Label>
         <TextInput
+          style={styles.nameInput}
           label={'name'}
           value={name}
           onChange={handleChange}
@@ -33,7 +37,7 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
           autoCorrect={false}
         />
       </View>
-      <View>
+      <View style={styles.paddingLeft}>
         <Label isRequire>색상선택</Label>
         <View style={styles.colorsContainer}>
           {flagColors.map(item => (
@@ -54,17 +58,26 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
+    marginVertical: 20,
+  },
+  paddingLeft: {
+    paddingLeft: 20,
   },
   nameInputContainer: {
     marginBottom: 32,
+  },
+  nameInput: {
+    backgroundColor: theme.color.gray50,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 8,
   },
   colorsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   colorInput: {
-    marginRight: 16,
+    marginRight: 14,
     marginBottom: 8,
   },
 });

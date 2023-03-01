@@ -14,7 +14,6 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
-import { Header } from '@shared/Header';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
@@ -99,21 +98,9 @@ const MainStack = () => {
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{ presentation: 'card', headerShown: true }}>
-        <Stack.Screen
-          options={{
-            header: () => <Header isPrevButtonShown title={'새 리스트'} />,
-          }}
-          name={'Bookmark'}
-          component={Bookmark}
-        />
-        <Stack.Screen
-          name={'Search'}
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
+        <Stack.Screen name={'Bookmark'} component={Bookmark} />
+        <Stack.Screen name={'Search'} component={Search} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{
