@@ -58,7 +58,7 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   const saveReview = async () => {
-    if (selectedBreads.length === 0) {
+    if ([...selectedBreads, ...manualSelectedBreads].length === 0) {
       navigation.pop();
       return;
     }
