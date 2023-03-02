@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/Shared/Header';
+import { presets } from '@/components/Shared/Text/presets';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
@@ -56,7 +57,7 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
             flex: 1,
           },
           tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
-          tabBarLabelStyle: { fontWeight: 'bold' },
+          tabBarLabelStyle: { ...presets.body2, ...presets.bold },
         }}
       >
         <Tab.Screen name="BakeryDetailHome" component={BakeryHome} options={{ title: '홈' }} />
