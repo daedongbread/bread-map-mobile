@@ -57,6 +57,9 @@ export function ListDetailComponent({
         bottomSheetRef={editBottomSheetRef}
         deleteBottomSheetRef={deleteBottomSheetRef}
         onListDeleteClick={onListDeleteClick}
+        name={name}
+        color={color}
+        flagId={flagId}
       />
     </SafeAreaView>
   );
