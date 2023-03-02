@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import CodePush from 'react-native-code-push';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AuthProvider } from '@/provider/AuthProvider/AuthProvider';
@@ -27,4 +28,9 @@ const App: FC = () => (
   </SplashProvider>
 );
 
-export default App;
+const codePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.ON_APP_START,
+  installMode: CodePush.InstallMode.IMMEDIATE,
+};
+
+export default CodePush(codePushOptions)(App);

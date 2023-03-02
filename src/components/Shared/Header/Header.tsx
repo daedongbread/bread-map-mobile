@@ -44,7 +44,7 @@ export const Header = ({
 
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.icon}>
+      <View style={[styles.prevButton, styles.icon]}>
         {isPrevButtonShown && (
           <TouchableOpacity onPress={onPressPrevBtn}>
             <PrevIcon />
@@ -54,7 +54,7 @@ export const Header = ({
       <Text presets={['subhead', 'bold']} style={styles.headerText}>
         {title}
       </Text>
-      <View style={styles.icon}>
+      <View style={[styles.closeButton, styles.icon]}>
         {isCloseButtonShown && (
           <TouchableOpacity onPress={onPressCloseBtn}>
             <CloseIcon />
@@ -72,6 +72,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 19.5,
     paddingVertical: 14,
+  },
+  prevButton: {
+    width: 24,
+    height: 24,
+  },
+  closeButton: {
+    width: 24,
+    height: 24,
   },
   icon: {
     justifyContent: 'center',
