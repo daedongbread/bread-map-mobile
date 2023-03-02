@@ -152,15 +152,16 @@ const styles = StyleSheet.create(
     },
     Label: {
       marginLeft: 20,
+      marginBottom: -12,
     },
     TextInput: {
-      width: '100%',
       height: 48,
       borderRadius: 8,
       backgroundColor: theme.color.gray50,
       paddingHorizontal: 16,
       fontSize: 14,
       color: theme.color.gray800,
+      marginLeft: 6,
     },
     MultiText: {
       height: 202,

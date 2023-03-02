@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useQueryClient } from 'react-query';
+import { fetcher } from '@/apis/fetcher';
 import { useCreateFlag, FlagColor } from '@/apis/flag';
 import { BookmarkForm } from '@/components/BookmarkForm';
 import { FlagColors } from '@/components/Profile/ProfileComponent';
@@ -47,6 +49,7 @@ const convertFlagColors = (color: typeof flagColors[number]): FlagColor => {
 };
 
 export const BookmarkFormContainer: React.VFC = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigation<Navigation>();
   const route = useRoute<route>();
 
@@ -68,13 +71,22 @@ export const BookmarkFormContainer: React.VFC = () => {
 
   const onSave = useCallback(() => {
     if (route.params?.name) {
-      console.log(name);
-      console.log(color);
-      console.log(route.params?.flagId);
+      fetcher
+        .patch(`/flag/${route.params?.flagId}`, {
+          name: name,
+          color: convertFlagColors(color),
+        })
+        .then(res => {
+          if (res.status === 204) {
+            queryClient.refetchQueries(['useGetFlag']);
+            queryClient.refetchQueries(['useGetFlag', route.params?.flagId]);
+            navigate.pop();
+          }
+        });
     } else {
       createFlagMutate({ name, color: convertFlagColors(color) });
     }
-  }, [color, createFlagMutate, name]);
+  }, [color, createFlagMutate, name, route, navigate, queryClient]);
 
   const onClose = useCallback(() => {
     navigate.pop();
