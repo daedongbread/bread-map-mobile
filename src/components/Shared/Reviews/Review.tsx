@@ -83,14 +83,14 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
     refetchReview();
   };
 
-  const onPressAddCommentButton = () => {
-    navigation.navigate('BakeryReviewDetailStack', {
-      screen: 'ReviewCommentsDetail',
-      params: {
-        reviewId: review.reviewInfo.id,
-      },
-    });
-  };
+  // const onPressAddCommentButton = () => {
+  //   navigation.navigate('BakeryReviewDetailStack', {
+  //     screen: 'ReviewCommentsDetail',
+  //     params: {
+  //       reviewId: review.reviewInfo.id,
+  //     },
+  //   });
+  // };
 
   const onPressMoreButton = (userId: number, reviewId: number) => {
     navigation.navigate('ReviewMoreBottomSheet', {
@@ -156,11 +156,15 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
         {review.reviewInfo.imageList.length > 0 && (
           <FlatList
             contentContainerStyle={styles.reviewImageContainer}
-            keyExtractor={index => index.toString()}
+            keyExtractor={item => item}
             data={review.reviewInfo.imageList}
             renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
             showsHorizontalScrollIndicator={false}
             pagingEnabled={mode === 'detail'}
+            snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
+            snapToAlignment="start"
+            decelerationRate="fast"
+            automaticallyAdjustContentInsets={false}
             horizontal
           />
         )}
@@ -186,8 +190,8 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
               icon={IcLike}
               count={review.reviewInfo.likeNum}
               defaultText={'좋아요'}
-              isActive={false}
-              onPress={() => onPressLikeButton(true, review.reviewInfo.id)}
+              isActive={review.reviewInfo.isLike}
+              onPress={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
             />
             <SplitColumn width={8} />
             {/* <InteractionButton
@@ -262,7 +266,8 @@ const styles = StyleSheet.create(
       marginHorizontal: -20,
     },
     reviewImageContainer: {
-      paddingHorizontal: 20,
+      paddingLeft: 20,
+      paddingRight: 8,
     },
     reviewText: {
       paddingHorizontal: 20,
@@ -303,6 +308,6 @@ const nonResizeStyles = StyleSheet.create({
     width: width * 0.88,
     height: width * 0.88,
     borderRadius: 8,
-    marginRight: 8,
+    marginRight: 12,
   },
 });

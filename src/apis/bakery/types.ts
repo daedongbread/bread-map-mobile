@@ -155,6 +155,7 @@ type ReviewInfo = {
   }>;
   imageList: Array<string>;
   content: string;
+  isLike: boolean;
   likeNum: number;
   commentNum: number;
   createdAt: string;
