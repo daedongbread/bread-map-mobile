@@ -5,12 +5,14 @@ import IcCameraGray from '@/components/Shared/Icons/IcCameraGray.svg';
 import { theme } from '@/styles/theme';
 import { PlusIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
+import { TextPresets } from '../Text/presets';
 
 type Appearance = 'primary' | 'secondary' | 'terdary' | 'quaternary' | 'quinary';
 type Size = 'big' | 'large' | 'tiny';
 
 interface Props extends TouchableOpacityProps {
   style?: ViewProps['style'];
+  presets?: TextPresets | Array<TextPresets>;
   appearance?: Appearance;
   size?: Size;
   icon?: boolean;
@@ -21,6 +23,7 @@ interface Props extends TouchableOpacityProps {
 
 export const Button: React.FC<Props> = ({
   appearance = 'primary',
+  presets = ['body1', 'bold'],
   size = 'large',
   style = {},
   icon,
@@ -54,7 +57,7 @@ export const Button: React.FC<Props> = ({
           {icon && <PlusIcon color={iconColor} style={defaultStyles.icon} />}
           {cameraIcon && <IcCameraGray style={defaultStyles.icon} />}
           {albumIcon && <IcAlbum style={defaultStyles.icon} />}
-          <Text style={textStyle} presets={['body1', 'bold']}>
+          <Text style={textStyle} presets={presets}>
             {children}
           </Text>
         </View>

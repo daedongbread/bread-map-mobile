@@ -8,15 +8,15 @@ type Props = {
 };
 
 export const ReportMenuButton = ({ onPress }: Props) => (
-  <Button icon size="large" appearance="terdary" style={styles.footerButton} onPress={onPress}>
+  <Button
+    icon
+    size="large"
+    presets={['body2', 'bold']}
+    appearance="terdary"
+    style={styles.footerButton}
+    onPress={onPress}
+  >
     빵 메뉴 제보하기
-    {/* <View style={styles.buttonContainer}>
-      <PlusIcon color={'#BDBDBD'} style={styles.footerIcon} />
-      <SplitColumn width={4} />
-      <Text presets={['body2', 'bold']} style={styles.footerButtonText}>
-        빵 메뉴 제보하기
-      </Text>
-    </View> */}
   </Button>
 );
 
