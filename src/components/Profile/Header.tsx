@@ -14,9 +14,10 @@ type Props = {
   title?: string;
   onClickRight?: () => void;
   isMe: boolean;
+  name: string;
 };
 
-export const Header = ({ type, title, onClickRight, isMe }: Props) => {
+export const Header = ({ type, title, onClickRight, isMe, name }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'ProfileStack'>['navigation']>();
 
   const onPressPrevBtn = () => {
@@ -59,7 +60,7 @@ export const Header = ({ type, title, onClickRight, isMe }: Props) => {
           <PrevIcon />
         </TouchableOpacity>
 
-        {isMe && onClickRight ? (
+        {isMe && onClickRight && name !== '가고싶어요' && name !== '가봤어요' ? (
           <TouchableOpacity style={styles.RightIcon} onPress={onClickRight}>
             <IcMore color="#222222" />
           </TouchableOpacity>

@@ -40,7 +40,7 @@ export function ListDetailComponent({
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <Header type="DETAIL" title="저장목록" onClickRight={onMoreClick} isMe={isMe} />
+      <Header type="DETAIL" title="저장목록" onClickRight={onMoreClick} isMe={isMe} name={name} />
       {loading ? null : (
         <FlatList
           ListHeaderComponent={ListHeaderComponent(name, len)}
