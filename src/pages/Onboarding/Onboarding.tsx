@@ -60,6 +60,8 @@ export function Onboarding({ navigation }: Props) {
             itemWidth={WINDOW_WIDTH}
             onSnapToItem={setActiveIndex}
             itemHeight={WINDOW_WIDTH}
+            decelerationRate={2}
+            enableMomentum
           />
         </View>
         <Pagination
