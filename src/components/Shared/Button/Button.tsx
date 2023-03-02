@@ -71,6 +71,7 @@ const appearanceStyles = StyleSheet.create({
     backgroundColor: theme.color.primary100,
   },
   terdary: {
+    backgroundColor: theme.color.white,
     borderWidth: 1,
     borderColor: theme.color.gray300,
   },
