@@ -2,14 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useCreateFlag, FlagColor } from '@/apis/flag';
 import { BookmarkForm } from '@/components/BookmarkForm';
+import { FlagColors } from '@/components/Profile/ProfileComponent';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 type ScreenProps = MainStackScreenProps<'Bookmark'>;
 type Navigation = ScreenProps['navigation'];
+type route = ScreenProps['route'];
 
 export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof flagColors[number]> &
   Record<'ORANGE', '#ff6e40'> = {
@@ -46,11 +48,12 @@ const convertFlagColors = (color: typeof flagColors[number]): FlagColor => {
 
 export const BookmarkFormContainer: React.VFC = () => {
   const navigate = useNavigation<Navigation>();
+  const route = useRoute<route>();
 
   const { mutate: createFlagMutate, isSuccess } = useCreateFlag();
 
-  const [name, setName] = useState<string>('');
-  const [color, setColor] = useState<typeof flagColors[number]>('#1EC780');
+  const [name, setName] = useState<string>(route.params?.name || '');
+  const [color, setColor] = useState<typeof flagColors[number]>(FlagColors[route.params?.color] || '#1EC780');
 
   const onChange = useCallback(({ name: label, value }) => {
     const changeFunctions = {
@@ -64,7 +67,13 @@ export const BookmarkFormContainer: React.VFC = () => {
   }, []);
 
   const onSave = useCallback(() => {
-    createFlagMutate({ name, color: convertFlagColors(color) });
+    if (route.params?.name) {
+      console.log(name);
+      console.log(color);
+      console.log(route.params?.flagId);
+    } else {
+      createFlagMutate({ name, color: convertFlagColors(color) });
+    }
   }, [color, createFlagMutate, name]);
 
   const onClose = useCallback(() => {
@@ -80,7 +89,7 @@ export const BookmarkFormContainer: React.VFC = () => {
   }, [isSuccess, navigate]);
   return (
     <SafeAreaView style={styles.container}>
-      <Header isPrevButtonShown title={'새 리스트'} />
+      <Header isPrevButtonShown title={route.params?.name ? route.params?.name : '새 리스트'} />
       <BookmarkForm name={name} color={color} onChange={onChange} />
       <View style={styles.buttonInputContainer}>
         <View style={styles.fullScreen}>
@@ -91,7 +100,7 @@ export const BookmarkFormContainer: React.VFC = () => {
         <View style={styles.gap} />
         <View style={styles.fullScreen}>
           <Button disabled={disabledButton} onPress={onSave}>
-            완료
+            {route.params?.name ? '수정' : '완료'}
           </Button>
         </View>
       </View>

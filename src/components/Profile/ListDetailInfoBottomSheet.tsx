@@ -9,13 +9,24 @@ import { Text } from '../Shared/Text';
 import { BackdropComponent } from './BackdropComponent';
 import { ListDetailInfoDeleteBottomSheet } from './ListDetailInfoDeleteBottomSheet';
 
-export function ListDetailInfoBottomSheet({ bottomSheetRef, deleteBottomSheetRef, onListDeleteClick }: any) {
+export function ListDetailInfoBottomSheet({
+  bottomSheetRef,
+  deleteBottomSheetRef,
+  onListDeleteClick,
+  name,
+  color,
+  flagId,
+}: any) {
   const { push } = useNavigation<MainStackScreenProps<'Bookmark'>['navigation']>();
   const snapPoints = useMemo(() => [140], []);
 
   const onEditClick = () => {
     bottomSheetRef.current?.close();
-    push('Bookmark');
+    push('Bookmark', {
+      name,
+      color,
+      flagId,
+    });
   };
 
   const onDeleteClick = () => {
@@ -35,11 +46,11 @@ export function ListDetailInfoBottomSheet({ bottomSheetRef, deleteBottomSheetRef
         snapPoints={snapPoints}
       >
         <View style={styles.Container}>
-          {/* <TouchableOpacity onPress={onEditClick} style={styles.ButtonWrap}>
+          <TouchableOpacity onPress={onEditClick} style={styles.ButtonWrap}>
             <Text style={styles.Text} presets={['body1', 'medium']}>
               저장목록 수정하기
             </Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
           <TouchableOpacity onPress={onDeleteClick} style={styles.ButtonWrap}>
             <Text style={styles.Text} presets={['body1', 'medium']}>
               저장목록 삭제하기

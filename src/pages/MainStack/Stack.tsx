@@ -53,7 +53,11 @@ export type MainStackParamList = {
     subTitle: string;
     onClose?: () => void;
   };
-  Bookmark: undefined;
+  Bookmark: {
+    name?: string;
+    color?: string;
+    flagId?: number;
+  };
   Search: undefined;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   ReportMenu: {
