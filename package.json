@@ -41,6 +41,7 @@
     "metro-config": "^0.72.0",
     "react": "17.0.2",
     "react-native": "0.67.3",
+    "react-native-code-push": "^7.1.0",
     "react-native-config": "^1.4.5",
     "react-native-easy-toast": "^2.3.0",
     "react-native-encrypted-storage": "^4.0.2",

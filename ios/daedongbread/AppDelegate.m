@@ -1,3 +1,4 @@
+#import <CodePush/CodePush.h>
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "RNSplashScreen.h"
@@ -109,7 +110,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  return [CodePush bundleURL];
 #endif
 }
 
