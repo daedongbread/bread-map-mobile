@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { useGetBakeries } from '@/apis';
-
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
 import { BakeriesBottomSheet } from '@/components/Home/BakeriesBottomSheet';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -48,8 +47,9 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
     });
   };
 
-  const { bakeries } = useGetBakeries({
+  const { bakeries } = useGetBakeriesFilter({
     sort,
+    filter: true,
     latitude: searchMapCameraLocation?.latitude,
     longitude: searchMapCameraLocation?.longitude,
     latitudeDelta: searchMapCameraLocation?.latitudeDelta,
@@ -61,7 +61,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
       onClickBakery={onClickBakery}
       activeTab={sort}
       onPressTab={onPressTab}
-      bakeryList={selectedMarker ? [selectedMarker] : bakeries}
+      bakeryList={selectedMarker ? bakeries?.filter(bakery => bakery.id === selectedMarker.id) : bakeries}
       hasSelected={!!selectedMarker}
       onPressIcon={onPressIcon}
     />

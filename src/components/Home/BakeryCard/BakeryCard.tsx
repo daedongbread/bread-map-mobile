@@ -3,13 +3,15 @@ import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { FlagColor } from '@/apis/flag';
 import { BakeryThumbnail } from '@/components/Home/BakeryThumbnail';
 
+import { flagColorHexColors } from '@/containers/Bookmark';
 import { theme } from '@/styles/theme';
 
 import { numberFormat, resizePixels } from '@/utils';
 
-import { CircleFlag, CirclePencil, CircleStar, Quote } from '@shared/Icons';
+import { CircleFlag, CirclePencil, CircleStar, HeartIcon, Quote } from '@shared/Icons';
 import EditIcon from '@shared/Icons/IcEdit.svg';
 import { Text } from '@shared/Text';
 
@@ -29,16 +31,18 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
     onPressIcon(bakery);
   };
 
+  const IconComponent = bakery.color === 'GRAY' ? CircleFlag : HeartIcon;
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
         <BakeryThumbnail source={source} />
         <TouchableWithoutFeedback onPress={handleIconPress}>
-          <CircleFlag
+          <IconComponent
             style={styles.bookmarkIcon}
             width={BOOKMARK_ICON_SIZE}
             height={BOOKMARK_ICON_SIZE}
-            color={defaultBookmarkIconColor}
+            color={flagColorHexColors[bakery.color as FlagColor] || defaultBookmarkIconColor}
           />
         </TouchableWithoutFeedback>
       </View>
