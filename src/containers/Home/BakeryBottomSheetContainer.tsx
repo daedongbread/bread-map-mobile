@@ -62,6 +62,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
       activeTab={sort}
       onPressTab={onPressTab}
       bakeryList={selectedMarker ? [selectedMarker] : bakeries}
+      hasSelected={!!selectedMarker}
       onPressIcon={onPressIcon}
     />
   );

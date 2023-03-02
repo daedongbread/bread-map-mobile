@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
@@ -19,6 +19,7 @@ type Props = Pick<BottomSheetProps, 'onChange'> & {
   onPressTab: (item: TabItem) => void;
   bakeryList?: Array<BakeryMapBakeryEntity>;
   onPressIcon: (bakery: BakeryMapBakeryEntity) => void;
+  hasSelected?: boolean;
 };
 
 export const BakeriesBottomSheet: React.FC<Props> = ({
@@ -27,7 +28,10 @@ export const BakeriesBottomSheet: React.FC<Props> = ({
   activeTab,
   onPressTab,
   onPressIcon,
+  hasSelected,
 }) => {
+  const ref = useRef<BottomSheet>(null);
+
   const snapPoints = useMemo(() => ['35%', '60%'], []);
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
 
@@ -46,8 +50,17 @@ export const BakeriesBottomSheet: React.FC<Props> = ({
     [onClickBakery, onPressIcon]
   );
 
+  const selectedItemId = hasSelected ? bakeryList[0]?.id : null;
+
+  useEffect(() => {
+    if (selectedItemId) {
+      ref.current?.snapToIndex(0);
+    }
+  }, [selectedItemId]);
+
   return (
     <BottomSheet
+      ref={ref}
       style={styles.bottomSheetContainer}
       handleIndicatorStyle={styles.handleIndicatorStyle}
       snapPoints={snapPoints}
