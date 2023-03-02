@@ -14,6 +14,7 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { Header } from '@shared/Header';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
@@ -121,7 +122,9 @@ const MainStack = () => {
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
         <Stack.Screen
-          options={{ headerTitle: '알림', headerTitleAlign: 'center', headerStyle: { height: 52 } }}
+          options={{
+            header: () => <Header title={'알림'} isPrevButtonShown />,
+          }}
           name={'NotificationModal'}
           component={Notification}
         />
