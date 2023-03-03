@@ -29,7 +29,7 @@ export function ListDetailContainer() {
       name={name}
       getFlagData={getFlagData}
       loading={loading}
-      len={getFlagData?.length}
+      len={getFlagData?.flagBakeryInfoList?.length}
       color={color}
       deleteBottomSheetRef={deleteBottomSheetRef}
       editBottomSheetRef={editBottomSheetRef}

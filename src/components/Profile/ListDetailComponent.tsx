@@ -43,12 +43,20 @@ export function ListDetailComponent({
       <Header type="DETAIL" title="저장목록" onClickRight={onMoreClick} isMe={isMe} name={name} />
       {loading ? null : (
         <FlatList
-          ListHeaderComponent={ListHeaderComponent(name, len)}
+          ListHeaderComponent={ListHeaderComponent(getFlagData?.flagInfo?.name, len)}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.Flatlist}
-          data={getFlagData}
+          data={getFlagData?.flagBakeryInfoList}
           renderItem={data => {
-            return <ListDetailItem item={data.item} name={name} color={color} flagId={flagId} isMe={isMe} />;
+            return (
+              <ListDetailItem
+                item={data.item}
+                name={name}
+                color={getFlagData?.flagInfo?.color}
+                flagId={flagId}
+                isMe={isMe}
+              />
+            );
           }}
           keyExtractor={(item: any) => item?.id}
         />

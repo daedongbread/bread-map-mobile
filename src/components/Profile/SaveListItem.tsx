@@ -9,35 +9,35 @@ import { SaveListItemImages } from './SaveListItemImages';
 
 export function SaveListItem({ item, onItemClick }: any) {
   const color =
-    item?.color === 'ORANGE'
+    item?.flagInfo?.color === 'ORANGE'
       ? FlagColors.ORANGE
-      : item?.color === 'GREEN'
+      : item?.flagInfo?.color === 'GREEN'
       ? FlagColors.GREEN
-      : item?.color === 'YELLOW'
+      : item?.flagInfo?.color === 'YELLOW'
       ? FlagColors.YELLOW
-      : item?.color === 'CYAN'
+      : item?.flagInfo?.color === 'CYAN'
       ? FlagColors.CYAN
-      : item?.color === 'BLUE'
+      : item?.flagInfo?.color === 'BLUE'
       ? FlagColors.BLUE
-      : item?.color === 'SKY'
+      : item?.flagInfo?.color === 'SKY'
       ? FlagColors.SKY
-      : item?.color === 'NAVY'
+      : item?.flagInfo?.color === 'NAVY'
       ? FlagColors.NAVY
-      : item?.color === 'PURPLE'
+      : item?.flagInfo?.color === 'PURPLE'
       ? FlagColors.PURPLE
-      : item?.color === 'RED'
+      : item?.flagInfo?.color === 'RED'
       ? FlagColors.RED
       : FlagColors.PINK;
 
   return (
-    <TouchableOpacity onPress={onItemClick(item)} style={styles.Container}>
+    <TouchableOpacity onPress={onItemClick(item?.flagInfo)} style={styles.Container}>
       <SaveListItemImages num={item?.bakeryImageList.length} images={item?.bakeryImageList} />
       <View style={styles.Info}>
         <View style={[styles.IconBackground, { backgroundColor: color }]}>
-          {item?.name !== '가봤어요' ? <HeartIcon width={18} /> : <IcFlag width={12} />}
+          {item?.flagInfo?.name !== '가봤어요' ? <HeartIcon width={18} /> : <IcFlag width={12} />}
         </View>
         <Text style={styles.Text} presets={['caption1', 'bold']}>
-          {item.name}
+          {item.flagInfo?.name}
         </Text>
       </View>
     </TouchableOpacity>
