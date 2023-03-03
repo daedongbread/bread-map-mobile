@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -56,8 +57,8 @@ export function EditDetailComponent({
   };
 
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
-      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+    <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={40}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} bounces={false}>
         <Header onClickLeft onClickRight={onClickRight} />
         <SplitRow height={12} />
         <View style={styles.TitleWrap}>
@@ -123,7 +124,7 @@ export function EditDetailComponent({
           확인
         </Button>
         <SplitRow height={18} />
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <EditDoneBottomSheet
         bottomSheetRef={editDoneBottomSheetRef}
         title="수정"
@@ -131,7 +132,7 @@ export function EditDetailComponent({
         NavigationKey={NavigationKey}
       />
       <CancelBottomSheet bottomSheetRef={cancelBottomSheetRef} />
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
