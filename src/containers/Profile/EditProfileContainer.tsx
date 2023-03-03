@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import { EditProfileComponent } from '@/components/Profile';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { editNickName } from '@/apis/profile';
+import { EditProfileComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
-import { Alert } from 'react-native';
+import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function EditProfileContainer() {
   const {
@@ -54,10 +53,13 @@ export function EditProfileContainer() {
         userImage: curImage.startsWith('https://') ? '' : curImage,
       });
       console.log(response);
+
       if (response?.respInfo?.status === 204) {
         navigation.pop();
       } else if (response?.respInfo?.status === 409) {
         setErrorMsg('이미 존재하는 닉네임입니다');
+      } else if (response?.respInfo?.status === 400) {
+        setErrorMsg('한글, 영문, 숫자만 사용 가능합니다.');
       }
     }
   };
