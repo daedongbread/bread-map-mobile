@@ -13,7 +13,9 @@ export const CopyButton = ({ onPress }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <CopyIcon />
-      <Text style={styles.text}>복사</Text>
+      <Text presets={['caption2', 'medium']} style={styles.text}>
+        복사
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 12,
     color: theme.color.gray400,
     marginLeft: 2,
   },

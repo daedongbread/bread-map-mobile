@@ -51,7 +51,7 @@ export const Header = ({
           </TouchableOpacity>
         )}
       </View>
-      <Text presets={['subhead', 'bold']} style={styles.headerText}>
+      <Text presets={['subhead', 'bold']} style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>
         {title}
       </Text>
       <View style={[styles.closeButton, styles.icon]}>
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerText: {
+    flex: 1,
+    textAlign: 'center',
     color: theme.color.gray900,
   },
 });

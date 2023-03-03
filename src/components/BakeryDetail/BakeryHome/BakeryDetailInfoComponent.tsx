@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Share from 'react-native-share';
 import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
@@ -7,6 +7,7 @@ import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummar
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { SplitRow } from '@/components/Shared/SplitSpace';
+import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
@@ -24,8 +25,6 @@ import {
   ShareSolidIcon,
   WishIcon,
 } from '@shared/Icons';
-
-const defaultMessage = '미정';
 
 type Props = {
   bakeryId: number;
@@ -109,22 +108,29 @@ export const BakeryDetailInfoComponent = ({
           </TouchableOpacity>
         </View>
       </View>
+
+      <SplitRow height={24} />
+
       <View style={styles.contentContainer}>
-        <Text style={styles.bakeryNameText}>{bakery?.bakeryInfo.name}</Text>
+        <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
+          {bakery?.bakeryInfo.name}
+        </Text>
         <SplitRow height={8} />
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
             <ReviewSummary text={numberFormat(bakery?.bakeryInfo.flagNum || 0)} icon={<CircleFlag />} />
-            <ReviewSummary text={String(bakery?.bakeryInfo.rating!)} icon={<CircleStar />} />
-            <ReviewSummary text={String(bakery?.bakeryInfo.reviewNum)} icon={<CirclePencil />} />
+            <ReviewSummary text={numberFormat(bakery?.bakeryInfo.rating || 0)} icon={<CircleStar />} />
+            <ReviewSummary text={numberFormat(bakery?.bakeryInfo.reviewNum || 0)} icon={<CirclePencil />} />
           </View>
 
-          <View style={styles.reviewerContainer}>
+          {/* <View style={styles.reviewerContainer}>
             <Text style={styles.reviewerText}>빵빵빵순</Text>
             <Text style={styles.reviewerSuffixText}>님 개척</Text>
-          </View>
+          </View> */}
         </View>
+
         <SplitRow height={16} />
+
         <View style={styles.actionButtonContainer}>
           {flagInfo.isFlaged ? (
             <BakeryButton
@@ -141,10 +147,15 @@ export const BakeryDetailInfoComponent = ({
         </View>
 
         <View style={styles.informationContainer}>
-          <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address || defaultMessage} isCopyable />
-          <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours || defaultMessage} />
-          <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL || defaultMessage} />
-          <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.phoneNumber || defaultMessage} isCopyable />
+          {!!bakery?.bakeryInfo.address && (
+            <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address} isCopyable />
+          )}
+          {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
+          {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />}
+          {!!bakery?.bakeryInfo.phoneNumber && (
+            <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.phoneNumber} isCopyable />
+          )}
+
           <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
             <FileTextIcon />
             <Text style={styles.editButtonText}>빵집 정보 수정하기</Text>
@@ -184,11 +195,6 @@ const styles = StyleSheet.create(
       fontSize: 10,
       fontWeight: '600',
       lineHeight: 14,
-    },
-    bakeryNameText: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginTop: 24,
     },
     reviewSummaryContainer: {
       flexDirection: 'row',
@@ -230,7 +236,7 @@ const styles = StyleSheet.create(
       paddingVertical: 8,
       borderRadius: 100,
       borderWidth: 1,
-      borderColor: theme.color.gray500,
+      borderColor: theme.color.gray300,
       marginTop: 12,
     },
     editButtonText: {
