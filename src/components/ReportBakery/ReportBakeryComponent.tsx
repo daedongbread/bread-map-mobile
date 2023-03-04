@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, Keyboard, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { UsePostReportRequest } from '@/apis/report/usePostReport';
@@ -42,6 +42,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
   const isValidLocation = form.location.trim().length > 0;
 
   const onPressClose = () => {
+    Keyboard.dismiss();
     cancleBottomSheetRef.current?.expand();
   };
 
