@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
@@ -36,7 +37,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
   const ImageRenderItem = ({ uri, onPress }: { uri: string; onPress: () => void }) => {
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <Image style={nonResizeStyles[`${mode}ReviewImage`]} source={{ uri }} />
+        <FastImage style={nonResizeStyles[`${mode}ReviewImage`]} source={{ uri }} />
       </TouchableWithoutFeedback>
     );
   };

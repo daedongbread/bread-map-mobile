@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   TextInput: {
-    color: theme.color.gray500,
+    color: theme.color.gray900,
     fontSize: 16,
     lineHeight: 18,
     ...presets.medium,
