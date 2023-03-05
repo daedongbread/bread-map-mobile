@@ -28,9 +28,9 @@ export function ProfileContainer() {
       navigation.push('ProfileStack', {
         screen: 'ListDetail',
         params: {
-          flagId: item?.id,
-          name: item?.name,
-          color: item?.color,
+          flagId: item?.flagInfo?.id,
+          name: item?.flagInfo?.name,
+          color: item?.flagInfo?.color,
           isMe: otherId ? false : true,
         },
       });

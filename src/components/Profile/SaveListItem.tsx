@@ -30,7 +30,7 @@ export function SaveListItem({ item, onItemClick }: any) {
       : FlagColors.PINK;
 
   return (
-    <TouchableOpacity onPress={onItemClick(item?.flagInfo)} style={styles.Container}>
+    <TouchableOpacity onPress={onItemClick(item)} style={styles.Container}>
       <SaveListItemImages num={item?.bakeryImageList.length} images={item?.bakeryImageList} />
       <View style={styles.Info}>
         <View style={[styles.IconBackground, { backgroundColor: color }]}>
