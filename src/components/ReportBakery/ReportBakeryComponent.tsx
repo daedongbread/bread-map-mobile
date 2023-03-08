@@ -49,7 +49,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
   return (
     <SafeAreaView style={styles.container}>
       <Header onPressClose={onPressClose} isCloseButtonShown />
-      <KeyboardAwareScrollView style={styles.fullScreen}>
+      <KeyboardAwareScrollView style={styles.fullScreen} keyboardShouldPersistTaps="handled">
         <SplitRow height={12} />
         <View>
           <Text presets={['heading1', 'bold']} style={styles.titleText}>
