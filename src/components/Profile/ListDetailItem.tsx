@@ -36,6 +36,21 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
       : FlagColors.PINK;
 
   const onItemClick = () => {
+    navigation.push('MainTab', {
+      screen: 'HomeStack',
+      params: {
+        screen: 'Bakery',
+        params: {
+          screen: 'BakeryDetailHome',
+          params: {
+            bakeryId: item?.id,
+          },
+        },
+      },
+    });
+  };
+
+  const onEditItemClick = () => {
     navigation.navigate('MainStack', {
       screen: 'BookmarkBottomSheet',
       params: {
@@ -55,9 +70,9 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
           </View>
           <FastImage style={styles.Image} source={{ uri: item?.image }} />
         </View>
-        <View style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
+        <TouchableOpacity onPress={onEditItemClick} style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
           {name !== '가봤어요' ? <IcHeart width={28} height={28} /> : <IcFlag width={18} height={18} />}
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{item?.name}</Text>
