@@ -12,20 +12,14 @@ export function EditDetailContainer() {
   } = useRoute<RootRouteProps<'EditDetail'>>();
   const { accessToken } = useAppSelector(state => state.auth);
   const editDoneBottomSheetRef = useRef<BottomSheet>(null);
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
   const [edit, setEdit] = useState('');
   const [errorState, setErrorState] = useState({
-    name: false,
-    location: false,
     edit: false,
   });
 
   const onChange = useCallback(({ name: label, value }) => {
-    setErrorState({ name: false, location: false, edit: false });
+    setErrorState({ edit: false });
     const changeFunctions = {
-      name: setName,
-      location: setLocation,
       edit: setEdit,
     };
 
@@ -34,26 +28,14 @@ export function EditDetailContainer() {
     }
   }, []);
   const onConfirmClick = async () => {
-    if (name.length === 0 || location.length === 0 || edit.length === 0) {
-      if (name.length === 0) {
-        setErrorState({ ...errorState, name: true });
-        return;
-      }
-      if (location.length === 0) {
-        setErrorState({ ...errorState, location: true });
-        return;
-      }
-      if (edit.length === 0) {
-        setErrorState({ ...errorState, edit: true });
-        return;
-      }
+    if (edit.length === 0) {
+      setErrorState({ ...errorState, edit: true });
+      return;
     } else {
       const response = await updateBakery({
         accessToken: accessToken!!,
         bakeryId: bakeryId,
         content: edit,
-        location: location,
-        name: name,
       });
       console.log(response);
 
@@ -65,8 +47,6 @@ export function EditDetailContainer() {
 
   return (
     <EditDetailComponent
-      name={name}
-      location={location}
       edit={edit}
       onChange={onChange}
       onConfirmClick={onConfirmClick}

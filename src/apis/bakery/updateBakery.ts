@@ -3,12 +3,12 @@ import { fetcher } from '../fetcher';
 type Props = {
   accessToken: string;
   bakeryId: number;
-  name: string;
-  location: string;
   content: string;
 };
 
-const updateBakery = async ({ accessToken, bakeryId, name, location, content }: Props) => {
+const updateBakery = async ({ accessToken, bakeryId, content }: Props) => {
+  console.log(bakeryId, content);
+
   const resp = await fetcher({
     method: 'post',
     url: `/bakery/report/${bakeryId}/update`,
@@ -17,8 +17,6 @@ const updateBakery = async ({ accessToken, bakeryId, name, location, content }: 
       'Content-Type': 'application/json',
     },
     data: {
-      name: name,
-      location: location,
       content: content,
     },
   });
