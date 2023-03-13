@@ -123,13 +123,13 @@ const styles = StyleSheet.create(
       color: theme.color.gray500,
     },
     MenuInfoWrap: {
-      width: 94,
       height: 24,
       backgroundColor: theme.color.gray100,
       borderRadius: 4,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      paddingHorizontal: 8,
     },
     MenuInfoText: {
       color: theme.color.gray600,
