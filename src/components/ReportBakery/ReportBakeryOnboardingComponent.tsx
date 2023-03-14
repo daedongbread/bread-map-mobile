@@ -34,10 +34,10 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ closePage, on
           firstItem={1}
           useScrollView
         /> */}
-        <View style={styles.container}>
+        <View style={styles.lottieContainer}>
           <LottieView
             source={require('@/assets/lottiles/bakery_onboarding.json')}
-            loop
+            // loop
             autoPlay
             resizeMode={'center'}
           />
@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
   },
   fullScreen: {
     flex: 1,
+  },
+  lottieContainer: {
+    flex: 1,
+    top: -40,
   },
   titleTextContainer: {
     paddingTop: 12,
