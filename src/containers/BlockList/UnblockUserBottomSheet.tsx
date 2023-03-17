@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { theme } from '@/styles/theme';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { Button } from '@shared/Button/Button';
@@ -18,7 +17,7 @@ export const UnblockUserBottomSheet = ({ onPressUnblock, onPressCancel, bottomSh
         ref={bottomSheetModalRef}
         snapPoints={[204]}
         handleIndicatorStyle={{
-          backgroundColor: theme.color.primary500,
+          backgroundColor: 'rgb(224, 224, 224)',
         }}
         handleStyle={{
           height: 24,

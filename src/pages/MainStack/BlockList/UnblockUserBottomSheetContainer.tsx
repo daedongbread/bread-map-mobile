@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
+import { BlockListEntry } from '@/apis/auth/useBlockList';
 import { unblockUser } from '@/apis/auth/useUnblockUser';
 import { UnblockUserBottomSheet } from '@/containers/BlockList/UnblockUserBottomSheet';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const UnblockUserBottomSheetContainer = ({ userId }: Props) => {
+  const queryClient = useQueryClient();
+
   const navigation = useNavigation<MainStackScreenProps<'BlockListModal'>['navigation']>();
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -19,6 +22,11 @@ export const UnblockUserBottomSheetContainer = ({ userId }: Props) => {
     mutationFn: unblockUser,
     onSuccess: () => {
       onPressCancel();
+      const data = queryClient.getQueryData<BlockListEntry[]>(['blockList']);
+      queryClient.setQueryData(
+        ['blockList'],
+        data?.filter(el => el.userId !== userId)
+      );
     },
   });
 
