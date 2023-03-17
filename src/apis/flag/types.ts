@@ -12,8 +12,10 @@ export type FlagColor =
   | 'PINK';
 
 export type Flag = {
-  flagId: number;
-  name: string;
-  color: FlagColor;
+  flagInfo: {
+    id: number;
+    name: string;
+    color: FlagColor;
+  };
   bakeryImageList?: string[];
 };

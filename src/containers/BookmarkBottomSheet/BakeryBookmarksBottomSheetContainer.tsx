@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { LogBox } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import { useQueryClient } from 'react-query';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
@@ -50,11 +51,12 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
     }
   };
 
-  const list = [
+  const list: { flagId: number; name: string; color?: string; icon: React.FC<SvgProps> }[] = [
     { flagId: 0, icon: React.Fragment, name: 'header' },
     ...(data || [])?.map((flag, index) => ({
-      ...flag,
-      color: flagColorHexColors[flag.color],
+      flagId: flag.flagInfo.id,
+      name: flag.flagInfo.name,
+      color: flagColorHexColors[flag.flagInfo.color],
       icon: index === 0 ? HeartIcon : CircleFlag,
     })),
   ];
