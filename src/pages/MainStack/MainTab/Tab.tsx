@@ -4,8 +4,10 @@ import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
+import { theme } from '@/styles/theme';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { Header } from '@shared/Header';
 import { NavNotification, NavProfile } from '@shared/Icons';
 import IcNavHome from '@shared/Icons/IcNavHome.svg';
 import { NavReport } from '@shared/Icons/NavReport';
@@ -27,7 +29,13 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTab = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: theme.color.primary500,
+      }}
+    >
       <Tab.Screen name={'HomeStack'} options={{ tabBarIcon: IcNavHome }} component={HomeStack} />
       <Tab.Screen
         name={'ReportBakery'}
@@ -44,16 +52,12 @@ const MainTab = () => {
       />
       <Tab.Screen
         name={'Notification'}
-        options={{ tabBarIcon: NavNotification }}
+        options={{
+          tabBarIcon: NavNotification,
+          headerShown: true,
+          header: () => <Header title={'알림'} isPrevButtonShown />,
+        }}
         component={Notification}
-        listeners={({ navigation: { navigate } }) => ({
-          tabPress: e => {
-            e.preventDefault();
-            navigate('MainStack', {
-              screen: 'NotificationModal',
-            });
-          },
-        })}
       />
       <Tab.Screen
         name={'Profile'}
