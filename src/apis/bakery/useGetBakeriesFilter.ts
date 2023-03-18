@@ -3,7 +3,7 @@ import { BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
 type UseGetBakeriesProps = {
-  filter: boolean;
+  filter?: boolean;
   sort: 'distance' | 'popular';
   latitude?: number;
   longitude?: number;
@@ -34,14 +34,14 @@ const useGetBakeriesFilter = ({
   latitudeDelta,
   longitudeDelta,
   sort,
-  filter,
+  filter = false,
 }: UseGetBakeriesProps) => {
   const queryKey = ['useGetBakeriesFilter'] as const;
 
   const { data, isLoading, isError, refetch } = useQuery(
     queryKey,
     () => requestGetBakeriesFilter({ latitude, longitude, latitudeDelta, longitudeDelta, sort }),
-    { enabled: filter && !!(latitude && longitude) }
+    { enabled: filter }
   );
 
   return {

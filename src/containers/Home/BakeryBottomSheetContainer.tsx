@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react';
-
-import { useGetBakeries } from '@/apis';
+import React, { useCallback, useEffect } from 'react';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
+import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
 import { BakeriesBottomSheet } from '@/components/Home/BakeriesBottomSheet';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -48,13 +47,30 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
     });
   };
 
-  const { bakeries } = useGetBakeries({
+  const { bakeries, refetch } = useGetBakeriesFilter({
     sort,
     latitude: searchMapCameraLocation?.latitude,
     longitude: searchMapCameraLocation?.longitude,
     latitudeDelta: searchMapCameraLocation?.latitudeDelta,
     longitudeDelta: searchMapCameraLocation?.longitudeDelta,
   });
+
+  useEffect(() => {
+    if (
+      searchMapCameraLocation?.latitude &&
+      searchMapCameraLocation?.longitude &&
+      searchMapCameraLocation?.latitudeDelta &&
+      searchMapCameraLocation?.longitudeDelta
+    ) {
+      refetch();
+    }
+  }, [
+    refetch,
+    searchMapCameraLocation?.latitude,
+    searchMapCameraLocation?.latitudeDelta,
+    searchMapCameraLocation?.longitude,
+    searchMapCameraLocation?.longitudeDelta,
+  ]);
 
   return (
     <BakeriesBottomSheet

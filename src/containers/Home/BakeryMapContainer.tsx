@@ -3,7 +3,6 @@ import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useGetBakeries } from '@/apis';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
 import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
@@ -65,16 +64,7 @@ export const BakeryMapContainer: React.FC = () => {
   const [showSearchButton, setShowSearchButton] = useState(false);
   const [cameraCoordinate, setCameraCoordinate] = useState<Region>();
 
-  const { bakeries } = useGetBakeries({
-    sort,
-    latitude: searchMapCameraLocation?.latitude,
-    longitude: searchMapCameraLocation?.longitude,
-    latitudeDelta: searchMapCameraLocation?.latitudeDelta,
-    longitudeDelta: searchMapCameraLocation?.longitudeDelta,
-  });
-
   const { bakeries: bakeriesFilter } = useGetBakeriesFilter({
-    filter: isFilterSaved,
     sort,
     latitude: searchMapCameraLocation?.latitude,
     longitude: searchMapCameraLocation?.longitude,
@@ -82,9 +72,7 @@ export const BakeryMapContainer: React.FC = () => {
     longitudeDelta: searchMapCameraLocation?.longitudeDelta,
   });
 
-  const markerCoordinates: BakeryMapBakeryFilterEntity[] | BakeryMapBakeryEntity[] | undefined = isFilterSaved
-    ? bakeriesFilter
-    : bakeries;
+  const markerCoordinates: BakeryMapBakeryFilterEntity[] | undefined = bakeriesFilter;
 
   //TODO: 마커를 눌렀을때 액션 추가(바텀시트에 보인다?)
   const onPressMarker = useCallback(

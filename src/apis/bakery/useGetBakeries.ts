@@ -28,7 +28,7 @@ const requestGetBakeries = async ({
 };
 
 const useGetBakeries = ({ latitude, longitude, latitudeDelta, longitudeDelta, sort }: UseGetBakeriesProps) => {
-  const queryKey = ['useGetBakeries', { latitude, longitude, latitudeDelta, longitudeDelta, sort }] as const;
+  const queryKey = ['useGetBakeries'] as const;
 
   const { data, isLoading, isError, refetch } = useQuery(
     queryKey,
