@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollViewProps } from 'react-native';
-import { ScrollView as OriginScrollView } from 'react-native-gesture-handler';
+import { ScrollView as OriginScrollView } from 'react-native';
 import { isCloseToBottom } from '@/utils/scroll/scroll';
 
 type Props = ScrollViewProps & {
