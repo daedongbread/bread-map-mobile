@@ -24,6 +24,13 @@ type Navigation = CompositeScreenProps<
 export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
   const navigate = useNavigation<Navigation>();
 
+  const ListHeaderComponent = () => (
+    <>
+      <Divider style={styles.dvider} />
+      <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />
+    </>
+  );
+
   const onPressAddButton = () => {
     navigate.navigate('ReportMenu', {
       bakeryId,
@@ -32,21 +39,20 @@ export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Divider />
-
-      <View style={styles.padding}>
-        <TabHeader onPressAddBtn={() => {}} title={'메뉴'} totalCount={menus.length} />
-      </View>
-
       {menus && menus.length > 0 ? (
-        <Menus menus={menus} onPress={onPress} />
+        <Menus headerComponent={<ListHeaderComponent />} menus={menus} onPress={onPress} />
       ) : (
-        <View style={styles.noDataContainer}>
-          <NoData title="메뉴가 없어요" subTitle="메뉴를 제보해주세요." />
+        <>
           <View style={styles.padding}>
-            <ReportMenuButton onPress={onPressAddButton} />
+            <ListHeaderComponent />
           </View>
-        </View>
+          <View style={styles.noDataContainer}>
+            <NoData title="메뉴가 없어요" subTitle="메뉴를 제보해주세요." />
+            <View style={styles.padding}>
+              <ReportMenuButton onPress={onPressAddButton} />
+            </View>
+          </View>
+        </>
       )}
     </View>
   );
@@ -55,6 +61,9 @@ export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  dvider: {
+    marginHorizontal: -20,
   },
   padding: {
     paddingHorizontal: 20,
