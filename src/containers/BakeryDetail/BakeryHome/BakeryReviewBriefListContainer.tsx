@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGetReviews } from '@/apis/review';
+import { useGetInfiniteReviews } from '@/apis/review';
 import { MoreButton } from '@/components/BakeryDetail/BakeryHome';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
@@ -20,10 +20,10 @@ export const BakeryReviewBriefListContainer = () => {
   const bakeryId = route.params.bakeryId;
   const [activeTab, setActiveTab] = useState<string>('latest');
 
-  const { reviews, refetch: refetchReview } = useGetReviews({ bakeryId });
+  const { reviews = [], refetch: refetchReview } = useGetInfiniteReviews({ bakeryId });
 
   useDidMountEffect(() => {
-    refetchReview({});
+    refetchReview();
   }, [activeTab]);
 
   const onPressTab = (tab: string) => {
@@ -36,14 +36,15 @@ export const BakeryReviewBriefListContainer = () => {
     });
   };
 
-  const briefReviews = reviews?.contents.slice(0, 3) || [];
+  const flatReviews = reviews && reviews.map(review => review.contents).flat();
+  const briefReviews = flatReviews?.slice(0, 3) || [];
 
   return (
     <>
       <BakeryReviewListComponent
         bakeryId={bakeryId}
         reviews={briefReviews}
-        reviewCount={reviews?.contents.length}
+        reviewCount={reviews.length > 0 ? reviews[0].totalElements : 0}
         activeTab={activeTab}
         isBrief
         onPressTab={onPressTab}

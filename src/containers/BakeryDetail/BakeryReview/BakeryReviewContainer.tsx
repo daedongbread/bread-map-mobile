@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useGetReviews } from '@/apis/review';
+import React, { useEffect, useState } from 'react';
+import { useGetInfiniteReviews } from '@/apis/review';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
+import { ScrollView } from '@/components/Shared/View';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { useRoute } from '@react-navigation/native';
@@ -12,9 +12,18 @@ export const BakeryReviewContainer = () => {
   const bakeryId = route.params.bakeryId;
   const [activeTab, setActiveTab] = useState<string>('latest');
 
-  const { reviews, refetch } = useGetReviews({ bakeryId, sortBy: activeTab });
+  const {
+    reviews = [],
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+    remove,
+  } = useGetInfiniteReviews({ bakeryId, sortBy: activeTab });
+
+  const flatReviews = reviews && reviews.map(review => review.contents).flat();
 
   useDidMountEffect(() => {
+    remove();
     refetch();
   }, [activeTab]);
 
@@ -22,12 +31,25 @@ export const BakeryReviewContainer = () => {
     setActiveTab(tab);
   };
 
+  const onScrollEnd = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  // unmount시 쿼리 초기화
+  useEffect(() => {
+    return () => {
+      remove();
+    };
+  }, [remove]);
+
   return (
-    <ScrollView>
+    <ScrollView onScrollEnd={onScrollEnd}>
       <BakeryReviewListComponent
         bakeryId={bakeryId}
-        reviews={reviews?.contents}
-        reviewCount={reviews?.contents.length}
+        reviews={flatReviews}
+        reviewCount={reviews.length > 0 ? reviews[0].totalElements : 0}
         activeTab={activeTab}
         onPressTab={onPressTab}
         refetchReview={refetch}

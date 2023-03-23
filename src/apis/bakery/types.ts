@@ -178,8 +178,9 @@ export type ReviewContent = {
 export type ReviewEntity = {
   pageNumber: number;
   numberOfElements: number;
+  totalElements: number;
+  totalPages: number;
   size: number;
-  hasNext: boolean;
   contents: ReviewContent[];
 };
 

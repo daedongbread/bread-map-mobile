@@ -19,7 +19,7 @@ type Props = {
   activeTab: string;
   isBrief?: boolean;
   onPressTab: (tab: string) => void;
-  refetchReview: () => void;
+  refetchReview: ((pageNum: number) => void) | (() => void);
 };
 
 const tabItems = [
@@ -33,6 +33,7 @@ type Navigation = CompositeScreenProps<
   MainStackScreenProps<keyof MainStackParamList>
 >['navigation'];
 
+const NUMBER_OF_ELEMENTS = 5;
 const { height } = Dimensions.get('screen');
 
 export const BakeryReviewListComponent = ({
@@ -46,6 +47,38 @@ export const BakeryReviewListComponent = ({
 }: Props) => {
   const navigation = useNavigation<Navigation>();
 
+  const HeaderRenderItem = () => {
+    return (
+      <>
+        <TabHeader
+          onPressAddBtn={onPressReviewWriteBtn}
+          title={'리뷰'}
+          totalCount={reviewCount || reviews?.length || 0}
+          addBtnText={'리뷰작성'}
+        />
+        {reviews && reviews.length > 0 && (
+          <View style={styles.tabContainer}>
+            {tabItems.map(({ value, label }) => (
+              <TabIcon key={value} value={value} activeTab={activeTab} onPress={onPressTab}>
+                {label}
+              </TabIcon>
+            ))}
+          </View>
+        )}
+      </>
+    );
+  };
+
+  const ListEmptyRenderItem = () => {
+    return (
+      <View style={styles.reviewContainer}>
+        <SplitRow height={isBrief ? 30 : height * 0.19} />
+        <NoData title="리뷰가 없어요" subTitle="첫 리뷰를 제보해주세요." />
+        {isBrief && <SplitRow height={height * 0.09} />}
+      </View>
+    );
+  };
+
   const onPressReviewWriteBtn = () => {
     navigation.navigate('ReviewWriteStack', {
       screen: 'ReviewSelect',
@@ -58,42 +91,25 @@ export const BakeryReviewListComponent = ({
   return (
     <View style={styles.container}>
       <Divider />
-      <View style={styles.reviewContainer}>
-        <TabHeader
-          onPressAddBtn={onPressReviewWriteBtn}
-          title={'리뷰'}
-          totalCount={reviewCount || reviews?.length || 0}
-          addBtnText={'리뷰작성'}
-        />
-        <View>
-          {reviews && reviews.length > 0 && (
-            <View style={styles.tabContainer}>
-              {tabItems.map(({ value, label }) => (
-                <TabIcon key={value} value={value} activeTab={activeTab} onPress={onPressTab}>
-                  {label}
-                </TabIcon>
-              ))}
-            </View>
-          )}
 
-          {reviews && reviews.length > 0 ? (
-            reviews.map((review, idx) => (
+      <View style={styles.reviewContainer}>
+        <HeaderRenderItem />
+
+        {reviews && reviews.length ? (
+          reviews.map((review, index) => {
+            return (
               <Review
-                mode="preview"
                 key={review.reviewInfo.id}
+                mode="preview"
                 review={review}
-                refetchReview={refetchReview}
-                isEnd={reviews.length - 1 === idx}
+                refetchReview={() => refetchReview(Math.floor(index / NUMBER_OF_ELEMENTS))}
+                isEnd={reviews?.length - 1 === index}
               />
-            ))
-          ) : (
-            <>
-              <SplitRow height={isBrief ? 30 : height * 0.19} />
-              <NoData title="리뷰가 없어요" subTitle="첫 리뷰를 제보해주세요." />
-              {isBrief && <SplitRow height={height * 0.09} />}
-            </>
-          )}
-        </View>
+            );
+          })
+        ) : (
+          <ListEmptyRenderItem />
+        )}
       </View>
     </View>
   );
@@ -106,6 +122,9 @@ const styles = StyleSheet.create(
     },
     reviewContainer: {
       paddingHorizontal: 20,
+    },
+    dvider: {
+      marginHorizontal: -20,
     },
     tabContainer: {
       flexDirection: 'row',

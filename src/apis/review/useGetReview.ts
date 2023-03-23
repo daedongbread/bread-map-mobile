@@ -1,10 +1,11 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { ReviewDetailEntity, ReviewEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
 
 type UseGetReviewsProps = {
   bakeryId: number;
   sortBy?: string;
+  pageParam?: number;
 };
 
 type UseGetReviewProps = {
@@ -19,13 +20,11 @@ type GetReviewResponse = {
   data: ReviewDetailEntity;
 };
 
-export const requestGetReviews = async ({ bakeryId, sortBy }: UseGetReviewsProps) => {
+export const requestGetReviews = async ({ bakeryId, sortBy, pageParam }: UseGetReviewsProps) => {
   const resp = await fetcher.get<GetReviewsResponse>(`/review/bakery/${bakeryId}`, {
     params: {
       sortBy,
-      // lastId: null,
-      // lastRating: null,
-      page: 0,
+      page: pageParam,
     },
   });
   return resp.data.data;
@@ -51,7 +50,7 @@ const useGetReview = ({ reviewId }: UseGetReviewProps) => {
 
 const useGetReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
   const { data, isLoading, isError, refetch } = useQuery(['useGetReviews', { bakeryId }], () =>
-    requestGetReviews({ bakeryId, sortBy })
+    requestGetReviews({ bakeryId, sortBy, pageParam: 0 })
   );
 
   return {
@@ -62,4 +61,37 @@ const useGetReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
   };
 };
 
-export { useGetReviews, useGetReview };
+const useGetInfiniteReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
+  const { data, isLoading, isError, hasNextPage, fetchNextPage, refetch, remove } = useInfiniteQuery(
+    ['useGetInfiniteReviews', { bakeryId }],
+    ({ pageParam = 0 }) => requestGetReviews({ bakeryId, sortBy, pageParam }),
+    {
+      getNextPageParam: lastPage => {
+        return lastPage.totalPages - 1 === lastPage.pageNumber || lastPage.contents.length === 0
+          ? null
+          : lastPage.pageNumber + 1;
+      },
+    }
+  );
+
+  const refetchPage = (pageNum?: number) => {
+    if (pageNum === undefined) {
+      refetch();
+    } else {
+      refetch({ refetchPage: (page, index) => index === pageNum });
+    }
+  };
+
+  return {
+    reviews: data?.pages,
+    pageParams: data?.pageParams,
+    loading: isLoading,
+    error: isError,
+    hasNextPage,
+    fetchNextPage,
+    refetch: refetchPage,
+    remove,
+  };
+};
+
+export { useGetReviews, useGetReview, useGetInfiniteReviews };
