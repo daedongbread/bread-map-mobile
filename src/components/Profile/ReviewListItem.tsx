@@ -10,9 +10,9 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { ReviewListItemInImageItem } from './ReviewListItemInImageItem';
 
-export function ReviewListItem({ item }: any) {
+export function ReviewListItem({ item, onItemClick }: any) {
   return (
-    <View>
+    <TouchableOpacity onPress={() => onItemClick(item)}>
       <Text presets={['body1', 'bold']} style={styles.Name}>
         {item?.bakeryInfo?.bakeryName}
       </Text>
@@ -68,7 +68,7 @@ export function ReviewListItem({ item }: any) {
           {/* <IcMore color="#BDBDBD" /> */}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
