@@ -9,6 +9,7 @@ import { Text } from '@/components/Shared/Text';
 import { TextInput } from '@/components/Shared/TextInput';
 import { ReportMenuForm, ReportMenuValidFormData } from '@/containers/BakeryDetail/BakeryMenu/ReportMenuContainer';
 import { theme } from '@/styles/theme';
+import { numberFormat } from '@/utils';
 import { SubTitle } from '../BakeryReview/ReviewWrite/ReviewRating';
 import { PhotoSelect } from '../BakeryReview/ReviewWrite/ReviewRating/PhotoSelect';
 
@@ -68,7 +69,8 @@ export const ReportMenuComponent = ({
             <TextInput
               style={styles.input}
               placeholder="원"
-              value={form.price}
+              maxLength={7}
+              value={form.price ? numberFormat(Number(form.price)) : ''}
               isAlert
               error={!formValid.isValidPrice && !isValidPrice ? '가격을 입력해주세요' : ''}
               keyboardType={'number-pad'}

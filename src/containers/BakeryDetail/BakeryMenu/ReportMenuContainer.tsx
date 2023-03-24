@@ -44,8 +44,15 @@ export const ReportMenuContainer = () => {
 
   const onChange = useCallback(
     (key: string, value: string) => {
+      let text = value;
+
+      // 가격필드의 경우 앞에 ₩, 공백, 한글, 영어, 콤마 제거
+      if (key === 'price') {
+        text = text.replace(/\s|₩|,|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[a-zA-Z]/g, '');
+      }
+
       setForm(prev => {
-        return { ...prev, [key]: value };
+        return { ...prev, [key]: text };
       });
     },
     [setForm]

@@ -61,9 +61,9 @@ export const ManualInputRow: React.FC<Props> = ({
   const onChange = (key: string, e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     let { text } = e.nativeEvent;
 
-    // 가격필드의 경우 앞에 ₩, 공백, 한글, 콤마 제거
+    // 가격필드의 경우 앞에 ₩, 공백, 한글, 영어, 콤마 제거
     if (key === 'price') {
-      text = text.replace(/\s|₩|,|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+      text = text.replace(/\s|₩|,|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[a-zA-Z]/g, '');
     }
 
     setManualInputs(prev => {
