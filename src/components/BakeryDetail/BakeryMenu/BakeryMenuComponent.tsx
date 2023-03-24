@@ -40,7 +40,12 @@ export const BakeryMenuComponent = ({ bakeryId, menus, onPress }: Props) => {
   return (
     <View style={styles.container}>
       {menus && menus.length > 0 ? (
-        <Menus headerComponent={<ListHeaderComponent />} menus={menus} onPress={onPress} />
+        <Menus
+          headerComponent={<ListHeaderComponent />}
+          menus={menus}
+          onPress={onPress}
+          onPressAddButton={onPressAddButton}
+        />
       ) : (
         <>
           <View style={styles.padding}>

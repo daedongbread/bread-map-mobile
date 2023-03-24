@@ -10,9 +10,10 @@ interface MenuProps {
   headerComponent?: React.ReactElement;
   menus: MenuEntity[];
   onPress: (menu: MenuEntity) => void;
+  onPressAddButton: () => void;
 }
 
-const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress }) => {
+const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAddButton }) => {
   return (
     <FlatList
       ListHeaderComponent={headerComponent}
@@ -24,7 +25,7 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress }) => {
           <Menu name={item.name} price={Number(item.price)} rating={item.rating} />
         </TouchableOpacity>
       )}
-      ListFooterComponent={<ReportMenuButton onPress={() => null} />}
+      ListFooterComponent={<ReportMenuButton onPress={onPressAddButton} />}
     />
   );
 };
