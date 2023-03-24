@@ -15,7 +15,7 @@ export function ProfileContainer() {
   const userId = otherId || myId!;
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const toast = useRef<Toast>(null);
-  const { profileInfoData, refetch, isRefetching: profileLoading } = useGetProfileInfo({ userId: userId });
+  const { profileInfoData, refetch, loading: profileLoading } = useGetProfileInfo({ userId: userId });
   const { data: flagData, loading: flagLoading } = useGetFlags(userId);
   const isLoading = profileLoading || flagLoading;
   const [buttonType, setButtonType] = useState(0);
