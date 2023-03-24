@@ -78,7 +78,8 @@ export const BakeryDetailInfoComponent = ({
     const shareOptions = {
       title: 'Share file',
       failOnCancel: false,
-      message: 'app store url 입니다 https://appstore',
+      message:
+        '[빵순이 빵돌이 다 모여라! 🍞 ]\n리얼 빵 맛집을 찾고싶다면, 대동빵지도를 설치해주세요\n\nhttps://naver.com',
     };
 
     Share.open(shareOptions).catch(() => null);
