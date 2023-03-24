@@ -15,13 +15,14 @@ const requestGetProfileInfo = async ({ userId }: UseGetProfileInfoProps) => {
 };
 
 const useGetProfileInfo = ({ userId }: UseGetProfileInfoProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetProfileInfo'], () =>
+  const { data, isLoading, isError, refetch, isRefetching } = useQuery(['useGetProfileInfo'], () =>
     requestGetProfileInfo({ userId })
   );
 
   return {
     profileInfoData: data,
     loading: isLoading,
+    isRefetching,
     error: isError,
     refetch,
   };

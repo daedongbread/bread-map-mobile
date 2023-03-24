@@ -16,7 +16,6 @@ export function EditDoneBottomSheet({ bottomSheetRef, title, bakeryId, Navigatio
 
   const onConfirmClick = () => {
     bottomSheetRef.current?.close();
-    console.log(NavigationKey + ' ' + bakeryId);
 
     navigation.navigate({ key: NavigationKey, params: { bakeryId: bakeryId } });
   };

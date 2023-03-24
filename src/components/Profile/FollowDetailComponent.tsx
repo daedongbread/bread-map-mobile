@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/core';
 import SadBreadGray from '@shared/Images/sadBreadGray.png';
 import { Text } from '../Shared/Text';
 import { FollowDetailItem } from './FollowDetailItem';
@@ -25,7 +27,17 @@ export function FollowDetailComponent({
   followingLoading,
   onFollowButtonClick,
 }: Props) {
+  const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const isLoading = followerLoading || followingLoading;
+
+  const onItemClick = (item: any) => {
+    navigation.push('MainTab', {
+      screen: 'Profile',
+      params: {
+        userId: item?.userId,
+      },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
@@ -35,7 +47,7 @@ export function FollowDetailComponent({
           bounces={false}
           contentContainerStyle={styles.Flatlist}
           data={index === 0 ? followingData : followerData}
-          renderItem={FollowDetailItem(onFollowButtonClick)}
+          renderItem={FollowDetailItem(onFollowButtonClick, onItemClick)}
           ItemSeparatorComponent={ItemSeparatorComponent}
           ListEmptyComponent={ListEmptyComponent(index)}
           showsVerticalScrollIndicator={false}

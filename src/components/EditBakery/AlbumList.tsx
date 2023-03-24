@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, PermissionsAndroid, Platform } from 'react-native';
 import { getRandomImageUrl } from '@/utils';
+import { phPathToFilePath } from '@/utils/phPathToFilePath';
 import { CameraRoll, GetPhotosParams, PhotoIdentifier } from '@react-native-camera-roll/camera-roll';
 import { AlbumItem } from './AlbumItem';
-import { phPathToFilePath } from '@/utils/phPathToFilePath';
 
 export function AlbumList({ setCurLocationUrl }: any) {
   //스크롤 될 때마다 사진을 불러올 경우 현재의 갤러리를 어디까지 불러왔는지에 대한 저장 값
@@ -40,7 +40,6 @@ export function AlbumList({ setCurLocationUrl }: any) {
     try {
       //사진을 불러옵니다. edges는 gallery photo에 대한 정보
       const { edges, page_info } = await CameraRoll.getPhotos(params);
-      // console.log(page_info);
 
       if (page_info.has_next_page === false) {
         setGalleryCursor(null);
@@ -58,10 +57,9 @@ export function AlbumList({ setCurLocationUrl }: any) {
         }
       }
 
-      // console.log('edges', edges);
       setGalleryList([...galleryList, ...edges]);
     } catch (error) {
-      console.log('[takeStore getPhotos error occured] ', error);
+      // console.log('[takeStore getPhotos error occured] ', error);
     }
   };
 

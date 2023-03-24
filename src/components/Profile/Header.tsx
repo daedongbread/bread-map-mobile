@@ -88,7 +88,7 @@ const styles = StyleSheet.create(
     },
     DetailContainer: {
       position: 'relative',
-      paddingLeft: 12,
+      paddingLeft: 19,
       paddingRight: 12,
       height: 52,
       display: 'flex',
