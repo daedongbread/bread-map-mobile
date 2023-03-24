@@ -3,9 +3,11 @@ import { NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, View } from
 import { TextInput } from 'react-native-gesture-handler';
 import { MenuForReviewEntity } from '@/apis/menu/type';
 import { CustomCheckBox } from '@/components/Shared/Chcekbox/CustomCheckBox';
+import { presets } from '@/components/Shared/Text/presets';
 import { useAppDispatch } from '@/hooks/redux';
 import { addManualSelectedBread, RatedBread, updateManualSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
+import { numberFormat } from '@/utils';
 
 type Props = MenuForReviewEntity & {
   manualSelectedBreads: RatedBread[];
@@ -57,7 +59,12 @@ export const ManualInputRow: React.FC<Props> = ({
   };
 
   const onChange = (key: string, e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    const { text } = e.nativeEvent;
+    let { text } = e.nativeEvent;
+
+    // 가격필드의 경우 앞에 ₩, 공백, 한글, 콤마 제거
+    if (key === 'price') {
+      text = text.replace(/\s|₩|,|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+    }
 
     setManualInputs(prev => {
       const newState = [...prev];
@@ -89,19 +96,20 @@ export const ManualInputRow: React.FC<Props> = ({
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.nameInput}
+          style={[styles.textInput, styles.nameInput]}
           placeholder={'메뉴명'}
           placeholderTextColor={theme.color.gray500}
           value={name}
           onChange={e => onChange('name', e)}
         />
         <TextInput
-          style={styles.priceInput}
-          placeholder={'가격(선택)'}
+          style={[styles.textInput, styles.priceInput]}
+          placeholder={'₩ 가격(선택)'}
           placeholderTextColor={theme.color.gray500}
-          value={price?.toString()}
-          onChange={e => onChange('price', e)}
           keyboardType={'number-pad'}
+          maxLength={9}
+          value={price ? `₩ ${numberFormat(price)}` : ''}
+          onChange={e => onChange('price', e)}
         />
       </View>
       <CustomCheckBox value={isChecked} strokeWidth={2} disabled={!isCheckable} onValueChange={setIsChecked} />
@@ -120,6 +128,11 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     flexDirection: 'row',
+  },
+  textInput: {
+    fontSize: 14,
+    textAlignVertical: 'center',
+    ...presets.medium,
   },
   nameInput: {
     flex: 5,
