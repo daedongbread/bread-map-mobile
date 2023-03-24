@@ -44,9 +44,10 @@ const styles = StyleSheet.create(
       borderRadius: 99,
       justifyContent: 'center',
       alignItems: 'center',
-      bottom: 4,
-      right: 4,
+      bottom: 8,
+      right: 8,
       position: 'absolute',
+      paddingBottom: 2,
     },
     Image: {
       borderRadius: 8,

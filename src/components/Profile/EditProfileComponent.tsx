@@ -42,7 +42,7 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage, 
         value={name}
         onChange={handleChange}
         placeholder={'빵순이'}
-        hint={`${name.length}자 / 최대 10자`}
+        hint={`${name?.length}자 / 최대 10자`}
         isAlert
         error={errorMsg + ''}
         maxLength={10}

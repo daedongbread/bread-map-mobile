@@ -12,7 +12,6 @@ export default function EditBakeryContainer() {
   const DeleteBakeryBottomSheetRef = useRef<BottomSheet>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   // const NavigationKey = useNavigationState(state => state);
-  // console.log(editBakeryNavigationKey.routes[0].key);
 
   const onClickRight = () => {
     navigation.pop();

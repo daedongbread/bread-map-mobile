@@ -37,7 +37,6 @@ export function EditDetailContainer() {
         bakeryId: bakeryId,
         content: edit,
       });
-      console.log(response);
 
       if (response.status === 201) {
         editDoneBottomSheetRef.current?.expand();

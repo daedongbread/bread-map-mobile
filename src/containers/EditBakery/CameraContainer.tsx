@@ -24,8 +24,6 @@ export function CameraContainer() {
   const [tmpPhoto, setTmpPhoto] = useState('');
   const [galleryImage, setGalleryImage] = useState('');
 
-  console.log('device: ' + device);
-
   const currentCameraPermission = async () => {
     await Camera.requestCameraPermission();
   };
@@ -56,7 +54,6 @@ export function CameraContainer() {
     const data = await camera.current?.takePhoto({
       qualityPrioritization: Platform.OS === 'android' ? 'quality' : 'balanced',
     });
-    // console.log(data);
 
     const image = await ImageCropPicker.openCropper({
       path: `file://${data?.path}`,

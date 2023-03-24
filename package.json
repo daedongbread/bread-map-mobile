@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
+    "postinstall": "patch-package",
     "android:prod": "react-native run-android --variant=productiondebug",
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "android:prod-bundle": "cd ./android && ./gradlew bundleDebug && open ./app/build/outputs/bundle/debug",
@@ -43,6 +44,8 @@
     "date-fns": "^2.29.3",
     "lottie-react-native": "^5.1.4",
     "metro-config": "^0.72.0",
+    "patch-package": "^6.5.1",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.2",
     "react-native": "0.67.3",
     "react-native-code-push": "^7.1.0",

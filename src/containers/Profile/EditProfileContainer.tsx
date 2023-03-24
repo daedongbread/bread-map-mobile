@@ -8,13 +8,11 @@ import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function EditProfileContainer() {
-  const {
-    params: { nickName, userImage },
-  } = useRoute<RootRouteProps<'EditProfile'>>();
+  const route = useRoute<RootRouteProps<'EditProfile'>>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const { accessToken } = useAppSelector(state => state.auth);
-  const [name, setName] = useState(nickName);
-  const [curImage, setCurImage] = useState(userImage);
+  const [name, setName] = useState(route.params?.nickName);
+  const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
 
   const onChange = useCallback(({ name: label, value }) => {
@@ -38,21 +36,18 @@ export function EditProfileContainer() {
   };
 
   const onConfirmClick = async () => {
-    console.log('name: ' + name + ' ,curImage: ' + curImage);
     if (name.length === 0) {
       setErrorMsg('닉네임을 입력해주세요');
       return;
     }
 
-    if (nickName === name && curImage === userImage) {
-      console.log('변경없음');
+    if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
       const response = await editNickName({
         accessToken: accessToken!!,
         nickName: name,
         userImage: curImage.startsWith('https://') ? '' : curImage,
       });
-      console.log(response);
 
       if (response?.respInfo?.status === 204) {
         navigation.pop();

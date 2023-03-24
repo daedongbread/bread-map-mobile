@@ -8,7 +8,7 @@ import { SplitColumn } from '@shared/SplitSpace';
 import { Text } from '@shared/Text';
 
 export const FollowDetailItem =
-  (onFollowButtonClick: any) =>
+  (onFollowButtonClick: any, onItemClick: any) =>
   ({ item }: any) => {
     const ButtonStyle = {
       backgroundColor: item?.isFollow ? 'white' : theme.color.primary100,
@@ -19,7 +19,7 @@ export const FollowDetailItem =
     };
 
     return (
-      <View style={styles.Container}>
+      <TouchableOpacity onPress={() => onItemClick(item)} style={styles.Container}>
         <View>
           <View style={styles.Placeholder}>
             <ImageBackground source={defaultProfile} resizeMode="contain" style={styles.PlaceholderImage} />
@@ -50,7 +50,7 @@ export const FollowDetailItem =
             <Text style={[styles.FollowText, ButtonTextStyle]}>{item?.isFollow ? '팔로잉' : '팔로우'}</Text>
           </TouchableOpacity>
         )}
-      </View>
+      </TouchableOpacity>
     );
   };
 

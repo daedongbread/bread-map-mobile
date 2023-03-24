@@ -7,8 +7,6 @@ type Props = {
 };
 
 const updateBakery = async ({ accessToken, bakeryId, content }: Props) => {
-  console.log(bakeryId, content);
-
   const resp = await fetcher({
     method: 'post',
     url: `/bakery/report/${bakeryId}/update`,

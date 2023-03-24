@@ -34,7 +34,6 @@ export function DeleteLocationContainer() {
       bakeryId: bakeryId,
       userImage: curLocationUrl || curPhotoUrl + '',
     });
-    console.log(response);
     if (response.respInfo.status === 201) {
       EditDoneBottomSheetRef.current?.expand();
     }
