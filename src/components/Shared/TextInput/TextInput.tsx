@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputStyle: {
-    ...presets.body2,
+    fontSize: 14,
+    textAlignVertical: 'center',
     ...presets.medium,
   },
   defaultInputStyle: {
