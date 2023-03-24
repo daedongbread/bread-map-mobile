@@ -2,8 +2,10 @@ import React, { memo, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useGetReviews } from '@/apis/profile/useGetReviews';
+import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { useNavigation } from '@react-navigation/core';
 import EmptyData from '@shared/Images/emptyData.png';
 import { Text } from '@shared/Text';
 import { ReviewListItem } from './ReviewListItem';
@@ -16,6 +18,7 @@ export function ReviewList({ userId }: { userId: number }) {
     hasNextPage,
     refetch,
   } = useGetReviews({ userId: userId });
+  const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
   const [refreshing, setRefreshing] = useState(false);
 
   const loadMore = () => {
@@ -28,11 +31,18 @@ export function ReviewList({ userId }: { userId: number }) {
     await refetch();
     setRefreshing(false);
   };
-
   const onRefresh = () => {
     if (!refreshing) {
       getRefreshData();
     }
+  };
+  const onItemClick = (item: any) => {
+    navigation.navigate('BakeryReviewDetailStack', {
+      screen: 'BakeryReviewDetail',
+      params: {
+        reviewId: item?.reviewInfo?.id,
+      },
+    });
   };
 
   return (
@@ -49,7 +59,7 @@ export function ReviewList({ userId }: { userId: number }) {
             })
             .flat()}
           renderItem={data => {
-            return <ReviewListItem item={data?.item} />;
+            return <ReviewListItem item={data?.item} onItemClick={onItemClick} />;
           }}
           keyExtractor={item => {
             return item?.reviewInfo?.id;
