@@ -119,7 +119,7 @@ export const BakeryDetailInfoComponent = ({
         <View style={styles.reviewSummaryContainer}>
           <View style={styles.summaryContainer}>
             <ReviewSummary text={numberFormat(bakery?.bakeryInfo.flagNum || 0)} icon={<CircleFlag />} />
-            <ReviewSummary text={numberFormat(bakery?.bakeryInfo.rating || 0)} icon={<CircleStar />} />
+            <ReviewSummary text={(bakery?.bakeryInfo.rating || 0).toFixed(1)} icon={<CircleStar />} />
             <ReviewSummary text={numberFormat(bakery?.bakeryInfo.reviewNum || 0)} icon={<CirclePencil />} />
           </View>
 
