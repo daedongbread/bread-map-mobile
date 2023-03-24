@@ -42,7 +42,7 @@ export const presets = StyleSheet.create(
     },
     caption2: {
       fontSize: 12,
-      lineHeight: 16,
+      // lineHeight: 16,
       fontFamily: FONT_FAMILY.medium,
     },
     bold: {
