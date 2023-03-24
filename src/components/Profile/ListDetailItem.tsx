@@ -163,6 +163,7 @@ const styles = StyleSheet.create(
     countItemText: {
       fontSize: 12,
       marginLeft: 4,
+      color: '#757575',
     },
     reviewText: {
       fontSize: 12,
