@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -50,7 +50,7 @@ export function EditDetailComponent({
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.SafeAreaView}>
       <Header onClickLeft onClickRight={onClickRight} />
       <SplitRow height={12} />
       <View style={styles.TitleWrap}>
@@ -94,7 +94,7 @@ export function EditDetailComponent({
         NavigationKey={NavigationKey}
       />
       <CancelBottomSheet bottomSheetRef={cancelBottomSheetRef} />
-    </>
+    </SafeAreaView>
   );
 }
 
