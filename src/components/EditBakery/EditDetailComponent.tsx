@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -52,41 +53,49 @@ export function EditDetailComponent({
   return (
     <SafeAreaView style={styles.SafeAreaView}>
       <Header onClickLeft onClickRight={onClickRight} />
-      <SplitRow height={12} />
-      <View style={styles.TitleWrap}>
-        <Text presets={['subTitle1', 'bold']} style={styles.Text}>
-          <Text style={styles.Primary}>어떤 정보</Text>를
-        </Text>
-        <Text presets={['subTitle1', 'bold']} style={styles.Text}>
-          수정 요청 하시나요?
-        </Text>
-      </View>
-      <SplitRow height={40} />
-      <View style={styles.Label}>
-        <Label>수정 사항</Label>
-      </View>
-      <TextInput
-        label={'edit'}
-        value={edit}
-        onChange={handleChange}
-        placeholder={'이 빵집의 어떤 정보를 수정할까요?!'}
-        error={errorState.edit ? '수정사항을 입력해주세요' : ''}
-        isAlert
-        maxLength={500}
-        autoCorrect={false}
-        style={[
-          styles.TextInput,
-          styles.MultiText,
-          { borderColor: errorState.edit ? theme.color.red : theme.color.gray200 },
-        ]}
-        multiline
-      />
-      <SplitRow height={38} />
-      <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 20 }}>
-        <Button onPress={onClickButton} style={styles.Button}>
-          확인
-        </Button>
-      </View>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        enableOnAndroid={true}
+        bounces={false}
+        enableResetScrollToCoords={false}
+      >
+        <SplitRow height={12} />
+        <View style={styles.TitleWrap}>
+          <Text presets={['subTitle1', 'bold']} style={styles.Text}>
+            <Text style={styles.Primary}>어떤 정보</Text>를
+          </Text>
+          <Text presets={['subTitle1', 'bold']} style={styles.Text}>
+            수정 요청 하시나요?
+          </Text>
+        </View>
+        <SplitRow height={40} />
+        <View style={styles.Label}>
+          <Label>수정 사항</Label>
+        </View>
+        <TextInput
+          label={'edit'}
+          value={edit}
+          onChange={handleChange}
+          placeholder={'이 빵집의 어떤 정보를 수정할까요?!'}
+          error={errorState.edit ? '수정사항을 입력해주세요' : ''}
+          isAlert
+          maxLength={500}
+          autoCorrect={false}
+          style={[
+            styles.TextInput,
+            styles.MultiText,
+            { borderColor: errorState.edit ? theme.color.red : theme.color.gray200 },
+          ]}
+          multiline
+        />
+        <SplitRow height={38} />
+        <View style={{ marginBottom: 20, marginTop: 'auto' }}>
+          <Button onPress={onClickButton} style={styles.Button}>
+            확인
+          </Button>
+        </View>
+      </KeyboardAwareScrollView>
+
       <EditDoneBottomSheet
         bottomSheetRef={editDoneBottomSheetRef}
         title="수정"
