@@ -37,7 +37,7 @@ export function CancelBottomSheet({ bottomSheetRef }: any) {
         </Text>
         <SplitRow height={16} />
         <Text presets={['body2', 'medium']} style={styles.SubTitle}>
-          삭제한 글은 되돌릴 수 없으니 신중히 생각해주세요!
+          {'삭제한 글은 되돌릴 수 없으니\n신중히 생각해주세요!'}
         </Text>
         <SplitRow height={32} />
         <View style={styles.ButtonWrap}>
