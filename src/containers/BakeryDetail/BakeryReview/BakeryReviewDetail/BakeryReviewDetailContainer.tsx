@@ -10,11 +10,11 @@ export const BakeryReviewDetailContainer = () => {
   const route = useRoute<Route>();
 
   const { reviewId } = route.params;
-  const { review } = useGetReview({ reviewId });
+  const { review, refetch } = useGetReview({ reviewId });
 
   if (!review) {
     return null;
   }
 
-  return <BakeryReviewDetailComponent review={review} />;
+  return <BakeryReviewDetailComponent review={review} refetch={refetch} />;
 };

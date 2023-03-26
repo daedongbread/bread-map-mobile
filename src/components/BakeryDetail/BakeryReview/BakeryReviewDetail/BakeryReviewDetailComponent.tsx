@@ -11,9 +11,10 @@ import { ReviewDetailHeader } from './ReviewDetailHeader';
 
 type Props = {
   review: ReviewDetailEntity;
+  refetch: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review }: Props) => {
+export const BakeryReviewDetailComponent = ({ review, refetch }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
@@ -21,7 +22,7 @@ export const BakeryReviewDetailComponent = ({ review }: Props) => {
       <ReviewDetailHeader bakery={review.reviewDto.bakeryInfo} />
       <ScrollView>
         <View style={styles.reviewContainer}>
-          <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={() => null} />
+          <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={refetch} />
         </View>
         <Divider />
         {/* <View style={styles.commentContainer}>
