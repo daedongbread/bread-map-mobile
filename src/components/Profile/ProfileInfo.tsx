@@ -119,6 +119,7 @@ const styles = StyleSheet.create(
     },
     Follow: {
       flexDirection: 'row',
+      alignItems: 'center',
     },
   })
 );
