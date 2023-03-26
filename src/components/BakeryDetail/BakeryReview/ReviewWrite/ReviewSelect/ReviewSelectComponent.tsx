@@ -71,7 +71,7 @@ export const ReviewSelectComponent: React.FC<Props> = ({
         // keyboardVerticalOffset={10}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <ContentsHeader title={'메뉴선택'} breadCount={breads.length} />
+        <ContentsHeader title={'메뉴선택'} breadCount={selectedBreads.length + manualSelectedBreads.length} />
         <ContentsList
           breads={breads}
           selectedBreads={selectedBreads}
