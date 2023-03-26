@@ -24,6 +24,9 @@ export const usePostReview = () => {
     mutationFn: postReview,
     onSuccess: () => {
       queryClient.refetchQueries({
+        queryKey: ['useGetInfiniteReviews'],
+      });
+      queryClient.refetchQueries({
         queryKey: ['useGetReviews'],
       });
     },
