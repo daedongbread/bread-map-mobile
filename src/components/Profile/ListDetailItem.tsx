@@ -71,7 +71,11 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
           <FastImage style={styles.Image} source={{ uri: item?.image }} />
         </View>
         <TouchableOpacity onPress={onEditItemClick} style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
-          {name !== '가봤어요' ? <IcHeart width={28} height={28} /> : <IcFlag width={18} height={18} />}
+          {name !== '가봤어요' ? (
+            <IcHeart width={28} height={28} color={FlagColor} />
+          ) : (
+            <IcFlag width={18} height={18} />
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>

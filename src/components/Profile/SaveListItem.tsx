@@ -34,7 +34,7 @@ export function SaveListItem({ item, onItemClick }: any) {
       <SaveListItemImages num={item?.bakeryImageList.length} images={item?.bakeryImageList} />
       <View style={styles.Info}>
         <View style={[styles.IconBackground, { backgroundColor: color }]}>
-          {item?.flagInfo?.name !== '가봤어요' ? <HeartIcon width={18} /> : <IcFlag width={12} />}
+          {item?.flagInfo?.name !== '가봤어요' ? <HeartIcon width={18} color={color} /> : <IcFlag width={12} />}
         </View>
         <Text style={styles.Text} presets={['caption1', 'bold']}>
           {item.flagInfo?.name}
