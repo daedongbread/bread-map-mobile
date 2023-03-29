@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
@@ -43,25 +43,27 @@ export const Header = ({
   };
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={[styles.prevButton, styles.icon]}>
-        {isPrevButtonShown && (
-          <TouchableOpacity onPress={onPressPrevBtn}>
-            <PrevIcon />
-          </TouchableOpacity>
-        )}
+    <SafeAreaView>
+      <View style={styles.headerContainer}>
+        <View style={[styles.prevButton, styles.icon]}>
+          {isPrevButtonShown && (
+            <TouchableOpacity onPress={onPressPrevBtn}>
+              <PrevIcon />
+            </TouchableOpacity>
+          )}
+        </View>
+        <Text presets={['subhead', 'bold']} style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>
+          {title}
+        </Text>
+        <View style={[styles.closeButton, styles.icon]}>
+          {isCloseButtonShown && (
+            <TouchableOpacity onPress={onPressCloseBtn}>
+              <CloseIcon />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
-      <Text presets={['subhead', 'bold']} style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>
-        {title}
-      </Text>
-      <View style={[styles.closeButton, styles.icon]}>
-        {isCloseButtonShown && (
-          <TouchableOpacity onPress={onPressCloseBtn}>
-            <CloseIcon />
-          </TouchableOpacity>
-        )}
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
