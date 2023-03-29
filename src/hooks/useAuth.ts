@@ -18,11 +18,12 @@ export const useAuth = () => {
     if (!accessToken || !refreshToken) {
       return;
     }
+
     dispatch(
       logout({
         accessToken: accessToken,
         refreshToken: refreshToken,
-        deviceToken: deviceToken || '',
+        deviceToken: deviceToken || '1',
       })
     );
   }, [accessToken, deviceToken, dispatch, refreshToken]);

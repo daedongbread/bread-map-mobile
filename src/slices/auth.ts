@@ -64,11 +64,14 @@ export const initAuth = createAsyncThunk('auth/initAuth', async () => {
 export const logout = createAsyncThunk(
   'auth/logout',
   async ({ accessToken, refreshToken, deviceToken }: LogoutRequest) => {
-    return requestLogout({ accessToken, refreshToken, deviceToken });
-    // EncryptedStorage.clear();
-    // removeHeader();
-    //
-    // state.accessToken = null;
+    return requestLogout({
+      accessToken,
+      refreshToken,
+      deviceToken,
+    }).then(() => {
+      EncryptedStorage.clear();
+      removeHeader();
+    });
   }
 );
 
