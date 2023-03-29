@@ -7,5 +7,5 @@ export type UsePostReportRequest = {
 };
 
 export const usePostReport = (request: UsePostReportRequest) => {
-  return fetcher.post('/bakery/report/add', request);
+  return fetcher.post('/v1/bakeries/bakery-add-reports', request);
 };

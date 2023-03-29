@@ -11,7 +11,7 @@ type UseGetMenusForReviewProps = {
 };
 
 const getMenusForReview = async ({ bakeryId }: UseGetMenusForReviewProps) => {
-  const { data } = await fetcher.get<GetMenusForReviewRes>(`/bakery/${bakeryId}/review/product/search?name=`, {});
+  const { data } = await fetcher.get<GetMenusForReviewRes>(`/v1/bakeries/${bakeryId}/products/search?name=`, {});
   return data.data;
 };
 

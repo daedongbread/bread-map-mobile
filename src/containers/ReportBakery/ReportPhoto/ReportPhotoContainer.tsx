@@ -41,7 +41,7 @@ export const ReportPhotoContainer = () => {
 
     if (photos.length > 0) {
       photos.forEach(photo => {
-        formData.append('files', {
+        formData.append('images', {
           uri: photo.uri,
           name: photo.fileName,
           type: photo.type,

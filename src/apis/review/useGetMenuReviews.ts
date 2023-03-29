@@ -14,7 +14,7 @@ type GetMenuReviewsResponse = {
 };
 
 const requestGetMenuReviews = async ({ bakeryId, productId, sortBy, pageParam }: UseGetMenuReviewsProps) => {
-  const res = await fetcher.get<GetMenuReviewsResponse>(`/review/bakery/${bakeryId}/product/${productId}`, {
+  const res = await fetcher.get<GetMenuReviewsResponse>(`/v1/reviews/bakeries/${bakeryId}/products/${productId}`, {
     params: {
       sortBy,
       page: pageParam,

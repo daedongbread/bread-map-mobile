@@ -2,7 +2,7 @@ import { useMutation } from 'react-query';
 import { fetcher } from '../fetcher';
 
 const likeReview = (reviewId: number) => {
-  return fetcher.post(`/review/${reviewId}/like`);
+  return fetcher.post(`/v1/reviews/${reviewId}/like`);
 };
 
 export const useLikeReview = () => {
