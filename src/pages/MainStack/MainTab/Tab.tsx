@@ -33,7 +33,7 @@ const MainTab = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: theme.color.primary500,
+        tabBarActiveTintColor: theme.color.gray900,
       }}
     >
       <Tab.Screen name={'HomeStack'} options={{ tabBarIcon: IcNavHome }} component={HomeStack} />
