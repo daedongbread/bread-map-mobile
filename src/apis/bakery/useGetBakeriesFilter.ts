@@ -22,9 +22,16 @@ const requestGetBakeriesFilter = async ({
   latitudeDelta,
   longitudeDelta,
 }: Omit<UseGetBakeriesProps, 'filter'>) => {
-  const resp = await fetcher.get<GetBakeriesResponse>(
-    `/bakery/filter?sortBy=${sort}&latitude=${latitude}&longitude=${longitude}&latitudeDelta=${latitudeDelta}&longitudeDelta=${longitudeDelta}`
-  );
+  const resp = await fetcher.get<GetBakeriesResponse>('/v1/bakeries', {
+    params: {
+      sortBy: sort,
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
+      filterBy: true,
+    },
+  });
   return resp.data.data;
 };
 

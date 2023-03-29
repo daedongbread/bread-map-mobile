@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { LogBox } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { useQueryClient } from 'react-query';
+import { useGetBakery } from '@/apis/bakery';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
 import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 
@@ -32,12 +33,13 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
   const [selectBookmark, setSelectBookmark] = useState<BookmarkList>();
 
   const { userId } = useAppSelector(selector => selector.auth);
-  const { mutate, isSuccess } = useBookmarkBakery({ flagId: selectBookmark?.flagId });
+  const { mutate, isSuccess } = useBookmarkBakery();
   const { data } = useGetFlags(userId);
+  const { bakery } = useGetBakery({ bakeryId });
 
   const onSave = () => {
     if (selectBookmark) {
-      mutate({ bakeryId: Number(bakeryId) });
+      mutate({ flagId: selectBookmark?.flagId, bakeryId: Number(bakeryId) });
     }
   };
 
@@ -75,6 +77,17 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
       goBack();
     }
   }, [isSuccess, selectBookmark, onSaveSuccess, goBack, flagId, queryClient]);
+
+  useEffect(() => {
+    const flagInfo = bakery?.flagInfo;
+    if (flagInfo?.flagId) {
+      setSelectBookmark({
+        flagId: flagInfo.flagId,
+        icon: HeartIcon,
+        name: '',
+      });
+    }
+  }, [bakery?.flagInfo]);
 
   return (
     <BakeryBookmarksBottomSheet

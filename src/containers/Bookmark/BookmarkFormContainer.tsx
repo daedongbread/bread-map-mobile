@@ -13,7 +13,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 type ScreenProps = MainStackScreenProps<'Bookmark'>;
 type Navigation = ScreenProps['navigation'];
-type route = ScreenProps['route'];
+type Route = ScreenProps['route'];
 
 export const flagColorHexColors: Record<Exclude<FlagColor, 'ORANGE'>, typeof flagColors[number]> &
   Record<'ORANGE', '#ff6e40'> = {
@@ -51,12 +51,20 @@ const convertFlagColors = (color: typeof flagColors[number]): FlagColor => {
 export const BookmarkFormContainer: React.VFC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigation<Navigation>();
-  const route = useRoute<route>();
+  const route = useRoute<Route>();
 
   const { mutate: createFlagMutate, isSuccess } = useCreateFlag();
 
   const [name, setName] = useState<string>(route.params?.name || '');
-  const [color, setColor] = useState<typeof flagColors[number]>(FlagColors[route.params?.color] || '#1EC780');
+  const [color, setColor] = useState<typeof flagColors[number]>(() => {
+    let defaultColor: typeof flagColors[number] = '#1EC780';
+
+    if (route.params?.color) {
+      defaultColor = FlagColors[route.params.color as keyof typeof FlagColors];
+    }
+
+    return defaultColor || '#1EC780';
+  });
 
   const onChange = useCallback(({ name: label, value }) => {
     const changeFunctions = {
@@ -99,6 +107,7 @@ export const BookmarkFormContainer: React.VFC = () => {
       navigate.pop();
     }
   }, [isSuccess, navigate]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header isPrevButtonShown title={route.params?.name ? route.params?.name : '새 리스트'} />

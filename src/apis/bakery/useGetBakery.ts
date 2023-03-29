@@ -11,7 +11,7 @@ type GetBakeryResponse = {
 };
 
 const requestGetBakery = async ({ bakeryId }: UseGetBakeryProps) => {
-  const resp = await fetcher.get<GetBakeryResponse>(`/bakery/${bakeryId}`);
+  const resp = await fetcher.get<GetBakeryResponse>(`/v1/bakeries/${bakeryId}`);
   return resp.data.data;
 };
 

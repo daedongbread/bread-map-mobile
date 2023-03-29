@@ -7,7 +7,7 @@ type getFlagRes = {
 };
 
 const getFlags = async (userId?: number | null) => {
-  const { data } = await fetcher.get<getFlagRes>(`/flag/user/${userId}`);
+  const { data } = await fetcher.get<getFlagRes>(`/v1/flags/users/${userId}`);
 
   return data.data;
 };
