@@ -129,7 +129,13 @@ const MainStack = () => {
           component={Notification}
         />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
-        <Stack.Screen name={'SettingModal'} component={Setting} options={{ title: '설정' }} />
+        <Stack.Screen
+          name={'SettingModal'}
+          component={Setting}
+          options={{
+            header: () => <Header title={'설정'} isPrevButtonShown />,
+          }}
+        />
 
         <Stack.Screen
           options={{
