@@ -2,7 +2,7 @@ import { useMutation } from 'react-query';
 import { fetcher } from '../fetcher';
 
 const blockUser = (userId: number) => {
-  return fetcher.post('/user/block', {
+  return fetcher.post('/v1/users/block', {
     userId,
   });
 };

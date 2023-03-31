@@ -1,0 +1,1 @@
+export { TermsContainer } from './TermsContainer';

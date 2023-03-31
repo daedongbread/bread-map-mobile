@@ -7,7 +7,7 @@ type Props = {
 const follow = async ({ userId }: Props) => {
   const resp = await fetcher({
     method: 'post',
-    url: '/user/follow',
+    url: '/v1/users/follow',
     data: {
       userId: userId,
     },

@@ -11,7 +11,7 @@ type UseGetMenusProps = {
 };
 
 const requestGetMenus = async (bakeryId: number) => {
-  const { data } = await fetcher.get<GetMenusRes>(`/bakery/${bakeryId}/product`);
+  const { data } = await fetcher.get<GetMenusRes>(`/v1/bakeries/${bakeryId}/products`);
   return data.data;
 };
 

@@ -8,7 +8,7 @@ type UserReportReviewRequest = {
 };
 
 const reportReview = ({ reviewId, content, reason }: UserReportReviewRequest) => {
-  return fetcher.post(`/review/${reviewId}/report`, {
+  return fetcher.post(`/v1/reviews/${reviewId}/report`, {
     reason,
     content,
   });

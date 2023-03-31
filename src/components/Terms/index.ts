@@ -1,0 +1,1 @@
+export { TermsComponent } from './TermsComponent';

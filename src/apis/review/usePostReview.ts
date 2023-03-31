@@ -12,7 +12,7 @@ type PostReviewRequest = {
 
 const postReview = ({ bakeryId, ...rest }: PostReviewRequest) => {
   return fetchImageAndData({
-    url: `review/${bakeryId}`,
+    url: `v1/reviews/bakeries/${bakeryId}`,
     ...rest,
   });
 };

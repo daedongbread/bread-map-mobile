@@ -21,7 +21,7 @@ type GetReviewResponse = {
 };
 
 export const requestGetReviews = async ({ bakeryId, sortBy, pageParam }: UseGetReviewsProps) => {
-  const resp = await fetcher.get<GetReviewsResponse>(`/review/bakery/${bakeryId}`, {
+  const resp = await fetcher.get<GetReviewsResponse>(`/v1/reviews/bakeries/${bakeryId}`, {
     params: {
       sortBy,
       page: pageParam,
@@ -31,7 +31,7 @@ export const requestGetReviews = async ({ bakeryId, sortBy, pageParam }: UseGetR
 };
 
 export const requestGetReview = async ({ reviewId }: { reviewId: number }) => {
-  const resp = await fetcher.get<GetReviewResponse>(`/review/${reviewId}`);
+  const resp = await fetcher.get<GetReviewResponse>(`/v1/reviews/${reviewId}`);
   return resp.data.data;
 };
 

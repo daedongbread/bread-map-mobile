@@ -7,7 +7,7 @@ type ReportPhotoRequest = {
 };
 
 const reportPhoto = ({ bakeryId, formData }: ReportPhotoRequest) => {
-  return fetcher.post(`/bakery/report/${bakeryId}/image`, formData, {
+  return fetcher.post(`/v1/bakeries/${bakeryId}/bakery-report-images`, formData, {
     headers: { 'content-type': 'multipart/form-data' },
     transformRequest: data => data,
   });

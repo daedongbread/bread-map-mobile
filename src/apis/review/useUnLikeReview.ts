@@ -2,7 +2,7 @@ import { useMutation } from 'react-query';
 import { fetcher } from '../fetcher';
 
 const unLikeReview = (reviewId: number) => {
-  return fetcher.delete(`/review/${reviewId}/unlike`);
+  return fetcher.delete(`/v1/reviews/${reviewId}/unlike`);
 };
 
 export const useUnLikeReview = () => {

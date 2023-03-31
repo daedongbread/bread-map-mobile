@@ -7,7 +7,7 @@ type Props = {
 const unFollow = async ({ userId }: Props) => {
   const resp = await fetcher({
     method: 'delete',
-    url: '/user/follow',
+    url: '/v1/users/follow',
     data: {
       userId: userId,
     },

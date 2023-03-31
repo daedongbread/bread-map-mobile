@@ -22,7 +22,7 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAd
       keyExtractor={menu => menu.name}
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => onPress(item)}>
-          <Menu name={item.name} price={Number(item.price)} rating={item.rating} />
+          <Menu name={item.name} price={Number(item.price)} rating={item.rating} reviewNum={item.reviewNum} />
         </TouchableOpacity>
       )}
       ListFooterComponent={<ReportMenuButton onPress={onPressAddButton} />}
