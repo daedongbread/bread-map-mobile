@@ -13,13 +13,27 @@ import { Text } from '../Shared/Text';
 
 type Props = {
   terms: Terms[];
+  checkeds: string[];
+  onPressAllTermsCheckBox: (isChecked: boolean) => void;
+  onPressTermsCheckBox: (value: boolean, key: string) => void;
   onPressConfirm: () => void;
 };
 
-const RenderItem = ({ value, isRequire }: Terms) => (
+type RenderItemProps = Terms & {
+  isChecked: boolean;
+  onPress: (value: boolean, key: string) => void;
+};
+
+const RenderItem = ({ id, isChecked, value, isRequire, onPress }: RenderItemProps) => (
   <View style={styles.termsContainer}>
     <View style={styles.termLeft}>
-      <CustomCheckBox width={20} height={20} strokeWidth={2} />
+      <CustomCheckBox
+        width={20}
+        height={20}
+        strokeWidth={2}
+        value={isChecked}
+        onValueChange={_value => onPress(_value, id)}
+      />
 
       <SplitColumn width={8} />
 
@@ -42,8 +56,19 @@ const RenderItem = ({ value, isRequire }: Terms) => (
   </View>
 );
 
-export const TermsComponent = ({ terms, onPressConfirm }: Props) => {
+export const TermsComponent = ({
+  terms,
+  checkeds,
+  onPressAllTermsCheckBox,
+  onPressTermsCheckBox,
+  onPressConfirm,
+}: Props) => {
   const insets = useSafeAreaInsets();
+
+  const isValid = terms
+    .filter(t => t.isRequire)
+    .map(t => t.id)
+    .every(t => checkeds.includes(t));
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -61,7 +86,11 @@ export const TermsComponent = ({ terms, onPressConfirm }: Props) => {
           <SplitRow height={24} />
 
           <View style={styles.allTermsContainer}>
-            <CustomCheckBox strokeWidth={2} />
+            <CustomCheckBox
+              strokeWidth={2}
+              value={terms.length === checkeds.length}
+              onValueChange={isChecked => onPressAllTermsCheckBox(isChecked)}
+            />
             <SplitColumn width={8} />
             <Text presets={['body1', 'bold']}>전체 약관에 동의합니다</Text>
           </View>
@@ -69,12 +98,24 @@ export const TermsComponent = ({ terms, onPressConfirm }: Props) => {
           <SplitRow height={8} />
 
           {terms.map(term => {
-            return <RenderItem {...term} />;
+            return (
+              <RenderItem
+                key={term.id}
+                isChecked={checkeds.includes(term.id)}
+                onPress={onPressTermsCheckBox}
+                {...term}
+              />
+            );
           })}
         </View>
       </ScrollView>
 
-      <Button style={styles.button} onPress={onPressConfirm} appearance={'primary'}>
+      <Button
+        style={styles.button}
+        onPress={onPressConfirm}
+        appearance={isValid ? 'primary' : 'quaternary'}
+        disabled={!isValid}
+      >
         다음
       </Button>
 

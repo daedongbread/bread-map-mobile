@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TermsComponent } from '@/components/Terms';
 import { RootStackScreenProps } from '@/pages/Stack';
 
 type Navigation = RootStackScreenProps<'Onboarding'>['navigation'];
 
 export type Terms = {
-  key?: string;
+  id: string;
   value: string;
   isRequire: boolean;
 };
 
 const terms: Terms[] = [
   {
+    id: 'a',
     value: '서비스 이용약관 동의',
     isRequire: true,
   },
   {
+    id: 'b',
     value: '개인정보 수집 및 이용 동의',
     isRequire: true,
   },
   {
+    id: 'c',
     value: '마케팅 정보 수신 동의',
     isRequire: false,
   },
@@ -27,10 +30,36 @@ const terms: Terms[] = [
 
 export const TermsContainer = () => {
   // const navigation = useNavigation<Navigation>();
+  const [checkeds, setCheckeds] = useState<string[]>([]);
+
+  const onPressAllTermsCheckBox = (isChecked: boolean) => {
+    const newCheckeds = isChecked ? terms.map(term => term.id) : [];
+    setCheckeds(newCheckeds);
+  };
+
+  const onPressTermsCheckBox = (value: boolean, id: string) => {
+    let newCheckeds = [...checkeds];
+
+    if (value) {
+      newCheckeds.push(id);
+    } else {
+      newCheckeds = newCheckeds.filter(checked => checked !== id);
+    }
+
+    setCheckeds(newCheckeds);
+  };
 
   const onPressConfirm = () => {
     // navigation.push('정책');
   };
 
-  return <TermsComponent terms={terms} onPressConfirm={onPressConfirm} />;
+  return (
+    <TermsComponent
+      terms={terms}
+      checkeds={checkeds}
+      onPressAllTermsCheckBox={onPressAllTermsCheckBox}
+      onPressTermsCheckBox={onPressTermsCheckBox}
+      onPressConfirm={onPressConfirm}
+    />
+  );
 };
