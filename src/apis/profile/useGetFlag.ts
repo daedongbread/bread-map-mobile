@@ -11,7 +11,7 @@ type GetFlagResponse = {
 };
 
 const requestGetFlag = async ({ accessToken, flagId }: UseGetFlagProps) => {
-  const resp = await fetcher.get<GetFlagResponse>(`/flag/${flagId}`, {
+  const resp = await fetcher.get<GetFlagResponse>(`/v1/flags/${flagId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

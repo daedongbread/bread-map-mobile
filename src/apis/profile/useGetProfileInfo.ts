@@ -10,7 +10,7 @@ type GetProfileInfoResponse = {
 };
 
 const requestGetProfileInfo = async ({ userId }: UseGetProfileInfoProps) => {
-  const resp = await fetcher.get<GetProfileInfoResponse>(`/user/${userId}`);
+  const resp = await fetcher.get<GetProfileInfoResponse>(`/v1/users/${userId}`);
   return resp.data.data;
 };
 

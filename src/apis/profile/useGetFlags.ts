@@ -6,7 +6,7 @@ type GetFlagResponse = {
 };
 
 const requestGetFlags = async (userId: number) => {
-  const resp = await fetcher.get<GetFlagResponse>(`/flag/user/${userId}`);
+  const resp = await fetcher.get<GetFlagResponse>(`/v1/flags/users/${userId}`);
   return resp.data.data;
 };
 

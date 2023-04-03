@@ -8,7 +8,7 @@ type Props = {
 const deleteFlag = async ({ accessToken, flagId }: Props) => {
   const resp = await fetcher({
     method: 'delete',
-    url: `/flag/${flagId}`,
+    url: `/v1/flags/${flagId}`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',

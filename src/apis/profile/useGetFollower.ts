@@ -11,7 +11,7 @@ type GetFollowerResponse = {
 };
 
 const requestGetFollower = async ({ userId }: { userId: number }) => {
-  const resp = await fetcher.get<GetFollowerResponse>(`/user/${userId ? `${userId}/` : ''}follower`);
+  const resp = await fetcher.get<GetFollowerResponse>(`/v1/users/${userId ? `${userId}/` : ''}follower`);
   return resp.data.data;
 };
 
