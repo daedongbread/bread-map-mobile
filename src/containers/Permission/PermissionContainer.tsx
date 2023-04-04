@@ -1,12 +1,12 @@
 import React from 'react';
 import { PermissionComponent } from '@/components/Permission';
-import { LocationMarker, NavigationIcon } from '@/components/Shared/Icons';
+import { NavigationIcon } from '@/components/Shared/Icons';
 import { CameraIcon } from '@/components/Shared/Icons/Camera';
-import { RootStackScreenProps } from '@/pages/Stack';
+import { PolicyStackNavigationProps } from '@/pages/Policy/Stack';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/core';
 
-type Navigation = RootStackScreenProps<'Onboarding'>['navigation'];
+type Navigation = PolicyStackNavigationProps<'Permission'>['navigation'];
 
 type Permission = {
   icon: React.ReactNode;
@@ -25,18 +25,13 @@ const permissions: Permission[] = [
     title: '파일 저장소 엑세스 권한',
     subTitle: '빵집 제보, 리뷰 작성할 때\n앨범 사진을 불러오기 위한 권한입니다.',
   },
-  {
-    icon: <LocationMarker width={20} height={20} stroke={theme.color.gray900} />,
-    title: '파일 저장소 엑세스 권한',
-    subTitle: '빵집 제보, 리뷰 작성할 때\n앨범 사진을 불러오기 위한 권한입니다.',
-  },
 ];
 
 export const PermissionContainer = () => {
   const navigation = useNavigation<Navigation>();
 
   const onPressConfirm = () => {
-    navigation.push('정책');
+    navigation.push('Terms');
   };
 
   return <PermissionComponent permissions={permissions} onPressConfirm={onPressConfirm} />;

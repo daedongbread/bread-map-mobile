@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { TermsComponent } from '@/components/Terms';
-import { RootStackScreenProps } from '@/pages/Stack';
+import { TermsStackNavigationProps } from '@/pages/Policy/Terms/Stack';
+import { useNavigation } from '@react-navigation/native';
 
-type Navigation = RootStackScreenProps<'Onboarding'>['navigation'];
+type Navigation = TermsStackNavigationProps<'Terms'>['navigation'];
 
 export type Terms = {
   id: string;
@@ -29,7 +30,7 @@ const terms: Terms[] = [
 ];
 
 export const TermsContainer = () => {
-  // const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation<Navigation>();
   const [checkeds, setCheckeds] = useState<string[]>([]);
 
   const onPressAllTermsCheckBox = (isChecked: boolean) => {
@@ -50,7 +51,7 @@ export const TermsContainer = () => {
   };
 
   const onPressConfirm = () => {
-    // navigation.push('정책');
+    navigation.navigate('Welcome');
   };
 
   return (

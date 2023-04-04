@@ -1,0 +1,1 @@
+export { WelcomeComponent } from './WelcomeComponent';
