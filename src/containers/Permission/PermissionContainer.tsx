@@ -31,7 +31,9 @@ export const PermissionContainer = () => {
   const navigation = useNavigation<Navigation>();
 
   const onPressConfirm = () => {
-    navigation.push('Terms');
+    navigation.push('TermsStack', {
+      screen: 'Terms',
+    });
   };
 
   return <PermissionComponent permissions={permissions} onPressConfirm={onPressConfirm} />;

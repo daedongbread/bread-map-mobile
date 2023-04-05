@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Terms } from '@/containers/Terms/TermsContainer';
+import { TermsStackParamList } from '@/pages/Policy/Terms/Stack';
 import { theme } from '@/styles/theme';
 import { Button } from '../Shared/Button/Button';
 import { CustomCheckBox } from '../Shared/Chcekbox/CustomCheckBox';
@@ -16,15 +17,17 @@ type Props = {
   checkeds: string[];
   onPressAllTermsCheckBox: (isChecked: boolean) => void;
   onPressTermsCheckBox: (value: boolean, key: string) => void;
+  onPressTerms: (routeName: keyof TermsStackParamList) => void;
   onPressConfirm: () => void;
 };
 
 type RenderItemProps = Terms & {
   isChecked: boolean;
-  onPress: (value: boolean, key: string) => void;
+  onPressCheckBox: (value: boolean, key: string) => void;
+  onPressTerms: (routeName: keyof TermsStackParamList) => void;
 };
 
-const RenderItem = ({ id, isChecked, value, isRequire, onPress }: RenderItemProps) => (
+const RenderItem = ({ id, isChecked, value, isRequire, onPressCheckBox, onPressTerms }: RenderItemProps) => (
   <View style={styles.termsContainer}>
     <View style={styles.termLeft}>
       <CustomCheckBox
@@ -32,7 +35,7 @@ const RenderItem = ({ id, isChecked, value, isRequire, onPress }: RenderItemProp
         height={20}
         strokeWidth={2}
         value={isChecked}
-        onValueChange={_value => onPress(_value, id)}
+        onValueChange={_value => onPressCheckBox(_value, id)}
       />
 
       <SplitColumn width={8} />
@@ -52,7 +55,9 @@ const RenderItem = ({ id, isChecked, value, isRequire, onPress }: RenderItemProp
       )}
     </View>
 
-    <RightPrev strokeWidth={2} />
+    <TouchableOpacity onPress={() => onPressTerms(id)}>
+      <RightPrev strokeWidth={2} />
+    </TouchableOpacity>
   </View>
 );
 
@@ -61,6 +66,7 @@ export const TermsComponent = ({
   checkeds,
   onPressAllTermsCheckBox,
   onPressTermsCheckBox,
+  onPressTerms,
   onPressConfirm,
 }: Props) => {
   const insets = useSafeAreaInsets();
@@ -102,7 +108,8 @@ export const TermsComponent = ({
               <RenderItem
                 key={term.id}
                 isChecked={checkeds.includes(term.id)}
-                onPress={onPressTermsCheckBox}
+                onPressTerms={onPressTerms}
+                onPressCheckBox={onPressTermsCheckBox}
                 {...term}
               />
             );

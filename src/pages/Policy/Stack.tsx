@@ -1,15 +1,15 @@
 import React from 'react';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, RootStackScreenProps } from '../Stack';
 import { Permission } from './Permission';
-import { Terms } from './Terms';
+import { TermsStack, TermsStackParamList } from './Terms/Stack';
 import { Welcome } from './Welcome';
 
 export type PolicyStackParamList = {
   Permission: undefined;
-  Terms: undefined;
+  TermsStack: NavigatorScreenParams<TermsStackParamList>;
   Welcome: undefined;
 };
 
@@ -27,7 +27,7 @@ export const PolicyStack = () => (
     }}
   >
     <Stack.Screen name={'Permission'} component={Permission} />
-    <Stack.Screen name={'Terms'} component={Terms} />
+    <Stack.Screen name={'TermsStack'} component={TermsStack} />
     <Stack.Screen name={'Welcome'} component={Welcome} />
   </Stack.Navigator>
 );

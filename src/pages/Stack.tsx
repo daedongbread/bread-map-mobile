@@ -7,7 +7,7 @@ import { MainStack, MainStackParamList } from '@/pages/MainStack/Stack';
 import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
-import { PolicyStack } from './Policy/Stack';
+import { Onboarding } from './Onboarding';
 
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -30,13 +30,13 @@ const RootNavigation = () => {
       <StatusBar barStyle={'dark-content'} />
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {false ? (
+          {isLoggedIn ? (
             <>
               <Stack.Screen name={'MainStack'} component={MainStack} />
             </>
           ) : (
             <>
-              <Stack.Screen name={'Onboarding'} component={PolicyStack} />
+              <Stack.Screen name={'Onboarding'} component={Onboarding} />
               <Stack.Screen name={'Auth'} component={Auth} />
               <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
             </>

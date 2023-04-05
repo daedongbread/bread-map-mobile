@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
 import { TermsComponent } from '@/components/Terms';
-import { TermsStackNavigationProps } from '@/pages/Policy/Terms/Stack';
+import { TermsStackParamList } from '@/pages/Policy/Terms/Stack';
 import { useNavigation } from '@react-navigation/native';
 
-type Navigation = TermsStackNavigationProps<'Terms'>['navigation'];
+// type Navigation = TermsStackNavigationProps<'Terms'>['navigation'];
 
 export type Terms = {
-  id: string;
+  id: keyof TermsStackParamList;
   value: string;
   isRequire: boolean;
 };
 
 const terms: Terms[] = [
   {
-    id: 'a',
+    id: 'Service',
     value: '서비스 이용약관 동의',
     isRequire: true,
   },
   {
-    id: 'b',
+    id: 'Privacy',
     value: '개인정보 수집 및 이용 동의',
     isRequire: true,
   },
   {
-    id: 'c',
+    id: 'Marketing',
     value: '마케팅 정보 수신 동의',
     isRequire: false,
   },
 ];
 
 export const TermsContainer = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [checkeds, setCheckeds] = useState<string[]>([]);
 
   const onPressAllTermsCheckBox = (isChecked: boolean) => {
@@ -50,6 +50,10 @@ export const TermsContainer = () => {
     setCheckeds(newCheckeds);
   };
 
+  const onPressTerms = (routeName: keyof TermsStackParamList) => {
+    navigation.navigate('Service');
+  };
+
   const onPressConfirm = () => {
     navigation.navigate('Welcome');
   };
@@ -60,6 +64,7 @@ export const TermsContainer = () => {
       checkeds={checkeds}
       onPressAllTermsCheckBox={onPressAllTermsCheckBox}
       onPressTermsCheckBox={onPressTermsCheckBox}
+      onPressTerms={onPressTerms}
       onPressConfirm={onPressConfirm}
     />
   );
