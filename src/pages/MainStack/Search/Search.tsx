@@ -40,7 +40,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
   }, [navigation]);
 
   const navigateDetail = useCallback(
-    (id: number) => {
+    (bakery: SearchEntity) => {
       navigation.push('MainTab', {
         screen: 'HomeStack',
         params: {
@@ -48,7 +48,8 @@ const Search: React.FC<Props> = ({ navigation }) => {
           params: {
             screen: 'BakeryDetailHome',
             params: {
-              bakeryId: id,
+              bakeryId: bakery.bakeryId,
+              bakeryName: bakery.bakeryName,
             },
           },
         },
@@ -69,7 +70,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
 
   const onPressBakery = useCallback(
     (searchEntity: SearchEntity) => {
-      navigateDetail(searchEntity.bakeryId);
+      navigateDetail(searchEntity);
       appendSearchHistory(searchEntity);
     },
     [appendSearchHistory, navigateDetail]
