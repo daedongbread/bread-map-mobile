@@ -46,16 +46,16 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
         style={[
           styles.Button,
           {
-            width: userId ? 52 : 42,
-            borderWidth: userId && !profileInfoData?.isFollow ? 0 : 1,
-            backgroundColor: userId && !profileInfoData?.isFollow ? theme.color.primary100 : '',
+            width: otherId ? 52 : 42,
+            borderWidth: otherId && !profileInfoData?.isFollow ? 0 : 1,
+            backgroundColor: otherId && !profileInfoData?.isFollow ? theme.color.primary100 : 'white',
           },
         ]}
       >
         <Text
           style={[
             styles.buttonText,
-            { color: userId && !profileInfoData?.isFollow ? theme.color.primary500 : theme.color.gray700 },
+            { color: otherId && !profileInfoData?.isFollow ? theme.color.primary500 : theme.color.gray700 },
           ]}
         >
           {otherId ? (profileInfoData?.isFollow ? '팔로잉' : '팔로우') : '수정'}

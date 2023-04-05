@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { theme } from '@/styles/theme';
 import KakaoLogo from '@shared/Icons/IcLogoKakao.svg';
 
 type Props = {
@@ -39,5 +40,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: theme.color.gray900,
   },
 });
