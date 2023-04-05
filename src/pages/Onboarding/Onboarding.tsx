@@ -1,6 +1,7 @@
 import LottieView from 'lottie-react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { RootStackScreenProps } from '@/pages/Stack';
 import { theme } from '@/styles/theme';
@@ -13,7 +14,8 @@ type Props = RootStackScreenProps<'Onboarding'>;
 export function Onboarding({ navigation }: Props) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  const onSignIN = useCallback(() => {
+  const onSignIN = useCallback(async () => {
+    await EncryptedStorage.setItem('firstLaunch', 'false');
     navigation.push('Auth');
   }, [navigation]);
 

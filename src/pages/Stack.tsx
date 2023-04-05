@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import { useAuth } from '@/hooks/useAuth';
 import { Auth } from '@/pages/Auth';
 import { AuthWebView } from '@/pages/Auth/AuthWebView';
@@ -24,7 +25,23 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
   const { isLoggedIn } = useAuth();
+  const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | undefined>(undefined);
 
+  useEffect(() => {
+    async function getLaunchStatus() {
+      const status = await EncryptedStorage.getItem('firstLaunch');
+      if (status === null) {
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    }
+    getLaunchStatus();
+  }, []);
+
+  if (typeof isFirstLaunch === 'undefined') {
+    return null;
+  }
   return (
     <>
       <StatusBar barStyle={'dark-content'} />
@@ -36,7 +53,7 @@ const RootNavigation = () => {
             </>
           ) : (
             <>
-              <Stack.Screen name={'Onboarding'} component={Onboarding} />
+              {isFirstLaunch && <Stack.Screen name={'Onboarding'} component={Onboarding} />}
               <Stack.Screen name={'Auth'} component={Auth} />
               <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
             </>
