@@ -12,37 +12,48 @@ type ArrProps = {
   filename?: string;
   name: string;
   data: any;
-  type: string;
+  type?: string;
 }[];
 
 const editNickName = async ({ accessToken, nickName, userImage }: Props) => {
   let arr: ArrProps = [
     {
-      name: 'request',
-      data: JSON.stringify({
-        nickName: nickName,
-      }),
-      type: 'application/json',
+      name: 'nickName',
+      data: nickName,
     },
   ];
 
   if (userImage) {
     const base64 = await RNFS.readFile(userImage, 'base64');
+    const resp = await RNFetchBlob.fetch(
+      'POST',
+      `${Config.API_URI}/v1/images`,
+      {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      [
+        {
+          name: 'image',
+          data: base64,
+          type: 'image/png',
+          filename: JSON.stringify(new Date()),
+        },
+      ]
+    );
 
     arr.push({
-      name: 'file',
-      data: base64,
-      type: 'image/png',
-      filename: JSON.stringify(new Date()),
+      name: 'image',
+      data: JSON.parse(resp?.data)?.data?.imagePath + '',
     });
   }
 
   const resp = await RNFetchBlob.fetch(
     'post',
-    `${Config.API_URI}/user/nickname`,
+    `${Config.API_URI}/v1/users/nickname`,
     {
       Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json',
     },
     arr
   );

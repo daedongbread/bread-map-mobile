@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Config from 'react-native-config';
 import Toast from 'react-native-easy-toast';
-import { deleteBakery } from '@/apis/bakery';
+import RNFS from 'react-native-fs';
+import RNFetchBlob from 'rn-fetch-blob';
+import { updateBakery } from '@/apis/bakery';
 import { DeleteLocationComponent } from '@/components/EditBakery';
 import { useAppSelector } from '@/hooks/redux';
 import { RootRouteProps } from '@/pages/MainStack/EditBakeryStack/Stack';
@@ -29,12 +32,30 @@ export function DeleteLocationContainer() {
   };
 
   const onSendDeleteClick = async () => {
-    const response = await deleteBakery({
+    const base64 = await RNFS.readFile(curLocationUrl || curPhotoUrl + '', 'base64');
+    const resp = await RNFetchBlob.fetch(
+      'POST',
+      `${Config.API_URI}/v1/images`,
+      {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      [
+        {
+          name: 'image',
+          data: base64,
+          type: 'image/png',
+          filename: JSON.stringify(new Date()),
+        },
+      ]
+    );
+    const response = await updateBakery({
       accessToken: accessToken!!,
       bakeryId: bakeryId,
-      userImage: curLocationUrl || curPhotoUrl + '',
+      content: 'delete',
+      images: [JSON.parse(resp?.data)?.data?.imagePath + ''],
     });
-    if (response.respInfo.status === 201) {
+    if (response.status === 201) {
       EditDoneBottomSheetRef.current?.expand();
     }
   };

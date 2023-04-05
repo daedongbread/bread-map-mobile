@@ -4,9 +4,10 @@ type Props = {
   accessToken: string;
   bakeryId: number;
   content: string;
+  images?: string[];
 };
 
-const updateBakery = async ({ accessToken, bakeryId, content }: Props) => {
+const updateBakery = async ({ accessToken, bakeryId, content, images }: Props) => {
   const resp = await fetcher({
     method: 'post',
     url: `/v1/bakeries/${bakeryId}/bakery-update-reports`,
@@ -16,6 +17,7 @@ const updateBakery = async ({ accessToken, bakeryId, content }: Props) => {
     },
     data: {
       content: content,
+      images: images,
     },
   });
   return resp;
