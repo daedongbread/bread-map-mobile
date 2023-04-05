@@ -76,7 +76,7 @@ export function EditDetailComponent({
           label={'edit'}
           value={edit}
           onChange={handleChange}
-          placeholder={'이 빵집의 어떤 정보를 수정할까요?!'}
+          placeholder={'이 빵집의 어떤 정보를 수정할까요?'}
           error={errorState.edit ? '수정사항을 입력해주세요' : ''}
           isAlert
           maxLength={500}
@@ -130,6 +130,7 @@ const styles = StyleSheet.create(
       height: 48,
       borderRadius: 8,
       backgroundColor: theme.color.gray50,
+      paddingTop: 14,
       paddingHorizontal: 16,
       fontSize: 14,
       color: theme.color.gray800,
