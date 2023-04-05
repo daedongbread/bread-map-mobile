@@ -11,18 +11,18 @@ type Props = {
   menu: MenuEntity;
 };
 
-const tempImage = 'https://cdn.paris.spl.li/wp-content/uploads/까방베르-치즈-후레쉬번_썸네일1-1280x1280.png';
-
 export const BakeryMenuDetailComponent = ({ menu }: Props) => {
   return (
     <SafeAreaView edges={['top']}>
       <Header title={menu.name} isPrevButtonShown />
-      <Image
-        style={styles.image}
-        source={{
-          uri: tempImage,
-        }}
-      />
+      {!!menu.image && (
+        <Image
+          style={styles.image}
+          source={{
+            uri: menu.image,
+          }}
+        />
+      )}
       <View style={styles.breadInfoContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>{menu.name}</Text>
