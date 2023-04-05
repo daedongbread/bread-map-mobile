@@ -102,6 +102,13 @@ const styles = StyleSheet.create({
     height: 44,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowOffset: {
+      width: 4,
+      height: 6,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    elevation: 10,
   },
   iconButtonActiveColor: {
     backgroundColor: 'black',
@@ -126,6 +133,13 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     flexDirection: 'row',
     alignItems: 'center',
+    shadowOffset: {
+      width: 4,
+      height: 6,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    elevation: 6,
   },
   searchText: {
     marginRight: 4,
