@@ -12,6 +12,7 @@ export type HomeStackParamList = {
   Bakery: NavigatorScreenParams<BakeryDetailTabParamList>;
   BakeryMenuDetail: {
     bakeryId: number;
+    bakeryName: string;
     menu: MenuEntity;
   };
 };

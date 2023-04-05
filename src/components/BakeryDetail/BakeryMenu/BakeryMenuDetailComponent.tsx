@@ -8,13 +8,14 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
 
 type Props = {
+  bakeryName: string;
   menu: MenuEntity;
 };
 
-export const BakeryMenuDetailComponent = ({ menu }: Props) => {
+export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
   return (
     <SafeAreaView edges={['top']}>
-      <Header title={menu.name} isPrevButtonShown />
+      <Header title={bakeryName} isPrevButtonShown />
       {!!menu.image && (
         <Image
           style={styles.image}

@@ -14,7 +14,7 @@ import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { Header } from './Header';
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
-  onClickBakery: (id: number) => void;
+  onClickBakery: (bakery: BakeryMapBakeryEntity) => void;
   activeTab: TabItem;
   onPressTab: (item: TabItem) => void;
   bakeryList?: Array<BakeryMapBakeryEntity>;
@@ -42,7 +42,7 @@ export const BakeriesBottomSheet: React.FC<Props> = ({
   const renderItem = useCallback(
     ({ item }: { item: BakeryMapBakeryEntity }) => {
       return (
-        <TouchableOpacity onPress={() => onClickBakery(item.id)}>
+        <TouchableOpacity onPress={() => onClickBakery(item)}>
           <BakeryCard bakery={item} onPressIcon={onPressIcon} />
         </TouchableOpacity>
       );

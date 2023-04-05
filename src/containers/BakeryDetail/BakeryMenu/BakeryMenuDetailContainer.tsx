@@ -12,7 +12,7 @@ type Route = HomeStackScreenProps<'BakeryMenuDetail'>['route'];
 export const BakeryMenuDetailContainer = () => {
   const route = useRoute<Route>();
 
-  const { bakeryId, menu } = route.params;
+  const { bakeryId, bakeryName, menu } = route.params;
   const [activeTab, setActiveTab] = useState<string>('latest');
 
   const {
@@ -45,7 +45,7 @@ export const BakeryMenuDetailContainer = () => {
 
   return (
     <ScrollView onScrollEnd={onScrollEnd}>
-      <BakeryMenuDetailComponent menu={menu} />
+      <BakeryMenuDetailComponent bakeryName={bakeryName} menu={menu} />
       <BakeryReviewListComponent
         bakeryId={bakeryId}
         reviews={flatReviews}

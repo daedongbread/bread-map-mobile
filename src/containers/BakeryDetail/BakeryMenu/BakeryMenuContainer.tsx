@@ -10,7 +10,7 @@ export const BakeryMenuContainer = () => {
   const navigation = useNavigation<HomeStackScreenProps<'BakeryMenuDetail'>['navigation']>();
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailMenu'>['route']>();
 
-  const bakeryId = route.params.bakeryId;
+  const { bakeryId, bakeryName } = route.params;
   const { menus = [] } = useGetMenus({ bakeryId });
 
   const onPress = (breads: MenuEntity) => {
@@ -20,6 +20,7 @@ export const BakeryMenuContainer = () => {
 
     navigation.push('BakeryMenuDetail', {
       bakeryId,
+      bakeryName,
       menu: breads,
     });
   };

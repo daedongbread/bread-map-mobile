@@ -15,15 +15,19 @@ import { BakeryReviewStack } from './Tab/BakeryReview/Stack';
 export type BakeryDetailTabParamList = {
   BakeryDetailHome: {
     bakeryId: number;
+    bakeryName: string;
   };
   BakeryDetailMenu: {
     bakeryId: number;
+    bakeryName: string;
   };
   BakeryDetailReview: {
     bakeryId: number;
+    bakeryName: string;
   };
   BakeryDetailInfo: {
     bakeryId: number;
+    bakeryName: string;
   };
 };
 
@@ -37,7 +41,7 @@ const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
   const insets = useSafeAreaInsets();
 
-  const { bakeryId } = route.params?.params || { bakeryId: 0 };
+  const { bakeryId, bakeryName } = route.params?.params || { bakeryId: 0, bakeryName: '' };
   const { bakery } = useBakeryDetail(bakeryId);
 
   return (
@@ -65,7 +69,7 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
           name="BakeryDetailMenu"
           component={BakeryMenu}
           options={{ title: '메뉴' }}
-          initialParams={{ bakeryId }}
+          initialParams={{ bakeryId, bakeryName }}
         />
         <Tab.Screen
           name="BakeryDetailReview"
