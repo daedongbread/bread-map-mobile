@@ -15,7 +15,7 @@ type useSearchQuery = {
 
 const getSearch = async ({ word, latitude, longitude }: useSearchQuery): Promise<SearchEntity[]> => {
   const resp = await fetcher.get<GetResultResult>(
-    `/search/auto?word=${word}&latitude=${latitude}&longitude=${longitude}`
+    `/v1/search?word=${word}&latitude=${latitude}&longitude=${longitude}`
   );
 
   return resp.data.data;
