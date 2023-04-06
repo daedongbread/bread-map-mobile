@@ -1,8 +1,11 @@
+import { AxiosError } from 'axios';
 import React, { useState, useCallback, useEffect } from 'react';
+import Config from 'react-native-config';
+import RNFS from 'react-native-fs';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import { editNickName } from '@/apis/profile';
+import RNFetchBlob, { FetchBlobResponse } from 'rn-fetch-blob';
+import { fetcher } from '@/apis/fetcher';
 import { EditProfileComponent } from '@/components/Profile';
-import { useAppSelector } from '@/hooks/redux';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -10,7 +13,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 export function EditProfileContainer() {
   const route = useRoute<RootRouteProps<'EditProfile'>>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
-  const { accessToken } = useAppSelector(state => state.auth);
   const [name, setName] = useState(route.params?.nickName);
   const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
@@ -34,7 +36,6 @@ export function EditProfileContainer() {
       setCurImage(image.path);
     });
   };
-
   const onConfirmClick = async () => {
     if (name.length === 0) {
       setErrorMsg('닉네임을 입력해주세요');
@@ -43,19 +44,47 @@ export function EditProfileContainer() {
 
     if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
-      const response = await editNickName({
-        accessToken: accessToken!!,
-        nickName: name,
-        userImage: curImage.startsWith('https://') ? '' : curImage,
-      });
-
-      if (response?.respInfo?.status === 204) {
-        navigation.pop();
-      } else if (response?.respInfo?.status === 409) {
-        setErrorMsg('이미 존재하는 닉네임입니다');
-      } else if (response?.respInfo?.status === 400) {
-        setErrorMsg('한글, 영문, 숫자만 사용 가능합니다.');
+      let imageResponse: FetchBlobResponse | null = null;
+      let userImage = curImage;
+      if (!curImage.startsWith('https://')) {
+        const base64 = await RNFS.readFile(curImage, 'base64');
+        imageResponse = await RNFetchBlob.fetch(
+          'POST',
+          `${Config.API_URI}/v1/images`,
+          {
+            'Content-Type': 'multipart/form-data',
+          },
+          [
+            {
+              name: 'image',
+              data: base64,
+              type: 'image/png',
+              filename: JSON.stringify(new Date()),
+            },
+          ]
+        );
+        userImage = JSON.parse(imageResponse?.data)?.data?.imagePath + '';
       }
+      fetcher({
+        method: 'post',
+        url: '/v1/users/nickname',
+        data: {
+          nickName: name,
+          image: userImage,
+        },
+      })
+        .then(res => {
+          if (res.status === 204) {
+            navigation.pop();
+          }
+        })
+        .catch((res: AxiosError) => {
+          if (res?.response?.status === 409) {
+            setErrorMsg('이미 존재하는 닉네임입니다');
+          } else if (res?.response?.status === 400) {
+            setErrorMsg('닉네임을 확인해주세요.');
+          }
+        });
     }
   };
 
