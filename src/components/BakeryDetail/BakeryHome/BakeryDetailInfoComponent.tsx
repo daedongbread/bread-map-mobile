@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useRef } from 'react';
+import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Share from 'react-native-share';
 import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
@@ -11,6 +11,7 @@ import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { numberFormat, resizePixels } from '@/utils';
+import ActionSheet from '@alessiocancian/react-native-actionsheet';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import {
   CircleFlag,
@@ -45,6 +46,12 @@ export const BakeryDetailInfoComponent = ({
 }: Props) => {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const NavigationKey = useNavigationState(state => state);
+  const actionSheetRef = useRef<ActionSheet>(null);
+
+  const actionSheetOptions = [
+    <Text style={styles.actionSheet}>{`통화 ${bakery?.bakeryInfo.phoneNumber}`}</Text>,
+    '취소',
+  ];
 
   const onPressSaveBtn = () => {
     if (flagInfo.isFlaged) {
@@ -93,6 +100,16 @@ export const BakeryDetailInfoComponent = ({
         NavigationKey: NavigationKey.routes[0].key,
       },
     });
+  };
+
+  const onPhoneClick = () => {
+    actionSheetRef.current?.show();
+  };
+
+  const onFilterItemClick = (index: number) => {
+    if (index === 0) {
+      Linking.openURL(`tel:${bakery?.bakeryInfo.phoneNumber}`);
+    }
   };
 
   return (
@@ -154,7 +171,12 @@ export const BakeryDetailInfoComponent = ({
           {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
           {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />}
           {!!bakery?.bakeryInfo.phoneNumber && (
-            <RowInfo icon={<PhoneIcon />} text={bakery?.bakeryInfo.phoneNumber} isCopyable />
+            <RowInfo
+              onPressText={onPhoneClick}
+              icon={<PhoneIcon />}
+              text={bakery?.bakeryInfo.phoneNumber}
+              isUnderLine
+            />
           )}
 
           <TouchableOpacity style={styles.editButton} onPress={onPressEditBakeryInfo}>
@@ -163,6 +185,15 @@ export const BakeryDetailInfoComponent = ({
           </TouchableOpacity>
         </View>
       </View>
+      <ActionSheet
+        statusBarTranslucent
+        ref={actionSheetRef}
+        //@ts-ignore
+        options={actionSheetOptions}
+        cancelButtonIndex={1}
+        onPress={onFilterItemClick}
+        theme="ios"
+      />
     </>
   );
 };
@@ -245,6 +276,10 @@ const styles = StyleSheet.create(
       fontWeight: 'bold',
       fontSize: 12,
       marginLeft: 4,
+    },
+    actionSheet: {
+      fontSize: 18,
+      color: '#4992FF',
     },
   })
 );

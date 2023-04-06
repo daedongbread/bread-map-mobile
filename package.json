@@ -21,6 +21,7 @@
     "debugger": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
   },
   "dependencies": {
+    "@alessiocancian/react-native-actionsheet": "^3.2.0",
     "@emotion/native": "^11.0.0",
     "@emotion/react": "^11.7.1",
     "@gorhom/bottom-sheet": "^4",
