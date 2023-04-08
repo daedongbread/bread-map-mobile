@@ -27,11 +27,7 @@ export const RowInfo: React.FC<Props> = ({ icon, text, isCopyable = false, isUnd
   };
 
   return (
-    <TouchableOpacity
-      disabled={!onPressText}
-      onPress={onPressText}
-      style={[styles.row, !isCopyable && styles.alignCenter]}
-    >
+    <TouchableOpacity disabled={!onPressText} onPress={onPressText} style={[styles.row]}>
       <View>{icon}</View>
       <Text
         color={theme.color.gray600}
@@ -54,9 +50,6 @@ const styles = StyleSheet.create(
       flexDirection: 'row',
       marginBottom: 6,
       alignItems: 'flex-start',
-    },
-    alignCenter: {
-      alignItems: 'center',
     },
     text: {
       alignSelf: 'center',
