@@ -19,6 +19,7 @@ interface Props extends TouchableOpacityProps {
   cameraIcon?: boolean;
   albumIcon?: boolean;
   borderRadius?: number;
+  disabled: boolean;
 }
 
 export const Button: React.FC<Props> = ({
@@ -31,11 +32,12 @@ export const Button: React.FC<Props> = ({
   albumIcon,
   children,
   borderRadius = 8,
+  disabled,
   ...rest
 }) => {
-  const appearanceStyle = appearanceStyles[appearance];
-  const textStyle = textStyles[appearance];
-  const iconColor = iconStyles[appearance].color;
+  const appearanceStyle = appearanceStyles(disabled)[appearance].wrapper;
+  const textStyle = appearanceStyles(disabled)[appearance].text;
+  const iconColor = appearanceStyles(disabled)[appearance].icon.color;
   const sizeStyle = sizeStyles[size];
 
   const defaultStyles = StyleSheet.create({
@@ -66,60 +68,64 @@ export const Button: React.FC<Props> = ({
   );
 };
 
-const appearanceStyles = StyleSheet.create({
-  primary: {
-    backgroundColor: theme.color.primary500,
-  },
-  secondary: {
-    backgroundColor: theme.color.primary100,
-  },
-  terdary: {
-    backgroundColor: theme.color.white,
-    borderWidth: 1,
-    borderColor: theme.color.gray300,
-  },
-  quaternary: {
-    backgroundColor: theme.color.gray400,
-  },
-  quinary: {
-    backgroundColor: theme.color.primary200,
-  },
-});
-
-const textStyles = StyleSheet.create({
-  primary: {
-    color: theme.color.white,
-  },
-  secondary: {
-    color: theme.color.primary500,
-  },
-  terdary: {
-    color: theme.color.gray700,
-  },
-  quaternary: {
-    color: theme.color.white,
-  },
-  quinary: {
-    color: theme.color.white,
-  },
-});
-
-const iconStyles = StyleSheet.create({
-  primary: {
-    color: textStyles.primary.color,
-  },
-  secondary: {
-    color: textStyles.secondary.color,
-  },
-  terdary: {
-    color: theme.color.gray400,
-  },
-  quaternary: {
-    color: textStyles.quaternary.color,
-  },
-  quinary: {
-    color: textStyles.primary.color,
-  },
+const appearanceStyles = (disabled = false) => ({
+  primary: StyleSheet.create({
+    wrapper: {
+      backgroundColor: disabled ? theme.color.primary200 : theme.color.primary500,
+    },
+    text: {
+      color: theme.color.white,
+    },
+    icon: {
+      color: theme.color.white,
+    },
+  }),
+  secondary: StyleSheet.create({
+    wrapper: {
+      backgroundColor: theme.color.primary100,
+    },
+    text: {
+      color: theme.color.primary500,
+    },
+    icon: {
+      color: theme.color.primary500,
+    },
+  }),
+  terdary: StyleSheet.create({
+    wrapper: {
+      backgroundColor: theme.color.white,
+      borderWidth: 1,
+      borderColor: theme.color.gray300,
+    },
+    text: {
+      color: theme.color.gray700,
+    },
+    icon: {
+      color: theme.color.gray400,
+    },
+  }),
+  quaternary: StyleSheet.create({
+    wrapper: {
+      backgroundColor: theme.color.gray400,
+    },
+    text: {
+      color: theme.color.white,
+    },
+    icon: {
+      color: theme.color.white,
+    },
+  }),
+  quinary: StyleSheet.create({
+    wrapper: {
+      backgroundColor: theme.color.primary200,
+    },
+    text: {
+      color: theme.color.white,
+    },
+    icon: {
+      color: theme.color.white,
+    },
+  }),
 });
 
 const sizeStyles = StyleSheet.create({
