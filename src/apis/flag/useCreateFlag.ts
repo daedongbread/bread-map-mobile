@@ -8,7 +8,7 @@ type UseCreateFlagProps = {
 };
 
 const postFlag = ({ name, color }: UseCreateFlagProps) => {
-  return fetcher.post<void>('/flag', {
+  return fetcher.post<void>('/v1/flags', {
     name,
     color,
   });

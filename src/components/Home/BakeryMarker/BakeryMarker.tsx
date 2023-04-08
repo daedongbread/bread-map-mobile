@@ -4,7 +4,7 @@ import { Marker } from 'react-native-maps';
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { flagColorHexColors } from '@/containers/Bookmark';
 import { BreadCakeIcon, HeartIcon } from '@shared/Icons';
-import IcHeart32 from '@shared/Icons/IcHeart32.svg';
+import IcMapSaveHeartSelected from '@shared/Icons/IcMapSaveHeartSelected.svg';
 import IcSelectedMapPin from '@shared/Icons/IcSelectedMapPin.svg';
 
 type Props = {
@@ -44,7 +44,7 @@ export const BakeryMarker: React.FC<Props> = React.memo(
 
       return (
         <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
-          {isActive ? <IcHeart32 color={iconColor} /> : <HeartIcon color={iconColor} />}
+          {isActive ? <IcMapSaveHeartSelected color={iconColor} /> : <HeartIcon color={iconColor} />}
         </Marker>
       );
     }
