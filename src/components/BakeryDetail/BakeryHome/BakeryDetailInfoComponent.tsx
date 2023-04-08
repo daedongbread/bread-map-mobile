@@ -48,10 +48,7 @@ export const BakeryDetailInfoComponent = ({
   const NavigationKey = useNavigationState(state => state);
   const actionSheetRef = useRef<ActionSheet>(null);
 
-  const actionSheetOptions = [
-    <Text style={styles.actionSheet}>{`통화 ${bakery?.bakeryInfo.phoneNumber}`}</Text>,
-    '취소',
-  ];
+  const actionSheetOptions = [`통화 ${bakery?.bakeryInfo.phoneNumber}`, '취소'];
 
   const onPressSaveBtn = () => {
     if (flagInfo.isFlaged) {
@@ -188,7 +185,6 @@ export const BakeryDetailInfoComponent = ({
       <ActionSheet
         statusBarTranslucent
         ref={actionSheetRef}
-        //@ts-ignore
         options={actionSheetOptions}
         cancelButtonIndex={1}
         onPress={onFilterItemClick}
