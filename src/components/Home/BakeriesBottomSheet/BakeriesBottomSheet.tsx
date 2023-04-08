@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { BakeryCard } from '@/components/Home/BakeryCard';
@@ -11,6 +11,8 @@ import { resizePixel } from '@/utils';
 
 import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 
+import ImageBread from '@shared/Icons/ImageBread.svg';
+import { Text } from '@shared/Text';
 import { Header } from './Header';
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
@@ -74,9 +76,23 @@ export const BakeriesBottomSheet: React.FC<Props> = ({
           renderItem={renderItem}
           scrollEnabled={bottomSheetIndex !== 0}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={ListEmptyComponent}
         />
       </SafeAreaView>
     </BottomSheet>
+  );
+};
+
+const ListEmptyComponent = () => {
+  return (
+    <View style={styles.listEmptyContainer}>
+      <ImageBread />
+      <View style={styles.listEmptyTextContainer}>
+        <Text presets={['body2', 'semibold']} color={'gray500'} style={styles.listEmptyText}>
+          해당 위치에 빵집이 없오요.{'\n'} 위치를 이동해보세요
+        </Text>
+      </View>
+    </View>
   );
 };
 
@@ -89,5 +105,20 @@ const styles = StyleSheet.create({
   },
   contentsContainer: {
     flex: 1,
+    height: '100%',
+  },
+  listEmptyContainer: {
+    flex: 1,
+    marginTop: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  listEmptyTextContainer: {
+    marginTop: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  listEmptyText: {
+    textAlign: 'center',
   },
 });
