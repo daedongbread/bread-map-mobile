@@ -23,7 +23,7 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nameInputContainer}>
-        <Label style={styles.paddingLeft} defaultContainerStyleEnabeld={false} isRequire>
+        <Label style={[styles.paddingLeft, styles.labelText]} defaultContainerStyleEnabeld={false} isRequire>
           리스트명
         </Label>
         <TextInput
@@ -32,13 +32,16 @@ export const BookmarkForm: React.FC<Props> = ({ name, color, onChange }) => {
           value={name}
           onChange={handleChange}
           placeholder={'새 리스트명을 입력해주세요'}
+          placeholderTextColor={theme.color.gray500}
           hint={`${name.length}자 / 최대 10자`}
           maxLength={10}
           autoCorrect={false}
         />
       </View>
       <View style={styles.paddingLeft}>
-        <Label isRequire>색상선택</Label>
+        <Label isRequire style={styles.labelText}>
+          색상선택
+        </Label>
         <View style={styles.colorsContainer}>
           {flagColors.map(item => (
             <ColorInput
@@ -71,6 +74,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderRadius: 8,
+    color: theme.color.gray900,
   },
   colorsContainer: {
     flexDirection: 'row',
@@ -79,5 +83,8 @@ const styles = StyleSheet.create({
   colorInput: {
     marginRight: 14,
     marginBottom: 8,
+  },
+  labelText: {
+    color: theme.color.gray800,
   },
 });

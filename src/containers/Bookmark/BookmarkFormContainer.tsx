@@ -80,7 +80,7 @@ export const BookmarkFormContainer: React.VFC = () => {
   const onSave = useCallback(() => {
     if (route.params?.name) {
       fetcher
-        .patch(`/flag/${route.params?.flagId}`, {
+        .patch(`/v1/flags/${route.params?.flagId}`, {
           name: name,
           color: convertFlagColors(color),
         })
