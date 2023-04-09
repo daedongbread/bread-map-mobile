@@ -70,8 +70,8 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
                   <EditIcon />
                 </View>
                 <Text style={{ color: theme.color.gray600 }}>
-                  <Text presets={['caption1', 'bold']}>이 빵집 </Text>
-                  <Text presets={'caption1'} style={styles.countItemText} numberOfLines={2}>
+                  <Text presets={['caption2', 'bold']}>이 빵집 </Text>
+                  <Text presets={'caption2'} style={styles.countItemText} numberOfLines={2}>
                     {'맛있었나요? \n첫 리뷰를 작성해주세요'}
                   </Text>
                 </Text>
