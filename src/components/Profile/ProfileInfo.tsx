@@ -26,9 +26,7 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
       <FastImage source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
       <SplitColumn width={16} />
       <View style={styles.Info}>
-        <Text style={styles.InfoTitle} presets={['bold', 'body1']}>
-          {profileInfoData?.nickName}
-        </Text>
+        <Text style={styles.InfoTitle}>{profileInfoData?.nickName}</Text>
         <View style={styles.InfoSubInfo}>
           <TouchableOpacity onPress={() => onClickFollowButton(0, userId)} style={styles.Follow}>
             <Text style={styles.InfoSubTitle}>팔로잉</Text>
@@ -85,6 +83,8 @@ const styles = StyleSheet.create(
     },
     InfoTitle: {
       color: theme.color.gray900,
+      fontWeight: '700',
+      fontSize: 16,
     },
     InfoSubInfo: {
       display: 'flex',

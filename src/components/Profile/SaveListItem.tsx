@@ -31,7 +31,7 @@ export function SaveListItem({ item, onItemClick }: any) {
 
   return (
     <TouchableOpacity onPress={onItemClick(item)} style={styles.Container}>
-      <SaveListItemImages num={item?.bakeryImageList.length} images={item?.bakeryImageList} />
+      <SaveListItemImages num={item?.flagInfo?.bakeryNum} images={item?.bakeryImageList} />
       <View style={styles.Info}>
         <View style={[styles.IconBackground, { backgroundColor: color }]}>
           {item?.flagInfo?.name !== '가봤어요' ? <HeartIcon width={18} color={color} /> : <IcFlag width={12} />}
