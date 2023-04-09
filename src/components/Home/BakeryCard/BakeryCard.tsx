@@ -134,6 +134,7 @@ const styles = StyleSheet.create(
     countItemText: {
       fontSize: 12,
       marginLeft: 4,
+      color: theme.color.gray600,
     },
     reviewView: {
       paddingHorizontal: 10,

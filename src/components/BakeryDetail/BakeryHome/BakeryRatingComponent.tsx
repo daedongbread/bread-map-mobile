@@ -17,13 +17,12 @@ export const BakeryRatingComponent = ({ bakery }: Props) => {
     <>
       <Divider />
       <View style={styles.wrapper}>
-        <Text presets={['subhead', 'bold']} style={{ marginBottom: 4 }}>
+        <Text presets={['subhead', 'bold']} style={{ marginBottom: 4, color: '#222222' }}>
           {bakery?.bakeryInfo.name}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
           <IcPersonCircle />
-          <Text presets={['caption1', 'medium']}>
-            {' '}
+          <Text presets={['caption1', 'medium']} style={{ color: '#757575' }}>
             {numberFormat(bakery?.bakeryInfo.reviewNum || 0)}명이 평가했어요!
           </Text>
         </View>
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: '700',
     lineHeight: 56,
+    color: '#222222',
   },
   ratingWrapper: {
     flexDirection: 'row',
