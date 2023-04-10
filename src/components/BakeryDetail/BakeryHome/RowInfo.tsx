@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { CopyButton } from '@/components/Shared/Button/CopyButton';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
@@ -16,6 +16,8 @@ type Props = {
   isUnderLine?: boolean;
   onPressText?: () => void;
 };
+
+const { width } = Dimensions.get('screen');
 
 export const RowInfo: React.FC<Props> = ({ icon, text, isCopyable = false, isUnderLine = false, onPressText }) => {
   const dispatch = useDispatch();
@@ -52,6 +54,7 @@ const styles = StyleSheet.create(
     },
     text: {
       alignSelf: 'center',
+      maxWidth: width * 0.65,
     },
     underLine: {
       borderBottomWidth: 1,
