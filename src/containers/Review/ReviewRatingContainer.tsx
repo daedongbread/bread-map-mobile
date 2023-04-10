@@ -77,7 +77,7 @@ export const ReviewRatingContainer: React.FC = () => {
       return { productType: 'BREAD', productName: bread.name, rating: bread.rating };
     });
 
-    const imagePaths = await postImages(images);
+    const imagePaths = images.length > 0 ? await postImages(images) : [];
 
     await postReview(
       {
