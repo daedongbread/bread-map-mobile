@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -23,7 +22,7 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
 
   return (
     <View style={styles.Container}>
-      <FastImage source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
+      <Image resizeMode="cover" source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
       <SplitColumn width={16} />
       <View style={styles.Info}>
         <Text style={styles.InfoTitle}>{profileInfoData?.nickName}</Text>

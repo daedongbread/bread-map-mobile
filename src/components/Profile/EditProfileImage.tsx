@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { View, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import IcCamera from '@/components/Shared/Icons/IcCamera.svg';
 import { resizePixels } from '@/utils';
 import defaultProfile from '@shared/Images/defaultProfile.png';
@@ -16,7 +15,7 @@ export function EditProfileImage({ onCameraClick, curImage }: Props) {
       <View style={styles.Placeholder}>
         <ImageBackground source={defaultProfile} resizeMode="contain" style={styles.PlaceholderImage} />
       </View>
-      <FastImage resizeMode="cover" style={styles.Image} source={{ uri: curImage }} />
+      <Image resizeMode="cover" style={styles.Image} source={{ uri: curImage }} />
       <TouchableOpacity onPress={onCameraClick} style={styles.Button}>
         <IcCamera />
       </TouchableOpacity>
