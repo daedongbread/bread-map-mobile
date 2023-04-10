@@ -14,7 +14,6 @@ interface MenuProps {
 }
 
 const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAddButton }) => {
-  console.log(menus[0].image);
   return (
     <FlatList
       ListHeaderComponent={headerComponent}
