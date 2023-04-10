@@ -1,5 +1,6 @@
 import React from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { usePostImages } from '@/apis/image';
 import { usePostReview } from '@/apis/review';
 import { ReviewRatingComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
@@ -25,6 +26,7 @@ export const ReviewRatingContainer: React.FC = () => {
 
   const { bakeryId } = route.params;
   const { mutateAsync: postReview, isLoading: isSaving } = usePostReview();
+  const { mutateAsync: postImages } = usePostImages();
 
   const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
@@ -58,11 +60,12 @@ export const ReviewRatingContainer: React.FC = () => {
   };
 
   const saveReview = async () => {
+    // 선택한 빵이 없다면 빵 선택 화면으로 이동
     if ([...selectedBreads, ...manualSelectedBreads].length === 0) {
       navigation.pop();
       return;
     }
-
+    // 현재 저장 중이면 return;
     if (isSaving) {
       return;
     }
@@ -74,13 +77,17 @@ export const ReviewRatingContainer: React.FC = () => {
       return { productType: 'BREAD', productName: bread.name, rating: bread.rating };
     });
 
-    const request = { productRatingList, noExistProductRatingRequestList, content: detailReview };
+    const imagePaths = await postImages(images);
 
     await postReview(
       {
         bakeryId,
-        images,
-        data: request,
+        request: {
+          productRatingList,
+          noExistProductRatingRequestList,
+          content: detailReview,
+          images: imagePaths,
+        },
       },
       {
         onSuccess: () => {

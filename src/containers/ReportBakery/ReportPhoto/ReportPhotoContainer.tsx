@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Asset } from 'react-native-image-picker';
 import { useReportPhoto } from '@/apis/bakery/useReportPhoto';
+import { usePostImages } from '@/apis/image';
 import { ReportPhotoComponent } from '@/components/ReportBakery/ReportPhoto';
 import { ReportBakeryStackScreenProps } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -14,6 +15,7 @@ export const ReportPhotoContainer = () => {
 
   const { bakeryId, bakeryName, photos: photoList } = route.params;
   const { mutateAsync: reportPhoto, isLoading: isSaving } = useReportPhoto();
+  const { mutateAsync: postImages } = usePostImages();
 
   const [photos, setPhotos] = useState<Asset[]>(photoList);
 
@@ -37,22 +39,14 @@ export const ReportPhotoContainer = () => {
       return;
     }
 
-    const formData = new FormData();
-
-    if (photos.length > 0) {
-      photos.forEach(photo => {
-        formData.append('images', {
-          uri: photo.uri,
-          name: photo.fileName,
-          type: photo.type,
-        });
-      });
-    }
+    const imagePaths = await postImages(photoList);
 
     await reportPhoto(
       {
         bakeryId,
-        formData,
+        request: {
+          images: imagePaths,
+        },
       },
       {
         onSuccess: () => {

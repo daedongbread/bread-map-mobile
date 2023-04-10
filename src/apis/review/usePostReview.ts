@@ -1,20 +1,13 @@
-import { Asset } from 'react-native-image-picker';
 import { useMutation, useQueryClient } from 'react-query';
-import { fetchImageAndData } from '@/utils/fetch/fetchImageAndData';
+import { fetcher } from '../fetcher';
 
 type PostReviewRequest = {
   bakeryId: number;
-  images: Asset[];
-  data: any;
-  dataKey?: string;
-  imagesKey?: string;
+  request: any;
 };
 
-const postReview = ({ bakeryId, ...rest }: PostReviewRequest) => {
-  return fetchImageAndData({
-    url: `v1/reviews/bakeries/${bakeryId}`,
-    ...rest,
-  });
+const postReview = ({ bakeryId, request }: PostReviewRequest) => {
+  return fetcher.post(`/v1/reviews/bakeries/${bakeryId}`, request);
 };
 
 export const usePostReview = () => {

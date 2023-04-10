@@ -1,20 +1,13 @@
-import { Asset } from 'react-native-image-picker';
 import { useMutation } from 'react-query';
-import { fetchImageAndData } from '@/utils/fetch/fetchImageAndData';
+import { fetcher } from '../fetcher';
 
 type PostReportMenu = {
   bakeryId: number;
-  images: Asset[];
-  data: any;
-  dataKey?: string;
-  imagesKey?: string;
+  request: any;
 };
 
-const postReportMenu = ({ bakeryId, ...rest }: PostReportMenu) => {
-  return fetchImageAndData({
-    url: `bakery/report/${bakeryId}/product`,
-    ...rest,
-  });
+const postReportMenu = ({ bakeryId, request }: PostReportMenu) => {
+  return fetcher.post(`/v1/bakeries/${bakeryId}/product-add-reports`, request);
 };
 
 export const usePostReportMenu = () => {

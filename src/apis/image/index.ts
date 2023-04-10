@@ -1,0 +1,1 @@
+export { usePostImages } from './usePostImages';

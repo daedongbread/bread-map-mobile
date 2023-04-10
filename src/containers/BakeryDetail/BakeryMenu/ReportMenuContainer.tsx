@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import { usePostReportMenu } from '@/apis/bakery/usePostReportMenu';
+import { usePostImages } from '@/apis/image';
 import { ReportMenuComponent } from '@/components/BakeryDetail/BakeryMenu';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -38,6 +39,7 @@ export const ReportMenuContainer = () => {
 
   const { bakeryId } = route.params;
   const { mutateAsync: reportReview, isLoading: isSaving } = usePostReportMenu();
+  const { mutateAsync: postImages } = usePostImages();
 
   const [form, setForm] = useState(initailForm);
   const [formValid, setFormValid] = useState(initialFormValid);
@@ -98,13 +100,15 @@ export const ReportMenuContainer = () => {
       return;
     }
 
+    const imagePaths = await postImages(form.images);
+
     await reportReview(
       {
         bakeryId,
-        images: form.images,
-        data: {
+        request: {
           name: form.name,
           price: form.price,
+          image: imagePaths,
         },
       },
       {
