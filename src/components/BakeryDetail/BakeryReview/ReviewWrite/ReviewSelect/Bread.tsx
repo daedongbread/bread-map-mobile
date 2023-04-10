@@ -23,7 +23,12 @@ export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
         <Text style={styles.breadPrice}>{formattedBreadPrice}원</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Image style={styles.breadImage} source={require('@/components/Shared/Images/bread.png')} />
+        {bread.image ? (
+          <Image style={styles.breadImage} source={{ uri: bread.image }} />
+        ) : (
+          <View style={styles.breadImage} />
+        )}
+
         <View>
           <CustomCheckBox
             strokeWidth={2}
