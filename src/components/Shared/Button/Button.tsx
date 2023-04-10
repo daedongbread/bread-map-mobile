@@ -19,7 +19,7 @@ interface Props extends TouchableOpacityProps {
   cameraIcon?: boolean;
   albumIcon?: boolean;
   borderRadius?: number;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<Props> = ({

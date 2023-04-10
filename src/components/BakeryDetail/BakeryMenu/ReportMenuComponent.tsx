@@ -43,7 +43,7 @@ export const ReportMenuComponent = ({
   return (
     <SafeAreaView style={styles.container}>
       <Header onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
-      <KeyboardAwareScrollView style={styles.fullScreen}>
+      <KeyboardAwareScrollView style={styles.fullScreen} keyboardShouldPersistTaps="handled">
         <SplitRow height={12} />
         <View style={styles.paddingHorizontal}>
           <Text presets={['heading1', 'bold']} style={styles.titleText}>
