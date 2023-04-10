@@ -29,13 +29,11 @@ export const RowInfo: React.FC<Props> = ({ icon, text, isCopyable = false, isUnd
   return (
     <TouchableOpacity disabled={!onPressText} onPress={onPressText} style={[styles.row]}>
       <View>{icon}</View>
-      <Text
-        color={theme.color.gray600}
-        presets={['caption2', 'medium']}
-        style={[styles.text, isUnderLine && styles.underLine]}
-      >
-        {text}
-      </Text>
+      <View style={[styles.textWrapper, isUnderLine && styles.underLine]}>
+        <Text color={theme.color.gray600} presets={['caption2', 'medium']} style={[styles.text]}>
+          {text}
+        </Text>
+      </View>
 
       <SplitColumn width={12} />
 
@@ -51,14 +49,15 @@ const styles = StyleSheet.create(
       marginBottom: 6,
       alignItems: 'flex-start',
     },
+    textWrapper: {
+      marginLeft: 8,
+    },
     text: {
       alignSelf: 'center',
-      maxWidth: width * 0.65,
-      marginLeft: 8,
     },
     underLine: {
       borderBottomWidth: 1,
-      borderColor: theme.color.gray600,
+      borderBottomColor: theme.color.gray600,
     },
   })
 );
