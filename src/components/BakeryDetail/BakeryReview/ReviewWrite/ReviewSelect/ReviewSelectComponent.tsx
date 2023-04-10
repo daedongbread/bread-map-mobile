@@ -84,7 +84,7 @@ export const ReviewSelectComponent: React.FC<Props> = ({
       <Button
         style={styles.confirmBtn}
         onPress={onPressConfirmButton}
-        disabled={Boolean(selectedBreads.length + manualSelectedBreads.length === 0)}
+        disabled={selectedBreads.length + manualSelectedBreads.length === 0}
         appearance={selectedBreads.length + manualSelectedBreads.length ? 'primary' : 'quaternary'}
       >
         확인

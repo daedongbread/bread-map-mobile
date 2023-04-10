@@ -54,7 +54,7 @@ export const Button: React.FC<Props> = ({
 
   return (
     <View style={style}>
-      <TouchableOpacity {...rest}>
+      <TouchableOpacity {...rest} disabled={disabled}>
         <View style={[appearanceStyle, sizeStyle, defaultStyles.common]}>
           {icon && <PlusIcon color={iconColor} style={defaultStyles.icon} />}
           {cameraIcon && <IcCameraGray style={defaultStyles.icon} />}
