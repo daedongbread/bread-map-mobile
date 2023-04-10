@@ -10,7 +10,13 @@ import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 import { RootNavigation } from './src/pages/Stack';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: false,
+    },
+  },
+});
 
 const App: FC = () => (
   <SplashProvider>
