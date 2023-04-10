@@ -11,8 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		285C41B3D61D5B0045747E8F /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A75226C54F3231FC69DB066F /* libPods-daedongbread-daedongbreadTests.a */; };
-		34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
-		34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 34269DC6281DF22400EBFF95 /* launch_screen.png */; };
 		34710D53287AFDCB00BE25E4 /* geolocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34710D52287AFDCB00BE25E4 /* geolocation.swift */; };
 		34A0CCCF2838B345003C329D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
@@ -45,7 +43,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = daedongbread/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = daedongbread/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = daedongbread/main.m; sourceTree = "<group>"; };
-		34269DC6281DF22400EBFF95 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = daedongbread/Images.xcassets/LaunchScreen.imageset/launch_screen.png; sourceTree = "<group>"; };
 		34710D52287AFDCB00BE25E4 /* geolocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geolocation.swift; sourceTree = "<group>"; };
 		34C35D3E281E1BC500872416 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		420D214427CB688700F392B7 /* daedongbread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbread.entitlements; path = daedongbread/daedongbread.entitlements; sourceTree = "<group>"; };
@@ -146,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				34710D52287AFDCB00BE25E4 /* geolocation.swift */,
-				34269DC6281DF22400EBFF95 /* launch_screen.png */,
 				13B07FAE1A68108700A75B9A /* daedongbread */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* daedongbreadTests */,
@@ -268,7 +264,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */,
-				34269DC8281DF22400EBFF95 /* launch_screen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +273,6 @@
 			files = (
 				34A0CCCF2838B345003C329D /* Images.xcassets in Resources */,
 				34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */,
-				34269DC7281DF22400EBFF95 /* launch_screen.png in Resources */,
 				F1DC745A5B3D449EBAEA9EA6 /* Pretendard-Bold.otf in Resources */,
 				EA34E376230D464E8E656C10 /* Pretendard-Medium.otf in Resources */,
 				49C4029AFB08450FAB8ABC9F /* Pretendard-SemiBold.otf in Resources */,
