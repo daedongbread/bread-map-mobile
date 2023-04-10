@@ -14,6 +14,7 @@ interface MenuProps {
 }
 
 const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAddButton }) => {
+  console.log(menus[0].image);
   return (
     <FlatList
       ListHeaderComponent={headerComponent}
@@ -22,7 +23,13 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAd
       keyExtractor={menu => menu.name}
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => onPress(item)}>
-          <Menu name={item.name} price={Number(item.price)} rating={item.rating} reviewNum={item.reviewNum} />
+          <Menu
+            name={item.name}
+            price={Number(item.price)}
+            rating={item.rating}
+            reviewNum={item.reviewNum}
+            image={item.image}
+          />
         </TouchableOpacity>
       )}
       ListFooterComponent={<ReportMenuButton onPress={onPressAddButton} />}

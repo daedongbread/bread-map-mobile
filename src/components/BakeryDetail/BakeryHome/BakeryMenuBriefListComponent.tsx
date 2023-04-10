@@ -34,7 +34,13 @@ export const BakeryMenuBriefListComponent = ({
         {briefMenu.length > 0 ? (
           briefMenu.map((menuData, idx) => (
             <TouchableOpacity key={idx} onPress={() => onPress(menuData)}>
-              <Menu name={menuData.name} price={Number(menuData.price)} rating={menuData.rating} />
+              <Menu
+                reviewNum={menuData.reviewNum}
+                name={menuData.name}
+                price={Number(menuData.price)}
+                rating={menuData.rating}
+                image={menuData.image}
+              />
             </TouchableOpacity>
           ))
         ) : (
