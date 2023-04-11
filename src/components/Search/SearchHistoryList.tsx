@@ -34,7 +34,14 @@ const SearchHistoryList: React.FC<Props> = memo(({ searchHistory, onPressBakery 
     );
   }
 
-  return <FlatList data={searchHistory} renderItem={renderItem} ItemSeparatorComponent={ItemSeparatorComponent} />;
+  return (
+    <FlatList
+      data={searchHistory}
+      renderItem={renderItem}
+      ItemSeparatorComponent={ItemSeparatorComponent}
+      keyboardShouldPersistTaps="handled"
+    />
+  );
 });
 
 const styles = StyleSheet.create({
