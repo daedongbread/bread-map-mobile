@@ -79,6 +79,7 @@ const styles = StyleSheet.create(
       height: 41,
       marginTop: 'auto',
       marginBottom: 'auto',
+      justifyContent: 'space-between',
     },
     InfoTitle: {
       color: theme.color.gray900,
