@@ -1,5 +1,5 @@
-import React, { ComponentProps } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { ComponentProps, useEffect, useRef } from 'react';
+import { StyleSheet, TextInput as OriginTextInput, TouchableOpacity, View } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
@@ -11,6 +11,13 @@ type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText'> &
   Pick<ComponentProps<typeof TouchableOpacity>, 'onPress'> & {};
 
 const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
+  const textInputRef = useRef<OriginTextInput | null>(null);
+
+  // 마운트시 TextInput focus
+  useEffect(() => {
+    textInputRef.current?.focus();
+  }, []);
+
   return (
     <View>
       <View style={[styles.container, styles.TextInputContainer]}>
@@ -19,6 +26,7 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
         </TouchableOpacity>
         <SplitColumn width={6} />
         <TextInput
+          ref={textInputRef}
           value={value}
           style={styles.TextInput}
           backgroundColor={'white'}
