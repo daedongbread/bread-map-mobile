@@ -539,6 +539,7 @@
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = daedongbread/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,6 +574,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,6 +669,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
