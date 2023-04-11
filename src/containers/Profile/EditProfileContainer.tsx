@@ -6,6 +6,7 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import RNFetchBlob, { FetchBlobResponse } from 'rn-fetch-blob';
 import { fetcher } from '@/apis/fetcher';
 import { EditProfileComponent } from '@/components/Profile';
+import { useAppSelector } from '@/hooks/redux';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -13,6 +14,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 export function EditProfileContainer() {
   const route = useRoute<RootRouteProps<'EditProfile'>>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const { accessToken } = useAppSelector(state => state.auth);
   const [name, setName] = useState(route.params?.nickName);
   const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
@@ -52,6 +54,7 @@ export function EditProfileContainer() {
           'POST',
           `${Config.API_URI}/v1/images`,
           {
+            Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'multipart/form-data',
           },
           [
