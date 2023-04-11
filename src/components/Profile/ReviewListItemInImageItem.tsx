@@ -9,7 +9,7 @@ type Props = {
 
 export function ReviewListItemInImageItem({ url }: Props) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity activeOpacity={1}>
       <FastImage style={styles.Image} source={{ uri: url }} />
     </TouchableOpacity>
   );

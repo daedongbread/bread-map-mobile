@@ -18,7 +18,7 @@ export function ReviewListItem({ item, onItemClick }: any) {
       </Text>
       <View style={styles.Location}>
         <IcMapPin />
-        <Text style={styles.LocationText} presets={['caption1', 'medium']}>
+        <Text numberOfLines={1} style={styles.LocationText} presets={['caption1', 'medium']}>
           {item?.bakeryInfo?.bakeryAddress}
         </Text>
       </View>
@@ -31,15 +31,17 @@ export function ReviewListItem({ item, onItemClick }: any) {
         horizontal
         renderItem={({ item }) => {
           return (
-            <View style={styles.MenuInfoWrap}>
-              <Text presets={['caption1', 'bold']} style={styles.MenuInfoText}>
-                {item?.productName}
-              </Text>
-              <SplitColumn width={4} />
-              <StarIcon size={10.5} fillColor="orange" />
-              <SplitColumn width={1.5} />
-              <Text style={styles.RatingText}>{(+item?.rating).toFixed(1)}</Text>
-            </View>
+            <TouchableOpacity activeOpacity={1} style={styles.MenuInfoWrap}>
+              <>
+                <Text presets={['caption1', 'bold']} style={styles.MenuInfoText}>
+                  {item?.productName}
+                </Text>
+                <SplitColumn width={4} />
+                <StarIcon size={10.5} fillColor="orange" />
+                <SplitColumn width={1.5} />
+                <Text style={styles.RatingText}>{(+item?.rating).toFixed(1)}</Text>
+              </>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(_, index) => index.toString()}
@@ -48,7 +50,7 @@ export function ReviewListItem({ item, onItemClick }: any) {
       <SplitRow height={12} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.ContentContainer}>
         {item?.reviewInfo?.imageList.map((image: any, index: number) => {
-          return <ReviewListItemInImageItem url={image?.url} key={index} />;
+          return <ReviewListItemInImageItem url={image} key={index} />;
         })}
       </ScrollView>
       <SplitRow height={12} />
@@ -121,6 +123,7 @@ const styles = StyleSheet.create(
     },
     LocationText: {
       color: theme.color.gray500,
+      marginRight: 20,
     },
     MenuInfoWrap: {
       height: 24,
