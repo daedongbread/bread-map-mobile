@@ -76,7 +76,7 @@ const styles = StyleSheet.create(
       borderRadius: 10,
     },
     Info: {
-      height: 41,
+      height: 38,
       marginTop: 'auto',
       marginBottom: 'auto',
       justifyContent: 'space-between',

@@ -41,7 +41,7 @@ export function SaveListItemImages({ num, images }: { num: number; images: any }
             <View style={styles.SecondImage}>
               <FastImage source={{ uri: images[1] }} style={styles.FullImage} />
             </View>
-            <View style={styles.ThirdImage}>
+            <View style={[styles.ThirdImage, { backgroundColor: num > 3 ? 'black' : theme.color.gray300 }]}>
               <FastImage source={{ uri: images[2] }} style={[styles.FullImage, { opacity }]} />
               {num > 3 && (
                 <View style={styles.ImagesNumWrap}>
