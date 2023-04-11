@@ -62,7 +62,7 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
   };
 
   return (
-    <TouchableOpacity disabled={!isMe} onPress={onItemClick} style={styles.cardContainer}>
+    <TouchableOpacity onPress={onItemClick} style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
         <View>
           <View style={styles.Placeholder}>
@@ -70,7 +70,11 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
           </View>
           <FastImage style={styles.Image} source={{ uri: item?.image }} />
         </View>
-        <TouchableOpacity onPress={onEditItemClick} style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}>
+        <TouchableOpacity
+          disabled={!isMe}
+          onPress={onEditItemClick}
+          style={[styles.bookmarkBackground, { backgroundColor: FlagColor }]}
+        >
           {name !== '가봤어요' ? (
             <IcHeart width={28} height={28} color={FlagColor} />
           ) : (
