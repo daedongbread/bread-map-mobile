@@ -1701,13 +1701,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-community/push-notification-ios@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.10.1.tgz#d52a6d69ac1112df0f79e1d17978077629b76784"
-  integrity sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg==
-  dependencies:
-    invariant "^2.2.4"
-
 "@react-native-cookies/cookies@^6.0.11":
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/@react-native-cookies/cookies/-/cookies-6.0.11.tgz#94e2ef88e20d4370f2b69be37d274aa30a089c6c"
@@ -2090,11 +2083,6 @@
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
-
-"@types/react-native-push-notification@^8.1.1":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz#0c9a181d7823cfad215d040bc5596c2d83e1a3cd"
-  integrity sha512-ZN4UbU4EM3C7XGt4zI6RqHEZS2+35EwOz9DPAD1lTTY3IpWMHAKYjryykvP35hFkSwrGMpT8nYuMFPEJRwDEJA==
 
 "@types/react-native-snap-carousel@^3.8.5":
   version "3.8.5"
@@ -7909,11 +7897,6 @@ react-native-pager-view@^5.4.15:
   version "5.4.15"
   resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.15.tgz#075fef5ae4ba6ecc37e49b6c4a24770131a2a3cc"
   integrity sha512-5NssD840wFCuOL4B1ZRiRADvt+Vx2Dgify4SmAUqHXCx03yiGPnRWmFjYXyQeK6gq/8VY+gPGE4bTy9ahzBbDw==
-
-react-native-push-notification@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz#a41d20c70ea5a7709417e96261b225461f8dc73a"
-  integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
 
 react-native-reanimated@^2.8.0:
   version "2.13.0"
