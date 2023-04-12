@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { StarIcon } from '@/components/Shared/Icons';
-import IcComment from '@/components/Shared/Icons/IcComment.svg';
 import IcLike from '@/components/Shared/Icons/IcLike.svg';
 import IcMapPin from '@/components/Shared/Icons/IcMapPin.svg';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
@@ -62,8 +61,8 @@ export function ReviewListItem({ item, onItemClick }: any) {
         <IcLike />
         <Text style={styles.ReviewTimeText}> {item?.reviewInfo?.likeNum}</Text>
         <SplitColumn width={4} />
-        <IcComment />
-        <Text style={styles.ReviewTimeText}> {item?.userInfo?.reviewNum}</Text>
+        {/* <IcComment />
+        <Text style={styles.ReviewTimeText}> {item?.userInfo?.reviewNum}</Text> */}
         <View style={styles.ReviewTimeWrapRight}>
           <Text style={styles.ReviewTimeText}>{item?.reviewInfo?.createdAt}</Text>
           <SplitColumn width={2} />
