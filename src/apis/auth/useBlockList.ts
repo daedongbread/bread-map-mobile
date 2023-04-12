@@ -10,7 +10,7 @@ export interface BlockListEntry {
 }
 
 const getBlockList = async () => {
-  const { data } = await fetcher.get<{ data: BlockListEntry[] }>('/user/block');
+  const { data } = await fetcher.get<{ data: BlockListEntry[] }>('/v1/users/block');
 
   return data.data;
 };

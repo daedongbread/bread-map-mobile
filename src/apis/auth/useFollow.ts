@@ -7,7 +7,7 @@ type PostFollowProps = {
 };
 
 const postFollow = ({ userId }: PostFollowProps): Promise<void> => {
-  return fetcher.post('/user/follow', { userId }).then(res => res.data());
+  return fetcher.post('/v1/users/follow', { userId }).then(res => res.data());
 };
 
 export const useFollow = (options: UseMutationOptions<void, unknown, PostFollowProps, any>) => {
