@@ -12,7 +12,7 @@ const noticeSlice = createSlice({
   name: 'notice',
   initialState,
   reducers: {
-    updateDeviceToken(state, action: PayloadAction<string>) {
+    updateDeviceToken(state, action: PayloadAction<string | null>) {
       state.deviceToken = action.payload;
     },
   },

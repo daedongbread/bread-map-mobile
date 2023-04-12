@@ -11,7 +11,10 @@ target 'daedongbread' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
   config = use_native_modules!
+  $RNFirebaseAsStaticFramework = true
 
   use_react_native!(
     :path => config[:reactNativePath],

@@ -1,8 +1,9 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Alert, Linking, SwitchProps, TouchableOpacityProps } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 import { SettingList } from '@/components/Setting/SettingList';
 import { useAuth } from '@/hooks/useAuth';
+import { useNotification } from '@/hooks/useNotification';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 export interface SettingItem {
@@ -22,16 +23,20 @@ export interface SettingDivider {
 export const Setting = () => {
   const navigation = useNavigation<MainStackScreenProps<'SettingModal'>['navigation']>();
   const { logOut } = useAuth();
-
-  const [enable, setEnable] = useState(false);
+  const { alarmOn, getDeviceToken, clearDeviceToken } = useNotification();
 
   const onChangeNotice = (value: boolean) => {
-    setEnable(value);
+    if (value) {
+      getDeviceToken();
+
+      return;
+    }
+    clearDeviceToken();
   };
 
   return (
     <SettingList
-      isEnableNotice={enable}
+      isEnableNotice={alarmOn === true}
       onChangeEnableNotice={onChangeNotice}
       logout={logOut}
       onPressDeleteAccount={() => navigation.push('DeleteAccountModal')}
