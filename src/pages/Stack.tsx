@@ -28,8 +28,14 @@ const RootNavigation = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
+    let isComponentMounted = true;
+
     async function getLaunchStatus() {
       const status = await EncryptedStorage.getItem('firstLaunch');
+      if (!isComponentMounted) {
+        return;
+      }
+
       if (status === null) {
         setIsFirstLaunch(true);
       } else {
@@ -37,6 +43,10 @@ const RootNavigation = () => {
       }
     }
     getLaunchStatus();
+
+    return () => {
+      isComponentMounted = false;
+    };
   }, []);
 
   if (typeof isFirstLaunch === 'undefined') {
