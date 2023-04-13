@@ -538,11 +538,6 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNNotifee (7.6.1):
-    - React-Core
-    - RNNotifee/NotifeeCore (= 7.6.1)
-  - RNNotifee/NotifeeCore (7.6.1):
-    - React-Core
   - RNReanimated (2.13.0):
     - DoubleConversion
     - FBLazyVector
@@ -679,7 +674,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
-  - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNShare (from `../node_modules/react-native-share`)
@@ -842,8 +836,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-google-signin/google-signin"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
-  RNNotifee:
-    :path: "../node_modules/@notifee/react-native"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -947,7 +939,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: 61628a2c859172551aa2100d3e73d1e57878392f
   RNGoogleSignin: 233fdfa02522216c19bf02a1e6c60b60a75ffb4c
   RNImageCropPicker: 648356d68fbf9911a1016b3e3723885d28373eda
-  RNNotifee: bdc064c29f4d558046f51f0c3ae02bab4fd3cd85
   RNReanimated: 42b5b57609de75e270722e27d2b94ade03c49931
   RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   RNShare: b089c33619bbfb0a32bc4069c858b9274e694187
