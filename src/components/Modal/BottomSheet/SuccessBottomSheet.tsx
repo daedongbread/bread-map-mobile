@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Modal, StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 import { Button } from '@/components/Shared/Button/Button';
@@ -52,30 +52,28 @@ export const SuccessBottomSheet = () => {
   };
 
   return (
-    <Modal visible={focused} animationType={'fade'} transparent statusBarTranslucent>
-      <BottomSheet
-        ref={ref}
-        snapPoints={snapPoints}
-        onClose={onClose}
-        handleIndicatorStyle={styles.indicator}
-        backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
-      >
-        <View onLayout={onLayout}>
-          <View style={styles.container}>
-            <SplitRow height={20} />
-            <FastImage style={styles.image} source={happyBread} />
-            <SplitRow height={20} />
-            <Text presets={['subhead', 'bold']} style={styles.title}>
-              {content}
-            </Text>
-          </View>
-          <SplitRow height={30} />
-          <View style={styles.footer}>
-            <Button onPress={onPressCloseButton}>확인</Button>
-          </View>
+    <BottomSheet
+      ref={ref}
+      snapPoints={snapPoints}
+      onClose={onClose}
+      handleIndicatorStyle={styles.indicator}
+      backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
+    >
+      <View onLayout={onLayout}>
+        <View style={styles.container}>
+          <SplitRow height={20} />
+          <FastImage style={styles.image} source={happyBread} />
+          <SplitRow height={20} />
+          <Text presets={['subhead', 'bold']} style={styles.title}>
+            {content}
+          </Text>
         </View>
-      </BottomSheet>
-    </Modal>
+        <SplitRow height={30} />
+        <View style={styles.footer}>
+          <Button onPress={onClose}>확인</Button>
+        </View>
+      </View>
+    </BottomSheet>
   );
 };
 
