@@ -55,7 +55,7 @@ export const BlockUserBottomSheetComponent = React.forwardRef<BottomSheet, Props
           </Text>
           <SplitRow height={32} />
           <View style={styles.footer}>
-            <Button style={styles.button} appearance={'terdary'} onPress={closeBottomSheet}>
+            <Button style={styles.button} appearance={'terdary'} onPress={onClose}>
               아니오
             </Button>
             <SplitColumn width={8} />

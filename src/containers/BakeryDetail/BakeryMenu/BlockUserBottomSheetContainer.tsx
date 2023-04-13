@@ -37,7 +37,7 @@ export const BlockUserBottomSheetContainer = () => {
           );
         }
 
-        closeBottomSheet();
+        onClose();
       });
   };
 
