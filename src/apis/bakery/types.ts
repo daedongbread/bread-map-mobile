@@ -164,7 +164,7 @@ type ReviewInfo = {
 
 export type BakeryInfo = {
   bakeryId: number;
-  bkaeryImage: string;
+  bakeryImage: string;
   bakeryName: string;
   bakeryAddress: string;
 };
