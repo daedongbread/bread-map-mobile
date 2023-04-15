@@ -35,20 +35,14 @@ const requestGetBakeriesFilter = async ({
   return resp.data.data;
 };
 
-const useGetBakeriesFilter = ({
-  latitude,
-  longitude,
-  latitudeDelta,
-  longitudeDelta,
-  sort,
-  filter = false,
-}: UseGetBakeriesProps) => {
-  const queryKey = ['useGetBakeriesFilter'] as const;
+const useGetBakeriesFilter = ({ latitude, longitude, latitudeDelta, longitudeDelta, sort }: UseGetBakeriesProps) => {
+  const queryKey = ['useGetBakeriesFilter', { sort }] as const;
+  const enabled = !!(latitude && longitude && latitudeDelta && longitudeDelta);
 
   const { data, isLoading, isError, refetch } = useQuery(
     queryKey,
     () => requestGetBakeriesFilter({ latitude, longitude, latitudeDelta, longitudeDelta, sort }),
-    { enabled: filter }
+    { enabled }
   );
 
   return {
