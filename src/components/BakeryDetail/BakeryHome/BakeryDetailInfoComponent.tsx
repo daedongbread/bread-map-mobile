@@ -5,6 +5,7 @@ import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
+import { DimImage } from '@/components/DimImage/DimImage';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -49,6 +50,7 @@ export const BakeryDetailInfoComponent = ({
   const actionSheetRef = useRef<ActionSheet>(null);
 
   const actionSheetOptions = [`통화 ${bakery?.bakeryInfo.phoneNumber}`, '취소'];
+  const isDefaultImage = bakery?.bakeryInfo?.image?.includes('defaultImage');
 
   const onPressSaveBtn = () => {
     if (flagInfo.isFlaged) {
@@ -117,6 +119,7 @@ export const BakeryDetailInfoComponent = ({
           source={{ uri: bakery?.bakeryInfo.image || 'https://via.placeholder.com/360' }}
           resizeMode="cover"
         />
+        <DimImage show={isDefaultImage} />
         <View style={styles.reportButtonContainer}>
           <TouchableOpacity onPress={onPressReportPhoto}>
             <Text style={styles.reportButtonText}>사진제보하기</Text>
