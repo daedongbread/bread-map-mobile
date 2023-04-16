@@ -82,7 +82,7 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
               <View key={`${review.id}`} style={styles.reviewView}>
                 <View style={styles.reviewContent}>
                   <Quote />
-                  <Text style={styles.countItemText} numberOfLines={2}>
+                  <Text style={[styles.countItemText, styles.flex]} numberOfLines={2}>
                     {review.content}
                   </Text>
                 </View>
@@ -97,6 +97,9 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
 
 const styles = StyleSheet.create(
   resizePixels({
+    flex: {
+      flex: 1,
+    },
     cardContainer: {
       flexDirection: 'row',
       marginBottom: 20,
