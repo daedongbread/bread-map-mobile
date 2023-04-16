@@ -19,7 +19,7 @@ export const WelcomeComponent = ({ onPressConfirm }: Props) => {
       <SplitRow height={45} />
 
       <View style={styles.contentsContainer}>
-        <Image style={styles.image} source={require('@/components/Shared/Images/bread.png')} />
+        <Image style={styles.image} source={require('@/components/Shared/Images/welcome.png')} />
 
         <SplitRow height={30} />
 
