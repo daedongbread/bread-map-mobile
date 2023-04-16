@@ -108,7 +108,7 @@ export const ReportMenuContainer = () => {
         request: {
           name: form.name,
           price: form.price,
-          image: imagePaths,
+          images: imagePaths,
         },
       },
       {
