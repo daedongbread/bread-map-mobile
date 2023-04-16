@@ -23,6 +23,7 @@ type Props = {
 const BOOKMARK_ICON_SIZE = 28;
 
 export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
+  const isDefaultImage = bakery.image?.includes('defaultImage');
   const source = bakery.image ? { uri: bakery.image } : undefined;
 
   const defaultBookmarkIconColor = 'rgba(34, 34, 34, 0.6)';
@@ -36,7 +37,7 @@ export const BakeryCard: React.FC<Props> = memo(({ bakery, onPressIcon }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.bookmarkIconWrapper}>
-        <BakeryThumbnail source={source} />
+        <BakeryThumbnail isDefaultImage={isDefaultImage} source={source} />
         <TouchableWithoutFeedback onPress={handleIconPress}>
           <IconComponent
             style={styles.bookmarkIcon}

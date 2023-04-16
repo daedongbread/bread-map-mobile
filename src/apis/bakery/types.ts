@@ -19,7 +19,7 @@ type SimpleReview = {
 export type BakeryMapBakeryEntity = {
   longitude: number;
   latitude: number;
-  image: null;
+  image: string | null;
   id: number;
   name: string;
   flagNum: number;
