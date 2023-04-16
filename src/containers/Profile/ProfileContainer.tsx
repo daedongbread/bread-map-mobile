@@ -83,6 +83,7 @@ export function ProfileContainer() {
         onItemClick={onItemClick}
         onClickUpdateButton={onClickUpdateButton}
         onFollowButtonClick={onFollowButtonClick}
+        myId={myId}
         userId={userId}
         otherId={otherId}
         reviewCount={reviewCount}
