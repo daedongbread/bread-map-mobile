@@ -22,18 +22,10 @@ type RefreshRequest = {
 };
 
 const requestSocialLogin = async ({ token, provider }: LoginRequest): Promise<LoginResponse> => {
-  const resp = await fetcher.post<LoginResponse>(
-    '/v1/auth/login',
-    {
-      idToken: token,
-      oauthType: provider,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  const resp = await fetcher.post<LoginResponse>('/v1/auth/login', {
+    idToken: token,
+    type: provider,
+  });
   return resp.data;
 };
 
