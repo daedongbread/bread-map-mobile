@@ -11,7 +11,7 @@ export type LoginResponse = {
 };
 
 export type LoginRequest = {
-  accessToken: string;
+  token: string;
   provider: SocialProvider;
 };
 
@@ -20,11 +20,11 @@ type RefreshRequest = {
   refreshToken: string;
 };
 
-const requestSocialLogin = async ({ accessToken, provider }: LoginRequest): Promise<LoginResponse> => {
+const requestSocialLogin = async ({ token, provider }: LoginRequest): Promise<LoginResponse> => {
   const resp = await fetcher.post<LoginResponse>(
     `/auth/${provider}`,
     {
-      accessToken,
+      idToken: token,
     },
     {
       headers: {
