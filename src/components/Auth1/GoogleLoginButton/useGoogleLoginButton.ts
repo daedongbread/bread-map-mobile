@@ -19,7 +19,7 @@ export const useGoogleLoginButton = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       if (userInfo.idToken) {
-        logIn({ token: userInfo.idToken, provider: 'google' });
+        logIn({ token: userInfo.idToken, provider: 'GOOGLE' });
       }
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

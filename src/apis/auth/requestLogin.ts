@@ -1,9 +1,10 @@
 import { fetcher } from '../fetcher';
 
-export type SocialProvider = 'google' | 'kakao' | 'apple';
+export type SocialProvider = 'GOOGLE' | 'KAKAO' | 'APPLE';
 
 export type LoginResponse = {
   data: {
+    userId: number;
     accessToken: string;
     refreshToken: string;
     accessTokenExpired: number;
@@ -22,9 +23,10 @@ type RefreshRequest = {
 
 const requestSocialLogin = async ({ token, provider }: LoginRequest): Promise<LoginResponse> => {
   const resp = await fetcher.post<LoginResponse>(
-    `/auth/${provider}`,
+    '/v1/auth/login',
     {
       idToken: token,
+      oauthType: provider,
     },
     {
       headers: {

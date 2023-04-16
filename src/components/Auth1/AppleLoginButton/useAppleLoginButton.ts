@@ -12,7 +12,7 @@ export const useAppleLoginButton = () => {
     const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
 
     if (credentialState === appleAuth.State.AUTHORIZED && appleAuthRequestResponse.identityToken) {
-      logIn({ token: appleAuthRequestResponse.identityToken, provider: 'apple' });
+      logIn({ token: appleAuthRequestResponse.identityToken, provider: 'APPLE' });
     }
 
     // if (credentialState === appleAuth.State.NOT_FOUND) {
