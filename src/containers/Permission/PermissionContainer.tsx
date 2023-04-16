@@ -1,4 +1,7 @@
 import React from 'react';
+import { Platform } from 'react-native';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import { PermissionComponent } from '@/components/Permission';
 import { NavigationIcon } from '@/components/Shared/Icons';
 import { CameraIcon } from '@/components/Shared/Icons/Camera';
@@ -30,7 +33,24 @@ const permissions: Permission[] = [
 export const PermissionContainer = () => {
   const navigation = useNavigation<Navigation>();
 
-  const onPressConfirm = () => {
+  const permissionsCheck = async () => {
+    const platformPermissions =
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.PHOTO_LIBRARY]
+        : [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE];
+
+    return requestMultiple(platformPermissions);
+  };
+
+  const setPermissionChecker = () => {
+    console.log(1);
+    return EncryptedStorage.setItem('isPermissionChecker', 'true');
+  };
+
+  const onPressConfirm = async () => {
+    await permissionsCheck();
+    await setPermissionChecker();
+
     navigation.push('TermsStack', {
       screen: 'Terms',
     });
