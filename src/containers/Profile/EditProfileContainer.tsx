@@ -1,12 +1,9 @@
 import { AxiosError } from 'axios';
 import React, { useState, useCallback, useEffect } from 'react';
-import Config from 'react-native-config';
-import RNFS from 'react-native-fs';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import RNFetchBlob, { FetchBlobResponse } from 'rn-fetch-blob';
 import { fetcher } from '@/apis/fetcher';
+import { usePostImages } from '@/apis/image';
 import { EditProfileComponent } from '@/components/Profile';
-import { useAppSelector } from '@/hooks/redux';
 import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -14,10 +11,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 export function EditProfileContainer() {
   const route = useRoute<RootRouteProps<'EditProfile'>>();
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
-  const { accessToken } = useAppSelector(state => state.auth);
   const [name, setName] = useState(route.params?.nickName);
   const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
+
+  const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
 
   const onChange = useCallback(({ name: label, value }) => {
     const changeFunctions = {
@@ -39,6 +37,10 @@ export function EditProfileContainer() {
     });
   };
   const onConfirmClick = async () => {
+    if (isImageSaving) {
+      return;
+    }
+
     if (name.length === 0) {
       setErrorMsg('닉네임을 입력해주세요');
       return;
@@ -46,34 +48,20 @@ export function EditProfileContainer() {
 
     if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
-      let imageResponse: FetchBlobResponse | null = null;
-      let userImage = curImage;
-      if (!curImage.startsWith('https://')) {
-        const base64 = await RNFS.readFile(curImage, 'base64');
-        imageResponse = await RNFetchBlob.fetch(
-          'POST',
-          `${Config.API_URI}/v1/images`,
-          {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data',
-          },
-          [
-            {
-              name: 'image',
-              data: base64,
-              type: 'image/png',
-              filename: JSON.stringify(new Date()),
-            },
-          ]
-        );
-        userImage = JSON.parse(imageResponse?.data)?.data?.imagePath + '';
-      }
+      const imagePath = await postImages([
+        {
+          fileName: 'fileName',
+          type: 'image/jpg',
+          uri: curImage,
+        },
+      ]);
+
       fetcher({
         method: 'post',
         url: '/v1/users/nickname',
         data: {
           nickName: name,
-          image: userImage,
+          image: imagePath[0],
         },
       })
         .then(res => {
