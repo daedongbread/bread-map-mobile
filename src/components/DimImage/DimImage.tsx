@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { resizePixel } from '@/utils';
 import { Text } from '@shared/Text';
 
 type Props = {
@@ -28,5 +29,6 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: resizePixel(15),
   },
 });
