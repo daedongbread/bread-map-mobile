@@ -20,7 +20,7 @@ export const BakeryThumbnail: React.FC<Props> = memo(({ source = defaultThumbnai
   return (
     <View style={styles.wrapper}>
       <Image source={imgSource} onError={onError} style={styles.image} />
-      <DimImage show={isDefaultImage} />
+      <DimImage style={styles.dimImage} show={isDefaultImage} />
     </View>
   );
 });
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+    borderRadius: resizePixel(15),
+  },
+  dimImage: {
     borderRadius: resizePixel(15),
   },
 });

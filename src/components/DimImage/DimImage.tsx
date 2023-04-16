@@ -1,20 +1,20 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { resizePixel } from '@/utils';
 import { Text } from '@shared/Text';
 
 type Props = {
   show?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const DimImage = ({ show = true }: Props) => {
+export const DimImage = ({ show = true, style }: Props) => {
   if (!show) {
     return null;
   }
 
   return (
-    <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']} style={styles.dimWrapper}>
+    <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']} style={[styles.dimWrapper, style && style]}>
       <Text color={'white'}>이미지 준비중</Text>
     </LinearGradient>
   );
@@ -29,6 +29,5 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: resizePixel(15),
   },
 });
