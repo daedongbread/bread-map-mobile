@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext, useEffect } from 'react';
+import React, { createContext, FC, useEffect } from 'react';
 import { SocialProvider } from '@/apis/auth/requestLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { initAuth } from '@/slices/auth';
@@ -26,12 +26,4 @@ const AuthProvider: FC = ({ children }) => {
   return <>{children}</>;
 };
 
-const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('Not Found OptimizeContext');
-  }
-  return context;
-};
-
-export { AuthProvider, useAuth };
+export { AuthProvider };

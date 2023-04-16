@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { LoginRequest, requestSocialLogin } from '@/apis/auth/requestLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { login, logout } from '@/slices/auth';
 
@@ -8,8 +9,17 @@ export const useAuth = () => {
   const dispatch = useAppDispatch();
 
   const signIn = useCallback(
-    ({ accessToken, refreshToken, userId }: { accessToken: string; refreshToken: string; userId: number }) => {
-      dispatch(login({ accessToken, refreshToken, userId }));
+    async ({ token, provider }: LoginRequest) => {
+      try {
+        const { data } = await requestSocialLogin({
+          token,
+          provider,
+        });
+        const { accessToken, accessTokenExpired, refreshToken, userId } = data;
+        dispatch(login({ accessToken, refreshToken, userId }));
+      } catch (e) {
+        console.error(e);
+      }
     },
     [dispatch]
   );

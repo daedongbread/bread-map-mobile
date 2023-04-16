@@ -1,32 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { KakaoLoginButton, GoogleLoginButton } from '@/components/Auth';
+import { AppleLoginButton, GoogleLoginButton } from '@/components/Auth1';
 import { DaebbangFlag } from '@/components/Shared/Icons';
 import { TitleTextLogo } from '@/components/Shared/Icons/TitleTextLogo';
-import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import styled from '@emotion/native';
-import { useNavigation } from '@react-navigation/native';
-
-type Navigation = RootStackScreenProps<'Auth'>['navigation'];
 
 const Auth = () => {
-  const navigation = useNavigation<Navigation>();
-
-  const navigateAuthWebView = (type: RootStackParamList['AuthWebView']['type']) => {
-    navigation.push('AuthWebView', {
-      type,
-    });
-  };
-
-  const onPressGoogle = () => {
-    navigateAuthWebView('google');
-  };
-
-  const onPressKakao = () => {
-    navigateAuthWebView('kakao');
-  };
-
   return (
     <Container>
       <View style={styles.iconContainer}>
@@ -35,10 +15,10 @@ const Auth = () => {
       </View>
       <View>
         <View style={{ marginBottom: 12 }}>
-          <GoogleLoginButton onPress={onPressGoogle} />
+          <GoogleLoginButton />
         </View>
         <View>
-          <KakaoLoginButton onPress={onPressKakao} />
+          <AppleLoginButton />
         </View>
       </View>
     </Container>
