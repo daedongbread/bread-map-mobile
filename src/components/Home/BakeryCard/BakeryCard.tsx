@@ -113,7 +113,7 @@ const styles = StyleSheet.create(
       bottom: 6,
     },
     infoContainer: {
-      marginLeft: 8,
+      marginLeft: 12,
       flex: 1,
       alignItems: 'flex-start',
       overflow: 'hidden',
