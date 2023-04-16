@@ -23,7 +23,11 @@ export function ProfileContainer() {
 
   const onItemClick = (item: any) => () => {
     if (item?.bakeryImageList?.length === 0) {
-      toast.current?.show('저장된 빵집이 없어요. 빵집을 추가해주세요!');
+      if (myId === otherId || otherId === undefined) {
+        toast.current?.show('저장된 빵집이 없어요. 빵집을 추가해주세요!');
+      } else {
+        toast.current?.show('저장된 빵집이 없어요');
+      }
     } else {
       navigation.push('ProfileStack', {
         screen: 'ListDetail',
@@ -83,6 +87,7 @@ export function ProfileContainer() {
         onItemClick={onItemClick}
         onClickUpdateButton={onClickUpdateButton}
         onFollowButtonClick={onFollowButtonClick}
+        myId={myId}
         userId={userId}
         otherId={otherId}
         reviewCount={reviewCount}

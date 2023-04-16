@@ -17,6 +17,7 @@ type Props = {
   onItemClick: (item: any) => void;
   onClickUpdateButton: () => void;
   onFollowButtonClick: (userId: number) => void;
+  myId: number;
   userId: number;
   otherId: number;
   reviewCount: number;
@@ -44,6 +45,7 @@ export const ProfileComponent = ({
   onItemClick,
   onClickUpdateButton,
   onFollowButtonClick,
+  myId,
   userId,
   otherId,
   reviewCount,
@@ -62,6 +64,7 @@ export const ProfileComponent = ({
                 profileInfoData={profileInfoData}
                 onClickUpdateButton={onClickUpdateButton}
                 onFollowButtonClick={onFollowButtonClick}
+                myId={myId}
                 userId={userId}
                 otherId={otherId}
               />

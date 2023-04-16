@@ -7,8 +7,9 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 
-export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButtonClick, userId, otherId }: any) {
+export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButtonClick, myId, userId, otherId }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
+  const isMe = myId === otherId || otherId === undefined;
 
   const onClickFollowButton = (index: number, userId: number) => {
     navigation.push('ProfileStack', {
@@ -19,7 +20,6 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
       },
     });
   };
-
   return (
     <View style={styles.Container}>
       <Image resizeMode="cover" source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
@@ -39,23 +39,23 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
         </View>
       </View>
       <TouchableOpacity
-        onPress={otherId ? () => onFollowButtonClick(userId) : onClickUpdateButton}
+        onPress={!isMe ? () => onFollowButtonClick(userId) : onClickUpdateButton}
         style={[
           styles.Button,
           {
-            width: otherId ? 52 : 42,
-            borderWidth: otherId && !profileInfoData?.isFollow ? 0 : 1,
-            backgroundColor: otherId && !profileInfoData?.isFollow ? theme.color.primary100 : 'white',
+            width: !isMe ? 52 : 42,
+            borderWidth: !isMe && !profileInfoData?.isFollow ? 0 : 1,
+            backgroundColor: !isMe && !profileInfoData?.isFollow ? theme.color.primary100 : 'white',
           },
         ]}
       >
         <Text
           style={[
             styles.buttonText,
-            { color: otherId && !profileInfoData?.isFollow ? theme.color.primary500 : theme.color.gray700 },
+            { color: !isMe && !profileInfoData?.isFollow ? theme.color.primary500 : theme.color.gray700 },
           ]}
         >
-          {otherId ? (profileInfoData?.isFollow ? '팔로잉' : '팔로우') : '수정'}
+          {!isMe ? (profileInfoData?.isFollow ? '팔로잉' : '팔로우') : '수정'}
         </Text>
       </TouchableOpacity>
     </View>
