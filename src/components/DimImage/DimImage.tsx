@@ -15,7 +15,9 @@ export const DimImage = ({ show = true, style }: Props) => {
 
   return (
     <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']} style={[styles.dimWrapper, style && style]}>
-      <Text color={'white'}>이미지 준비중</Text>
+      <Text color={'white'} presets={['caption2', 'bold']}>
+        이미지 준비중
+      </Text>
     </LinearGradient>
   );
 };
