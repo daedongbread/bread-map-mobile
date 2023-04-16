@@ -36,7 +36,7 @@ const requestSocialLogin = async ({ accessToken, provider }: LoginRequest): Prom
 };
 
 const requestRefresh = async ({ accessToken, refreshToken }: RefreshRequest) => {
-  const { data } = await fetcher.post<LoginResponse>('/v1/users/auth/reissue', {
+  const { data } = await fetcher.post<LoginResponse>('/v1/auth/reissue', {
     accessToken,
     refreshToken,
   });

@@ -7,7 +7,7 @@ export interface LogoutRequest {
 }
 
 export const requestLogout = ({ accessToken, refreshToken, deviceToken }: LogoutRequest) => {
-  return fetcher.post('/v1/users/logout', {
+  return fetcher.post('/v1/auth/logout', {
     accessToken,
     refreshToken,
     deviceToken,
