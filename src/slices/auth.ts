@@ -68,9 +68,6 @@ export const logout = createAsyncThunk(
       accessToken,
       refreshToken,
       deviceToken,
-    }).then(() => {
-      EncryptedStorage.clear();
-      removeHeader();
     });
   }
 );
@@ -124,7 +121,7 @@ export const authSlice = createSlice({
       });
 
     builder.addCase(logout.fulfilled, state => {
-      EncryptedStorage.clear();
+      EncryptedStorage.removeItem(USER_KEY);
       removeHeader();
 
       state.accessToken = null;
