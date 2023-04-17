@@ -90,7 +90,6 @@ const MainStack = () => {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    console.log('render');
     const getIsPermissionChecker = async () => {
       const _isPermissionChecker = await storage.get('isPermissionChecker');
 
