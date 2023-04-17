@@ -1,12 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import EncryptedStorage from 'react-native-encrypted-storage';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import { PermissionComponent } from '@/components/Permission';
 import { NavigationIcon } from '@/components/Shared/Icons';
 import { CameraIcon } from '@/components/Shared/Icons/Camera';
 import { PolicyStackNavigationProps } from '@/pages/Policy/Stack';
 import { theme } from '@/styles/theme';
+import { storage } from '@/utils/storage/storage';
 import { useNavigation } from '@react-navigation/core';
 
 type Navigation = PolicyStackNavigationProps<'Permission'>['navigation'];
@@ -43,8 +43,7 @@ export const PermissionContainer = () => {
   };
 
   const setPermissionChecker = () => {
-    console.log(1);
-    return EncryptedStorage.setItem('isPermissionChecker', 'true');
+    return storage.set('isPermissionChecker', 'true');
   };
 
   const onPressConfirm = async () => {

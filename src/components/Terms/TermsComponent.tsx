@@ -40,7 +40,9 @@ const RenderItem = ({ id, isChecked, value, isRequire, onPressCheckBox, onPressT
 
       <SplitColumn width={8} />
 
-      <Text presets={['caption1', 'semibold']}>{value}</Text>
+      <Text color={theme.color.gray900} presets={['caption1', 'semibold']}>
+        {value}
+      </Text>
 
       <SplitColumn width={2} />
 
@@ -98,7 +100,9 @@ export const TermsComponent = ({
               onValueChange={isChecked => onPressAllTermsCheckBox(isChecked)}
             />
             <SplitColumn width={8} />
-            <Text presets={['body1', 'bold']}>전체 약관에 동의합니다</Text>
+            <Text color={theme.color.gray900} presets={['body1', 'bold']}>
+              전체 약관에 동의합니다
+            </Text>
           </View>
 
           <SplitRow height={8} />
@@ -117,12 +121,7 @@ export const TermsComponent = ({
         </View>
       </ScrollView>
 
-      <Button
-        style={styles.button}
-        onPress={onPressConfirm}
-        appearance={isValid ? 'primary' : 'quaternary'}
-        disabled={!isValid}
-      >
+      <Button style={styles.button} onPress={onPressConfirm} disabled={!isValid}>
         다음
       </Button>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '@/styles/theme';
 import { Button } from '../Shared/Button/Button';
 import { Header } from '../Shared/Header';
@@ -12,6 +12,8 @@ type Props = {
 };
 
 export const WelcomeComponent = ({ onPressConfirm }: Props) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
       <Header isCloseButtonShown />
@@ -37,6 +39,8 @@ export const WelcomeComponent = ({ onPressConfirm }: Props) => {
       <Button style={styles.button} onPress={onPressConfirm} appearance={'primary'}>
         시작하기
       </Button>
+
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
