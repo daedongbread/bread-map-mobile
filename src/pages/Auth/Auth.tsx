@@ -14,7 +14,7 @@ const Auth = () => {
         <TitleTextLogo style={styles.titleText} />
       </View>
       <View>
-        <View style={{ marginBottom: 12 }}>
+        <View>
           <GoogleLoginButton />
         </View>
         <View>

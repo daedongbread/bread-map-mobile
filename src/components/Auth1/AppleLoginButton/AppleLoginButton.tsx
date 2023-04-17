@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Text } from '@/components/Shared/Text';
+import { theme } from '@/styles/theme';
 import { bindHook, resizePixels } from '@/utils';
 import styled from '@emotion/native';
 import { AppleLogo } from '@shared/Icons';
@@ -10,7 +12,9 @@ const AppleLoginButton = bindHook(useAppleLoginButton, ({ signIn }) => (
   <View style={styles.container}>
     <Button onPress={signIn} style={styles.button}>
       <AppleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>애플 계정으로 로그인</Text>
+      <Text style={styles.buttonText} color={theme.color.gray900} presets={['body1', 'bold']}>
+        애플 계정으로 로그인
+      </Text>
     </Button>
   </View>
 ));

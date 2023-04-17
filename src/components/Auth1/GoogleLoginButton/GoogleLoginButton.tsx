@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, View, Pressable } from 'react-native';
+import { Text } from '@/components/Shared/Text';
+import { theme } from '@/styles/theme';
 import { bindHook, resizePixels } from '@/utils';
 import styled from '@emotion/native';
 import { GoogleLogo } from '@shared/Icons';
@@ -10,14 +11,16 @@ const GoogleLoginButton = bindHook(useGoogleLoginButton, ({ signIn }) => (
   <View style={styles.container}>
     <Button onPress={signIn} style={styles.button}>
       <GoogleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>구글 계정으로 로그인</Text>
+      <Text style={styles.buttonText} color={theme.color.gray900} presets={['body1', 'bold']}>
+        구글 계정으로 로그인
+      </Text>
     </Button>
   </View>
 ));
 
 export { GoogleLoginButton };
 
-const Button = styled(TouchableWithoutFeedback)`
+const Button = styled(Pressable)`
   background: ${({ theme }) => theme.color.white};
 `;
 
