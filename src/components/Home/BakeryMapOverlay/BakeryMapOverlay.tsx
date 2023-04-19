@@ -67,7 +67,7 @@ export const BakeryMapOverlay: React.FC<Props> = React.memo(
           <View style={styles.searchButtonWrapper}>
             <TouchableOpacity style={styles.searchButton} onPress={onPressSearchButton}>
               <Text presets={['caption1', 'bold']} style={styles.searchText}>
-                현위치에서 검색
+                현위치에서 재검색
               </Text>
               <IcReset />
             </TouchableOpacity>
@@ -143,5 +143,6 @@ const styles = StyleSheet.create({
   },
   searchText: {
     marginRight: 4,
+    color: '#222222',
   },
 });
