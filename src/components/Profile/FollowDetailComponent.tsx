@@ -31,7 +31,7 @@ export function FollowDetailComponent({
   const isLoading = followerLoading || followingLoading;
 
   const onItemClick = (item: any) => {
-    navigation.push('MainTab', {
+    navigation.push('ProfileStack', {
       screen: 'Profile',
       params: {
         userId: item?.userId,
