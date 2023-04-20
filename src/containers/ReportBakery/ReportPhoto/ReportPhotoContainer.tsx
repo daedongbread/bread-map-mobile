@@ -74,6 +74,7 @@ export const ReportPhotoContainer = () => {
     <ReportPhotoComponent
       bakeryName={bakeryName}
       photos={photos}
+      isSaving={isSaving}
       onPressPhotoSelectButton={onPressPhotoSelectButton}
       onPressPhotoDeleteButton={onPressPhotoDeleteButton}
       onPressReportButton={onPressReportButton}

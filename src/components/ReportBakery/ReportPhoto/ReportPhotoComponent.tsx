@@ -6,6 +6,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { PhotoSelect } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating/PhotoSelect';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
+import { Loading } from '@/components/Shared/Loading';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
@@ -15,6 +16,7 @@ const TEXT_MAX_LIMIT = 12;
 type Props = {
   bakeryName: string;
   photos: Asset[];
+  isSaving: boolean;
   onPressPhotoSelectButton: () => void;
   onPressPhotoDeleteButton: (uri?: string) => void;
   onPressReportButton: () => void;
@@ -23,6 +25,7 @@ type Props = {
 export const ReportPhotoComponent = ({
   bakeryName,
   photos,
+  isSaving,
   onPressPhotoSelectButton,
   onPressPhotoDeleteButton,
   onPressReportButton,
@@ -60,6 +63,8 @@ export const ReportPhotoComponent = ({
       </Button>
 
       {insets.bottom === 0 && <SplitRow height={16} />}
+
+      {isSaving && <Loading />}
     </SafeAreaView>
   );
 };
