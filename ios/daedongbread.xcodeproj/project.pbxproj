@@ -10,9 +10,10 @@
 		00E356F31AD99517003FC87E /* daedongbreadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* daedongbreadTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		27320EAD29F1B7A600452B7B /* SwiftBridg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27320EAC29F1B7A600452B7B /* SwiftBridg.swift */; };
+		275A958129F1A80D006B7A33 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 275A958029F1A80D006B7A33 /* GoogleService-Info.plist */; };
 		285C41B3D61D5B0045747E8F /* libPods-daedongbread-daedongbreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A75226C54F3231FC69DB066F /* libPods-daedongbread-daedongbreadTests.a */; };
 		34710D53287AFDCB00BE25E4 /* geolocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34710D52287AFDCB00BE25E4 /* geolocation.swift */; };
-		3481F7BE29E6346F00375FB0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3481F7BD29E6346F00375FB0 /* GoogleService-Info.plist */; };
 		34A0CCCF2838B345003C329D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
@@ -44,8 +45,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = daedongbread/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = daedongbread/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = daedongbread/main.m; sourceTree = "<group>"; };
+		27320EAC29F1B7A600452B7B /* SwiftBridg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridg.swift; sourceTree = "<group>"; };
+		275A958029F1A80D006B7A33 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34710D52287AFDCB00BE25E4 /* geolocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geolocation.swift; sourceTree = "<group>"; };
-		3481F7BD29E6346F00375FB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3481F7BF29E6603F00375FB0 /* daedongbreadDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbreadDebug.entitlements; path = daedongbread/daedongbreadDebug.entitlements; sourceTree = "<group>"; };
 		3481F7C029E7BF1800375FB0 /* daedongbreadRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = daedongbreadRelease.entitlements; path = daedongbread/daedongbreadRelease.entitlements; sourceTree = "<group>"; };
 		34C35D3E281E1BC500872416 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -109,9 +111,10 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				3481F7BD29E6346F00375FB0 /* GoogleService-Info.plist */,
+				275A958029F1A80D006B7A33 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				34C35D3E281E1BC500872416 /* Launch Screen.storyboard */,
+				27320EAC29F1B7A600452B7B /* SwiftBridg.swift */,
 			);
 			name = daedongbread;
 			sourceTree = "<group>";
@@ -279,12 +282,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3481F7BE29E6346F00375FB0 /* GoogleService-Info.plist in Resources */,
 				34A0CCCF2838B345003C329D /* Images.xcassets in Resources */,
 				34C35D3F281E1BC500872416 /* Launch Screen.storyboard in Resources */,
 				F1DC745A5B3D449EBAEA9EA6 /* Pretendard-Bold.otf in Resources */,
 				EA34E376230D464E8E656C10 /* Pretendard-Medium.otf in Resources */,
 				49C4029AFB08450FAB8ABC9F /* Pretendard-SemiBold.otf in Resources */,
+				275A958129F1A80D006B7A33 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27320EAD29F1B7A600452B7B /* SwiftBridg.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				34710D53287AFDCB00BE25E4 /* geolocation.swift in Sources */,
@@ -567,7 +571,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.7;
+				MARKETING_VERSION = 0.1.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -602,7 +606,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.7;
+				MARKETING_VERSION = 0.1.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -697,7 +701,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.7;
+				MARKETING_VERSION = 0.1.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

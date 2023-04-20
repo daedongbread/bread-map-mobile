@@ -1,24 +1,27 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { Text } from '@/components/Shared/Text';
+import { theme } from '@/styles/theme';
 import { bindHook, resizePixels } from '@/utils';
 import styled from '@emotion/native';
-import { GoogleLogo } from '@shared/Icons';
+import KakaoLogo from '@shared/Icons/IcLogoKakao.svg';
 import { useKakaoLoginButton } from './useKakaoLoginButton';
 
 const KakaoLoginButton = bindHook(useKakaoLoginButton, ({ signIn }) => (
   <View style={styles.container}>
     <Button onPress={signIn} style={styles.button}>
-      <GoogleLogo style={styles.logo} />
-      <Text style={styles.buttonText}>구글 계정으로 로그인</Text>
+      <KakaoLogo style={styles.logo} />
+      <Text style={styles.buttonText} color={theme.color.gray900} presets={['body1', 'bold']}>
+        카카오 계정으로 로그인
+      </Text>
     </Button>
   </View>
 ));
 
 export { KakaoLoginButton };
 
-const Button = styled(TouchableWithoutFeedback)`
-  background: ${({ theme }) => theme.color.white};
+const Button = styled(Pressable)`
+  background: ${theme.color.white};
 `;
 
 const styles = StyleSheet.create(
@@ -38,6 +41,7 @@ const styles = StyleSheet.create(
       marginBottom: 12,
       borderRadius: 8,
       display: 'flex',
+      backgroundColor: '#f7e317',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',

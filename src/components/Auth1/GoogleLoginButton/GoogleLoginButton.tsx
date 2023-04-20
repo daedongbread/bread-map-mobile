@@ -21,7 +21,7 @@ const GoogleLoginButton = bindHook(useGoogleLoginButton, ({ signIn }) => (
 export { GoogleLoginButton };
 
 const Button = styled(Pressable)`
-  background: ${({ theme }) => theme.color.white};
+  background: ${theme.color.white};
 `;
 
 const styles = StyleSheet.create(

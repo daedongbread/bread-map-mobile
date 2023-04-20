@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 import { bindHook, resizePixels } from '@/utils';
@@ -21,8 +20,8 @@ const AppleLoginButton = bindHook(useAppleLoginButton, ({ signIn }) => (
 
 export { AppleLoginButton };
 
-const Button = styled(TouchableWithoutFeedback)`
-  background: ${({ theme }) => theme.color.white};
+const Button = styled(Pressable)`
+  background: ${theme.color.white};
 `;
 
 const styles = StyleSheet.create(

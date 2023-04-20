@@ -34,6 +34,7 @@
     "@react-native-firebase/app": "^17.4.2",
     "@react-native-firebase/messaging": "^17.4.2",
     "@react-native-google-signin/google-signin": "^7.1.0",
+    "@react-native-seoul/kakao-login": "^5.2.6",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",

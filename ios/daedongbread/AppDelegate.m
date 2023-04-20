@@ -4,6 +4,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "RNSplashScreen.h"
 
+#import <RNKakaoLogins.h>
+
 #if RCT_DEV
 #import <React/RCTDevLoadingView.h>
 #endif
@@ -78,6 +80,16 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [CodePush bundleURL];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)app
+     openURL:(NSURL *)url
+     options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+ if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
+    return [RNKakaoLogins handleOpenUrl: url];
+ }
+
+ return NO;
 }
 
 @end
