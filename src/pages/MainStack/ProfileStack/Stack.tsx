@@ -5,6 +5,7 @@ import { MainStackScreenProps } from '../Stack';
 import { EditProfile } from './EditProfile';
 import { FollowDetail } from './FollowDetail';
 import { ListDetail } from './ListDetail';
+import { Profile } from './Profile';
 
 export type ProfileStackParamList = {
   Profile: {
@@ -46,6 +47,7 @@ export const ProfileStack = () => {
       <Stack.Screen name={'EditProfile'} component={EditProfile} />
       <Stack.Screen name={'ListDetail'} component={ListDetail} />
       <Stack.Screen name={'FollowDetail'} component={FollowDetail} />
+      <Stack.Screen name={'Profile'} component={Profile} />
     </Stack.Navigator>
   );
 };

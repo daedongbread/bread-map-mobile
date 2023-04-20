@@ -16,7 +16,7 @@ export function ProfileContainer() {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
   const toast = useRef<Toast>(null);
   const { profileInfoData, refetch, loading: profileLoading } = useGetProfileInfo({ userId: userId });
-  const { data: flagData, loading: flagLoading } = useGetFlags(userId);
+  const { data: flagData, loading: flagLoading, refetch: flagRefetch } = useGetFlags(userId);
   const isLoading = profileLoading || flagLoading;
   const [buttonType, setButtonType] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
@@ -63,7 +63,8 @@ export function ProfileContainer() {
   useFocusEffect(
     useCallback(() => {
       refetch();
-    }, [refetch])
+      flagRefetch();
+    }, [refetch, flagRefetch])
   );
 
   useEffect(() => {

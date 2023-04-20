@@ -56,7 +56,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
   };
 
   const onPressProfileImage = (userId: number) => {
-    navigation.push('MainTab', {
+    navigation.push('ProfileStack', {
       screen: 'Profile',
       params: {
         userId,
