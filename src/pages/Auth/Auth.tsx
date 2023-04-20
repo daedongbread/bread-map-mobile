@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppleLoginButton, GoogleLoginButton } from '@/components/Auth1';
+import { KakaoLoginButton } from '@/components/Auth1/KakaoLoginButton';
 import { DaebbangFlag } from '@/components/Shared/Icons';
 import { TitleTextLogo } from '@/components/Shared/Icons/TitleTextLogo';
 import styled from '@emotion/native';
@@ -14,12 +15,9 @@ const Auth = () => {
         <TitleTextLogo style={styles.titleText} />
       </View>
       <View>
-        <View>
-          <GoogleLoginButton />
-        </View>
-        <View>
-          <AppleLoginButton />
-        </View>
+        <KakaoLoginButton />
+        <GoogleLoginButton />
+        {Platform.OS === 'ios' && <AppleLoginButton />}
       </View>
     </Container>
   );
