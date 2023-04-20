@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
+import { Loading } from '@/components/Shared/Loading';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { TextInput } from '@/components/Shared/TextInput';
@@ -18,6 +19,7 @@ const { height } = Dimensions.get('screen');
 type Props = {
   form: ReportMenuForm;
   formValid: ReportMenuValidFormData;
+  isLoading: boolean;
   onSelectPhotos: () => void;
   deSelectPhoto: (uri?: string) => void;
   onChange: (key: string, value: string) => void;
@@ -29,6 +31,7 @@ type Props = {
 export const ReportMenuComponent = ({
   form,
   formValid,
+  isLoading,
   onSelectPhotos,
   deSelectPhoto,
   onChange,
@@ -90,6 +93,8 @@ export const ReportMenuComponent = ({
         확인
       </Button>
       {insets.bottom === 0 && <SplitRow height={16} />}
+
+      {isLoading && <Loading />}
     </SafeAreaView>
   );
 };

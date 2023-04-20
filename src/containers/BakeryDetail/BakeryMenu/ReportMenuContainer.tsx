@@ -38,8 +38,10 @@ export const ReportMenuContainer = () => {
   const route = useRoute<Route>();
 
   const { bakeryId } = route.params;
-  const { mutateAsync: reportReview, isLoading: isSaving } = usePostReportMenu();
-  const { mutateAsync: postImages } = usePostImages();
+  const { mutateAsync: reportMenu, isLoading: isMenuSaving } = usePostReportMenu();
+  const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
+
+  const isLoading = isMenuSaving || isImageSaving;
 
   const [form, setForm] = useState(initailForm);
   const [formValid, setFormValid] = useState(initialFormValid);
@@ -96,13 +98,13 @@ export const ReportMenuContainer = () => {
   }, [form.name, form.price]);
 
   const onPressConfirm = async () => {
-    if (!validate() || isSaving) {
+    if (!validate() || isLoading) {
       return;
     }
 
     const imagePaths = await postImages(form.images);
 
-    await reportReview(
+    await reportMenu(
       {
         bakeryId,
         request: {
@@ -141,6 +143,7 @@ export const ReportMenuContainer = () => {
     <ReportMenuComponent
       form={form}
       formValid={formValid}
+      isLoading={isLoading}
       onSelectPhotos={onSelectPhotos}
       deSelectPhoto={deSelectPhoto}
       onChange={onChange}

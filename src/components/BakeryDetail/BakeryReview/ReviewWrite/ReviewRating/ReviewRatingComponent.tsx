@@ -5,6 +5,7 @@ import { Asset } from 'react-native-image-picker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
+import { Loading } from '@/components/Shared/Loading';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { TextInput } from '@/components/Shared/TextInput';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
@@ -22,6 +23,7 @@ type Props = {
   selectedBreads: RatedBread[];
   detailReview: string;
   images: Asset[];
+  isLoading: boolean;
   onUpdateBreadRating: ({ id, rating, type }: UpdateSeletedBreadRating) => void;
   onChangeDetailReviewText: (text: string) => void;
   onSelectPhotos: () => void;
@@ -35,6 +37,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   selectedBreads,
   detailReview,
   images,
+  isLoading,
   onUpdateBreadRating,
   onChangeDetailReviewText,
   onSelectPhotos,
@@ -105,6 +108,8 @@ export const ReviewRatingComponent: React.FC<Props> = ({
         {'확인'}
       </Button>
       {insets.bottom === 0 && <SplitRow height={16} />}
+
+      {isLoading && <Loading />}
     </SafeAreaView>
   );
 };

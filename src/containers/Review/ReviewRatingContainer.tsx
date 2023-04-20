@@ -27,6 +27,7 @@ export const ReviewRatingContainer: React.FC = () => {
   const { bakeryId } = route.params;
   const { mutateAsync: postReview, isLoading: isReviewSaving } = usePostReview();
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
+  const isLoading = isReviewSaving || isImageSaving;
 
   const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
@@ -66,7 +67,7 @@ export const ReviewRatingContainer: React.FC = () => {
       return;
     }
     // 현재 저장 중이면 return;
-    if (isReviewSaving || isImageSaving) {
+    if (isLoading) {
       return;
     }
 
@@ -113,6 +114,7 @@ export const ReviewRatingContainer: React.FC = () => {
       selectedBreads={[...selectedBreads, ...manualSelectedBreads]}
       detailReview={detailReview}
       images={images}
+      isLoading={isLoading}
       onUpdateBreadRating={onUpdateBreadRating}
       onChangeDetailReviewText={onChangeDetailReviewText}
       onSelectPhotos={onSelectPhotos}
