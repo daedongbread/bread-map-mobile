@@ -1,7 +1,7 @@
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { requestRefresh } from '@/apis/auth/requestLogin';
 import { LogoutRequest, requestLogout } from '@/apis/auth/requestLogout';
-import { fetcher } from '@/apis/fetcher';
+import { removeHeader, setHeader } from '@/apis/fetcher';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const USER_KEY = 'user';
@@ -38,14 +38,6 @@ const storeTokens = ({ accessToken, refreshToken, userId }: StoreTokens) => {
       userId,
     })
   );
-};
-
-const setHeader = (accessToken: string) => {
-  fetcher.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-};
-
-const removeHeader = () => {
-  fetcher.defaults.headers.common.Authorization = '';
 };
 
 export const initAuth = createAsyncThunk('auth/initAuth', async () => {
@@ -86,8 +78,8 @@ export const authSlice = createSlice({
       state.refreshToken = refreshToken;
       state.userId = userId;
     },
-    logout(state) {
-      EncryptedStorage.clear();
+    forceLogout(state) {
+      EncryptedStorage.removeItem(USER_KEY);
       removeHeader();
 
       state.accessToken = null;
@@ -129,6 +121,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { login } = authSlice.actions;
+export const { login, forceLogout } = authSlice.actions;
 
 export default authSlice.reducer;
