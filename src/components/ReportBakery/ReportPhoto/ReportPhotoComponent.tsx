@@ -16,7 +16,7 @@ const TEXT_MAX_LIMIT = 12;
 type Props = {
   bakeryName: string;
   photos: Asset[];
-  isSaving: boolean;
+  isLoading: boolean;
   onPressPhotoSelectButton: () => void;
   onPressPhotoDeleteButton: (uri?: string) => void;
   onPressReportButton: () => void;
@@ -25,7 +25,7 @@ type Props = {
 export const ReportPhotoComponent = ({
   bakeryName,
   photos,
-  isSaving,
+  isLoading,
   onPressPhotoSelectButton,
   onPressPhotoDeleteButton,
   onPressReportButton,
@@ -64,7 +64,7 @@ export const ReportPhotoComponent = ({
 
       {insets.bottom === 0 && <SplitRow height={16} />}
 
-      {isSaving && <Loading />}
+      {isLoading && <Loading />}
     </SafeAreaView>
   );
 };

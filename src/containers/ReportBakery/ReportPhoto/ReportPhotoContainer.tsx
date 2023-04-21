@@ -14,8 +14,10 @@ export const ReportPhotoContainer = () => {
   const route = useRoute<ReportBakeryStackScreenProps<'ReportPhoto'>['route']>();
 
   const { bakeryId, bakeryName, photos: photoList } = route.params;
-  const { mutateAsync: reportPhoto, isLoading: isSaving } = useReportPhoto();
-  const { mutateAsync: postImages } = usePostImages();
+  const { mutateAsync: reportPhoto, isLoading: isReportSaving } = useReportPhoto();
+  const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
+
+  let isLoading = isReportSaving || isImageSaving;
 
   const [photos, setPhotos] = useState<Asset[]>(photoList);
 
@@ -35,7 +37,7 @@ export const ReportPhotoContainer = () => {
   };
 
   const onPressReportButton = async () => {
-    if (isSaving) {
+    if (isLoading) {
       return;
     }
 
@@ -74,7 +76,7 @@ export const ReportPhotoContainer = () => {
     <ReportPhotoComponent
       bakeryName={bakeryName}
       photos={photos}
-      isSaving={isSaving}
+      isLoading={isLoading}
       onPressPhotoSelectButton={onPressPhotoSelectButton}
       onPressPhotoDeleteButton={onPressPhotoDeleteButton}
       onPressReportButton={onPressReportButton}
