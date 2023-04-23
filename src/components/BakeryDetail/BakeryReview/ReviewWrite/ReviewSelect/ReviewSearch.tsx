@@ -20,7 +20,7 @@ export const ReviewSearch: React.FC<Props> = ({ searchValue, onChangeSearchValue
 
         <TextInput
           style={styles.textInput}
-          placeholder={'메뉴 이름을검색해보세요'}
+          placeholder={'메뉴 이름을 검색해보세요'}
           placeholderTextColor={theme.color.gray500}
           value={searchValue}
           onChangeText={onChangeSearchValue}
@@ -54,5 +54,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 0,
     padding: 0,
+    color: '#222222',
   },
 });
