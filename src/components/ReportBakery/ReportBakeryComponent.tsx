@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderRadius: 8,
+    color: '#222222',
   },
   reasonInput: {
     textAlignVertical: 'top',
