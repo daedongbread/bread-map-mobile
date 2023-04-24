@@ -1,12 +1,10 @@
 import AnimatedLottieView from 'lottie-react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { theme } from '@/styles/theme';
 
 export const Loading = () => {
   return (
     <View style={styles.loadingWrapper}>
-      <View style={styles.dotWrapper} />
       <AnimatedLottieView
         source={require('@/assets/lottiles/loading.json')}
         // loop
@@ -18,12 +16,6 @@ export const Loading = () => {
 };
 
 const styles = StyleSheet.create({
-  dotWrapper: {
-    backgroundColor: theme.color.primary100,
-    borderRadius: 100,
-    width: 64,
-    height: 64,
-  },
   loadingWrapper: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     position: 'absolute',
