@@ -157,7 +157,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
         {review.reviewInfo.imageList.length > 0 && (
           <FlatList
             contentContainerStyle={styles.reviewImageContainer}
-            keyExtractor={item => item}
+            keyExtractor={(item, index) => index.toString()}
             data={review.reviewInfo.imageList}
             renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
             showsHorizontalScrollIndicator={false}
