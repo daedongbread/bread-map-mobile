@@ -3,13 +3,11 @@ import { Config } from '@/utils';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 GoogleSignin.configure({
-  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   webClientId: Config.WEB_CLIENT_ID,
   offlineAccess: true,
   hostedDomain: '',
   forceCodeForRefreshToken: true,
   accountName: '',
-  iosClientId: Config.IOS_CLIENT_ID,
 });
 
 export const useGoogleLoginButton = () => {
