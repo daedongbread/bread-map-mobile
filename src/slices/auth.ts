@@ -87,6 +87,7 @@ export const authSlice = createSlice({
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
       state.userId = userId;
+      state.isNewbie = false;
     },
     forceLogout(state) {
       EncryptedStorage.removeItem(USER_KEY);
