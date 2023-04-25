@@ -1,8 +1,8 @@
 import EncryptedStorage from 'react-native-encrypted-storage';
-import { requestRefresh } from '@/apis/auth/requestLogin';
+import { LoginRequest, SocialProvider, requestRefresh } from '@/apis/auth/requestLogin';
 import { LogoutRequest, requestLogout } from '@/apis/auth/requestLogout';
 import { removeHeader, setHeader } from '@/apis/fetcher';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const USER_KEY = 'user';
 
@@ -11,6 +11,9 @@ export interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   userId: number | null;
+  isNewbie?: boolean;
+  idToken?: string | null;
+  provider?: SocialProvider | null;
 }
 
 const initialState: AuthState = {
@@ -18,11 +21,18 @@ const initialState: AuthState = {
   accessToken: null,
   refreshToken: null,
   userId: null,
+  isNewbie: false,
+  idToken: null,
+  provider: null,
 };
 
 interface Tokens {
   accessToken: string;
   refreshToken: string;
+}
+
+interface updateNewbieInfo extends LoginRequest {
+  isNewbie: boolean;
 }
 
 interface StoreTokens extends Tokens {
@@ -85,6 +95,11 @@ export const authSlice = createSlice({
       state.accessToken = null;
       state.userId = null;
     },
+    updateNewbieInfo(state, { payload }: PayloadAction<updateNewbieInfo>) {
+      state.isNewbie = payload.isNewbie;
+      state.idToken = payload.token;
+      state.provider = payload.provider;
+    },
   },
   extraReducers: builder => {
     builder
@@ -121,6 +136,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { login, forceLogout } = authSlice.actions;
+export const { login, forceLogout, updateNewbieInfo } = authSlice.actions;
 
 export default authSlice.reducer;

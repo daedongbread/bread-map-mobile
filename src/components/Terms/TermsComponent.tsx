@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Terms } from '@/containers/Terms/TermsContainer';
+import { Terms } from '@/containers/Policy/Terms/TermsContainer';
 import { TermsStackParamList } from '@/pages/Policy/Terms/Stack';
 import { theme } from '@/styles/theme';
 import { Button } from '../Shared/Button/Button';
@@ -17,17 +17,17 @@ type Props = {
   checkeds: string[];
   onPressAllTermsCheckBox: (isChecked: boolean) => void;
   onPressTermsCheckBox: (value: boolean, key: string) => void;
-  onPressTerms: (routeName: keyof TermsStackParamList) => void;
+  onPressTerms: (routeName: keyof TermsStackParamList, id: string) => void;
   onPressConfirm: () => void;
 };
 
 type RenderItemProps = Terms & {
   isChecked: boolean;
   onPressCheckBox: (value: boolean, key: string) => void;
-  onPressTerms: (routeName: keyof TermsStackParamList) => void;
+  onPressTerms: (routeName: keyof TermsStackParamList, id: string) => void;
 };
 
-const RenderItem = ({ id, isChecked, value, isRequire, onPressCheckBox, onPressTerms }: RenderItemProps) => (
+const RenderItem = ({ id, routeName, isChecked, value, isRequire, onPressCheckBox, onPressTerms }: RenderItemProps) => (
   <View style={styles.termsContainer}>
     <View style={styles.termLeft}>
       <CustomCheckBox
@@ -57,7 +57,7 @@ const RenderItem = ({ id, isChecked, value, isRequire, onPressCheckBox, onPressT
       )}
     </View>
 
-    <TouchableOpacity onPress={() => onPressTerms(id)}>
+    <TouchableOpacity onPress={() => onPressTerms(routeName, id)}>
       <RightPrev strokeWidth={2} />
     </TouchableOpacity>
   </View>

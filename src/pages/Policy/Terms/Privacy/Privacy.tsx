@@ -8,11 +8,11 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { useRoute } from '@react-navigation/native';
 import { TermsStackNavigationProps } from '../Stack';
 
-const URI = 'https://sugared-chamomile-e10.notion.site/111c09f9f3784d80afd2abe353224e50';
+const URI = 'https://sugared-chamomile-e10.notion.site/5c8f1341bc6d473ba0c9f5dc57a9f734';
 
 type Route = TermsStackNavigationProps<'Marketing'>['route'];
 
-export const Service = () => {
+export const Privacy = () => {
   const insets = useSafeAreaInsets();
   const { params } = useRoute<Route>();
   const { onClickAgree } = params;

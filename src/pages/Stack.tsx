@@ -9,9 +9,11 @@ import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Onboarding } from './Onboarding';
+import { PolicyStack, PolicyStackParamList } from './Policy/Stack';
 
 export type RootStackParamList = {
   Onboarding: undefined;
+  PolicyStack: NavigatorScreenParams<PolicyStackParamList>;
   Auth: undefined;
   AuthWebView: {
     type: 'google' | 'kakao';
@@ -24,7 +26,7 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScre
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isNewbie } = useAuth();
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
@@ -64,7 +66,12 @@ const RootNavigation = () => {
           ) : (
             <>
               {isFirstLaunch && <Stack.Screen name={'Onboarding'} component={Onboarding} />}
-              <Stack.Screen name={'Auth'} component={Auth} />
+
+              {isNewbie ? (
+                <Stack.Screen name={'PolicyStack'} component={PolicyStack} />
+              ) : (
+                <Stack.Screen name={'Auth'} component={Auth} />
+              )}
               <Stack.Screen name={'AuthWebView'} component={AuthWebView} />
             </>
           )}

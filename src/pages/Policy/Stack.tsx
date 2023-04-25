@@ -10,7 +10,11 @@ import { Welcome } from './Welcome';
 export type PolicyStackParamList = {
   Permission: undefined;
   TermsStack: NavigatorScreenParams<TermsStackParamList>;
-  Welcome: undefined;
+  Welcome: {
+    accessToken: string;
+    refreshToken: string;
+    userId: number;
+  };
 };
 
 export type PolicyStackNavigationProps<T extends keyof PolicyStackParamList> = CompositeScreenProps<

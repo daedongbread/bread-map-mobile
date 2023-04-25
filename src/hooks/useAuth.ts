@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { LoginRequest, requestSocialLogin } from '@/apis/auth/requestLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { login, logout } from '@/slices/auth';
+import { login, logout, updateNewbieInfo } from '@/slices/auth';
 
 export const useAuth = () => {
-  const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
+  const { accessToken, refreshToken, isNewbie } = useAppSelector(selector => selector.auth);
   const { deviceToken } = useAppSelector(selector => selector.notice);
   const dispatch = useAppDispatch();
 
@@ -15,10 +15,19 @@ export const useAuth = () => {
           token,
           provider,
         });
-        const { accessToken, accessTokenExpired, refreshToken, userId } = data;
-        dispatch(login({ accessToken, refreshToken, userId }));
-      } catch (e) {
-        console.error(e);
+        const { accessToken: _accessToken, refreshToken: _refreshToken, userId } = data;
+        dispatch(login({ accessToken: _accessToken, refreshToken: _refreshToken, userId }));
+      } catch (error: any) {
+        // 등록되지 않은 유저 일 경우
+        if (error.response.data.code === 40410) {
+          dispatch(
+            updateNewbieInfo({
+              isNewbie: true,
+              token,
+              provider,
+            })
+          );
+        }
       }
     },
     [dispatch]
@@ -40,6 +49,7 @@ export const useAuth = () => {
 
   return {
     isLoggedIn: !!accessToken,
+    isNewbie: !!isNewbie,
     logIn: signIn,
     logOut: signOut,
   };

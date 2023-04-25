@@ -3,14 +3,22 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { PolicyStackNavigationProps, PolicyStackParamList } from '../Stack';
+import { Marketing } from './Marketing';
+import { Privacy } from './Privacy';
 import { Service } from './Service';
 import { Terms } from './Terms';
 
 export type TermsStackParamList = {
   Terms: undefined;
-  Service: undefined;
-  Privacy: undefined;
-  Marketing: undefined;
+  Service: {
+    onClickAgree: (value: boolean) => void;
+  };
+  Privacy: {
+    onClickAgree: (value: boolean) => void;
+  };
+  Marketing: {
+    onClickAgree: (value: boolean) => void;
+  };
 };
 
 const Stack = createNativeStackNavigator<TermsStackParamList>();
@@ -28,6 +36,7 @@ export const TermsStack = () => (
   >
     <Stack.Screen name={'Terms'} component={Terms} />
     <Stack.Screen name={'Service'} component={Service} />
-    {/* <Stack.Screen name={'Marketing'} component={Welcome} /> */}
+    <Stack.Screen name={'Privacy'} component={Privacy} />
+    <Stack.Screen name={'Marketing'} component={Marketing} />
   </Stack.Navigator>
 );

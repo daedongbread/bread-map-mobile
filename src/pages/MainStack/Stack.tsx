@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
@@ -12,13 +12,12 @@ import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack
 import { Search } from '@/pages/MainStack/Search';
 import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { storage } from '@/utils/storage/storage';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 import { Header } from '@shared/Header';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
-import { PolicyStack, PolicyStackParamList } from '../Policy/Stack';
+import { PolicyStackParamList } from '../Policy/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
@@ -86,30 +85,8 @@ export type MainStackScreenProps<T extends keyof MainStackParamList> = Composite
 const Stack = createStackNavigator<MainStackParamList>();
 
 const MainStack = () => {
-  const [isPermissionChecker, setIsPermissionChecker] = useState(false);
-  const [isFetching, setIsFetching] = useState(true);
-
-  useEffect(() => {
-    const getIsPermissionChecker = async () => {
-      const _isPermissionChecker = await storage.get('isPermissionChecker');
-
-      if (_isPermissionChecker) {
-        setIsPermissionChecker(JSON.parse(_isPermissionChecker));
-      }
-
-      setIsFetching(false);
-    };
-
-    getIsPermissionChecker();
-  }, []);
-
-  if (isFetching) {
-    return null;
-  }
-
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!isPermissionChecker && <Stack.Screen name={'PolicyStack'} component={PolicyStack} />}
+    <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
