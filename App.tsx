@@ -14,6 +14,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchInterval: false,
+      retry: false,
     },
   },
 });
