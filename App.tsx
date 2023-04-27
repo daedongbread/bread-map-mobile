@@ -38,6 +38,9 @@ const App: FC = () => (
 const codePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
   installMode: CodePush.InstallMode.IMMEDIATE,
+  rollbackRetryOptions: {
+    maxRetryAttempts: 3,
+  },
 };
 
 export default CodePush(codePushOptions)(App);
