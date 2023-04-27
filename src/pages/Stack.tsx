@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useAuth } from '@/hooks/useAuth';
 import { Auth } from '@/pages/Auth';
 import { AuthWebView } from '@/pages/Auth/AuthWebView';
 import { MainStack, MainStackParamList } from '@/pages/MainStack/Stack';
-import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
+import analytics from '@react-native-firebase/analytics';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  NavigationContainerRef,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Onboarding } from './Onboarding';
@@ -26,6 +32,9 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScre
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
+  const navigationRef = useRef<NavigationContainerRef<RootStackParamList>>(null);
+  const routeNameRef = useRef<string>();
+
   const { isLoggedIn, isNewbie } = useAuth();
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | undefined>(undefined);
 
@@ -57,7 +66,26 @@ const RootNavigation = () => {
   return (
     <>
       <StatusBar barStyle={'dark-content'} />
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer
+        ref={navigationRef}
+        theme={navigationTheme}
+        onReady={() => {
+          routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name;
+        }}
+        onStateChange={async () => {
+          const previousRouteName = routeNameRef.current;
+          const currentRouteName = navigationRef.current?.getCurrentRoute()?.name;
+
+          if (previousRouteName !== currentRouteName) {
+            await analytics().logScreenView({
+              screen_name: currentRouteName,
+              screen_class: currentRouteName,
+            });
+          }
+
+          routeNameRef.current = currentRouteName;
+        }}
+      >
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {isLoggedIn ? (
             <>

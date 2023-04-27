@@ -13,6 +13,7 @@ target 'daedongbread' do
   pod 'RNFS', :path => '../node_modules/react-native-fs'
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+  pod 'Firebase/Analytics'
   config = use_native_modules!
   $RNFirebaseAsStaticFramework = true
 
