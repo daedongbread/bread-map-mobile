@@ -12,6 +12,7 @@ import {
   updateSeletedBreadRating,
   UpdateSeletedBreadRating,
 } from '@/slices/reviewWrite';
+import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const PHOTO_LIMIT = 10;
@@ -52,6 +53,15 @@ export const ReviewRatingContainer: React.FC = () => {
     });
 
     if (!didCancel && assets) {
+      if (assets[0].fileSize! > 10000000) {
+        dispatch(
+          showToast({
+            text: '10mb 이하만 업로드 가능합니다',
+            duration: 5 * 1000,
+          })
+        );
+        return;
+      }
       dispatch(updateImages([...images, ...assets]));
     }
   };

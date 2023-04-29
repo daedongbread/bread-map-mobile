@@ -75,6 +75,15 @@ export const BakeryDetailInfoContainer = () => {
     });
 
     if (!didCancel && photos && bakery?.bakeryInfo) {
+      if (photos[0].fileSize! > 10000000) {
+        dispatch(
+          showToast({
+            text: '10mb 이하만 업로드 가능합니다',
+            duration: 5 * 1000,
+          })
+        );
+        return;
+      }
       navigation.push('ReportBakeryStack', {
         screen: 'ReportPhoto',
         params: {

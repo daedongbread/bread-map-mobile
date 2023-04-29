@@ -3,7 +3,9 @@ import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import { usePostReportMenu } from '@/apis/bakery/usePostReportMenu';
 import { usePostImages } from '@/apis/image';
 import { ReportMenuComponent } from '@/components/BakeryDetail/BakeryMenu';
+import { useAppDispatch } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export type ReportMenuForm = {
@@ -34,6 +36,7 @@ type Route = MainStackScreenProps<'ReportMenu'>['route'];
 const PHOTO_LIMIT = 10;
 
 export const ReportMenuContainer = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
@@ -69,6 +72,15 @@ export const ReportMenuContainer = () => {
     });
 
     if (!didCancel && assets) {
+      if (assets[0].fileSize! > 10000000) {
+        dispatch(
+          showToast({
+            text: '10mb 이하만 업로드 가능합니다',
+            duration: 5 * 1000,
+          })
+        );
+        return;
+      }
       setForm(prev => {
         return { ...prev, images: [...prev.images, ...assets] };
       });

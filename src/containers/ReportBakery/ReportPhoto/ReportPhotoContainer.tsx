@@ -4,12 +4,15 @@ import { Asset } from 'react-native-image-picker';
 import { useReportPhoto } from '@/apis/bakery/useReportPhoto';
 import { usePostImages } from '@/apis/image';
 import { ReportPhotoComponent } from '@/components/ReportBakery/ReportPhoto';
+import { useAppDispatch } from '@/hooks/redux';
 import { ReportBakeryStackScreenProps } from '@/pages/MainStack/ReportBakeryStack/Stack';
+import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const PHOTO_LIMIT = 10;
 
 export const ReportPhotoContainer = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<ReportBakeryStackScreenProps<'ReportPhoto'>['navigation']>();
   const route = useRoute<ReportBakeryStackScreenProps<'ReportPhoto'>['route']>();
 
@@ -28,6 +31,15 @@ export const ReportPhotoContainer = () => {
     });
 
     if (!didCancel && assets) {
+      if (assets[0].fileSize! > 10000000) {
+        dispatch(
+          showToast({
+            text: '10mb 이하만 업로드 가능합니다',
+            duration: 5 * 1000,
+          })
+        );
+        return;
+      }
       setPhotos([...photos, ...assets]);
     }
   };
