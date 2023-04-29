@@ -12,6 +12,5 @@ const loadEnv = (key: string): string => {
 export const Config = {
   API_URI: loadEnv('API_URI'),
   WEB_CLIENT_ID: loadEnv('WEB_CLIENT_ID'),
-  ANDROID_CLIENT_ID: loadEnv('ANDROID_CLIENT_ID'),
   IOS_CLIENT_ID: loadEnv('IOS_CLIENT_ID'),
 };
