@@ -27,12 +27,25 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.298783110165-kb2a3mhvvdffii0khetvmbje48mtrmlc</string>
+				<string>${REVERSED_CLIENT_ID}</string>
+				<string>kakao${KAKAOAPI_KEY}</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>${CODEPUSH_KEY}</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>KAKAO_APP_KEY</key>
+	<string>${KAKAOAPI_KEY}</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -41,7 +54,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	<string>프로필 사진 변경, 사진 제보, 리뷰작성을 위해 카메라 권한을 허용해 주세요.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Program requires GPS to track cars and job orders</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -49,7 +62,13 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Program requires GPS to track cars and job orders</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your PhotoLibrary.</string>
+	<string>프로필 사진 변경, 사진 제보, 리뷰작성을 위해 갤러리 권한을 허용해 주세요.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-SemiBold.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -62,15 +81,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>CodePushDeploymentKey</key>
-	<string>${CODEPUSH_KEY}</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Pretendard-Bold.otf</string>
-		<string>Pretendard-Medium.otf</string>
-		<string>Pretendard-SemiBold.otf</string>
-	</array>
 </dict>
 </plist>
