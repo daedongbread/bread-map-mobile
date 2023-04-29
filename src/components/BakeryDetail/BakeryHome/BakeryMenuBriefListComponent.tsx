@@ -37,7 +37,7 @@ export const BakeryMenuBriefListComponent = ({
               <Menu
                 reviewNum={menuData.reviewNum}
                 name={menuData.name}
-                price={Number(menuData.price)}
+                price={menuData.price}
                 rating={menuData.rating}
                 image={menuData.image}
               />

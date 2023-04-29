@@ -24,7 +24,7 @@ const Menus: React.FC<MenuProps> = ({ headerComponent, menus, onPress, onPressAd
         <TouchableOpacity onPress={() => onPress(item)}>
           <Menu
             name={item.name}
-            price={Number(item.price)}
+            price={item.price}
             rating={item.rating}
             reviewNum={item.reviewNum}
             image={item.image}

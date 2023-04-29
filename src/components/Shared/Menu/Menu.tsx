@@ -5,7 +5,7 @@ import { BreadRating } from '../Rating';
 
 type MenuProps = {
   name: string;
-  price: number;
+  price: string;
   rating: number;
   reviewNum: number;
   image?: string | null;

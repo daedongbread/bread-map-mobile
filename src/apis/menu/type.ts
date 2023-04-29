@@ -3,7 +3,7 @@ export type MenuEntity = {
   name: string;
   rating: number;
   reviewNum: number;
-  price: number;
+  price: string;
   image?: string;
 };
 
