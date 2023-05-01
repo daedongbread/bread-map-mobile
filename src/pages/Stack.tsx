@@ -58,7 +58,7 @@ const RootNavigation = () => {
     return () => {
       isComponentMounted = false;
     };
-  }, []);
+  }, [isNewbie]);
 
   if (typeof isFirstLaunch === 'undefined') {
     return null;
