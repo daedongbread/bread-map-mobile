@@ -5,6 +5,7 @@ import { AppleLoginButton, GoogleLoginButton } from '@/components/Auth1';
 import { KakaoLoginButton } from '@/components/Auth1/KakaoLoginButton';
 import { DaebbangFlag } from '@/components/Shared/Icons';
 import { TitleTextLogo } from '@/components/Shared/Icons/TitleTextLogo';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import styled from '@emotion/native';
 
 const Auth = () => {
@@ -12,6 +13,7 @@ const Auth = () => {
     <Container>
       <View style={styles.iconContainer}>
         <DaebbangFlag style={styles.iconSize} />
+        <SplitRow height={24} />
         <TitleTextLogo style={styles.titleText} />
       </View>
       <View>
