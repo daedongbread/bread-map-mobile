@@ -16,7 +16,7 @@ const Menu: React.FC<MenuProps> = ({ name, price, rating, reviewNum, image }) =>
     <View style={styles.textContainer}>
       <Text style={styles.name}>{name}</Text>
       <BreadRating type={'menu'} rating={rating} reviewLength={reviewNum} />
-      <Text style={styles.price}>{price.toLocaleString()}원</Text>
+      <Text style={styles.price}>{Number(price).toLocaleString()}원</Text>
     </View>
     {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
   </View>
