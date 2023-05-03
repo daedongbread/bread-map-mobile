@@ -20,8 +20,8 @@ export type UseGetNoticeProps = {
   unit?: 'today' | 'week' | 'before';
 };
 
-const getNotice = async ({ page, unit }: GetNoticeProps): Promise<GetNoticeResponse['data']> => {
-  const { data } = await fetcher.get<GetNoticeResponse>(`/notice/${unit}?page=${page}`);
+const getNotice = async ({ page = 0, unit }: GetNoticeProps): Promise<GetNoticeResponse['data']> => {
+  const { data } = await fetcher.get<GetNoticeResponse>(`/v1/notices/${unit}?page=${page}`);
   return data.data;
 };
 
