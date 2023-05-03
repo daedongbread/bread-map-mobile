@@ -31,7 +31,7 @@ export const RowInfo: React.FC<Props> = ({ icon, text, isCopyable = false, isUnd
       <View>{icon}</View>
       <View style={[styles.textWrapper, isUnderLine && styles.underLine]}>
         <Text color={theme.color.gray600} presets={['caption2', 'medium']} style={[styles.text]}>
-          {text}
+          {text.trim()}
         </Text>
       </View>
 
