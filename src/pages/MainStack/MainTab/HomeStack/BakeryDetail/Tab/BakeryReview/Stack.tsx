@@ -1,7 +1,8 @@
 import React from 'react';
 import { BakeryReview } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { BakeryDetailTabParamList, BakeryDetailTabScreenProps } from '../..';
 
 export type BakeryReviewStackParamList = {
@@ -10,7 +11,7 @@ export type BakeryReviewStackParamList = {
   };
 };
 
-const ReviewStack = createNativeStackNavigator<BakeryReviewStackParamList>();
+const ReviewStack = createStackNavigator<BakeryReviewStackParamList>();
 
 export type BakeryReviewStackScreenProps<T extends keyof BakeryReviewStackParamList> = CompositeScreenProps<
   NativeStackScreenProps<BakeryReviewStackParamList, T>,

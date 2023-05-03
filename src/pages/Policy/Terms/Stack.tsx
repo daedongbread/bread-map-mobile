@@ -1,7 +1,6 @@
 import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { PolicyStackNavigationProps, PolicyStackParamList } from '../Stack';
 import { Marketing } from './Marketing';
 import { Privacy } from './Privacy';
@@ -21,7 +20,7 @@ export type TermsStackParamList = {
   };
 };
 
-const Stack = createNativeStackNavigator<TermsStackParamList>();
+const Stack = createStackNavigator<TermsStackParamList>();
 
 export type TermsStackNavigationProps<T extends keyof TermsStackParamList> = CompositeScreenProps<
   StackScreenProps<TermsStackParamList, T>,

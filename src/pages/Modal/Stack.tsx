@@ -1,7 +1,6 @@
 import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { ReportReview } from '../MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
 
@@ -16,7 +15,7 @@ export type ModalStackScreenProps<T extends keyof ModalStackParamList> = Composi
   MainStackScreenProps<keyof MainStackParamList>
 >;
 
-const Stack = createNativeStackNavigator<ModalStackParamList>();
+const Stack = createStackNavigator<ModalStackParamList>();
 
 export const ModalStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>

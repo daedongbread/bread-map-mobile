@@ -12,8 +12,7 @@ import {
   NavigationContainerRef,
   NavigatorScreenParams,
 } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Onboarding } from './Onboarding';
 import { PolicyStack, PolicyStackParamList } from './Policy/Stack';
 
@@ -29,7 +28,7 @@ export type RootStackParamList = {
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
   const navigationRef = useRef<NavigationContainerRef<RootStackParamList>>(null);

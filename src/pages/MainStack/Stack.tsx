@@ -13,7 +13,7 @@ import { Search } from '@/pages/MainStack/Search';
 import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Header } from '@shared/Header';
 import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
@@ -97,7 +97,7 @@ const MainStack = () => {
         component={ModalStack}
       />
 
-      <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal', cardOverlayEnabled: false }}>
+      <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
         <Stack.Screen name={'BookmarkBottomSheet'} component={BookmarkBottomSheet} />
         <Stack.Screen name="ReviewMoreBottomSheet" component={ReviewMoreBottomSheet} />
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />

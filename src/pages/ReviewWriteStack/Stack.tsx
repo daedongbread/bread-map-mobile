@@ -1,7 +1,6 @@
 import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
 import { ReviewRating } from './ReviewRating';
 import { ReviewSelect } from './ReviewSelect';
@@ -20,7 +19,7 @@ export type ReviewWriteStackNavigationProps<T extends keyof ReviewWriteStackPara
   MainStackScreenProps<keyof MainStackParamList>
 >;
 
-const Stack = createNativeStackNavigator<ReviewWriteStackParamList>();
+const Stack = createStackNavigator<ReviewWriteStackParamList>();
 
 export const ReviewWriteStack = () => (
   <Stack.Navigator initialRouteName="ReviewSelect" screenOptions={{ headerShown: false }}>
