@@ -1,12 +1,10 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAlarm } from '@/apis/auth/useAlarm';
-import { useAppSelector } from '@/hooks/redux';
 import { updateDeviceToken } from '@/slices/notice';
 import { notification } from '@/utils/notification';
 
 export const useNotification = () => {
-  const { deviceToken } = useAppSelector(selector => selector.notice);
   const dispatch = useDispatch();
 
   const { alarmOn, updateAlarm } = useAlarm();
@@ -17,25 +15,14 @@ export const useNotification = () => {
         return;
       }
 
-      if (deviceToken !== token) {
-        updateAlarm(token);
-        dispatch(updateDeviceToken(token));
-      }
+      updateAlarm(token);
+      dispatch(updateDeviceToken(token));
     });
-  }, [deviceToken, dispatch, updateAlarm]);
-
-  const clearDeviceToken = useCallback(() => {
-    dispatch(updateDeviceToken(null));
-    updateAlarm(null);
   }, [dispatch, updateAlarm]);
 
-  useEffect(() => {
-    if (!alarmOn || deviceToken === null) {
-      return;
-    }
-
+  const clearDeviceToken = useCallback(() => {
     getDeviceToken();
-  }, [deviceToken, alarmOn, getDeviceToken]);
+  }, [getDeviceToken]);
 
   return {
     alarmOn,
