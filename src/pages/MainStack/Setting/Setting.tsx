@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Alert, Linking, SwitchProps, TouchableOpacityProps } from 'react-native';
+import { Linking, SwitchProps, TouchableOpacityProps } from 'react-native';
 import VersionCheck from 'react-native-version-check';
 import { SettingList } from '@/components/Setting/SettingList';
 import { useAuth } from '@/hooks/useAuth';
@@ -41,8 +41,12 @@ export const Setting = () => {
       logout={logOut}
       onPressDeleteAccount={() => navigation.push('DeleteAccountModal')}
       appVersion={VersionCheck.getCurrentVersion()}
-      onPressPrivacyTerm={() => Alert.alert('navigate 개인정보 처리방침')}
-      onPressServiceTerm={() => Alert.alert('navigate 서비스 이용약관')}
+      onPressPrivacyTerm={() =>
+        Linking.openURL('https://sugared-chamomile-e10.notion.site/5c8f1341bc6d473ba0c9f5dc57a9f734')
+      }
+      onPressServiceTerm={() =>
+        Linking.openURL('https://sugared-chamomile-e10.notion.site/111c09f9f3784d80afd2abe353224e50')
+      }
       onPressBlackList={() => navigation.push('BlockListModal')}
       onPressAnnounce={() =>
         Linking.openURL('https://www.notion.so/506fd626ec3e4e259a448c67d7d47d5f?v=df32777d315d475f96bd220ae2809a71')
