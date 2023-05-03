@@ -13,7 +13,7 @@ const Auth = () => {
     <Container>
       <View style={styles.iconContainer}>
         <DaebbangFlag style={styles.iconSize} />
-        <SplitRow height={24} />
+        <SplitRow height={15} />
         <TitleTextLogo style={styles.titleText} />
       </View>
       <View>
