@@ -13,6 +13,8 @@ type Props = {
 };
 
 export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
+  const formattedPrice = Number(menu.price) ? `${Number(menu.price).toLocaleString()}원` : menu.price;
+
   return (
     <SafeAreaView edges={['top']}>
       <Header title={bakeryName} isPrevButtonShown />
@@ -33,7 +35,7 @@ export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
         </View>
 
         <SplitRow height={8} />
-        <Text style={styles.priceText}>{Number(menu.price).toLocaleString()}원</Text>
+        <Text style={styles.priceText}>{formattedPrice}</Text>
       </View>
     </SafeAreaView>
   );

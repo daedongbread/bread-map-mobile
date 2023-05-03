@@ -11,16 +11,21 @@ type MenuProps = {
   image?: string | null;
 };
 
-const Menu: React.FC<MenuProps> = ({ name, price, rating, reviewNum, image }) => (
-  <View style={styles.container}>
-    <View style={styles.textContainer}>
-      <Text style={styles.name}>{name}</Text>
-      <BreadRating type={'menu'} rating={rating} reviewLength={reviewNum} />
-      <Text style={styles.price}>{Number(price).toLocaleString()}원</Text>
+const Menu: React.FC<MenuProps> = ({ name, price, rating, reviewNum, image }) => {
+  const formattedPrice = Number(price) ? `${Number(price).toLocaleString()}원` : price;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.name}>{name}</Text>
+        <BreadRating type={'menu'} rating={rating} reviewLength={reviewNum} />
+        <Text style={styles.price}>{formattedPrice}</Text>
+      </View>
+      {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
     </View>
-    {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
-  </View>
-);
+  );
+};
+
 export default Menu;
 
 const styles = StyleSheet.create({
