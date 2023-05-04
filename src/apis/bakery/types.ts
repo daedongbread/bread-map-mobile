@@ -97,6 +97,12 @@ export type BakerySingleEntity = {
   flagInfo: FlagInfo;
   menu: BakeryMenuEntity[];
   facilityInfoList: Array<BakeryFacilityInfoType>;
+  pioneerInfo: PioneerInfo;
+};
+
+type PioneerInfo = {
+  pioneerId: number | null;
+  pioneerNickName: string | null;
 };
 
 export type FlagInfo = {

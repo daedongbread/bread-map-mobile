@@ -141,10 +141,16 @@ export const BakeryDetailInfoComponent = ({
             <ReviewSummary text={numberFormat(bakery?.bakeryInfo.reviewNum || 0)} icon={<CirclePencil />} />
           </View>
 
-          {/* <View style={styles.reviewerContainer}>
-            <Text style={styles.reviewerText}>빵빵빵순</Text>
-            <Text style={styles.reviewerSuffixText}>님 개척</Text>
-          </View> */}
+          {bakery?.pioneerInfo.pioneerNickName && (
+            <View style={styles.reviewerContainer}>
+              <Text color={theme.color.primary500} presets={['caption2', 'bold']}>
+                {bakery.pioneerInfo.pioneerNickName}
+              </Text>
+              <Text color={theme.color.gray800} presets={['caption2', 'bold']}>
+                님 개척
+              </Text>
+            </View>
+          )}
         </View>
 
         <SplitRow height={16} />
@@ -243,11 +249,6 @@ const styles = StyleSheet.create(
       paddingVertical: 4,
       borderRadius: 4,
       backgroundColor: theme.color.primary50,
-    },
-    reviewerText: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      color: theme.color.primary500,
     },
     reviewerSuffixText: {
       fontSize: 12,
