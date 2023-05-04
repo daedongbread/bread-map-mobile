@@ -1,0 +1,1 @@
+export { BakeryInfoContainer } from './BakeryInfoContainer';

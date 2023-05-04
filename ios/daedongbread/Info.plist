@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>ko</string>
+	<key>CFBundleDisplayName</key>
+	<string>대동빵지도</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.6</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>${REVERSED_CLIENT_ID}</string>
+				<string>kakao${KAKAOAPI_KEY}</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>${CODEPUSH_KEY}</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>KAKAO_APP_KEY</key>
+	<string>${KAKAOAPI_KEY}</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>프로필 사진 변경, 사진 제보, 리뷰작성을 위해 카메라 권한을 허용해 주세요.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Program requires GPS to track cars and job orders</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Program requires GPS to track cars and job orders</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Program requires GPS to track cars and job orders</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>프로필 사진 변경, 사진 제보, 리뷰작성을 위해 갤러리 권한을 허용해 주세요.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-SemiBold.otf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>

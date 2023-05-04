@@ -63,3 +63,7 @@ buck-out/
 #env
 ios/tmp.xcconfig
 .env*
+
+#oauth info
+google-services.json
+GoogleService-Info.plist
