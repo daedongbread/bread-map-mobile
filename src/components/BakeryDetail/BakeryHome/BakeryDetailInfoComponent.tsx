@@ -19,7 +19,6 @@ import {
   CirclePencil,
   CircleStar,
   ClockIcon,
-  EarthIcon,
   EditIcon,
   FileTextIcon,
   MapPinIcon,
@@ -27,6 +26,7 @@ import {
   ShareSolidIcon,
   WishIcon,
 } from '@shared/Icons';
+import { HomePageRowInfo } from './HomePageRowInfo';
 
 type Props = {
   bakeryId: number;
@@ -175,7 +175,8 @@ export const BakeryDetailInfoComponent = ({
             <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address} isCopyable />
           )}
           {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
-          {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />}
+          {/* {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />} */}
+          {!!bakery?.bakeryInfo.websiteURL && <HomePageRowInfo url={bakery.bakeryInfo.websiteURL} />}
           {!!bakery?.bakeryInfo.phoneNumber && (
             <RowInfo
               onPressText={onPhoneClick}
