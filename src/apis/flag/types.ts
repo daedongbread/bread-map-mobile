@@ -16,6 +16,7 @@ export type Flag = {
     id: number;
     name: string;
     color: FlagColor;
+    icon: 'HEART' | 'FLAG';
   };
   bakeryImageList?: string[];
 };

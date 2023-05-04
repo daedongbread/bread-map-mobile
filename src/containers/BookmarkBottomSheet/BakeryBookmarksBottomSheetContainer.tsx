@@ -59,7 +59,7 @@ export const BakeryBookmarkBottomSheetContainer: React.VFC = () => {
       flagId: flag.flagInfo.id,
       name: flag.flagInfo.name,
       color: flagColorHexColors[flag.flagInfo.color],
-      icon: index === 0 ? HeartIcon : CircleFlag,
+      icon: flag.flagInfo.icon === 'HEART' ? HeartIcon : CircleFlag,
     })),
   ];
 
