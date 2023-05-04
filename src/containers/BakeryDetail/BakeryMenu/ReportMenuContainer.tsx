@@ -114,7 +114,7 @@ export const ReportMenuContainer = () => {
       return;
     }
 
-    const imagePaths = await postImages(form.images);
+    const imagePaths = form.images.length > 0 ? await postImages(form.images) : [];
 
     await reportMenu(
       {

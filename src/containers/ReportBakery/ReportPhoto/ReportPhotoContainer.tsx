@@ -53,7 +53,7 @@ export const ReportPhotoContainer = () => {
       return;
     }
 
-    const imagePaths = await postImages(photoList);
+    const imagePaths = photoList.length > 0 ? await postImages(photoList) : [];
 
     await reportPhoto(
       {
