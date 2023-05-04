@@ -17,17 +17,13 @@ export const ToastProvider: React.FC = ({ children }) => {
   const { isShow, duration, icon, text, position } = useAppSelector(selector => selector.toast);
 
   const ToastText: React.FC = () => {
-    const item = { icon };
-
     return (
       <View style={styles.container}>
-        {item.icon && (
-          <>
-            <item.icon width={16} height={16} />
-            <SplitColumn width={6} />
-          </>
-        )}
-        <Text style={styles.text}>{text}</Text>
+        {icon && <>{icon}</>}
+        <SplitColumn width={6} />
+        <Text color="#FFFFFF" presets={['body2', 'semibold']}>
+          {text}
+        </Text>
       </View>
     );
   };
@@ -45,7 +41,7 @@ export const ToastProvider: React.FC = ({ children }) => {
   return (
     <>
       {children}
-      <Toast ref={ref} position={position} opacity={0.8} textStyle={{ opacity: 1 }} />
+      <Toast ref={ref} position={position} opacity={0.85} />
     </>
   );
 };
@@ -53,10 +49,6 @@ export const ToastProvider: React.FC = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '500',
+    alignItems: 'center',
   },
 });
