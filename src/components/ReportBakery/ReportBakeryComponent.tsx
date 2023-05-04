@@ -2,8 +2,7 @@ import React, { useRef } from 'react';
 import { Dimensions, Keyboard, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { UsePostReportRequest } from '@/apis/report/usePostReport';
-import { ReportBakeryValidFormData } from '@/containers/ReportBakery/ReportBakery';
+import { ReportBakeryForm, ReportBakeryValidFormData } from '@/containers/ReportBakery/ReportBakery';
 import { theme } from '@/styles/theme';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import { Button } from '@shared/Button/Button';
@@ -12,16 +11,21 @@ import { SplitRow } from '@shared/SplitSpace';
 import { Text } from '@shared/Text';
 import { TextInput } from '@shared/TextInput';
 import { SubTitle } from '../BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
+import { PhotoSelect } from '../BakeryDetail/BakeryReview/ReviewWrite/ReviewRating/PhotoSelect';
+import { Loading } from '../Shared/Loading';
 import { CancelBottomSheet } from './CancelBottomSheet';
 import { ReportSuccessBottomSheet } from './ReportSuccessBottomSheet';
 
 const { height } = Dimensions.get('screen');
 
 type Props = {
-  form: UsePostReportRequest;
+  form: ReportBakeryForm;
   formValid: ReportBakeryValidFormData;
   reportSuccessBottomSheetRef: React.ForwardedRef<BottomSheet>;
+  isLoading: boolean;
   onChange: (key: string, value: string) => void;
+  onSelectPhotos: () => void;
+  deSelectPhoto: (uri?: string) => void;
   onPressConfirm: () => void;
   closePage: () => void;
 };
@@ -30,7 +34,10 @@ export const ReportBakeryComponent: React.FC<Props> = ({
   form,
   formValid,
   reportSuccessBottomSheetRef,
+  isLoading,
   onChange,
+  onSelectPhotos,
+  deSelectPhoto,
   onPressConfirm,
   closePage,
 }) => {
@@ -51,13 +58,15 @@ export const ReportBakeryComponent: React.FC<Props> = ({
       <Header onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
       <KeyboardAwareScrollView style={styles.fullScreen} keyboardShouldPersistTaps="handled">
         <SplitRow height={12} />
-        <View>
+        <View style={styles.paddingHorizontal}>
           <Text presets={['heading1', 'bold']} style={styles.titleText}>
             <Text style={styles.titleHighlightText}>빵집 정보</Text>를{'\n'}알려주시겠어요?
           </Text>
         </View>
+
         <SplitRow height={40} />
-        <View>
+
+        <View style={styles.paddingHorizontal}>
           <SubTitle isRequire>빵집이름</SubTitle>
           <View style={styles.inputContainer}>
             <TextInput
@@ -93,14 +102,24 @@ export const ReportBakeryComponent: React.FC<Props> = ({
             />
           </View>
         </View>
+
+        <View style={styles.paddingHorizontal}>
+          <SubTitle>사진 업로드</SubTitle>
+        </View>
+
+        <PhotoSelect images={form.images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+
         <SplitRow height={40} />
       </KeyboardAwareScrollView>
       <Button style={styles.bottomButton} onPress={onPressConfirm}>
         확인
       </Button>
-      {insets.bottom === 0 && <SplitRow height={16} />}
+
       <ReportSuccessBottomSheet bottomSheetRef={reportSuccessBottomSheetRef} title="제보" onPress={closePage} />
       <CancelBottomSheet bottomSheetRef={cancleBottomSheetRef} onPressClose={closePage} />
+
+      {isLoading && <Loading />}
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -111,6 +130,8 @@ const styles = StyleSheet.create({
   },
   fullScreen: {
     flex: 1,
+  },
+  paddingHorizontal: {
     paddingHorizontal: 20,
   },
   titleText: {
