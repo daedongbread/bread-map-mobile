@@ -85,7 +85,6 @@ export const ReviewSelectComponent: React.FC<Props> = ({
         style={styles.confirmBtn}
         onPress={onPressConfirmButton}
         disabled={selectedBreads.length + manualSelectedBreads.length === 0}
-        appearance={selectedBreads.length + manualSelectedBreads.length ? 'primary' : 'quaternary'}
       >
         확인
       </Button>
@@ -109,7 +108,6 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     paddingHorizontal: 20,
-    // paddingBottom: 8,
   },
   confirmBtnText: {
     color: '#ffffff',
