@@ -1,6 +1,6 @@
 {
   "name": "daedongbread",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "private": true,
   "scripts": {
     "postinstall": "patch-package",
@@ -10,6 +10,8 @@
     "android:dev": "react-native run-android --variant=developmentdebug",
     "android:dev-release": "react-native run-android --variant=developmentrelease",
     "android:clean": "cd android && ./gradlew cleanBuildCache",
+    "android:create-apk": "cd android && ./gradlew assembleRelease",
+    "android:create-bundle": "cd android && ./gradlew bundleRelease",
     "ios:dev": "arch -x86_64 react-native run-ios --scheme daedongbreadDev",
     "ios:prod": "arch -x86_64 react-native run-ios --scheme daedongbreadProd",
     "ios:clean": "rm -rf ./ios/build && rm -rf ./ios/Pods && rm -rf ./ios/Podfile.lock && cd ./ios && arch -x86_64 pod install && cd ..",

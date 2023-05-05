@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/hooks/redux';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { showToast } from '@/slices/toast';
+import { theme } from '@/styles/theme';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const PHOTO_LIMIT = 10;
@@ -34,6 +35,8 @@ export const BakeryDetailInfoContainer = () => {
   }, [bakery?.flagInfo]);
 
   const onBookmarkSuccess = (selectBookmark: BookmarkList) => {
+    const icon = <selectBookmark.icon color={selectBookmark.color || theme.color.primary500} width={16} height={16} />;
+
     setFlagInfo({
       isFlaged: true,
       flagId: selectBookmark.flagId,
@@ -42,7 +45,7 @@ export const BakeryDetailInfoContainer = () => {
     dispatch(
       showToast({
         text: `${selectBookmark?.name}에 저장되었습니다.`,
-        icon: selectBookmark?.icon,
+        icon: icon,
         duration: 5 * 1000,
       })
     );

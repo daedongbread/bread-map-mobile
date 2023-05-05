@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/Shared/Header';
 import { presets } from '@/components/Shared/Text/presets';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -42,7 +41,6 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
   const insets = useSafeAreaInsets();
 
   const { bakeryId, bakeryName } = route.params?.params || { bakeryId: 0, bakeryName: '' };
-  const { bakery } = useBakeryDetail(bakeryId);
 
   return (
     <View
@@ -52,7 +50,7 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
         paddingTop: insets.top,
       }}
     >
-      <Header title={bakery?.bakeryInfo.name || ''} isPrevButtonShown />
+      <Header title={route.params.params?.bakeryName || ''} isPrevButtonShown />
       <Tab.Navigator
         backBehavior="history"
         initialRouteName="BakeryDetailHome"

@@ -1,16 +1,26 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { useMutation } from 'react-query';
-import { usePostReport } from '@/apis/report';
-import { UsePostReportRequest } from '@/apis/report/usePostReport';
+import { Asset, launchImageLibrary } from 'react-native-image-picker';
+import { usePostImages } from '@/apis/image';
+import { usePostReportBakery } from '@/apis/report/usePostReportBakery';
 import { ReportBakeryComponent } from '@/components/ReportBakery';
+import { useAppDispatch } from '@/hooks/redux';
 import { ReportBakeryStackScreenProps } from '@/pages/MainStack/ReportBakeryStack/Stack';
+import { showToast } from '@/slices/toast';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import { useNavigation } from '@react-navigation/native';
 
-const initailForm: UsePostReportRequest = {
+export type ReportBakeryForm = {
+  name: string;
+  location: string;
+  content: string;
+  images: Asset[];
+};
+
+const initailForm: ReportBakeryForm = {
   name: '',
   location: '',
   content: '',
+  images: [],
 };
 
 const initialFormValid: ReportBakeryValidFormData = {
@@ -23,14 +33,15 @@ export type ReportBakeryValidFormData = {
   isValidLocation: boolean;
 };
 
+const PHOTO_LIMIT = 10;
+
 export const ReportBaekryContainer: React.FC = ({}) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<ReportBakeryStackScreenProps<'ReportBakery'>['navigation']>();
-  const { mutate, isLoading: isSaving } = useMutation({
-    mutationFn: usePostReport,
-    onSuccess: () => {
-      reportSuccessBottomSheetRef.current?.expand();
-    },
-  });
+  const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
+  const { mutateAsync: reportBakery, isLoading: isBakerySaving } = usePostReportBakery();
+
+  const isLoading = isBakerySaving || isImageSaving;
 
   const reportSuccessBottomSheetRef = useRef<BottomSheet>(null);
 
@@ -45,6 +56,35 @@ export const ReportBaekryContainer: React.FC = ({}) => {
     },
     [setForm]
   );
+
+  const onSelectPhotos = async () => {
+    const { assets, didCancel } = await launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: PHOTO_LIMIT - form.images.length,
+    });
+
+    if (!didCancel && assets) {
+      if (assets.some(asset => asset.fileSize! > 10000000)) {
+        dispatch(
+          showToast({
+            text: '10mb 이하만 업로드 가능합니다',
+            duration: 5 * 1000,
+          })
+        );
+      } else {
+        setForm(prev => {
+          return { ...prev, images: [...prev.images, ...assets] };
+        });
+      }
+    }
+  };
+
+  const deSelectPhoto = (uri?: string) => {
+    setForm(prev => {
+      const newImages = prev.images.filter(image => image.uri !== uri);
+      return { ...prev, images: newImages };
+    });
+  };
 
   const validate = useCallback(() => {
     let _formValid: ReportBakeryValidFormData = initialFormValid;
@@ -61,12 +101,26 @@ export const ReportBaekryContainer: React.FC = ({}) => {
     return _formValid.isValidName && _formValid.isValidLocation;
   }, [form.location, form.name]);
 
-  const onPressConfirm = () => {
-    if (!validate() || isSaving) {
+  const onPressConfirm = async () => {
+    if (!validate() || isLoading) {
       return;
     }
 
-    mutate(form);
+    const imagePaths = form.images.length > 0 ? await postImages(form.images) : [];
+
+    await reportBakery(
+      {
+        name: form.name,
+        location: form.location,
+        content: form.content,
+        images: imagePaths,
+      },
+      {
+        onSuccess: () => {
+          reportSuccessBottomSheetRef.current?.expand();
+        },
+      }
+    );
   };
 
   const closePage = () => {
@@ -78,7 +132,10 @@ export const ReportBaekryContainer: React.FC = ({}) => {
       form={form}
       formValid={formValid}
       reportSuccessBottomSheetRef={reportSuccessBottomSheetRef}
+      isLoading={isLoading}
       onChange={onChange}
+      onSelectPhotos={onSelectPhotos}
+      deSelectPhoto={deSelectPhoto}
       onPressConfirm={onPressConfirm}
       closePage={closePage}
     />

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Share from 'react-native-share';
+import VersionCheck from 'react-native-version-check';
 import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
@@ -19,7 +20,6 @@ import {
   CirclePencil,
   CircleStar,
   ClockIcon,
-  EarthIcon,
   EditIcon,
   FileTextIcon,
   MapPinIcon,
@@ -27,6 +27,7 @@ import {
   ShareSolidIcon,
   WishIcon,
 } from '@shared/Icons';
+import { HomePageRowInfo } from './HomePageRowInfo';
 
 type Props = {
   bakeryId: number;
@@ -81,11 +82,19 @@ export const BakeryDetailInfoComponent = ({
   };
 
   const onPressShareBtn = async () => {
+    const appStoreUrl = await VersionCheck.getAppStoreUrl({
+      appID: '6445900733',
+    });
+    let replacedAppStoreUrl = `https://${appStoreUrl.replace('itms-apps://', '')}`;
+
+    const playStoreUrl = await VersionCheck.getPlayStoreUrl({
+      packageName: 'com.daedongbread',
+    });
+
     const shareOptions = {
       title: 'Share file',
       failOnCancel: false,
-      message:
-        '[빵순이 빵돌이 다 모여라! 🍞 ]\n리얼 빵 맛집을 찾고싶다면, 대동빵지도를 설치해주세요\n\nhttps://naver.com',
+      message: `[빵순이 빵돌이 다 모여라! 🍞 ]\n리얼 빵 맛집을 찾고싶다면, 대동빵지도 앱을 설치해주세요\n\n[앱 스토어]\n${replacedAppStoreUrl}\n[플레이 스토어]\n${playStoreUrl}`,
     };
 
     Share.open(shareOptions).catch(() => null);
@@ -175,7 +184,8 @@ export const BakeryDetailInfoComponent = ({
             <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address} isCopyable />
           )}
           {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
-          {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />}
+          {/* {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />} */}
+          {!!bakery?.bakeryInfo.websiteURL && <HomePageRowInfo url={bakery.bakeryInfo.websiteURL} />}
           {!!bakery?.bakeryInfo.phoneNumber && (
             <RowInfo
               onPressText={onPhoneClick}
