@@ -44,6 +44,7 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
           screen: 'BakeryDetailHome',
           params: {
             bakeryId: item?.id,
+            bakeryName: item.name,
           },
         },
       },
