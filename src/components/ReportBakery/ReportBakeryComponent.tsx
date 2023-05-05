@@ -91,7 +91,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
             />
           </View>
 
-          <SubTitle>추천이유(선택)</SubTitle>
+          <SubTitle>추천이유</SubTitle>
           <View style={styles.inputContainer}>
             <TextInput
               multiline
