@@ -46,6 +46,7 @@
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
 		<string>instagram</string>
+		<string>fb</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

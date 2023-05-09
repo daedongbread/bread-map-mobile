@@ -184,8 +184,14 @@ export const BakeryDetailInfoComponent = ({
             <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address} isCopyable />
           )}
           {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
-          {/* {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />} */}
-          {!!bakery?.bakeryInfo.websiteURL && <HomePageRowInfo url={bakery.bakeryInfo.websiteURL} />}
+          {!!bakery?.bakeryInfo.instagramURL && (
+            <HomePageRowInfo
+              websiteURL={bakery.bakeryInfo.websiteURL}
+              instagramURL={bakery.bakeryInfo.instagramURL}
+              facebookURL={bakery.bakeryInfo.facebookURL}
+              blogURL={bakery.bakeryInfo.blogURL}
+            />
+          )}
           {!!bakery?.bakeryInfo.phoneNumber && (
             <RowInfo
               onPressText={onPhoneClick}
