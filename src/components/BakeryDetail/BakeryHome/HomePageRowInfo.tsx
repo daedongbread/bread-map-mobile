@@ -62,7 +62,7 @@ export const HomePageRowInfo: React.FC<Props> = React.memo(({ websiteURL, instag
       </View>
 
       <View style={styles.textWrapper}>
-        {websiteURL && (
+        {!!websiteURL && (
           <>
             <View style={[styles.row, styles.websiteContainer]}>
               <TouchableOpacity onPress={() => openURL(websiteURL)}>
@@ -84,9 +84,9 @@ export const HomePageRowInfo: React.FC<Props> = React.memo(({ websiteURL, instag
 
         {isShowSocialContainer && (
           <View style={styles.row}>
-            {instagramURL && <SocialItem name="인스타그램" onPress={onPressInstagramURL} />}
-            {facebookURL && <SocialItem name="페이스북" onPress={onPressFacebookURL} />}
-            {blogURL && <SocialItem name="블로그" onPress={() => openURL(blogURL)} />}
+            {!!instagramURL && <SocialItem name="인스타그램" onPress={onPressInstagramURL} />}
+            {!!facebookURL && <SocialItem name="페이스북" onPress={onPressFacebookURL} />}
+            {!!blogURL && <SocialItem name="블로그" onPress={() => openURL(blogURL)} />}
           </View>
         )}
       </View>
