@@ -16,8 +16,16 @@ const getMenusForReview = async ({ bakeryId }: UseGetMenusForReviewProps) => {
 };
 
 export const useGetMenusForReview = ({ bakeryId }: UseGetMenusForReviewProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetBreads', { bakeryId }], () =>
-    getMenusForReview({ bakeryId })
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['useGetBreads', { bakeryId }],
+    () => getMenusForReview({ bakeryId }),
+    {
+      select: menus => {
+        return menus.map(menu => {
+          return { ...menu, rating: 5 };
+        });
+      },
+    }
   );
 
   return {

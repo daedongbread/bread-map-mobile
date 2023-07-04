@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Toast from 'react-native-easy-toast';
 import { follow, unFollow, useGetProfileInfo } from '@/apis/profile';
 import { useGetFlags } from '@/apis/profile/useGetFlags';
@@ -67,15 +67,17 @@ export function ProfileContainer() {
     }, [refetch, flagRefetch])
   );
 
-  useEffect(() => {
-    if (userId) {
-      const getReviewCount = async () => {
-        const data = await requestGetReviews({ userId: userId, pageParam: 0 });
-        setReviewCount(data?.totalElements || 0);
-      };
-      getReviewCount();
-    }
-  }, [userId]);
+  useFocusEffect(
+    useCallback(() => {
+      if (userId) {
+        const getReviewCount = async () => {
+          const data = await requestGetReviews({ userId: userId, pageParam: 0 });
+          setReviewCount(data?.totalElements || 0);
+        };
+        getReviewCount();
+      }
+    }, [userId])
+  );
 
   return (
     <>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
@@ -10,6 +9,7 @@ import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stac
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
+import { CustomImage } from '../CustomImage';
 import { IcLike, ViewMoreIcon } from '../Icons';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
@@ -35,9 +35,11 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
   const { mutateAsync: unLikeReview } = useUnLikeReview();
 
   const ImageRenderItem = ({ uri, onPress }: { uri: string; onPress: () => void }) => {
+    const style = nonResizeStyles[`${mode}ReviewImage`];
+
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <FastImage style={nonResizeStyles[`${mode}ReviewImage`]} source={{ uri }} />
+        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} />
       </TouchableWithoutFeedback>
     );
   };

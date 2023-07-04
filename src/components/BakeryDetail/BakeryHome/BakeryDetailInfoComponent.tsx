@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
-import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Share from 'react-native-share';
 import VersionCheck from 'react-native-version-check';
 import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
-import { DimImage } from '@/components/DimImage/DimImage';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -28,6 +28,8 @@ import {
   WishIcon,
 } from '@shared/Icons';
 import { HomePageRowInfo } from './HomePageRowInfo';
+
+const { width } = Dimensions.get('screen');
 
 type Props = {
   bakeryId: number;
@@ -123,12 +125,14 @@ export const BakeryDetailInfoComponent = ({
   return (
     <>
       <View style={styles.imageContainer}>
-        <Image
+        <CustomImage
           style={styles.image}
-          source={{ uri: bakery?.bakeryInfo.image || 'https://via.placeholder.com/360' }}
+          width={width}
+          source={{ uri: bakery?.bakeryInfo.image }}
           resizeMode="cover"
+          isDimmed={isDefaultImage}
         />
-        <DimImage show={isDefaultImage} />
+
         <View style={styles.reportButtonContainer}>
           <TouchableOpacity onPress={onPressReportPhoto}>
             <Text style={styles.reportButtonText}>사진제보하기</Text>
@@ -184,8 +188,14 @@ export const BakeryDetailInfoComponent = ({
             <RowInfo icon={<MapPinIcon />} text={bakery?.bakeryInfo.address} isCopyable />
           )}
           {!!bakery?.bakeryInfo.hours && <RowInfo icon={<ClockIcon />} text={bakery?.bakeryInfo.hours} />}
-          {/* {!!bakery?.bakeryInfo.websiteURL && <RowInfo icon={<EarthIcon />} text={bakery?.bakeryInfo.websiteURL} />} */}
-          {!!bakery?.bakeryInfo.websiteURL && <HomePageRowInfo url={bakery.bakeryInfo.websiteURL} />}
+          {!!bakery?.bakeryInfo.instagramURL && (
+            <HomePageRowInfo
+              websiteURL={bakery.bakeryInfo.websiteURL}
+              instagramURL={bakery.bakeryInfo.instagramURL}
+              facebookURL={bakery.bakeryInfo.facebookURL}
+              blogURL={bakery.bakeryInfo.blogURL}
+            />
+          )}
           {!!bakery?.bakeryInfo.phoneNumber && (
             <RowInfo
               onPressText={onPhoneClick}

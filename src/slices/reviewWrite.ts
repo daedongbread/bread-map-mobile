@@ -50,7 +50,7 @@ const slice = createSlice({
     updateAllSeletedBread(state, { payload }: PayloadAction<MenuForReviewEntity[]>) {
       const ratedBreads: RatedBread[] = payload.map(bread => {
         return {
-          rating: 1,
+          rating: 5,
           type: 'auto',
           ...bread,
         };

@@ -17,7 +17,7 @@ export const requestGetReviews = async ({ userId, pageParam }: UseGetReviewsProp
 
 const useGetReviews = ({ userId }: UseGetReviewsProps) => {
   const { data, isLoading, isError, refetch, hasNextPage, fetchNextPage, isRefetching } = useInfiniteQuery(
-    ['reviewUser'],
+    ['reviewUser', userId],
     ({ pageParam = 0 }) => requestGetReviews({ userId, pageParam }),
     {
       getNextPageParam: lastPage => {

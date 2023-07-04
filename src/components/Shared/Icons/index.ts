@@ -39,6 +39,7 @@ export { IcChecked } from './IcChecked';
 export { IcUnchecked } from './IcUnchecked';
 export { UploadIcon } from './UploadIcon';
 export { RightPrev } from './RightPrev';
+export { TopArrow } from './TopArrow';
 export * from './ShareSolidIcon';
 
 export * from './NavHome';
