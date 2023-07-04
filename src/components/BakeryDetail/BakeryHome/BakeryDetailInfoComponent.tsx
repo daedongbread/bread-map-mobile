@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
-import { Image, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Share from 'react-native-share';
 import VersionCheck from 'react-native-version-check';
 import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
-import { DimImage } from '@/components/DimImage/DimImage';
 import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -28,6 +28,8 @@ import {
   WishIcon,
 } from '@shared/Icons';
 import { HomePageRowInfo } from './HomePageRowInfo';
+
+const { width } = Dimensions.get('screen');
 
 type Props = {
   bakeryId: number;
@@ -123,12 +125,14 @@ export const BakeryDetailInfoComponent = ({
   return (
     <>
       <View style={styles.imageContainer}>
-        <Image
+        <CustomImage
           style={styles.image}
-          source={{ uri: bakery?.bakeryInfo.image || 'https://via.placeholder.com/360' }}
+          width={width}
+          source={{ uri: bakery?.bakeryInfo.image }}
           resizeMode="cover"
+          isDimmed={isDefaultImage}
         />
-        <DimImage show={isDefaultImage} />
+
         <View style={styles.reportButtonContainer}>
           <TouchableOpacity onPress={onPressReportPhoto}>
             <Text style={styles.reportButtonText}>사진제보하기</Text>

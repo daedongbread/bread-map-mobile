@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { BakeryInfo } from '@/apis/bakery/types';
 import { LocationMarker } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
@@ -15,7 +16,7 @@ const { width } = Dimensions.get('screen');
 export const ReviewDetailHeader = ({ bakery }: Props) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} resizeMode="stretch" source={{ uri: bakery.bakeryImage }} />
+      <FastImage style={styles.image} resizeMode="cover" source={{ uri: bakery.bakeryImage }} />
       <SplitColumn width={8} />
       <View>
         <Text presets={['body1', 'bold']} style={styles.nameText}>
