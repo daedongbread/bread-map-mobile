@@ -28,7 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>${REVERSED_CLIENT_ID}</string>
-				<string>kakao${KAKAOAPI_KEY}</string>
+				<string>${KAKAO_API_KEY}</string>
 			</array>
 		</dict>
 	</array>
@@ -39,7 +39,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>KAKAO_APP_KEY</key>
-	<string>${KAKAOAPI_KEY}</string>
+	<string>${KAKAO_NATIVE_APP_KEY}</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>
