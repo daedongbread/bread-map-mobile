@@ -1,0 +1,1 @@
+export { HomeCommunityPartComponent } from './HomeCommunityPartComponent';

@@ -5,8 +5,8 @@ import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
-import { BakeryMap } from '@/components/Home/BakeryMap/BakeryMap';
-import { BakeryMapOverlay } from '@/components/Home/BakeryMapOverlay/BakeryMapOverlay';
+import { BakeryMap } from '@/components/Map/BakeryMap/BakeryMap';
+import { BakeryMapOverlay } from '@/components/Map/BakeryMapOverlay/BakeryMapOverlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';

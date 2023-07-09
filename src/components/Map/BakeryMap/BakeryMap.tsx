@@ -4,7 +4,7 @@ import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
 import { useSharedValue } from 'react-native-reanimated';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
-import { BakeryMarker } from '@/components/Home';
+import { BakeryMarker } from '../BakeryMarker';
 
 type Props = MapViewProps & {
   markers?: Array<BakeryMapBakeryEntity> | Array<BakeryMapBakeryFilterEntity>;

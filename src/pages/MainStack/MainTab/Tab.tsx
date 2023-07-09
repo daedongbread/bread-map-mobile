@@ -2,20 +2,25 @@ import React from 'react';
 import { HomeStack, HomeStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
-import { ReportBakery } from '@/pages/MainStack/ReportBakeryStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { theme } from '@/styles/theme';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { Header } from '@shared/Header';
-import { NavNotification, NavProfile } from '@shared/Icons';
-import IcNavHome from '@shared/Icons/IcNavHome.svg';
-import { NavReport } from '@shared/Icons/NavReport';
+
+import HomeActiveIcon from '@shared/Icons/HomeActiveIcon.svg';
+import HomeIcon from '@shared/Icons/HomeIcon.svg';
+import MapActiveIcon from '@shared/Icons/MapActiveIcon.svg';
+import MapIcon from '@shared/Icons/MapIcon.svg';
+import NotificationActiveIcon from '@shared/Icons/NotificationActiveIcon.svg';
+import NotificationIcon from '@shared/Icons/NotificationIcon.svg';
+import ProfileActiveIcon from '@shared/Icons/ProfileActiveIcon.svg';
+import ProfileIcon from '@shared/Icons/ProfileIcon.svg';
 import { ProfileStackParamList } from '../ProfileStack/Stack';
+import { Map } from './HomeStack/Map';
 
 export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
-  ReportBakery: undefined;
+  Map: undefined;
   Notification: undefined;
   Profile: ProfileStackParamList['Profile'];
 };
@@ -33,45 +38,45 @@ const MainTab = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: theme.color.primary500,
-        tabBarInactiveTintColor: theme.color.gray900,
       }}
     >
-      <Tab.Screen name={'HomeStack'} options={{ tabBarIcon: IcNavHome }} component={HomeStack} />
       <Tab.Screen
-        name={'ReportBakery'}
-        options={{ tabBarIcon: NavReport }}
-        component={ReportBakery}
-        listeners={({ navigation: { navigate } }) => ({
-          tabPress: e => {
-            e.preventDefault();
-            navigate('MainStack', {
-              screen: 'ReportBakeryStack',
-            });
+        name={'HomeStack'}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return focused ? <HomeActiveIcon /> : <HomeIcon />;
           },
-        })}
+        }}
+        component={HomeStack}
+      />
+      <Tab.Screen
+        name={'Map'}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return focused ? <MapActiveIcon /> : <MapIcon />;
+          },
+        }}
+        component={Map}
       />
       <Tab.Screen
         name={'Notification'}
         options={{
-          tabBarIcon: NavNotification,
           headerShown: true,
           header: () => <Header title={'알림'} isPrevButtonShown />,
+          tabBarIcon: ({ focused }) => {
+            return focused ? <NotificationActiveIcon /> : <NotificationIcon />;
+          },
         }}
         component={Notification}
       />
       <Tab.Screen
         name={'Profile'}
-        options={{ tabBarIcon: NavProfile }}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return focused ? <ProfileActiveIcon /> : <ProfileIcon />;
+          },
+        }}
         component={Profile}
-        // listeners={({ navigation: { navigate } }) => ({
-        //   tabPress: e => {
-        //     e.preventDefault();
-        //     navigate('MainStack', {
-        //       screen: 'ProfileModal',
-        //     });
-        //   },
-        // })}
       />
     </Tab.Navigator>
   );

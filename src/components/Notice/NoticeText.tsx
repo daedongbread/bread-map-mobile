@@ -17,7 +17,7 @@ export const NoticeText = ({ title, nickname, createdAt }: Props) => {
       <Text presets={['body2']} style={styles.title} numberOfLines={2}>
         {prevTitle.trim()}
         <Text presets={['bold']}>{nickname}</Text>
-        {nextTitle.trim()}
+        {/* {nextTitle.trim()} */}
       </Text>
       <Text style={{ color: theme.color.gray400 }}>{createdAt}</Text>
     </View>

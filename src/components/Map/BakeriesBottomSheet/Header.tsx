@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
-
+import { TabItem } from '@/containers/Map';
 import { Text } from '@shared/Text';
 import { TabIcon } from './TabIcon';
 

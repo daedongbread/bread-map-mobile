@@ -4,7 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { FlagColor } from '@/apis/flag';
-import { BakeryThumbnail } from '@/components/Home/BakeryThumbnail';
 
 import { flagColorHexColors } from '@/containers/Bookmark';
 import { theme } from '@/styles/theme';
@@ -14,6 +13,7 @@ import { numberFormat, resizePixels } from '@/utils';
 import { CircleFlag, CirclePencil, CircleStar, HeartIcon, Quote } from '@shared/Icons';
 import EditIcon from '@shared/Icons/IcEdit.svg';
 import { Text } from '@shared/Text';
+import { BakeryThumbnail } from '../BakeryThumbnail';
 
 type Props = {
   bakery: BakeryMapBakeryEntity;

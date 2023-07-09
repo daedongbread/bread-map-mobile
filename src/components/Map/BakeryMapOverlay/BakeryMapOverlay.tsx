@@ -1,11 +1,10 @@
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { BakeryMapSearch } from '@/components/Home/BakeryMapSearch/BakeryMapSearch';
-
 import { FlagIcon, NavigationIcon } from '@shared/Icons';
 import IcReset from '@shared/Icons/IcReset.svg';
 import { Text } from '@shared/Text';
+import { BakeryMapSearch } from '../BakeryMapSearch/BakeryMapSearch';
 
 type Props = {
   topInsets: number;

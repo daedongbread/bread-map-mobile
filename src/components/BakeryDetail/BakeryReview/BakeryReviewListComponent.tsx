@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { ReviewContent } from '@/apis/bakery/types';
-import { TabIcon } from '@/components/Home/BakeriesBottomSheet/TabIcon';
+import { TabIcon } from '@/components/Map/BakeriesBottomSheet/TabIcon';
 import { Review } from '@/components/Shared/Reviews';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';

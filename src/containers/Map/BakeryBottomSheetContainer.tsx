@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from 'react';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
-import { BakeriesBottomSheet } from '@/components/Home/BakeriesBottomSheet';
 
+import { BakeriesBottomSheet } from '@/components/Map/BakeriesBottomSheet';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { onChangeSort } from '@/slices/bakeryMap';

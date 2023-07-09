@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { TabItem } from '@/containers/Home';
-
+import { TabItem } from '@/containers/Map';
 import { theme } from '@/styles/theme';
 
 import { Text } from '@shared/Text';

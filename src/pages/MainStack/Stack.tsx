@@ -1,12 +1,11 @@
 import React from 'react';
-import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { DeleteAccount } from '@/pages/MainStack/DeleteAccount';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
-import { Notification } from '@/pages/MainStack/Notification';
 import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { Search } from '@/pages/MainStack/Search';
@@ -123,13 +122,6 @@ const MainStack = () => {
       >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
-        <Stack.Screen
-          options={{
-            header: () => <Header title={'알림'} isPrevButtonShown />,
-          }}
-          name={'NotificationModal'}
-          component={Notification}
-        />
         <Stack.Screen name={'ProfileModal'} component={Profile} />
         <Stack.Screen
           name={'SettingModal'}

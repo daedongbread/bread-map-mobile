@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { FlatList, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
-import { BakeryCard } from '@/components/Home/BakeryCard';
-import { TabItem } from '@/containers/Home/BakeryBottomSheetContainer';
 
+import { TabItem } from '@/containers/Map';
 import { theme } from '@/styles/theme';
 
 import { resizePixel } from '@/utils';
@@ -13,6 +12,7 @@ import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 
 import ImageBread from '@shared/Icons/ImageBread.svg';
 import { Text } from '@shared/Text';
+import { BakeryCard } from '../BakeryCard';
 import { Header } from './Header';
 
 type Props = Pick<BottomSheetProps, 'onChange'> & {
