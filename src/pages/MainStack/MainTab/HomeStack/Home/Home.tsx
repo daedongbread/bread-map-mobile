@@ -8,7 +8,7 @@ import { HomeCommunityPartContainer } from '@/containers/Home/HomeCommunityPartC
 
 export const Home: React.FC = () => (
   <ScrollView style={styles.flex}>
-    <SafeAreaView style={styles.flex}>
+    <SafeAreaView style={styles.flex} edges={['top']}>
       {/* 랭킹팀 파트 */}
       <View />
       {/* 커뮤니티 팀 파트 */}
