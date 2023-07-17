@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { RootRouteProps } from '@/pages/MainStack/MainTab/ProfileStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useRoute } from '@react-navigation/native';

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { CommentIcon, LikeIcon, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
+import { BakeryInfoCard } from './BakeryInfoCard';
+import { Footer } from './Footer';
 
 type Props = {
   isFirst: boolean;
@@ -15,6 +16,7 @@ const mainText =
   '안녕하세요! 대동빵지도 이벤트 관리자 대빵이에요! 여러분이가장 좋아하는 가장 좋아하는안녕하세요! 대동빵지도 이벤트 관리자 대빵이에요! 여러분이가장 좋아하는 가장 좋아하는안녕하세요! 대동빵지도 이벤트 관리자 대빵이에요! 여러분이가장 좋아하는 가장 좋아하는';
 
 const MAIN_TEXT_LIMIT = 38;
+// const NO_IMAGE_MAIN_TEXT_LIMIT = 55;
 
 export const Post = ({ isFirst }: Props) => {
   return (
@@ -65,31 +67,11 @@ export const Post = ({ isFirst }: Props) => {
 
         <SplitRow height={15} />
 
-        <View style={styles.container1}>
-          <View style={styles.container2}>
-            <LikeIcon />
-            <SplitColumn width={2} />
-            <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
-              25
-            </Text>
+        <BakeryInfoCard />
 
-            <SplitColumn width={10} />
+        <SplitRow height={15} />
 
-            <CommentIcon />
-            <SplitColumn width={2} />
-            <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
-              39
-            </Text>
-          </View>
-
-          <View style={styles.container3}>
-            <Text color={theme.color.gray500} presets={['caption1', 'medium']}>
-              2021.10.01
-            </Text>
-            <SplitColumn width={12} />
-            <ViewMoreIcon />
-          </View>
-        </View>
+        <Footer isLiked={true} likeCount={26} commentCount={39} date={'2021.10.01'} onPressMenu={() => null} />
       </View>
     </View>
   );
@@ -136,17 +118,5 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 8,
-  },
-  container1: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  container2: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  container3: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });

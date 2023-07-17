@@ -1,0 +1,1 @@
+export { CommunityComponent } from './CommunityComponent';

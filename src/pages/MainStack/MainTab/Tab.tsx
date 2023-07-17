@@ -1,7 +1,7 @@
 import React from 'react';
 import { HomeStack, HomeStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Stack';
-import { Notification } from '@/pages/MainStack/Notification';
-import { Profile } from '@/pages/MainStack/ProfileStack';
+import { Notification } from '@/pages/MainStack/MainTab/Notification';
+import { Profile } from '@/pages/MainStack/MainTab/ProfileStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
@@ -15,8 +15,8 @@ import NotificationActiveIcon from '@shared/Icons/NotificationActiveIcon.svg';
 import NotificationIcon from '@shared/Icons/NotificationIcon.svg';
 import ProfileActiveIcon from '@shared/Icons/ProfileActiveIcon.svg';
 import ProfileIcon from '@shared/Icons/ProfileIcon.svg';
-import { ProfileStackParamList } from '../ProfileStack/Stack';
-import { Map } from './HomeStack/Map';
+import { Map } from './Map';
+import { ProfileStackParamList } from './ProfileStack/Stack';
 
 export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
@@ -43,18 +43,14 @@ const MainTab = () => {
       <Tab.Screen
         name={'HomeStack'}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return focused ? <HomeActiveIcon /> : <HomeIcon />;
-          },
+          tabBarIcon: ({ focused }) => (focused ? <HomeActiveIcon /> : <HomeIcon />),
         }}
         component={HomeStack}
       />
       <Tab.Screen
         name={'Map'}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return focused ? <MapActiveIcon /> : <MapIcon />;
-          },
+          tabBarIcon: ({ focused }) => (focused ? <MapActiveIcon /> : <MapIcon />),
         }}
         component={Map}
       />
@@ -63,18 +59,14 @@ const MainTab = () => {
         options={{
           headerShown: true,
           header: () => <Header title={'알림'} isPrevButtonShown />,
-          tabBarIcon: ({ focused }) => {
-            return focused ? <NotificationActiveIcon /> : <NotificationIcon />;
-          },
+          tabBarIcon: ({ focused }) => (focused ? <NotificationActiveIcon /> : <NotificationIcon />),
         }}
         component={Notification}
       />
       <Tab.Screen
         name={'Profile'}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return focused ? <ProfileActiveIcon /> : <ProfileIcon />;
-          },
+          tabBarIcon: ({ focused }) => (focused ? <ProfileActiveIcon /> : <ProfileIcon />),
         }}
         component={Profile}
       />

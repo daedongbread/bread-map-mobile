@@ -6,7 +6,6 @@ import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { DeleteAccount } from '@/pages/MainStack/DeleteAccount';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
-import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { Search } from '@/pages/MainStack/Search';
 import { Setting } from '@/pages/MainStack/Setting';
@@ -26,7 +25,7 @@ import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
-import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
+import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
 export type MainStackParamList = {
   PolicyStack: NavigatorScreenParams<PolicyStackParamList>;
@@ -66,7 +65,6 @@ export type MainStackParamList = {
     bakeryId: number;
   };
   NotificationModal: undefined;
-  ProfileModal: undefined;
   SettingModal: undefined;
   BlockListModal?: {
     blockUserId?: number;
@@ -122,7 +120,6 @@ const MainStack = () => {
       >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
-        <Stack.Screen name={'ProfileModal'} component={Profile} />
         <Stack.Screen
           name={'SettingModal'}
           component={Setting}

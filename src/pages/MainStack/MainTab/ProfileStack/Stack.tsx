@@ -1,7 +1,7 @@
 import React from 'react';
 import { CompositeScreenProps, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
-import { MainStackScreenProps } from '../Stack';
+import { MainStackScreenProps } from '../../Stack';
 import { EditProfile } from './EditProfile';
 import { FollowDetail } from './FollowDetail';
 import { ListDetail } from './ListDetail';
@@ -25,11 +25,6 @@ export type ProfileStackParamList = {
     index: number;
     userId: number;
   };
-
-  // UpdateBaker: {
-  //   bakeryId: number;
-  //   address: string;
-  // };
 };
 
 export type RootRouteProps<RouteName extends keyof ProfileStackParamList> = RouteProp<ProfileStackParamList, RouteName>;

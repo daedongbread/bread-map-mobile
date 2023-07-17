@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { SplitRow } from '@/components/Shared/SplitSpace';
+import { Post } from '../../Community/Post';
 import { Header } from '../Header';
 import { BottomBanner } from './BottomBanner';
-import { Post } from './Post';
 
 type Props = {
   onPressMore: () => void;
@@ -12,12 +12,12 @@ type Props = {
 export const HomeCommunityPartComponent = ({ onPressMore }: Props) => {
   return (
     <View>
-      <View style={styles.mainContainer}>
+      <View>
         <Header title="커뮤니티 핫한 글" onPressMore={onPressMore} />
 
         <Post isFirst={true} />
-        <Post />
-        <Post />
+        <Post isFirst={false} />
+        <Post isFirst={false} />
       </View>
 
       <SplitRow height={20} />
@@ -26,7 +26,3 @@ export const HomeCommunityPartComponent = ({ onPressMore }: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {},
-});
