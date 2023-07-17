@@ -14,7 +14,6 @@ import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/n
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Header } from '@shared/Header';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
-import { PolicyStackParamList } from '../Policy/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
@@ -24,11 +23,12 @@ import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
+import { Community } from './MainTab/HomeStack/Community';
 import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
 export type MainStackParamList = {
-  PolicyStack: NavigatorScreenParams<PolicyStackParamList>;
   MainTab: NavigatorScreenParams<MainTabParamList>;
+  Community: undefined;
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
@@ -84,6 +84,8 @@ const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Community" component={Community} />
+
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
 

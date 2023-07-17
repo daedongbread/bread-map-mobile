@@ -1,9 +1,9 @@
 import React from 'react';
 import { HomeCommunityPartComponent } from '@/components/Home/HomeCommunityPart';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
-type Navigation = HomeStackScreenProps<'Home'>;
+type Navigation = MainStackScreenProps<'Community'>;
 
 export const HomeCommunityPartContainer = () => {
   const navigation = useNavigation<Navigation['navigation']>();
