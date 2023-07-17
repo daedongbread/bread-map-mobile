@@ -13,7 +13,6 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Header } from '@shared/Header';
-import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { PolicyStackParamList } from '../Policy/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
@@ -130,8 +129,7 @@ const MainStack = () => {
 
         <Stack.Screen
           options={{
-            headerBackImage: () => <IcX24 />,
-            headerTitle: '탈퇴하기',
+            header: () => <Header title={'탈퇴하기'} isPrevButtonShown />,
           }}
           name={'DeleteAccountModal'}
           component={DeleteAccount}

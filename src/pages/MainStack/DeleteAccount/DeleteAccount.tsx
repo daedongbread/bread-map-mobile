@@ -1,12 +1,16 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation } from 'react-query';
 import { requestDeleteAccount } from '@/apis/auth/useDeleteAccount';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { useAuth } from '@/hooks/useAuth';
 import { theme } from '@/styles/theme';
 import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
 export const DeleteAccount = () => {
+  const insets = useSafeAreaInsets();
+
   const { logOut } = useAuth();
 
   const { mutate } = useMutation({
@@ -42,6 +46,8 @@ export const DeleteAccount = () => {
           탈퇴하기
         </Button>
       </View>
+
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -88,7 +94,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.gray800,
   },
   buttonWrapper: {
-    paddingVertical: 20,
     paddingHorizontal: 16,
   },
 });
