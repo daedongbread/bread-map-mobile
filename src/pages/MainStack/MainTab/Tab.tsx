@@ -5,7 +5,6 @@ import { Profile } from '@/pages/MainStack/MainTab/ProfileStack';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { Header } from '@shared/Header';
 
 import HomeActiveIcon from '@shared/Icons/HomeActiveIcon.svg';
 import HomeIcon from '@shared/Icons/HomeIcon.svg';
@@ -57,8 +56,6 @@ const MainTab = () => {
       <Tab.Screen
         name={'Notification'}
         options={{
-          headerShown: true,
-          header: () => <Header title={'알림'} isPrevButtonShown />,
           tabBarIcon: ({ focused }) => (focused ? <NotificationActiveIcon /> : <NotificationIcon />),
         }}
         component={Notification}

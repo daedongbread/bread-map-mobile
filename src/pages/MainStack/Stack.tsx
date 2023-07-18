@@ -12,7 +12,6 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
-import { Header } from '@shared/Header';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
@@ -121,21 +120,9 @@ const MainStack = () => {
       >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
-        <Stack.Screen
-          name={'SettingModal'}
-          component={Setting}
-          options={{
-            header: () => <Header title={'설정'} isPrevButtonShown />,
-          }}
-        />
+        <Stack.Screen name={'SettingModal'} component={Setting} options={{ headerShown: false }} />
 
-        <Stack.Screen
-          options={{
-            header: () => <Header title={'탈퇴하기'} isPrevButtonShown />,
-          }}
-          name={'DeleteAccountModal'}
-          component={DeleteAccount}
-        />
+        <Stack.Screen name={'DeleteAccountModal'} component={DeleteAccount} options={{ headerShown: false }} />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
       <Stack.Screen name={'EditBakeryStack'} component={EditBakeryStack} />
