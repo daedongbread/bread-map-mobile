@@ -5,7 +5,7 @@ import { fetcher } from '@/apis/fetcher';
 import { usePostImages } from '@/apis/image';
 import { EditProfileComponent } from '@/components/Profile';
 import { useAppDispatch } from '@/hooks/redux';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { RootRouteProps } from '@/pages/MainStack/MainTab/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';

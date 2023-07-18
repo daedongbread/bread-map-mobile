@@ -1,7 +1,7 @@
 import React from 'react';
 import { follow, unFollow, useGetFollower, useGetFollowing } from '@/apis/profile';
 import { FollowDetailComponent } from '@/components/Profile';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { RootRouteProps } from '@/pages/MainStack/MainTab/ProfileStack/Stack';
 import { useRoute } from '@react-navigation/native';
 
 export function FollowDetailContainer() {

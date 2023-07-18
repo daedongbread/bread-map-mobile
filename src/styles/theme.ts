@@ -27,6 +27,7 @@ export const theme: Theme = {
     primary300: '#ffa88c',
     primary400: '#ff8b66',
     primary500: '#ff6e40',
+    primary600: '#F66131',
     overLay: 'rgba(0, 0, 0, 60%)',
     red: '#F3213B',
   },

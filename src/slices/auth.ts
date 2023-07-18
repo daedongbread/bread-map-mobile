@@ -128,12 +128,19 @@ export const authSlice = createSlice({
         state.loading = false;
       });
 
-    builder.addCase(logout.fulfilled, state => {
-      EncryptedStorage.removeItem(USER_KEY);
-      removeHeader();
+    builder
+      .addCase(logout.fulfilled, state => {
+        EncryptedStorage.removeItem(USER_KEY);
+        removeHeader();
 
-      state.accessToken = null;
-    });
+        state.accessToken = null;
+      })
+      .addCase(logout.rejected, state => {
+        EncryptedStorage.removeItem(USER_KEY);
+        removeHeader();
+
+        state.accessToken = null;
+      });
   },
 });
 

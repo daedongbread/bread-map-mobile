@@ -5,8 +5,8 @@ import { SvgProps } from 'react-native-svg';
 import { useQueryClient } from 'react-query';
 import { useGetBakery } from '@/apis/bakery';
 import { useBookmarkBakery, useGetFlags } from '@/apis/flag';
-import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
 
+import { BakeryBookmarksBottomSheet, BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { flagColorHexColors } from '@/containers/Bookmark';
 import { useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';

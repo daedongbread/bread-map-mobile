@@ -1,13 +1,11 @@
 import React from 'react';
-import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { DeleteAccount } from '@/pages/MainStack/DeleteAccount';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
-import { Notification } from '@/pages/MainStack/Notification';
-import { Profile } from '@/pages/MainStack/ProfileStack';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
 import { Search } from '@/pages/MainStack/Search';
 import { Setting } from '@/pages/MainStack/Setting';
@@ -15,9 +13,7 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { Header } from '@shared/Header';
-import IcX24 from '@shared/Icons/IcX24.svg';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
-import { PolicyStackParamList } from '../Policy/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
@@ -27,11 +23,12 @@ import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
-import { ProfileStack, ProfileStackParamList } from './ProfileStack/Stack';
+import { Community } from './MainTab/HomeStack/Community';
+import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
 export type MainStackParamList = {
-  PolicyStack: NavigatorScreenParams<PolicyStackParamList>;
   MainTab: NavigatorScreenParams<MainTabParamList>;
+  Community: undefined;
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
@@ -67,7 +64,6 @@ export type MainStackParamList = {
     bakeryId: number;
   };
   NotificationModal: undefined;
-  ProfileModal: undefined;
   SettingModal: undefined;
   BlockListModal?: {
     blockUserId?: number;
@@ -88,6 +84,8 @@ const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Community" component={Community} />
+
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
 
@@ -124,14 +122,6 @@ const MainStack = () => {
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
         <Stack.Screen
-          options={{
-            header: () => <Header title={'알림'} isPrevButtonShown />,
-          }}
-          name={'NotificationModal'}
-          component={Notification}
-        />
-        <Stack.Screen name={'ProfileModal'} component={Profile} />
-        <Stack.Screen
           name={'SettingModal'}
           component={Setting}
           options={{
@@ -141,8 +131,7 @@ const MainStack = () => {
 
         <Stack.Screen
           options={{
-            headerBackImage: () => <IcX24 />,
-            headerTitle: '탈퇴하기',
+            header: () => <Header title={'탈퇴하기'} isPrevButtonShown />,
           }}
           name={'DeleteAccountModal'}
           component={DeleteAccount}
