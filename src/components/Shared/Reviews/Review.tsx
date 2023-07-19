@@ -27,7 +27,7 @@ type ReviewProps = {
 
 const CONTENT_TEXT_LIMIT = 60;
 
-export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+export const Review = React.memo(({ mode, review, isEnd, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
@@ -204,7 +204,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
       {isEnd || <Divider style={styles.endDivider} />}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create(
   resizePixels({

@@ -14,15 +14,33 @@ import { ReviewDetailHeader } from './ReviewDetailHeader';
 
 type Props = {
   review: ReviewDetailEntity;
+  comment: string;
+  setComment: (text: string) => void;
   refetch: () => void;
   goNavBakeryDetail: () => void;
+  onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
+  onPressCommentSubmit: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail }: Props) => {
+export const BakeryReviewDetailComponent = ({
+  review,
+  comment,
+  setComment,
+  refetch,
+  goNavBakeryDetail,
+  onPressCommentMenu,
+  onPressCommentSubmit,
+}: Props) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <KeyboardAwareScrollView style={styles.container} enableOnAndroid enableAutomaticScroll={true} extraHeight={12}>
+    <KeyboardAwareScrollView
+      style={styles.container}
+      enableOnAndroid
+      enableAutomaticScroll={true}
+      extraHeight={12}
+      keyboardShouldPersistTaps="handled"
+    >
       <SafeAreaView style={styles.container}>
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
 
@@ -40,10 +58,10 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
 
         <View style={styles.commentContainer}>
           {/* <NoComments /> */}
-          <Comments />
+          <Comments onPressCommentMenu={onPressCommentMenu} />
         </View>
 
-        <Input />
+        <Input comment={comment} setComment={setComment} onPressCommentSubmit={onPressCommentSubmit} />
 
         {insets.bottom === 0 && <SplitRow height={12} />}
       </SafeAreaView>

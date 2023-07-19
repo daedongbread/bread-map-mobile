@@ -1,18 +1,18 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Comment } from './Comment';
 
-type Props = {};
+type Props = {
+  onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
+};
 
-export const Comments = ({}: Props) => {
+export const Comments = ({ onPressCommentMenu }: Props) => {
   return (
-    <View style={styles.container}>
-      <Comment />
-      <Comment isReply />
+    <View>
+      <Comment onPressCommentMenu={onPressCommentMenu} />
+      <Comment onPressCommentMenu={onPressCommentMenu} isReply />
+      <Comment onPressCommentMenu={onPressCommentMenu} />
+      <Comment onPressCommentMenu={onPressCommentMenu} isReply />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-});

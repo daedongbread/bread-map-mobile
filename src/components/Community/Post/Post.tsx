@@ -19,6 +19,8 @@ const MAIN_TEXT_LIMIT = 38;
 // const NO_IMAGE_MAIN_TEXT_LIMIT = 55;
 
 export const Post = ({ isFirst }: Props) => {
+  const onPressLike = () => {};
+
   return (
     <View style={[styles.container, !isFirst && styles.divider]}>
       <Text color={theme.color.white} presets={['caption2', 'bold']} style={styles.tag}>
@@ -71,7 +73,15 @@ export const Post = ({ isFirst }: Props) => {
 
         <SplitRow height={15} />
 
-        <Footer isLiked={true} likeCount={26} commentCount={39} date={'2021.10.01'} onPressMenu={() => null} />
+        <Footer
+          isLiked={true}
+          likeCount={26}
+          commentCount={39}
+          date={'2021.10.01'}
+          onPressMenu={() => null}
+          onPressComment={() => null}
+          onPressLike={onPressLike}
+        />
       </View>
     </View>
   );

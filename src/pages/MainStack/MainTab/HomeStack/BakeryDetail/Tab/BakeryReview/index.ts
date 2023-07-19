@@ -1,4 +1,4 @@
 export { BakeryReview } from './BakeryReview';
 export { ReviewMoreBottomSheet } from './ReviewMoreBottomSheet';
-export { ReportReview } from './ReportReview';
+export { AccuseReview } from './AccuseReview';
 export { BlockUserBottomSheet } from './BlockUserBottomSheet';

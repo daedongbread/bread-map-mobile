@@ -9,9 +9,10 @@ import Ellipse from '@shared/Icons/Ellipse.svg';
 
 type Props = {
   isReply?: boolean;
+  onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
 };
 
-export const Comment = ({ isReply = false }: Props) => {
+export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
   return (
     <Row style={[styles.container, isReply && styles.replyContainer]}>
       <Image style={styles.profileImage} source={{ uri: 'https://picsum.photos/40/40' }} />
@@ -31,7 +32,7 @@ export const Comment = ({ isReply = false }: Props) => {
 
             <SplitColumn width={2} />
 
-            <TouchableOpacity onPress={() => null}>
+            <TouchableOpacity onPress={() => onPressCommentMenu(0, 7)}>
               <ViewMoreIcon />
             </TouchableOpacity>
           </Row>
@@ -69,12 +70,14 @@ export const Comment = ({ isReply = false }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 12,
+    paddingTop: 20,
+    paddingBottom: 16,
     marginHorizontal: 20,
   },
   replyContainer: {
     paddingVertical: 14,
     paddingHorizontal: 12,
+    marginBottom: 4,
     backgroundColor: '#F5F5F5',
     borderRadius: 8,
   },

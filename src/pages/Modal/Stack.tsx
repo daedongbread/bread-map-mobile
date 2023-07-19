@@ -1,12 +1,16 @@
 import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
-import { ReportReview } from '../MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
+import { AccuseComment } from '../MainStack/Community';
+import { AccuseReview } from '../MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
 
 export type ModalStackParamList = {
-  ReportReview: {
+  AccuseReview: {
     reviewId: number;
+  };
+  AccuseComment: {
+    commentId: number;
   };
 };
 
@@ -19,6 +23,7 @@ const Stack = createStackNavigator<ModalStackParamList>();
 
 export const ModalStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ReportReview" component={ReportReview} />
+    <Stack.Screen name="AccuseReview" component={AccuseReview} />
+    <Stack.Screen name="AccuseComment" component={AccuseComment} />
   </Stack.Navigator>
 );

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 import { Button } from '@/components/Shared/Button/Button';
@@ -22,57 +22,69 @@ const BackdropComponent = ({ onClose }: BackdropComponentProps) => (
 type Props = {
   title: string;
   subTitle: string;
-  closePage: () => void;
+  leftButtonText: string;
+  rightButtonText: string;
+  onPressLeftButton: () => void;
+  onPressRightButton: () => void;
   closeBottomSheet: () => void;
+  onPressCloseButton: () => void;
 };
 
-export const QuestionBottomSheetComponent = ({ title, subTitle, closePage, closeBottomSheet }: Props) => {
-  const ref = useRef<BottomSheet>(null);
+export const QuestionBottomSheetComponent = React.forwardRef<BottomSheet, Props>(
+  (
+    {
+      title,
+      subTitle,
+      leftButtonText,
+      rightButtonText,
+      onPressLeftButton,
+      onPressRightButton,
+      closeBottomSheet,
+      onPressCloseButton,
+    },
+    ref
+  ) => {
+    const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
-  const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
+    const onLayout: ViewProps['onLayout'] = e => {
+      const height = e.nativeEvent.layout.height;
+      if (height) {
+        setSnapPoints([height + 50]);
+      }
+    };
 
-  const onLayout: ViewProps['onLayout'] = e => {
-    const height = e.nativeEvent.layout.height;
-    if (height) {
-      setSnapPoints([height + 50]);
-    }
-  };
-
-  const onPressCloseButton = () => {
-    ref.current?.close();
-  };
-
-  return (
-    <BottomSheet
-      ref={ref}
-      snapPoints={snapPoints}
-      onClose={closeBottomSheet}
-      handleIndicatorStyle={styles.indicator}
-      backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
-    >
-      <View style={styles.container} onLayout={onLayout}>
-        <SplitRow height={24} />
-        <Text presets={['subhead', 'bold']} style={styles.title}>
-          {title}
-        </Text>
-        <SplitRow height={16} />
-        <Text presets={['body2', 'semibold']} style={styles.subTitle}>
-          {subTitle}
-        </Text>
-        <SplitRow height={32} />
-        <View style={styles.footer}>
-          <Button style={styles.button} appearance={'terdary'} onPress={onPressCloseButton}>
-            계속 쓸래요
-          </Button>
-          <SplitColumn width={8} />
-          <Button style={styles.button} appearance={'primary'} onPress={closePage}>
-            그만할게요
-          </Button>
+    return (
+      <BottomSheet
+        ref={ref}
+        snapPoints={snapPoints}
+        onClose={closeBottomSheet}
+        handleIndicatorStyle={styles.indicator}
+        backdropComponent={() => <BackdropComponent onClose={onPressCloseButton} />}
+      >
+        <View style={styles.container} onLayout={onLayout}>
+          <SplitRow height={24} />
+          <Text presets={['subhead', 'bold']} style={styles.title}>
+            {title}
+          </Text>
+          <SplitRow height={16} />
+          <Text presets={['body2', 'semibold']} style={styles.subTitle}>
+            {subTitle}
+          </Text>
+          <SplitRow height={32} />
+          <View style={styles.footer}>
+            <Button style={styles.button} appearance={'terdary'} onPress={onPressLeftButton}>
+              {leftButtonText}
+            </Button>
+            <SplitColumn width={8} />
+            <Button style={styles.button} appearance={'primary'} onPress={onPressRightButton}>
+              {rightButtonText}
+            </Button>
+          </View>
         </View>
-      </View>
-    </BottomSheet>
-  );
-};
+      </BottomSheet>
+    );
+  }
+);
 
 const styles = StyleSheet.create(
   resizePixels({
