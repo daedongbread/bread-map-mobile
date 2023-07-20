@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation } from 'react-query';
 import { requestDeleteAccount } from '@/apis/auth/useDeleteAccount';
+import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { useAuth } from '@/hooks/useAuth';
 import { theme } from '@/styles/theme';
@@ -33,6 +34,7 @@ export const DeleteAccount = () => {
 
   return (
     <SafeAreaView style={styles.flex}>
+      <Header title={'탈퇴하기'} isPrevButtonShown />
       <View style={[styles.wrapper, styles.flex]}>
         <Text presets={['body1', 'bold']} style={styles.title}>
           {'잠깐만요! 탈퇴하기 전에 \n읽어보세요.'}

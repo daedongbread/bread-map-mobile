@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { follow, unFollow } from '@/apis/profile';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { NoticeList } from '@/components/Notice/NoticeList';
+import { Header } from '@/components/Shared/Header';
 import { useNoticePagination } from '@/hooks/useNoticePagination';
 import { theme } from '@/styles/theme';
 
@@ -36,6 +37,7 @@ const Notification = () => {
 
   return (
     <SafeAreaView>
+      <Header title={'알림'} isPrevButtonShown />
       <ScrollView>
         <NoticeList
           title={'오늘'}

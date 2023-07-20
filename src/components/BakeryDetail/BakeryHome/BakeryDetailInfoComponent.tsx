@@ -6,7 +6,7 @@ import { BakerySingleEntity, FlagInfo } from '@/apis/bakery/types';
 import { BakeryButton } from '@/components/BakeryDetail/BakeryHome/BakeryButton';
 import { ReviewSummary } from '@/components/BakeryDetail/BakeryHome/ReviewSummary';
 import { RowInfo } from '@/components/BakeryDetail/BakeryHome/RowInfo';
-import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -129,7 +129,7 @@ export const BakeryDetailInfoComponent = ({
           style={styles.image}
           width={width}
           source={{ uri: bakery?.bakeryInfo.image }}
-          resizeMode="cover"
+          resizeMode="stretch"
           isDimmed={isDefaultImage}
         />
 

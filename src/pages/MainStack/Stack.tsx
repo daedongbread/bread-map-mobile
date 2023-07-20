@@ -12,10 +12,10 @@ import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
-import { Header } from '@shared/Header';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
+import { CommentMenuBottomSheet, Community } from './Community';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
 import { ReportMenu } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryMenu/ReportMenu';
 import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
@@ -23,7 +23,6 @@ import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
-import { Community } from './MainTab/HomeStack/Community';
 import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
 export type MainStackParamList = {
@@ -42,6 +41,10 @@ export type MainStackParamList = {
     reviewId: number;
     userId: number;
   };
+  CommentMenuBottomSheet: {
+    commentId: number;
+    type: number;
+  };
   BlockUserBottomSheet: {
     userId: number;
   };
@@ -51,6 +54,10 @@ export type MainStackParamList = {
   QuestionBottomSheet: {
     title: string;
     subTitle: string;
+    leftButtonText?: string;
+    rightButtonText?: string;
+    onPressLeftButton?: () => void;
+    onPressRightButton?: () => void;
     onClose?: () => void;
   };
   Bookmark: {
@@ -85,10 +92,8 @@ const MainStack = () => {
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Community" component={Community} />
-
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
-
       <Stack.Screen
         name={'ModalStack'}
         options={{ presentation: 'transparentModal', gestureEnabled: false }}
@@ -101,8 +106,8 @@ const MainStack = () => {
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
         <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
+        <Stack.Screen name="CommentMenuBottomSheet" component={CommentMenuBottomSheet} />
       </Stack.Group>
-
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />
         <Stack.Screen name={'Search'} component={Search} />
@@ -121,21 +126,9 @@ const MainStack = () => {
       >
         <Stack.Screen name={'ReportBakeryStack'} component={ReportBakeryStack} options={{ headerShown: false }} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} options={{ headerShown: false }} />
-        <Stack.Screen
-          name={'SettingModal'}
-          component={Setting}
-          options={{
-            header: () => <Header title={'설정'} isPrevButtonShown />,
-          }}
-        />
+        <Stack.Screen name={'SettingModal'} component={Setting} options={{ headerShown: false }} />
 
-        <Stack.Screen
-          options={{
-            header: () => <Header title={'탈퇴하기'} isPrevButtonShown />,
-          }}
-          name={'DeleteAccountModal'}
-          component={DeleteAccount}
-        />
+        <Stack.Screen name={'DeleteAccountModal'} component={DeleteAccount} options={{ headerShown: false }} />
       </Stack.Group>
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
       <Stack.Screen name={'EditBakeryStack'} component={EditBakeryStack} />

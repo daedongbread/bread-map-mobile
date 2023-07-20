@@ -5,16 +5,15 @@ import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { Footer } from '@/components/Community/Post';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
-import { IcLike, ViewMoreIcon } from '../Icons';
-import { SplitColumn, SplitRow } from '../SplitSpace';
+import { SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 import { FollowButton, FollowType } from './FollowButton';
-import { InteractionButton } from './InteractionButton';
 import { ProductRating } from './ProductRating';
 
 const { width } = Dimensions.get('window');
@@ -28,7 +27,7 @@ type ReviewProps = {
 
 const CONTENT_TEXT_LIMIT = 60;
 
-export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+export const Review = React.memo(({ mode, review, isEnd, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
@@ -39,7 +38,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
 
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} />
+        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} resizeMode="stretch" />
       </TouchableWithoutFeedback>
     );
   };
@@ -86,14 +85,14 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
     refetchReview();
   };
 
-  // const onPressAddCommentButton = () => {
-  //   navigation.navigate('BakeryReviewDetailStack', {
-  //     screen: 'ReviewCommentsDetail',
-  //     params: {
-  //       reviewId: review.reviewInfo.id,
-  //     },
-  //   });
-  // };
+  const onPressAddCommentButton = () => {
+    navigation.navigate('BakeryReviewDetailStack', {
+      screen: 'ReviewCommentsDetail',
+      params: {
+        reviewId: review.reviewInfo.id,
+      },
+    });
+  };
 
   const onPressMoreButton = (userId: number, reviewId: number) => {
     navigation.navigate('ReviewMoreBottomSheet', {
@@ -187,39 +186,25 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
           )}
         </Text>
         <SplitRow height={20} />
+
         <View style={styles.footerContainer}>
-          <View style={styles.footerLeftContainer}>
-            <InteractionButton
-              icon={IcLike}
-              count={review.reviewInfo.likeNum}
-              defaultText={'좋아요'}
-              isActive={review.reviewInfo.isLike}
-              onPress={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
-            />
-            <SplitColumn width={8} />
-            {/* <InteractionButton
-              icon={IcComment}
-              count={review.reviewInfo.commentNum}
-              defaultText={'댓글달기'}
-              onPress={onPressAddCommentButton}
-            /> */}
-          </View>
-          <View style={styles.footerRightContainer}>
-            <Text presets={['caption1', 'medium']} style={styles.dateText}>
-              {review.reviewInfo.createdAt}
-            </Text>
-            <SplitColumn width={6} />
-            <TouchableWithoutFeedback onPress={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}>
-              <ViewMoreIcon />
-            </TouchableWithoutFeedback>
-          </View>
+          <Footer
+            isLiked={review.reviewInfo.isLike}
+            likeCount={review.reviewInfo.likeNum}
+            commentCount={review.reviewInfo.commentNum}
+            date={review.reviewInfo.createdAt}
+            onPressLike={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
+            onPressComment={onPressAddCommentButton}
+            onPressMenu={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}
+          />
         </View>
+
         <SplitRow height={25} />
       </TouchableWithoutFeedback>
       {isEnd || <Divider style={styles.endDivider} />}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create(
   resizePixels({
@@ -281,18 +266,6 @@ const styles = StyleSheet.create(
     },
     footerContainer: {
       paddingHorizontal: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    footerLeftContainer: {
-      flexDirection: 'row',
-    },
-    footerRightContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    dateText: {
-      color: theme.color.gray600,
     },
     endDivider: {
       height: 1,

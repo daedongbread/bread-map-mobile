@@ -59,7 +59,7 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
             flex: 1,
           },
           tabBarIndicatorStyle: { backgroundColor: theme.color.primary500 },
-          tabBarLabelStyle: { ...presets.body2, ...presets.bold },
+          tabBarLabelStyle: { color: theme.color.gray900, ...presets.body2, ...presets.bold },
         }}
       >
         <Tab.Screen name="BakeryDetailHome" component={BakeryHome} options={{ title: '홈' }} />

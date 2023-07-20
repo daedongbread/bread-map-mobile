@@ -49,7 +49,7 @@ export const ReviewMoreBottomSheetComponent = ({ reviewId, userId }: Props) => {
   const reportReview = () => {
     onClose();
     navigation.navigate('ModalStack', {
-      screen: 'ReportReview',
+      screen: 'AccuseReview',
       params: {
         reviewId,
       },

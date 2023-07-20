@@ -11,25 +11,31 @@ type Props = {
   likeCount: number;
   commentCount: number;
   date: string;
+  onPressLike: () => void;
+  onPressComment: () => void;
   onPressMenu: () => void;
 };
 
-export const Footer = ({ isLiked, likeCount, commentCount, date, onPressMenu }: Props) => (
+export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, onPressComment, onPressMenu }: Props) => (
   <View style={styles.container}>
     <View style={styles.row}>
-      <LikeIcon fill={isLiked ? '#F66131' : '#BDBDBD'} />
-      <SplitColumn width={2} />
-      <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
-        {likeCount ? likeCount : '좋아요'}
-      </Text>
+      <TouchableOpacity style={styles.row} onPress={onPressLike}>
+        <LikeIcon fill={isLiked ? '#F66131' : '#BDBDBD'} />
+        <SplitColumn width={2} />
+        <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
+          {likeCount ? likeCount : '좋아요'}
+        </Text>
+      </TouchableOpacity>
 
       <SplitColumn width={10} />
 
-      <CommentIcon />
-      <SplitColumn width={2} />
-      <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
-        {commentCount ? commentCount : '댓글'}
-      </Text>
+      <TouchableOpacity style={styles.row} onPress={onPressComment}>
+        <CommentIcon />
+        <SplitColumn width={2} />
+        <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
+          {commentCount ? commentCount : '댓글'}
+        </Text>
+      </TouchableOpacity>
     </View>
 
     <View style={styles.row}>
