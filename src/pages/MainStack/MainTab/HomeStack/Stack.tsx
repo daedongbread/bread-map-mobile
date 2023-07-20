@@ -6,9 +6,11 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail/BakeryDetailTopTab';
 import { BakeryMenuDetail } from './BakeryDetail/Tab';
+import { Curation } from './Curation';
 
 export type HomeStackParamList = {
   Home: undefined;
+  Curation: undefined;
   Bakery: NavigatorScreenParams<BakeryDetailTabParamList>;
   BakeryMenuDetail: {
     bakeryId: number;
@@ -26,6 +28,7 @@ const HomeStack = () => {
     <BakeryDetailProvider>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Curation" component={Curation} options={{ headerShown: false }} />
         <Stack.Screen name="Bakery" component={BakeryDetailTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="BakeryMenuDetail" component={BakeryMenuDetail} options={{ headerShown: false }} />
       </Stack.Navigator>
