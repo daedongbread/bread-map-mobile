@@ -10,6 +10,7 @@ export const useAuth = () => {
 
   const signIn = useCallback(
     async ({ token, provider }: LoginRequest) => {
+      console.log({ token, provider });
       try {
         const { data } = await requestSocialLogin({
           token,

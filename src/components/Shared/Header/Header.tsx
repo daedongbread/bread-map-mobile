@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 19.5,
     paddingVertical: 14,
+    marginBottom: 12,
   },
   prevButton: {
     width: 24,
