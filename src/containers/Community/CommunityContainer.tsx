@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CommunityComponent } from '@/components/Community';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
-type Navigation = HomeStackScreenProps<'Community'>['navigation'];
+type Navigation = MainStackScreenProps<'Community'>['navigation'];
 
 export type ToggleMenu = {
   title: string;
@@ -42,7 +42,9 @@ export const CommunityContainer = () => {
     navigation.goBack();
   };
 
-  const onPressWrite = () => {};
+  const onPressWrite = () => {
+    navigation.navigate('PostWrite');
+  };
 
   const onPressToggle = (_topic: string) => {
     setTopic(_topic);
