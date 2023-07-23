@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '@/components/Shared/Text';
+import { resizePixels } from '@/utils';
 import { CarouselItemType } from './CurationComponent';
 import { PaginationView } from './PaginationView';
 
@@ -36,24 +37,26 @@ export const CarouselRenderItem: React.FC<Props> = ({ item, activeIndex, totalPa
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: 180,
-  },
-  imageBackgroundContainer: {
-    width: '100%',
-    height: '100%',
-  },
-  textContainer: {
-    paddingHorizontal: 30,
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  paginationViewContainer: {
-    position: 'absolute',
-    right: 24,
-    bottom: 24,
-  },
-});
+const styles = StyleSheet.create(
+  resizePixels({
+    container: {
+      width: '100%',
+      height: 180,
+    },
+    imageBackgroundContainer: {
+      width: '100%',
+      height: '100%',
+    },
+    textContainer: {
+      paddingHorizontal: 30,
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+    },
+    paginationViewContainer: {
+      position: 'absolute',
+      right: 24,
+      bottom: 24,
+    },
+  })
+);

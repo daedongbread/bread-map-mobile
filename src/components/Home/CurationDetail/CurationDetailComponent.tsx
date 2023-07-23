@@ -20,6 +20,7 @@ import { TimeCircle } from '@/components/Shared/Icons/TimeCircle';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
+import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { Greetings } from './Greetings';
 import { RowInfo } from './RowInfo';
@@ -228,82 +229,84 @@ export const CurationDetailComponent: React.FC<Props> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  safeAreaViewContainer: {
-    opacity: 0,
-  },
-  imageBackgroundContainer: {
-    width: Dimensions.get('window').width,
-    overflow: 'hidden',
-    flex: 1,
-  },
-  imageBackgroundSubContainer: {
-    flex: 1,
-  },
-  titleContainerInImage: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  likeCountContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
-  likeCountView: {
-    backgroundColor: 'rgba(34, 34, 34, 0.3)',
-    borderRadius: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-  },
-  greetingsContainer: {
-    alignItems: 'center',
-    paddingHorizontal: 30,
-  },
-  prevButton: {
-    paddingHorizontal: 30,
-    paddingVertical: 25,
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  body: {
-    paddingHorizontal: 20,
-  },
-  tagContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  breadImage: {
-    width: '100%',
-    height: 300,
-  },
-  rowText1: {
-    maxWidth: Dimensions.get('screen').width * 0.4,
-    marginRight: 8,
-  },
-  rowText2: {
-    maxWidth: Dimensions.get('screen').width * 0.6,
-  },
-  contentLikeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40,
-  },
-  likeButton: {
-    backgroundColor: theme.color.primary600,
-    paddingHorizontal: 26,
-    paddingVertical: 9,
-    borderRadius: 4,
-  },
-});
+const styles = StyleSheet.create(
+  resizePixels({
+    container: {
+      flex: 1,
+    },
+    safeAreaViewContainer: {
+      opacity: 0,
+    },
+    imageBackgroundContainer: {
+      width: Dimensions.get('window').width,
+      overflow: 'hidden',
+      flex: 1,
+    },
+    imageBackgroundSubContainer: {
+      flex: 1,
+    },
+    titleContainerInImage: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    likeCountContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      marginBottom: 20,
+    },
+    likeCountView: {
+      backgroundColor: 'rgba(34, 34, 34, 0.3)',
+      borderRadius: 4,
+      paddingHorizontal: 10,
+      paddingVertical: 3,
+    },
+    greetingsContainer: {
+      alignItems: 'center',
+      paddingHorizontal: 30,
+    },
+    prevButton: {
+      paddingHorizontal: 30,
+      paddingVertical: 25,
+      width: 24,
+      height: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    body: {
+      paddingHorizontal: 20,
+    },
+    tagContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+    },
+    breadImage: {
+      width: '100%',
+      height: 300,
+    },
+    rowText1: {
+      maxWidth: Dimensions.get('screen').width * 0.4,
+      marginRight: 8,
+    },
+    rowText2: {
+      maxWidth: Dimensions.get('screen').width * 0.6,
+    },
+    contentLikeContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 40,
+    },
+    likeButton: {
+      backgroundColor: theme.color.primary600,
+      paddingHorizontal: 26,
+      paddingVertical: 9,
+      borderRadius: 4,
+    },
+  })
+);

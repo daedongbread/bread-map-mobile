@@ -5,6 +5,7 @@ import { Triangle } from '@/components/Shared/Icons/Triangle';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
+import { resizePixels } from '@/utils';
 
 type Props = {
   text: string;
@@ -29,18 +30,20 @@ export const Greetings: React.FC<Props> = ({ text }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  speechBubbleContainer: {
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    backgroundColor: theme.color.gray100,
-    borderRadius: 4,
-  },
-  speechBubble: {
-    width: 165,
-  },
-});
+const styles = StyleSheet.create(
+  resizePixels({
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    speechBubbleContainer: {
+      paddingHorizontal: 14,
+      paddingVertical: 12,
+      backgroundColor: theme.color.gray100,
+      borderRadius: 4,
+    },
+    speechBubble: {
+      width: 165,
+    },
+  })
+);
