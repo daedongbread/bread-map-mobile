@@ -31,7 +31,7 @@ export const CurationContainer = () => {
     navigation.push('MainTab', {
       screen: 'HomeStack',
       params: {
-        screen: 'Curation',
+        screen: 'CurationDetail',
         params: undefined,
       },
     });
