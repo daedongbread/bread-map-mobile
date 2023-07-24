@@ -8,11 +8,17 @@ type Navigation = MainStackScreenProps<'CommunityStack'>;
 export const HomeCommunityPartContainer = () => {
   const navigation = useNavigation<Navigation['navigation']>();
 
-  const onPressPost = useCallback(() => {
-    navigation.navigate('CommunityStack', {
-      screen: 'PostDetail',
-    });
-  }, [navigation]);
+  const onPressPost = useCallback(
+    (type: number) => {
+      navigation.navigate('CommunityStack', {
+        screen: 'PostDetail',
+        params: {
+          type,
+        },
+      });
+    },
+    [navigation]
+  );
 
   const onPressMore = useCallback(() => {
     navigation.navigate('CommunityStack', {

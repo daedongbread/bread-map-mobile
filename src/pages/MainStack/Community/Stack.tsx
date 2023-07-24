@@ -9,7 +9,9 @@ import { PostWrite } from './PostWrite';
 export type CommunityStackParamList = {
   Community: undefined;
   PostWrite: undefined;
-  PostDetail: undefined;
+  PostDetail: {
+    type: number;
+  };
 };
 
 export type CommunityStackScreenProps<T extends keyof CommunityStackParamList> = CompositeScreenProps<

@@ -10,11 +10,11 @@ export const Comments = ({ onPressCommentMenu }: Props) => {
   return (
     <View>
       <Comment onPressCommentMenu={onPressCommentMenu} />
-      <Comment onPressCommentMenu={onPressCommentMenu} isReply />
+      {/* <Comment onPressCommentMenu={onPressCommentMenu} isReply />
       <Comment onPressCommentMenu={onPressCommentMenu} />
       <Comment onPressCommentMenu={onPressCommentMenu} isReply />
       <Comment onPressCommentMenu={onPressCommentMenu} isReply />
-      <Comment onPressCommentMenu={onPressCommentMenu} />
+      <Comment onPressCommentMenu={onPressCommentMenu} /> */}
     </View>
   );
 };

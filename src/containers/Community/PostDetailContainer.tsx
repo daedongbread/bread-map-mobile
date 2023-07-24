@@ -1,8 +1,6 @@
 import React from 'react';
 import { PostDetailComponent } from '@/components/Community/PostDetailComponent';
 
-type Props = {};
-
-export const PostDetailContainer = ({}: Props) => {
+export const PostDetailContainer = () => {
   return <PostDetailComponent />;
 };
