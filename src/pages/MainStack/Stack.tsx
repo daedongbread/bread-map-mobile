@@ -15,7 +15,7 @@ import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
-import { CommentMenuBottomSheet, Community, PostWrite } from './Community';
+import { CommentMenuBottomSheet, CommunityStack, CommunityStackParamList } from './Community';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
 import { ReportMenu } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryMenu/ReportMenu';
 import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
@@ -27,8 +27,7 @@ import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stac
 
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
-  Community: undefined;
-  PostWrite: undefined;
+  CommunityStack: NavigatorScreenParams<CommunityStackParamList>;
   BookmarkBottomSheet: {
     bakeryId: number;
     name: string;
@@ -92,8 +91,7 @@ const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
-      <Stack.Screen name="Community" component={Community} />
-      <Stack.Screen name="PostWrite" component={PostWrite} />
+      <Stack.Screen name="CommunityStack" component={CommunityStack} />
       <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
       <Stack.Screen

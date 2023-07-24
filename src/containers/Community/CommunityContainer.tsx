@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CommunityComponent } from '@/components/Community';
-import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { CommunityStackScreenProps } from '@/pages/MainStack/Community/Stack';
 import { useNavigation } from '@react-navigation/native';
 
-type Navigation = MainStackScreenProps<'Community'>['navigation'];
+type Navigation = CommunityStackScreenProps<'Community'>['navigation'];
 
 export type ToggleMenu = {
   title: string;

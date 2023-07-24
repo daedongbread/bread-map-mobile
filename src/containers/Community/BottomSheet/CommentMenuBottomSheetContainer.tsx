@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { LogBox } from 'react-native';
-import { CommentMenuBottomSheetComonent } from '@/components/Community/Comments/CommentMenuBottomSheetComonent';
+import { CommentMenuBottomSheetComonent } from '@/components/Community';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
