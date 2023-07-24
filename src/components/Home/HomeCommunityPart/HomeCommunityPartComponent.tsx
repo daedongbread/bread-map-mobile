@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Post } from '../../Community/Post';
 import { Header } from '../Header';
-import { BottomBanner } from './BottomBanner';
 
 type Props = {
   onPressPost: () => void;
@@ -26,8 +25,6 @@ export const HomeCommunityPartComponent = ({ onPressPost, onPressMore }: Props) 
       </View>
 
       <SplitRow height={20} />
-
-      <BottomBanner />
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuEntity } from '@/apis/menu/type';
 import { Home } from '@/pages/MainStack/MainTab/HomeStack/Home';
+import { RankingBakeryOfTheWeek } from '@/pages/MainStack/MainTab/HomeStack/RankingBakeryOfTheWeek/RankingBakeryOfTheWeek';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
@@ -15,6 +16,7 @@ export type HomeStackParamList = {
     bakeryName: string;
     menu: MenuEntity;
   };
+  RankingBakeryOfTheWeek: undefined;
 };
 
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> = StackScreenProps<HomeStackParamList, T>;
@@ -26,6 +28,7 @@ const HomeStack = () => {
     <BakeryDetailProvider>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="RankingBakeryOfTheWeek" component={RankingBakeryOfTheWeek} />
         <Stack.Screen name="Bakery" component={BakeryDetailTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="BakeryMenuDetail" component={BakeryMenuDetail} options={{ headerShown: false }} />
       </Stack.Navigator>
