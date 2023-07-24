@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ReportBanner } from '@/components/Banners/ReportBanner';
 import { HomeCommunityPartContainer } from '@/containers/Home/HomeCommunityPartContainer';
 import { WeekendBriefRankingContainer } from '@/containers/Home/WeekendBriefRankingContainer';
 
@@ -12,6 +13,8 @@ export const Home: React.FC = () => (
     <SafeAreaView style={[styles.flex, styles.layout]} edges={['top']}>
       <WeekendBriefRankingContainer />
       {/* 랭킹팀 파트 */}
+      <View style={styles.gap} />
+      <ReportBanner />
       <View style={styles.gap} />
       {/* 커뮤니티 팀 파트 */}
       <HomeCommunityPartContainer />
