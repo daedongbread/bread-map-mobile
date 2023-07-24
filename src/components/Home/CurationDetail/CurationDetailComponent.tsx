@@ -20,7 +20,7 @@ import { TimeCircle } from '@/components/Shared/Icons/TimeCircle';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
-import { resizePixels } from '@/utils';
+import { resizePixel, resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { Greetings } from './Greetings';
 import { RowInfo } from './RowInfo';
@@ -77,7 +77,7 @@ export const CurationDetailComponent: React.FC<Props> = ({
         {/* 1. 콘텐츠 Title */}
         <ImageBackground
           source={{ uri: 'https://picsum.photos/200/180' }}
-          style={[styles.imageBackgroundContainer, { height: 180 + top }]}
+          style={[styles.imageBackgroundContainer, { height: resizePixel(180 + top) }]}
           resizeMode="cover"
         >
           <SafeAreaView style={styles.safeAreaViewContainer} />
@@ -238,7 +238,7 @@ const styles = StyleSheet.create(
       opacity: 0,
     },
     imageBackgroundContainer: {
-      width: Dimensions.get('window').width,
+      width: '100%',
       overflow: 'hidden',
       flex: 1,
     },
