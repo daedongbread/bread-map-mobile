@@ -68,7 +68,7 @@ export const PostWriteComponent: React.FC<Props> = ({
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.titleInput}
-              placeholder="빵집이름을 입력해주세요"
+              placeholder="제목을 입력해주세요"
               value={form.title}
               isAlert
               hint={`${form.title.length}자 / 최소 10자`}

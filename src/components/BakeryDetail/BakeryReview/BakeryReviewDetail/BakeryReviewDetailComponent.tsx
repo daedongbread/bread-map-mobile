@@ -61,6 +61,8 @@ export const BakeryReviewDetailComponent = ({
           <Comments onPressCommentMenu={onPressCommentMenu} />
         </View>
 
+        <SplitRow height={20} />
+
         <Input comment={comment} setComment={setComment} onPressCommentSubmit={onPressCommentSubmit} />
 
         {insets.bottom === 0 && <SplitRow height={12} />}
@@ -79,7 +81,7 @@ const styles = StyleSheet.create(
       paddingHorizontal: 20,
     },
     commentContainer: {
-      paddingVertical: 10,
+      // paddingVertical: 10,
     },
   })
 );
