@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { IcLike } from '@/components/Shared/Icons';
 import { Call } from '@/components/Shared/Icons/Call';
+import IcReport from '@/components/Shared/Icons/IcReport.svg';
 import { LinkAngled } from '@/components/Shared/Icons/LinkAngled';
 import { Location } from '@/components/Shared/Icons/Location';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
@@ -43,6 +44,7 @@ type Props = {
   checkPoint: string;
   breadOutTime: string;
   conclusion: string;
+  onPressFlag: () => void;
 };
 
 export const CurationDetailComponent: React.FC<Props> = ({
@@ -62,6 +64,7 @@ export const CurationDetailComponent: React.FC<Props> = ({
   checkPoint,
   breadOutTime,
   conclusion,
+  onPressFlag,
 }) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
@@ -77,7 +80,7 @@ export const CurationDetailComponent: React.FC<Props> = ({
         {/* 1. 콘텐츠 Title */}
         <ImageBackground
           source={{ uri: 'https://picsum.photos/200/180' }}
-          style={[styles.imageBackgroundContainer, { height: resizePixel(180 + top) }]}
+          style={[styles.imageBackgroundContainer, { minHeight: resizePixel(180 + top) }]}
           resizeMode="cover"
         >
           <SafeAreaView style={styles.safeAreaViewContainer} />
@@ -89,10 +92,10 @@ export const CurationDetailComponent: React.FC<Props> = ({
 
             {/* Title */}
             <View style={styles.titleContainerInImage}>
-              <Text presets={['body1', 'opacity1']} color="white">
+              <Text presets={['body1', 'opacity1']} color="white" style={styles.title}>
                 빵순 빵돌 사이에서 소문난
               </Text>
-              <Text presets={['heading1']} color="white">
+              <Text presets={['heading1']} color="white" style={styles.title}>
                 겉바속쫀 소금빵 먹킷리스트
               </Text>
             </View>
@@ -120,32 +123,38 @@ export const CurationDetailComponent: React.FC<Props> = ({
 
         {/* 3. 콘텐츠 메인(Body) */}
         <View style={styles.body}>
-          <View>
-            <Text presets={['body2']}>하루 6번 갓구워낸</Text>
-            <Text presets={['heading2']}>자연도 소금빵</Text>
-          </View>
-          <SplitRow height={10} />
+          <View style={styles.mainContainer}>
+            <View style={styles.mainTextInfoContainer}>
+              <Text presets={['body2']}>하루 6번 갓구워낸</Text>
+              <Text presets={['heading2']}>자연도 소금빵</Text>
+              <SplitRow height={10} />
 
-          <View>
-            <RowInfo
-              icon={<Location />}
-              text={'인천 중구 은하수로 10 더테라스프라자 1층'}
-              textColor={theme.color.gray500}
-              splitColumn={8}
-            />
-            <RowInfo
-              icon={<TimeCircle />}
-              text={'매일 09:00 ~ 22:00'}
-              textColor={theme.color.gray500}
-              splitColumn={8}
-            />
-            <RowInfo icon={<Call />} text={'031-746-2245'} textColor={theme.color.gray500} splitColumn={8} />
-            <RowInfo
-              icon={<LinkAngled />}
-              text={'@saltbread.in.seaside'}
-              textColor={theme.color.primary400}
-              splitColumn={8}
-            />
+              <RowInfo
+                icon={<Location />}
+                text={'인천 중구 은하수로 10 더테라스프라자 1층'}
+                textColor={theme.color.gray500}
+                splitColumn={8}
+              />
+              <RowInfo
+                icon={<TimeCircle />}
+                text={'매일 09:00 ~ 22:00'}
+                textColor={theme.color.gray500}
+                splitColumn={8}
+              />
+              <RowInfo icon={<Call />} text={'031-746-2245'} textColor={theme.color.gray500} splitColumn={8} />
+              <RowInfo
+                icon={<LinkAngled />}
+                text={'@saltbread.in.seaside'}
+                textColor={theme.color.primary400}
+                splitColumn={8}
+              />
+            </View>
+
+            <View style={styles.reportButtonContainer}>
+              <TouchableOpacity onPress={onPressFlag}>
+                <IcReport width={28} height={28} style={{ color: theme.color.primary600 }} />
+              </TouchableOpacity>
+            </View>
           </View>
           <SplitRow height={10} />
 
@@ -194,7 +203,7 @@ export const CurationDetailComponent: React.FC<Props> = ({
               {'소금빵이 모두 판매되면 조기마감'}
             </Text>
             <Text presets={['body2']} color={theme.color.gray900}>
-              {'오전 9 : 00 ~ 오전 10 :00\n오전 11:30 ~오전  12:00\n오후 12:00 ~ 오후 1:00\n오후 1:00 ~ 오후 2:00'}
+              {'오전 9:00 ~ 오전 10:00\n오전 11:30 ~ 오전 12:00\n오후 12:00 ~ 오후 1:00\n오후 1:00 ~ 오후 2:00'}
             </Text>
           </View>
         </View>
@@ -249,11 +258,15 @@ const styles = StyleSheet.create(
       flex: 1,
       alignItems: 'center',
     },
+    title: {
+      maxWidth: Dimensions.get('screen').width * 0.8,
+      textAlign: 'center',
+    },
     likeCountContainer: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
-      marginBottom: 20,
+      marginVertical: 20,
     },
     likeCountView: {
       backgroundColor: 'rgba(34, 34, 34, 0.3)',
@@ -279,6 +292,15 @@ const styles = StyleSheet.create(
     },
     body: {
       paddingHorizontal: 20,
+    },
+    mainContainer: {
+      flexDirection: 'row',
+    },
+    mainTextInfoContainer: {
+      flex: 1,
+    },
+    reportButtonContainer: {
+      marginTop: 40,
     },
     tagContainer: {
       flexDirection: 'row',
