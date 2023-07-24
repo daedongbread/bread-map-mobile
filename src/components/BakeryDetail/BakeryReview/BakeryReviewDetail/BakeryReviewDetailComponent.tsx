@@ -36,6 +36,7 @@ export const BakeryReviewDetailComponent = ({
   return (
     <KeyboardAwareScrollView
       style={styles.container}
+      contentContainerStyle={styles.scrollContentContainer}
       enableOnAndroid
       enableAutomaticScroll={true}
       extraHeight={12}
@@ -44,21 +45,25 @@ export const BakeryReviewDetailComponent = ({
       <SafeAreaView style={styles.container}>
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
 
-        <TouchableWithoutFeedback onPress={goNavBakeryDetail}>
-          <View>
-            <ReviewDetailHeader bakery={review.reviewDto.bakeryInfo} />
+        <View style={styles.mainContainer}>
+          <TouchableWithoutFeedback onPress={goNavBakeryDetail}>
+            <View>
+              <ReviewDetailHeader bakery={review.reviewDto.bakeryInfo} />
+            </View>
+          </TouchableWithoutFeedback>
+
+          <View style={styles.reviewContainer}>
+            <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={refetch} />
           </View>
-        </TouchableWithoutFeedback>
 
-        <View style={styles.reviewContainer}>
-          <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={refetch} />
-        </View>
+          <Divider />
 
-        <Divider />
+          <View style={styles.commentContainer}>
+            {/* <NoComments /> */}
+            <Comments onPressCommentMenu={onPressCommentMenu} />
+          </View>
 
-        <View style={styles.commentContainer}>
-          {/* <NoComments /> */}
-          <Comments onPressCommentMenu={onPressCommentMenu} />
+          <SplitRow height={20} />
         </View>
 
         <Input comment={comment} setComment={setComment} onPressCommentSubmit={onPressCommentSubmit} />
@@ -74,12 +79,17 @@ const styles = StyleSheet.create(
     container: {
       flex: 1,
     },
-    reviewContainer: {
+    scrollContentContainer: {
+      flexGrow: 1,
+    },
+    mainContainer: {
       flex: 1,
+    },
+    reviewContainer: {
       paddingHorizontal: 20,
     },
     commentContainer: {
-      paddingVertical: 10,
+      // paddingVertical: 10,
     },
   })
 );

@@ -40,7 +40,6 @@ export { IcUnchecked } from './IcUnchecked';
 export { UploadIcon } from './UploadIcon';
 export { RightPrev } from './RightPrev';
 export { TopArrow } from './TopArrow';
-export { LikeIcon } from './LikeIcon';
 export { CommentIcon } from './CommentIcon';
 
 export * from './ShareSolidIcon';

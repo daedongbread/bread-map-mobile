@@ -1,7 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { SplitRow } from '@/components/Shared/SplitSpace';
 
 export type CarouselItemType = {
   subtitle: string;
@@ -31,21 +29,17 @@ export const CurationComponent: React.FC<Props> = ({
   enableMomentum,
 }) => {
   return (
-    <View>
-      <Carousel
-        // autoplay={true}
-        // loop={true}
-        data={carouselItems}
-        renderItem={renderItem}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth}
-        itemHeight={itemHeight}
-        onSnapToItem={onSnapToItem}
-        decelerationRate={decelerationRate}
-        enableMomentum={enableMomentum}
-      />
-
-      <SplitRow height={20} />
-    </View>
+    <Carousel
+      // autoplay={true}
+      // loop={true}
+      data={carouselItems}
+      renderItem={renderItem}
+      sliderWidth={sliderWidth}
+      itemWidth={itemWidth}
+      itemHeight={itemHeight}
+      onSnapToItem={onSnapToItem}
+      decelerationRate={decelerationRate}
+      enableMomentum={enableMomentum}
+    />
   );
 };

@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ToggleMenu } from '@/containers/Community/CommunityContainer';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Row } from '../Shared/View';
 import { Header } from './Header';
-import { Post } from './Post';
+import { PostSummary } from './Post';
 import { Toggle } from './Toggle';
 
 type Props = {
@@ -43,8 +43,10 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
 
         <SplitRow height={16} />
 
-        <Post isFirst />
-        <Post isFirst={false} />
+        <View style={styles.postCntainer}>
+          <PostSummary isFirst />
+          <PostSummary isFirst={false} />
+        </View>
       </SafeAreaView>
     </ScrollView>
   );
@@ -53,5 +55,8 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
 const styles = StyleSheet.create({
   toggleContainer: {
     paddingHorizontal: 19,
+  },
+  postCntainer: {
+    paddingHorizontal: 20,
   },
 });
