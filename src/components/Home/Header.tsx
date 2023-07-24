@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
   },
   moreButtonContainer: {
     flexDirection: 'row',

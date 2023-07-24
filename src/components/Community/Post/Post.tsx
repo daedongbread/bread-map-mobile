@@ -90,7 +90,6 @@ export const Post = ({ isFirst }: Props) => {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
-    paddingHorizontal: 20,
   },
   divider: {
     borderTopColor: theme.color.gray300,

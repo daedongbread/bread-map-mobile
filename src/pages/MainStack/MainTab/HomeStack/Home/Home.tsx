@@ -5,7 +5,9 @@ import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ReportBanner } from '@/components/Banners/ReportBanner';
+import { BottomBanner } from '@/components/Home/HomeCommunityPart';
 import { HomeCommunityPartContainer } from '@/containers/Home/HomeCommunityPartContainer';
+import { NewReportedBakeriesContainer } from '@/containers/Home/NewReportedBakeriesContainer';
 import { WeekendBriefRankingContainer } from '@/containers/Home/WeekendBriefRankingContainer';
 
 export const Home: React.FC = () => (
@@ -16,9 +18,13 @@ export const Home: React.FC = () => (
       <View style={styles.gap} />
       <ReportBanner />
       <View style={styles.gap} />
+      <NewReportedBakeriesContainer />
+      <View style={styles.gap} />
       {/* 커뮤니티 팀 파트 */}
       <HomeCommunityPartContainer />
     </SafeAreaView>
+
+    <BottomBanner />
   </ScrollView>
 );
 

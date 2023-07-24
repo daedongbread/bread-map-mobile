@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Post } from '../../Community/Post';
 import { Header } from '../Header';
-import { BottomBanner } from './BottomBanner';
 
 type Props = {
   onPressMore: () => void;
@@ -21,8 +20,6 @@ export const HomeCommunityPartComponent = ({ onPressMore }: Props) => {
       </View>
 
       <SplitRow height={20} />
-
-      <BottomBanner />
     </View>
   );
 };
