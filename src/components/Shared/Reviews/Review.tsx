@@ -5,7 +5,7 @@ import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { Footer } from '@/components/Community/Post';
+import { BakeryInfoCard, Footer } from '@/components/Community/Post';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -103,7 +103,6 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
 
   return (
     <View>
-      <SplitRow height={30} />
       <View style={styles.reviewHeader}>
         <TouchableWithoutFeedback
           style={styles.reviewerContainer}
@@ -135,23 +134,6 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
 
       <SplitRow height={10} />
 
-      <View style={styles.breadRatingListContainer}>
-        <FlatList
-          contentContainerStyle={styles.productRatingStyle}
-          data={review.reviewInfo.productRatingList}
-          renderItem={({ item, index }) => (
-            <ProductRating
-              key={index}
-              productName={item.productName}
-              rating={item.rating}
-              isEnd={index === review.reviewInfo.productRatingList.length - 1}
-            />
-          )}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-        />
-      </View>
-
       <SplitRow height={11} />
 
       <TouchableWithoutFeedback style={styles.reviewContainer} onPress={() => onPressReview()}>
@@ -171,7 +153,24 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
           />
         )}
 
-        <SplitRow height={16} />
+        <SplitRow height={12} />
+
+        <FlatList
+          contentContainerStyle={styles.productRatingStyle}
+          data={review.reviewInfo.productRatingList}
+          renderItem={({ item, index }) => (
+            <ProductRating
+              key={index}
+              productName={item.productName}
+              rating={item.rating}
+              isEnd={index === review.reviewInfo.productRatingList.length - 1}
+            />
+          )}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
+
+        <SplitRow height={20} />
 
         <Text presets={['body2', 'medium']} style={styles.reviewText}>
           {mode === 'preview' && review.reviewInfo.content.trim().length > CONTENT_TEXT_LIMIT ? (
@@ -185,6 +184,16 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
             review.reviewInfo.content.trim()
           )}
         </Text>
+
+        {mode === 'detail' && (
+          <>
+            <SplitRow height={20} />
+            <View style={styles.bakeryInfoCardContainer}>
+              <BakeryInfoCard />
+            </View>
+          </>
+        )}
+
         <SplitRow height={20} />
 
         <View style={styles.footerContainer}>
@@ -233,9 +242,6 @@ const styles = StyleSheet.create(
       color: theme.color.gray300,
       fontSize: 12,
     },
-    breadRatingListContainer: {
-      marginHorizontal: -20,
-    },
     productRatingStyle: {
       paddingHorizontal: 20,
     },
@@ -263,6 +269,9 @@ const styles = StyleSheet.create(
     },
     reviewTextSuffix: {
       color: theme.color.gray500,
+    },
+    bakeryInfoCardContainer: {
+      paddingHorizontal: 20,
     },
     footerContainer: {
       paddingHorizontal: 20,

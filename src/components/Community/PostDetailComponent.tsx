@@ -2,11 +2,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { theme } from '@/styles/theme';
 import { Divider } from '../BakeryDetail/Divider';
 import { Header } from '../Shared/Header';
 import { SplitRow } from '../Shared/SplitSpace';
-import { Text } from '../Shared/Text';
 import { Comments } from './Comments';
 import { Input } from './Comments/Input';
 import { Post } from './Post';
@@ -24,14 +22,6 @@ export const PostDetailComponent = ({}: Props) => {
         <Header title={headerTexts[0]} isPrevButtonShown />
 
         <View style={styles.mainContainer}>
-          <View style={styles.subheadContainer}>
-            <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
-              가장 좋아하는 빵집과 이유를{'\n'}댓글로 달아주세요!
-            </Text>
-          </View>
-
-          <SplitRow height={36} />
-
           <Post />
 
           <SplitRow height={20} />
@@ -61,9 +51,5 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-  },
-  subheadContainer: {
-    padding: 20,
-    backgroundColor: theme.color.primary100,
   },
 });

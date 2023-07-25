@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ReviewDetailEntity } from '@/apis/bakery/types';
@@ -10,7 +10,6 @@ import { Review } from '@/components/Shared/Reviews';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { resizePixels } from '@/utils';
 import { Divider } from '../../Divider';
-import { ReviewDetailHeader } from './ReviewDetailHeader';
 
 type Props = {
   review: ReviewDetailEntity;
@@ -46,12 +45,6 @@ export const BakeryReviewDetailComponent = ({
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
 
         <View style={styles.mainContainer}>
-          <TouchableWithoutFeedback onPress={goNavBakeryDetail}>
-            <View>
-              <ReviewDetailHeader bakery={review.reviewDto.bakeryInfo} />
-            </View>
-          </TouchableWithoutFeedback>
-
           <View style={styles.reviewContainer}>
             <Review mode="detail" review={review.reviewDto} isEnd={true} refetchReview={refetch} />
           </View>
