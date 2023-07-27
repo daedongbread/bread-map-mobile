@@ -13,7 +13,10 @@ type Props = {
 export const Toggle = ({ title, isSeleted, onPressToggle }: Props) => {
   return (
     <TouchableOpacity style={[styles.container, isSeleted && styles.selected]} onPress={onPressToggle}>
-      <Text color={theme.color.gray900} presets={['body2', isSeleted ? 'bold' : 'medium']}>
+      <Text
+        color={isSeleted ? theme.color.primary600 : theme.color.gray900}
+        presets={['body2', isSeleted ? 'bold' : 'medium']}
+      >
         {title}
       </Text>
     </TouchableOpacity>

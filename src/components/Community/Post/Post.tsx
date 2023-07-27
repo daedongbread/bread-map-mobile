@@ -62,7 +62,14 @@ export const Post = ({}: Props) => {
 
       <SplitRow height={20} />
 
-      <Footer likeCount={25} commentCount={39} date="2021.10.01" />
+      <Footer
+        isLiked={false}
+        likeCount={25}
+        commentCount={39}
+        date="2021.10.01"
+        onPressLike={() => null}
+        onPressMenu={() => null}
+      />
     </View>
   );
 };

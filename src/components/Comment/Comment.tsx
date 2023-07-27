@@ -10,9 +10,10 @@ import Ellipse from '@shared/Icons/Ellipse.svg';
 type Props = {
   isReply?: boolean;
   onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
+  onPressReply: (commentId: string, writerNickname: string) => void;
 };
 
-export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
+export const Comment = ({ isReply = false, onPressCommentMenu, onPressReply }: Props) => {
   return (
     <Row style={isReply ? styles.replyContainer : styles.container}>
       <Image style={styles.profileImage} source={{ uri: 'https://picsum.photos/40/40' }} />
@@ -59,9 +60,11 @@ export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
           <Ellipse />
           <SplitColumn width={4} />
 
-          <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-            댓글달기
-          </Text>
+          <TouchableOpacity onPress={() => onPressReply('1', '빵또라이')}>
+            <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+              댓글달기
+            </Text>
+          </TouchableOpacity>
         </Row>
       </View>
     </Row>

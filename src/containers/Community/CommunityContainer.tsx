@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CommunityComponent } from '@/components/Community';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community/Stack';
 import { useNavigation } from '@react-navigation/native';
@@ -50,6 +50,18 @@ export const CommunityContainer = () => {
     setTopic(_topic);
   };
 
+  const onPressPost = useCallback(
+    (type: number) => {
+      navigation.navigate('CommunityStack', {
+        screen: 'PostDetail',
+        params: {
+          type,
+        },
+      });
+    },
+    [navigation]
+  );
+
   return (
     <CommunityComponent
       menus={menus}
@@ -57,6 +69,7 @@ export const CommunityContainer = () => {
       onPressPrev={onPressPrev}
       onPressWrite={onPressWrite}
       onPressToggle={onPressToggle}
+      onPressPost={onPressPost}
     />
   );
 };

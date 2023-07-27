@@ -12,7 +12,7 @@ type Props = {
   commentCount: number;
   date: string;
   onPressLike: () => void;
-  onPressComment: () => void;
+  onPressComment?: () => void;
   onPressMenu: () => void;
 };
 
@@ -29,7 +29,7 @@ export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, on
 
       <SplitColumn width={10} />
 
-      <TouchableOpacity style={styles.row} onPress={onPressComment}>
+      <TouchableOpacity style={styles.row} onPress={onPressComment} disabled={!onPressComment}>
         <CommentIcon />
         <SplitColumn width={2} />
         <Text color={theme.color.gray800} presets={['caption1', 'medium']}>

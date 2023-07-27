@@ -22,12 +22,13 @@ type ReviewProps = {
   mode: 'preview' | 'detail';
   review: ReviewContent;
   isEnd: boolean;
+  onPressBakery?: () => void;
   refetchReview: () => void;
 };
 
 const CONTENT_TEXT_LIMIT = 60;
 
-export const Review = React.memo(({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
@@ -124,6 +125,7 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
             </View>
           </View>
         </TouchableWithoutFeedback>
+
         {!review.userInfo.isMe && (
           <FollowButton
             isFollow={review.userInfo.isFollow}
@@ -132,25 +134,24 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
         )}
       </View>
 
-      <SplitRow height={10} />
-
-      <SplitRow height={11} />
-
       <TouchableWithoutFeedback style={styles.reviewContainer} onPress={() => onPressReview()}>
         {review.reviewInfo.imageList.length > 0 && (
-          <FlatList
-            contentContainerStyle={styles.reviewImageContainer}
-            keyExtractor={(item, index) => index.toString()}
-            data={review.reviewInfo.imageList}
-            renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled={mode === 'detail'}
-            snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
-            snapToAlignment="start"
-            decelerationRate="fast"
-            automaticallyAdjustContentInsets={false}
-            horizontal
-          />
+          <>
+            <SplitRow height={22} />
+            <FlatList
+              contentContainerStyle={styles.reviewImageContainer}
+              keyExtractor={(item, index) => index.toString()}
+              data={review.reviewInfo.imageList}
+              renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled={mode === 'detail'}
+              snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
+              snapToAlignment="start"
+              decelerationRate="fast"
+              automaticallyAdjustContentInsets={false}
+              horizontal
+            />
+          </>
         )}
 
         <SplitRow height={12} />
@@ -185,11 +186,11 @@ export const Review = React.memo(({ mode, review, isEnd, refetchReview }: Review
           )}
         </Text>
 
-        {mode === 'detail' && (
+        {mode === 'detail' && onPressBakery && (
           <>
             <SplitRow height={20} />
             <View style={styles.bakeryInfoCardContainer}>
-              <BakeryInfoCard />
+              <BakeryInfoCard onPress={onPressBakery} />
             </View>
           </>
         )}
