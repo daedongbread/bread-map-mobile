@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { LikeIcon, ViewMoreIcon } from '@/components/Shared/Icons';
+import { IcLike, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
@@ -10,11 +10,12 @@ import Ellipse from '@shared/Icons/Ellipse.svg';
 type Props = {
   isReply?: boolean;
   onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
+  onPressReply: (commentId: string, writerNickname: string) => void;
 };
 
-export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
+export const Comment = ({ isReply = false, onPressCommentMenu, onPressReply }: Props) => {
   return (
-    <Row style={[styles.container, isReply && styles.replyContainer]}>
+    <Row style={isReply ? styles.replyContainer : styles.container}>
       <Image style={styles.profileImage} source={{ uri: 'https://picsum.photos/40/40' }} />
 
       <SplitColumn width={8} />
@@ -49,7 +50,7 @@ export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
         <SplitRow height={8} />
 
         <Row style={styles.commentFooter}>
-          <LikeIcon width={16} height={16} />
+          <IcLike width={16} height={16} fill={false ? '#F66131' : '#BDBDBD'} />
           <SplitColumn width={2} />
           <Text color="#9E9E9E" presets={['caption2', 'medium']}>
             12
@@ -59,9 +60,11 @@ export const Comment = ({ isReply = false, onPressCommentMenu }: Props) => {
           <Ellipse />
           <SplitColumn width={4} />
 
-          <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-            댓글달기
-          </Text>
+          <TouchableOpacity onPress={() => onPressReply('1', '빵또라이')}>
+            <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+              댓글달기
+            </Text>
+          </TouchableOpacity>
         </Row>
       </View>
     </Row>
@@ -75,9 +78,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   replyContainer: {
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    marginBottom: 4,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    marginHorizontal: 20,
+    marginBottom: 6,
     backgroundColor: '#F5F5F5',
     borderRadius: 8,
   },

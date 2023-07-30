@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
-import { PostWriteComponent } from '@/components/Community/Post';
+import { PostWriteComponent } from '@/components/Community';
 import { useAppDispatch } from '@/hooks/redux';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { showToast } from '@/slices/toast';

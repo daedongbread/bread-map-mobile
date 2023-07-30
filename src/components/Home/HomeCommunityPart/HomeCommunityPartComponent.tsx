@@ -1,25 +1,24 @@
 import React from 'react';
 import { View } from 'react-native';
-import { SplitRow } from '@/components/Shared/SplitSpace';
-import { Post } from '../../Community/Post';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { PostSummary } from '../../Community/Post';
 import { Header } from '../Header';
 
 type Props = {
+  onPressPost: (type: number) => void;
   onPressMore: () => void;
 };
 
-export const HomeCommunityPartComponent = ({ onPressMore }: Props) => {
+export const HomeCommunityPartComponent = ({ onPressPost, onPressMore }: Props) => {
   return (
     <View>
       <View>
         <Header title="커뮤니티 핫한 글" onPressMore={onPressMore} />
 
-        <Post isFirst={true} />
-        <Post isFirst={false} />
-        <Post isFirst={false} />
+        <TouchableOpacity onPress={() => onPressPost(0)}>
+          <PostSummary isFirst={true} />
+        </TouchableOpacity>
       </View>
-
-      <SplitRow height={20} />
     </View>
   );
 };

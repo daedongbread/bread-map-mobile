@@ -14,13 +14,14 @@ export const Home: React.FC = () => (
   <ScrollView style={styles.flex}>
     <SafeAreaView style={[styles.flex, styles.layout]} edges={['top']}>
       <WeekendBriefRankingContainer />
-      {/* 랭킹팀 파트 */}
+
       <View style={styles.gap} />
       <ReportBanner />
+
       <View style={styles.gap} />
       <NewReportedBakeriesContainer />
+
       <View style={styles.gap} />
-      {/* 커뮤니티 팀 파트 */}
       <HomeCommunityPartContainer />
     </SafeAreaView>
 
@@ -33,7 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   layout: {
-    paddingVertical: 32,
+    paddingTop: 32,
+    paddingBottom: 20,
     paddingHorizontal: 20,
   },
   gap: {

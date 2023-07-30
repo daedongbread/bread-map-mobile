@@ -95,6 +95,8 @@ export const BakeryReviewListComponent = ({
       <View style={styles.reviewContainer}>
         <HeaderRenderItem />
 
+        <SplitRow height={28} />
+
         {reviews && reviews.length ? (
           reviews.map((review, index) => {
             return (

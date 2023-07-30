@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ToggleMenu } from '@/containers/Community/CommunityContainer';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Row } from '../Shared/View';
 import { Header } from './Header';
-import { Post } from './Post';
+import { PostSummary } from './Post';
 import { Toggle } from './Toggle';
 
 type Props = {
@@ -15,9 +16,10 @@ type Props = {
   onPressPrev: () => void;
   onPressWrite: () => void;
   onPressToggle: (topic: string) => void;
+  onPressPost: (type: number) => void;
 };
 
-export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, onPressToggle }: Props) => {
+export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, onPressToggle, onPressPost }: Props) => {
   return (
     <ScrollView>
       <SafeAreaView>
@@ -43,8 +45,12 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
 
         <SplitRow height={16} />
 
-        <Post isFirst />
-        <Post isFirst={false} />
+        <View style={styles.postCntainer}>
+          <TouchableOpacity onPress={() => onPressPost(0)}>
+            <PostSummary isFirst />
+          </TouchableOpacity>
+          <PostSummary isFirst={false} />
+        </View>
       </SafeAreaView>
     </ScrollView>
   );
@@ -53,5 +59,8 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
 const styles = StyleSheet.create({
   toggleContainer: {
     paddingHorizontal: 19,
+  },
+  postCntainer: {
+    paddingHorizontal: 20,
   },
 });
