@@ -30,7 +30,6 @@ export const WeekendBriefRankingContainer = () => {
         params: {
           bakeryId: bakery.id,
           name: bakery.name,
-          // onSaveSuccess: (selectBookmark: BookmarkList) => onBookmarkSuccess(selectBookmark),
         },
       });
     },

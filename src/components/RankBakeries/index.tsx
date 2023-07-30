@@ -17,7 +17,7 @@ type Props = {
 export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) => {
   return (
     <FlatList
-      data={bakeries || []}
+      data={bakeries}
       renderItem={({ item, index }) => {
         return (
           <TouchableOpacity onPress={() => onPressBakery(item)}>
