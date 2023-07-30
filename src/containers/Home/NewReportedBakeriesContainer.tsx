@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useFollow } from '@/apis/auth/useFollow';
+import { useGetNewBakeries } from '@/apis/bakery/useGetNewBakeries';
 import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { NewBakeryCard } from '@/components/NewReportedBakeries/NewBakeryCard';
 import { NewBakeryChip } from '@/components/NewReportedBakeries/NewBakeryChip';
@@ -13,40 +14,7 @@ export const NewReportedBakeriesContainer = () => {
 
   const { mutate } = useFollow({});
 
-  const data = [
-    {
-      user: {
-        id: 1,
-        image: '',
-        name: '빵순이22님의 제보',
-        isFollow: false,
-      },
-      bakery: {
-        id: 1,
-        image: '',
-        name: '밀도',
-        shortAddress: '서울 강남구',
-        isFlag: false,
-        review: '한입 물었을 때 나오는 버터의 존재감bbb 맛나요 빵♡',
-      },
-    },
-    {
-      user: {
-        id: 1,
-        image: '',
-        name: '빵순이22님의 제보',
-        isFollow: true,
-      },
-      bakery: {
-        id: 1,
-        image: '',
-        name: '밀도',
-        shortAddress: '서울 강남구',
-        isFlag: true,
-        review: '한입 물었을 때 나오는 버터의 존재감bbb 맛나요 빵♡',
-      },
-    },
-  ];
+  const { data } = useGetNewBakeries();
 
   const onPressFollow = useCallback(
     (userId: number) => {
@@ -110,8 +78,16 @@ export const NewReportedBakeriesContainer = () => {
         renderItem={({ item }) => {
           return (
             <NewBakeryCard
-              user={item.user}
-              bakery={item.bakery}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              shortAddress={item.shortAddress}
+              isFlag={item.isFlagged}
+              content={item.content}
+              userId={item.pioneerId}
+              userNickname={item.pioneerNickname}
+              userProfile={item.pioneerProfileImage}
+              isFollow={item.isFollowed}
               onPressFollow={onPressFollow}
               onPressFlag={onPressFlag}
             />

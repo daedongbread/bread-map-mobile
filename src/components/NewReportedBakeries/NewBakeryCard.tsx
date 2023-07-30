@@ -7,43 +7,58 @@ import IcReport from '@shared/Icons/IcReport.svg';
 import { Text } from '@shared/Text';
 
 type Props = {
-  user: {
-    id: number;
-    image: string;
-    name: string;
-    isFollow: boolean;
-  };
-  bakery: {
-    id: number;
-    image: string;
-    name: string;
-    shortAddress: string;
-    isFlag: boolean;
-    review: string;
-  };
+  // Bakery
+  id: number;
+  image: string | null;
+  name: string;
+  shortAddress: string;
+  isFlag: boolean;
+  content: string | null;
+  // User
+  userId: number | null;
+  userNickname: string | null;
+  userProfile: string | null;
+  isFollow: boolean;
+
   onPressFollow: (userId: number) => void;
   onPressFlag: (bakery: { id: number; name: string }) => void;
 };
-export const NewBakeryCard = ({ user, bakery, onPressFollow, onPressFlag }: Props) => {
+export const NewBakeryCard = ({
+  id,
+  image,
+  name,
+  shortAddress,
+  content,
+  isFlag,
+  userId,
+  userNickname,
+  userProfile,
+  isFollow,
+  onPressFollow,
+  onPressFlag,
+}: Props) => {
   const handlePressFollow = () => {
-    onPressFollow(user.id);
+    if (userId) {
+      onPressFollow(userId);
+    }
   };
 
   const handlePressFlag = () => {
-    onPressFlag({ id: bakery.id, name: bakery.name });
+    onPressFlag({ id, name });
   };
+
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.center, styles.userSection]}>
-        <Image source={{ uri: user.image }} width={20} height={20} style={[styles.avatar, styles.rightGap]} />
+        <Image source={{ uri: userProfile || '' }} width={20} height={20} style={[styles.avatar, styles.rightGap]} />
         <Text presets={['body2', 'semibold']} color={'gray900'} style={styles.rightGap}>
-          {user.name}
+          {userNickname}
         </Text>
         <View>
           <Button
             size={'tiny'}
             borderRadius={4}
-            appearance={user.isFollow ? 'terdary' : 'secondary'}
+            appearance={isFollow ? 'terdary' : 'secondary'}
             onPress={handlePressFollow}
           >
             <Text presets={['bold']}>팔로우</Text>
@@ -52,25 +67,25 @@ export const NewBakeryCard = ({ user, bakery, onPressFollow, onPressFlag }: Prop
       </View>
       <View style={styles.row}>
         <View style={styles.rightGap}>
-          <Image source={{ uri: bakery.image }} width={100} height={100} />
+          <Image source={{ uri: image || '' }} width={100} height={100} />
         </View>
         <View style={styles.bakeryInfo}>
           <View style={[styles.row, styles.spaceBetween]}>
             <View>
               <Text presets={['body2', 'semibold']} color={'gray900'} style={styles.bottomGap}>
-                {bakery.name}
+                {name}
               </Text>
-              <ShortAddress shortAddress={bakery.shortAddress} />
+              <ShortAddress shortAddress={shortAddress} />
             </View>
             <View style={[styles.flagContainer]}>
               <TouchableOpacity onPress={handlePressFlag}>
-                <IcReport width={28} height={28} style={bakery.isFlag ? styles.primaryColor : styles.dimColor} />
+                <IcReport width={28} height={28} style={isFlag ? styles.primaryColor : styles.dimColor} />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.reviewContainer}>
             <Text style={styles.reviewText} color={'gray900'}>
-              {bakery.review}
+              {content}
             </Text>
           </View>
         </View>
