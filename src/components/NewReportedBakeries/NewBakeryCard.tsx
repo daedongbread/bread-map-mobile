@@ -47,6 +47,7 @@ export const NewBakeryCard = ({
     onPressFlag({ id, name });
   };
 
+  console.log(image);
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.center, styles.userSection]}>
@@ -61,13 +62,15 @@ export const NewBakeryCard = ({
             appearance={isFollow ? 'terdary' : 'secondary'}
             onPress={handlePressFollow}
           >
-            <Text presets={['bold']}>팔로우</Text>
+            <Text presets={['bold']} style={styles.followText}>
+              팔로우
+            </Text>
           </Button>
         </View>
       </View>
       <View style={styles.row}>
         <View style={styles.rightGap}>
-          <Image source={{ uri: image || '' }} width={100} height={100} />
+          <Image source={{ uri: image || '' }} width={100} height={100} style={styles.bakeryImage} />
         </View>
         <View style={styles.bakeryInfo}>
           <View style={[styles.row, styles.spaceBetween]}>
@@ -128,6 +131,10 @@ const styles = StyleSheet.create({
   avatar: {
     width: 20,
     height: 20,
+    borderRadius: 10,
+  },
+  followText: {
+    fontSize: 12,
   },
   primaryColor: {
     color: theme.color.primary600,
@@ -137,6 +144,11 @@ const styles = StyleSheet.create({
   },
   bakeryInfo: {
     flex: 1,
+  },
+  bakeryImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
   },
   reviewContainer: {
     backgroundColor: theme.color.gray100,
