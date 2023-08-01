@@ -1,33 +1,35 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { UploadIcon } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
+import { resizePixel } from '@/utils';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
 type Props = {
   comment: string;
+  mentionInfo: string;
   setComment: (text: string) => void;
   onPressCommentSubmit: () => void;
 };
 
-export const Input = ({ comment, setComment, onPressCommentSubmit }: Props) => {
+export const Input = ({ comment, mentionInfo, setComment, onPressCommentSubmit }: Props) => {
   const isSubmittable = comment.trim().length > 0;
 
   return (
     <Row style={styles.container}>
-      <View style={styles.inputContainer}>
+      <Row style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="댓글을 입력하세요"
           multiline
-          value={comment}
+          value={`${mentionInfo} ${comment}`}
           onChangeText={text => setComment(text)}
         />
-      </View>
+      </Row>
 
       <SplitColumn width={10} />
 
@@ -48,14 +50,19 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
+    height: 42,
+    alignItems: 'center',
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: theme.color.gray200,
     borderRadius: 21,
   },
   input: {
-    height: 42,
-    ...presets.body2,
+    flexShrink: 1,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingHorizontal: 3,
+    fontSize: resizePixel(14),
     ...presets.medium,
   },
   enterIcon: {

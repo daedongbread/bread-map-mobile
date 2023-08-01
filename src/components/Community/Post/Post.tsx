@@ -48,7 +48,13 @@ export const Post = ({}: Props) => {
         <FollowButton isFollow={false} onPress={() => null} />
       </Row>
 
-      <SplitRow height={40} />
+      <SplitRow height={22} />
+
+      <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
+        가장 좋아하는 빵집과 이유를 댓글로 달아주세요!
+      </Text>
+
+      <SplitRow height={20} />
 
       <Text color={theme.color.gray700} presets={['body2', 'medium']}>
         {tempText}
@@ -56,7 +62,14 @@ export const Post = ({}: Props) => {
 
       <SplitRow height={20} />
 
-      <Footer likeCount={25} commentCount={39} date="2021.10.01" />
+      <Footer
+        isLiked={false}
+        likeCount={25}
+        commentCount={39}
+        date="2021.10.01"
+        onPressLike={() => null}
+        onPressMenu={() => null}
+      />
     </View>
   );
 };

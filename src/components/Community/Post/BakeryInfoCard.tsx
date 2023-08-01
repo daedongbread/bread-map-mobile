@@ -1,15 +1,18 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LocationMarker } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 import MoreIcon from '@shared/Icons/MoreIcon.svg';
 
-type Props = {};
+type Props = {
+  onPress: () => void;
+};
 
-export const BakeryInfoCard = ({}: Props) => (
-  <View style={styles.container}>
+export const BakeryInfoCard = ({ onPress }: Props) => (
+  <TouchableOpacity style={styles.container} onPress={onPress}>
     <View style={styles.row}>
       <Image style={styles.bakeryImage} source={{ uri: 'https://picsum.photos/48/48' }} />
       <SplitColumn width={19} />
@@ -31,7 +34,7 @@ export const BakeryInfoCard = ({}: Props) => (
     <View>
       <MoreIcon width={24} height={24} />
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { Rating } from '@/components/RankBakeries/Rating';
 import IcReport from '@/components/Shared/Icons/IcReport.svg';
 import { theme } from '@/styles/theme';
+import defaultThumbnail from '@shared/Images/thumbnail.png';
 import { Text } from '@shared/Text';
 
 import { ShortAddress } from './ShortAddress';
@@ -17,14 +18,14 @@ type Props = {
 export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) => {
   return (
     <FlatList
-      data={bakeries || []}
+      data={bakeries}
       renderItem={({ item, index }) => {
         return (
           <TouchableOpacity onPress={() => onPressBakery(item)}>
             <View style={[styles.row]}>
               <View style={[styles.row, styles.center, styles.imageWrapper]}>
-                <Text presets={['subhead', 'medium']}>{index + 1}</Text>
-                <Image source={{ uri: item.image }} style={styles.image} />
+                <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>{index + 1}</Text>
+                <Image source={item.image ? { uri: item.image } : defaultThumbnail} style={styles.image} />
               </View>
               <View style={styles.contentWrapper}>
                 <Text presets={['body1', 'bold']} color={'gray900'} style={styles.name}>
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
   alignCenter: {
     alignItems: 'center',
   },
+  rankingIndex: {
+    marginRight: 19,
+  },
   imageWrapper: {
     width: 104,
     justifyContent: 'space-around',
@@ -69,6 +73,7 @@ const styles = StyleSheet.create({
   image: {
     width: 76,
     height: 76,
+    borderRadius: 8,
   },
   name: {
     marginBottom: 4,

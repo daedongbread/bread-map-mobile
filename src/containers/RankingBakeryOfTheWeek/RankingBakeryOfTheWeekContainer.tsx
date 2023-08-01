@@ -16,7 +16,7 @@ import { Text } from '@shared/Text';
 export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
 
-  const { data } = useRankBakeries();
+  const { data } = useRankBakeries({ count: 10 });
 
   const onPressFlag = useCallback(
     (bakery: RankBakery) => {

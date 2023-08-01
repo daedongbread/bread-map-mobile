@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { useQuery } from 'react-query';
+import { useFocusEffect } from '@react-navigation/native';
 import { fetcher } from '../fetcher';
 
 type RankBakeries = {
@@ -16,50 +18,27 @@ export type RankBakery = {
 };
 
 const bakeriesRank = ({ count }: Required<RankBakeries>) => {
-  return fetcher.get<RankBakery[]>(`/v1/bakeries/rank/${count}`);
+  return fetcher.get<{ data: RankBakery[] }>(`/v1/bakeries/rank/${count}`).then(el => el.data);
 };
 
 export const useRankBakeries = (props?: RankBakeries) => {
-  const [data, setData] = useState<RankBakery[]>();
   const count = props?.count || 5;
 
-  // return useQuery({
-  //   queryFn: () => bakeriesRank({ count }),
-  //   queryKey: ['bakeries', 'rank', count],
-  // });
+  const { data, refetch, ...rest } = useQuery({
+    queryFn: () => bakeriesRank({ count }),
+    queryKey: ['bakeries', 'rank', count],
+    enabled: false,
+  });
 
-  useEffect(() => {
-    setData([
-      {
-        id: 600,
-        name: '포레포레',
-        image: 'https://d2a72lvyl71dvx.cloudfront.net/defaultImage/defaultBakery8.png',
-        flagNum: 1532,
-        rating: 3.2,
-        shortAddress: '서울 강동구',
-        isFlagged: true,
-      },
-      {
-        id: 500,
-        name: '정수제빵소',
-        image: 'https://d2a72lvyl71dvx.cloudfront.net/defaultImage/defaultBakery8.png',
-        flagNum: 1532,
-        rating: 3.2,
-        shortAddress: '서울특별시 중랑구',
-        isFlagged: false,
-      },
-      {
-        id: 100,
-        name: '케이크하우스밀레 중화점',
-        image: 'https://d2a72lvyl71dvx.cloudfront.net/defaultImage/defaultBakery4.png',
-        flagNum: 100,
-        rating: 3.7,
-        shortAddress: '서울특별시 중랑구',
-        isFlagged: false,
-      },
-    ]);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
+
   return {
-    data,
+    data: data?.data,
+    refetch,
+    ...rest,
   };
 };
