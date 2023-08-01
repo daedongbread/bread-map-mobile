@@ -45,3 +45,9 @@ export type FeedDetailCuration = {
   productPrice: string;
   productImageUrl: string;
 };
+
+export type LikeEntity = {
+  userId: number;
+  likeStatus: string;
+  likeCounts: number;
+};

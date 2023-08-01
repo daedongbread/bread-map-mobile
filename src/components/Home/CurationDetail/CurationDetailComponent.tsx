@@ -32,9 +32,11 @@ import { Tag } from './Tag';
 type Props = {
   feedDetail: FeedDetail;
   onPressFlag: (bakeryId: number, bakeryName: string) => void;
+  onLikePress: () => void;
+  onUnLikePress: () => void;
 };
 
-export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFlag }) => {
+export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFlag, onLikePress, onUnLikePress }) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { top } = insets;
@@ -260,7 +262,7 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
 
           <SplitColumn width={63} />
 
-          <TouchableOpacity style={styles.likeButton}>
+          <TouchableOpacity style={styles.likeButton} onPress={onLikePress}>
             <IcLike fill="white" />
           </TouchableOpacity>
         </View>
