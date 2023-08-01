@@ -11,7 +11,9 @@ import { CurationDetail } from './CurationDetail';
 
 export type HomeStackParamList = {
   Home: undefined;
-  CurationDetail: undefined;
+  CurationDetail: {
+    feedId: number;
+  };
   Bakery: NavigatorScreenParams<BakeryDetailTabParamList>;
   BakeryMenuDetail: {
     bakeryId: number;

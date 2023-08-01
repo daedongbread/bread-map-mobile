@@ -10,16 +10,18 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FeedDetail } from '@/apis/feed/types';
+import { HomePageRowInfo } from '@/components/BakeryDetail/BakeryHome/HomePageRowInfo';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { IcLike } from '@/components/Shared/Icons';
 import { Call } from '@/components/Shared/Icons/Call';
 import IcReport from '@/components/Shared/Icons/IcReport.svg';
-import { LinkAngled } from '@/components/Shared/Icons/LinkAngled';
 import { Location } from '@/components/Shared/Icons/Location';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
 import { TimeCircle } from '@/components/Shared/Icons/TimeCircle';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { getFacilityText } from '@/containers/BakeryDetail/BakeryInfo/BakeryInfoContainer';
 import { theme } from '@/styles/theme';
 import { resizePixel, resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
@@ -28,47 +30,17 @@ import { RowInfo } from './RowInfo';
 import { Tag } from './Tag';
 
 type Props = {
-  curationImage: string;
-  title: string;
-  likeCount: number;
-  Introduction: string;
-  bakeryName: string;
-  location: string;
-  openingHours: string;
-  phone: string;
-  link: string;
-  tag: string;
-  breadImages: Array<String>;
-  breadMenuName: string;
-  recommendReason: string;
-  checkPoint: string;
-  breadOutTime: string;
-  conclusion: string;
-  onPressFlag: () => void;
+  feedDetail: FeedDetail;
+  onPressFlag: (bakeryId: number, bakeryName: string) => void;
 };
 
-export const CurationDetailComponent: React.FC<Props> = ({
-  curationImage,
-  title,
-  likeCount,
-  Introduction,
-  bakeryName,
-  location,
-  openingHours,
-  phone,
-  link,
-  tag,
-  breadImages,
-  breadMenuName,
-  recommendReason,
-  checkPoint,
-  breadOutTime,
-  conclusion,
-  onPressFlag,
-}) => {
+export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFlag }) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { top } = insets;
+
+  const { common, curation, likeCounts } = feedDetail;
+  const { subTitle, introduction, conclusion, thumbnailUrl } = common;
 
   const onPressPrevBtn = () => {
     navigation.goBack();
@@ -76,10 +48,10 @@ export const CurationDetailComponent: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* 1. 콘텐츠 Title */}
         <ImageBackground
-          source={{ uri: 'https://picsum.photos/200/180' }}
+          source={{ uri: thumbnailUrl }}
           style={[styles.imageBackgroundContainer, { minHeight: resizePixel(180 + top) }]}
           resizeMode="cover"
         >
@@ -90,23 +62,13 @@ export const CurationDetailComponent: React.FC<Props> = ({
               <PrevIcon fillColor={theme.color.white} />
             </TouchableOpacity>
 
-            {/* Title */}
-            <View style={styles.titleContainerInImage}>
-              <Text presets={['body1', 'opacity1']} color="white" style={styles.title}>
-                빵순 빵돌 사이에서 소문난
-              </Text>
-              <Text presets={['heading1']} color="white" style={styles.title}>
-                겉바속쫀 소금빵 먹킷리스트
-              </Text>
-            </View>
-
             {/* Like count */}
             <View style={styles.likeCountContainer}>
               <View style={[styles.row, styles.likeCountView]}>
                 <IcLike fill="white" opacity={0.8} />
                 <SplitColumn width={4} />
                 <Text presets={['body2', 'opacity1']} color="white">
-                  78
+                  {likeCounts}
                 </Text>
               </View>
             </View>
@@ -117,101 +79,170 @@ export const CurationDetailComponent: React.FC<Props> = ({
 
         {/* 2. 콘텐츠 서론 */}
         <View style={styles.greetingsContainer}>
-          <Greetings text={'안녕하세요 ! 빵빠레에요 인기가 많아 빨리 가야하는 소금빵 맛집 5곳을 알려드릴게요'} />
+          <Greetings text={introduction} />
         </View>
         <SplitRow height={20} />
 
         {/* 3. 콘텐츠 메인(Body) */}
-        <View style={styles.body}>
-          <View style={styles.mainContainer}>
-            <View style={styles.mainTextInfoContainer}>
-              <Text presets={['body2']}>하루 6번 갓구워낸</Text>
-              <Text presets={['heading2']}>자연도 소금빵</Text>
-              <SplitRow height={10} />
+        {curation?.map((item, curationId) => {
+          const {
+            bakeryId,
+            bakeryName,
+            bakeryAddress,
+            openingHours,
+            bakeryImageUrl,
+            checkPoint,
+            newBreadTime,
+            // address,
+            // detailedAddress,
+            websiteURL,
+            instagramURL,
+            facebookURL,
+            blogURL,
+            facilityInfo,
+            phoneNumber,
+            // productId,
+            productName,
+            productPrice,
+            productImageUrl,
+          } = item;
+          return (
+            <View key={`curationBody:${curationId}`}>
+              <View style={styles.body}>
+                <View style={styles.mainContainer}>
+                  <View style={styles.mainTextInfoContainer}>
+                    <Text presets={['body2']}>{subTitle}</Text>
+                    <Text presets={['heading2']}>{bakeryName}</Text>
+                    <SplitRow height={10} />
+                    {!!bakeryAddress && (
+                      <RowInfo
+                        icon={<Location />}
+                        text={bakeryAddress}
+                        textColor={theme.color.gray500}
+                        splitColumn={8}
+                      />
+                    )}
+                    {!!openingHours && (
+                      <View>
+                        <SplitRow height={2} />
+                        <RowInfo
+                          icon={<TimeCircle />}
+                          text={openingHours}
+                          textColor={theme.color.gray500}
+                          splitColumn={8}
+                        />
+                      </View>
+                    )}
+                    {!!phoneNumber && (
+                      <View>
+                        <SplitRow height={2} />
+                        <RowInfo icon={<Call />} text={phoneNumber} textColor={theme.color.gray500} splitColumn={8} />
+                      </View>
+                    )}
+                    {!!instagramURL && (
+                      <View>
+                        <SplitRow height={6} />
+                        <HomePageRowInfo
+                          websiteURL={websiteURL}
+                          instagramURL={instagramURL}
+                          facebookURL={facebookURL}
+                          blogURL={blogURL}
+                        />
+                      </View>
+                    )}
+                  </View>
 
-              <RowInfo
-                icon={<Location />}
-                text={'인천 중구 은하수로 10 더테라스프라자 1층'}
-                textColor={theme.color.gray500}
-                splitColumn={8}
-              />
-              <RowInfo
-                icon={<TimeCircle />}
-                text={'매일 09:00 ~ 22:00'}
-                textColor={theme.color.gray500}
-                splitColumn={8}
-              />
-              <RowInfo icon={<Call />} text={'031-746-2245'} textColor={theme.color.gray500} splitColumn={8} />
-              <RowInfo
-                icon={<LinkAngled />}
-                text={'@saltbread.in.seaside'}
-                textColor={theme.color.primary400}
-                splitColumn={8}
-              />
+                  <View style={styles.reportButtonContainer}>
+                    <TouchableOpacity onPress={() => onPressFlag(bakeryId, bakeryName)}>
+                      <IcReport width={28} height={28} style={{ color: theme.color.primary600 }} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <SplitRow height={5} />
+                <View style={styles.tagContainer}>
+                  {facilityInfo?.map((category, facilityId) => {
+                    return <Tag key={`facilityInfo:${facilityId}`} text={getFacilityText(category)} />;
+                  })}
+                </View>
+                <SplitRow height={25} />
+
+                {bakeryImageUrl && (
+                  <View>
+                    <FastImage
+                      source={{ uri: bakeryImageUrl }}
+                      style={styles.breadImage}
+                      // resizeMode="contain"
+                    />
+                    <SplitRow height={15} />
+                  </View>
+                )}
+                {productImageUrl && (
+                  <View>
+                    <FastImage
+                      source={{ uri: productImageUrl }}
+                      style={styles.breadImage}
+                      // resizeMode="contain"
+                    />
+                    <SplitRow height={15} />
+                  </View>
+                )}
+                <View style={styles.row}>
+                  <Text presets={['body1', 'bold']} color={theme.color.gray900} style={styles.rowText1}>
+                    {productName}
+                  </Text>
+                  <Text presets={['body1', 'bold']} color={theme.color.primary600} style={styles.rowText2}>
+                    {`${productPrice ? Number(productPrice).toLocaleString() : 0}원`}
+                  </Text>
+                </View>
+                {/* <View>
+                  <SplitRow height={15} />
+                  <Text presets={['body2']} color={theme.color.gray900}>
+                    {
+                      '소금빵 전문점이라고 들어보셨나요?\n자연도 소금빵은 캐나다산 최고등급 cw1 alf 100%와\n서해 천일염 100% 만을 사용해서 만들고 있어요.'
+                    }
+                  </Text>
+                </View> */}
+                {checkPoint && (
+                  <View>
+                    <SplitRow height={30} />
+                    <View>
+                      <Text presets={['body2', 'bold']}>{'✅ 체크 포인트'}</Text>
+                      <Text presets={['body2']} color={theme.color.gray900}>
+                        {checkPoint}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+                {newBreadTime && (
+                  <View>
+                    <SplitRow height={30} />
+                    <Text presets={['body2', 'bold']}>{'🥐 갓군빵 나오는 시간'}</Text>
+                    {/* <Text presets={['body2']} color={theme.color.primary600}>
+                    {'소금빵이 모두 판매되면 조기마감'}
+                  </Text> */}
+                    <Text presets={['body2']} color={theme.color.gray900}>
+                      {newBreadTime}
+                    </Text>
+                  </View>
+                )}
+              </View>
+              {curation.length - 1 !== curationId ? (
+                <View>
+                  <SplitRow height={40} />
+                  <Divider />
+                  <SplitRow height={40} />
+                </View>
+              ) : (
+                <SplitRow height={30} />
+              )}
             </View>
-
-            <View style={styles.reportButtonContainer}>
-              <TouchableOpacity onPress={onPressFlag}>
-                <IcReport width={28} height={28} style={{ color: theme.color.primary600 }} />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <SplitRow height={10} />
-
-          <View style={styles.tagContainer}>
-            <Tag text={'주차 가능'} />
-            <Tag text={'배달 가능'} />
-          </View>
-          <SplitRow height={25} />
-
-          <View>
-            <FastImage
-              source={{ uri: 'https://picsum.photos/200/180' }}
-              style={styles.breadImage}
-              // resizeMode="contain"
-            />
-            <SplitRow height={15} />
-          </View>
-
-          <View style={styles.row}>
-            <Text presets={['body1', 'bold']} color={theme.color.gray900} style={styles.rowText1}>
-              오리지날 소금빵
-            </Text>
-            <Text presets={['body1', 'bold']} color={theme.color.primary600} style={styles.rowText2}>
-              4개 세트 12,000원
-            </Text>
-          </View>
-          <SplitRow height={15} />
-          <View>
-            <Text presets={['body2']} color={theme.color.gray900}>
-              {
-                '소금빵 전문점이라고 들어보셨나요?\n자연도 소금빵은 캐나다산 최고등급 cw1 alf 100%와\n서해 천일염 100% 만을 사용해서 만들고 있어요.'
-              }
-            </Text>
-          </View>
-          <SplitRow height={30} />
-          <View>
-            <Text presets={['body2', 'bold']}>{'✅ 체크 포인트'}</Text>
-            <Text presets={['body2']} color={theme.color.gray900}>
-              {'세트 기준으로 판매하고 있어요'}
-            </Text>
-          </View>
-          <SplitRow height={30} />
-          <View>
-            <Text presets={['body2', 'bold']}>{'🥐 갓군빵 나오는 시간'}</Text>
-            <Text presets={['body2']} color={theme.color.primary600}>
-              {'소금빵이 모두 판매되면 조기마감'}
-            </Text>
-            <Text presets={['body2']} color={theme.color.gray900}>
-              {'오전 9:00 ~ 오전 10:00\n오전 11:30 ~ 오전 12:00\n오후 12:00 ~ 오후 1:00\n오후 1:00 ~ 오후 2:00'}
-            </Text>
-          </View>
-        </View>
-        <SplitRow height={40} />
+          );
+        })}
 
         {/* 4. 콘텐츠 결론 */}
         <View style={styles.greetingsContainer}>
-          <Greetings text={'다음에 또 다른 신규 빵집으로 찾아올께요~!'} />
+          <Greetings text={conclusion} />
         </View>
 
         <SplitRow height={40} />

@@ -59,7 +59,7 @@ const styles = StyleSheet.create(
   resizePixels({
     row: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     textWrapper: {},
     text: {

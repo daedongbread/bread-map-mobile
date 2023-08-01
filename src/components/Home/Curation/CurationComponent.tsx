@@ -1,15 +1,10 @@
 import React from 'react';
 import Carousel from 'react-native-snap-carousel';
-
-export type CarouselItemType = {
-  subtitle: string;
-  title: string;
-  source: any;
-};
+import { FeedEntity } from '@/apis/feed/types';
 
 type Props = {
-  carouselItems: Array<CarouselItemType>;
-  renderItem: React.FC<{ item: CarouselItemType; index: number }>;
+  carouselItems: Array<FeedEntity>;
+  renderItem: React.FC<{ item: FeedEntity; index: number }>;
   sliderWidth: number;
   itemWidth: number;
   itemHeight: number;
