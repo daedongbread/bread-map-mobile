@@ -33,15 +33,30 @@ export const CurationDetailContainer = () => {
 
   const onLikePress = async () => {
     await userLikeInfo(feedId, {
+      onSettled(data, error, variables, context) {
+        if (error?.response?.data?.code === 50002) {
+          dispatch(
+            showToast({
+              text: '좋아요를 5번 이상 누를 수 없어요.',
+              duration: 2 * 1000,
+            })
+          );
+          return;
+        }
+
+        if (data) {
+          const { likeCounts } = data;
+
+          dispatch(
+            showToast({
+              text: `좋아요를 ${likeCounts}번 눌렀어요.`,
+              duration: 2 * 1000,
+            })
+          );
+        }
+      },
       onSuccess: () => {
         refetchCurationDetail();
-
-        dispatch(
-          showToast({
-            text: '해당 피드에 좋아요를 눌렀어요.',
-            duration: 2 * 1000,
-          })
-        );
       },
     });
   };
