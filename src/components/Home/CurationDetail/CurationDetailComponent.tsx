@@ -33,10 +33,9 @@ type Props = {
   feedDetail: FeedDetail;
   onPressFlag: (bakeryId: number, bakeryName: string) => void;
   onLikePress: () => void;
-  onUnLikePress: () => void;
 };
 
-export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFlag, onLikePress, onUnLikePress }) => {
+export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFlag, onLikePress }) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { top } = insets;

@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useGetCurationFeedDetail } from '@/apis/feed/useGetCurationFeedDetail';
 import { usePostLike } from '@/apis/feed/usePostLike';
-import { usePostUnLike } from '@/apis/feed/usePostUnLike';
 import { CurationDetailComponent } from '@/components/Home/CurationDetail/CurationDetailComponent';
 import { useAppDispatch } from '@/hooks/redux';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
@@ -17,7 +16,6 @@ export const CurationDetailContainer = () => {
   const { feedId } = route.params;
   const { feedDetail, refetch: refetchCurationDetail } = useGetCurationFeedDetail(feedId);
   const { mutateAsync: userLikeInfo } = usePostLike();
-  const { mutateAsync: userUnLikeInfo } = usePostUnLike();
   const dispatch = useAppDispatch();
 
   const onPressFlag = useCallback(
@@ -48,31 +46,9 @@ export const CurationDetailContainer = () => {
     });
   };
 
-  const onUnLikePress = async () => {
-    await userUnLikeInfo(feedId, {
-      onSuccess: () => {
-        refetchCurationDetail();
-
-        dispatch(
-          showToast({
-            text: '해당 피드에 좋아요를 취소했어요.',
-            duration: 2 * 1000,
-          })
-        );
-      },
-    });
-  };
-
   if (!feedDetail) {
     return null;
   }
 
-  return (
-    <CurationDetailComponent
-      feedDetail={feedDetail}
-      onPressFlag={onPressFlag}
-      onLikePress={onLikePress}
-      onUnLikePress={onUnLikePress}
-    />
-  );
+  return <CurationDetailComponent feedDetail={feedDetail} onPressFlag={onPressFlag} onLikePress={onLikePress} />;
 };
