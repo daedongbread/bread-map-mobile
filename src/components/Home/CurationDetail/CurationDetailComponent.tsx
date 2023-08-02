@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dimensions,
   ImageBackground,
+  Linking,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -137,7 +138,15 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
                     {!!phoneNumber && (
                       <View>
                         <SplitRow height={2} />
-                        <RowInfo icon={<Call />} text={phoneNumber} textColor={theme.color.gray500} splitColumn={8} />
+                        <RowInfo
+                          icon={<Call />}
+                          text={phoneNumber}
+                          textColor={theme.color.gray500}
+                          splitColumn={8}
+                          onPressText={() => {
+                            Linking.openURL(`tel:${phoneNumber}`);
+                          }}
+                        />
                       </View>
                     )}
                     {!!instagramURL && (
