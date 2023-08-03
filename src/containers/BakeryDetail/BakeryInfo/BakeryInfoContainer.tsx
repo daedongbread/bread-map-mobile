@@ -23,6 +23,26 @@ export type FacilityItem = {
   text: FacilityText;
 };
 
+export const getFacilityText = (category: FacilityCategory): string => {
+  switch (category) {
+    case 'PARKING':
+      return '주차 가능';
+    case 'WIFI':
+      return '와이파이';
+    case 'DELIVERY':
+      return '배달 가능';
+    case 'PET':
+      return '반려동물';
+    case 'SHIPPING':
+      return '택배 가능';
+    case 'BOOKING':
+      return '예약 가능';
+
+    default:
+      return '';
+  }
+};
+
 const facilityList: FacilityItem[] = [
   {
     icon: InfoParkingIcon,
