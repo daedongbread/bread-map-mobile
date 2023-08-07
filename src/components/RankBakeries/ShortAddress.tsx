@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     height: 15,
   },
   shortAddress: {
-    lineHeight: 13,
+    lineHeight: 15,
   },
 });

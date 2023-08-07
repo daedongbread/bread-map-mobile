@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { useFollow } from '@/apis/auth/useFollow';
+import { useFollow, useUnFollow } from '@/apis/auth/useFollow';
 import { useGetNewBakeries } from '@/apis/bakery/useGetNewBakeries';
 import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { NewBakeryCard } from '@/components/NewReportedBakeries/NewBakeryCard';
@@ -12,15 +12,25 @@ import { Text } from '@shared/Text';
 export const NewReportedBakeriesContainer = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
 
-  const { mutate } = useFollow({});
+  const { mutateAsync: followMutationAsync } = useFollow({});
+  const { mutateAsync: unfollowMutation } = useUnFollow();
 
-  const { data } = useGetNewBakeries();
+  const { data, refetch } = useGetNewBakeries();
 
   const onPressFollow = useCallback(
-    (userId: number) => {
-      mutate({ userId });
+    async (userId: number) => {
+      const newBakery = data?.find(v => v.pioneerId === userId);
+      if (newBakery?.isFollowed) {
+        await unfollowMutation({ userId });
+      }
+
+      if (newBakery?.isFollowed === false) {
+        await followMutationAsync({ userId });
+      }
+
+      refetch();
     },
-    [mutate]
+    [followMutationAsync, unfollowMutation, refetch, data]
   );
 
   const onPressFlag = useCallback(
@@ -37,27 +47,27 @@ export const NewReportedBakeriesContainer = () => {
     [navigation]
   );
 
-  // const onPressBakery = useCallback(
-  //   (bakery: Pick<RankBakery, 'id' | 'name'>) => {
-  //     navigation.navigate('MainStack', {
-  //       screen: 'MainTab',
-  //       params: {
-  //         screen: 'HomeStack',
-  //         params: {
-  //           screen: 'Bakery',
-  //           params: {
-  //             screen: 'BakeryDetailHome',
-  //             params: {
-  //               bakeryId: bakery.id,
-  //               bakeryName: bakery.name,
-  //             },
-  //           },
-  //         },
-  //       },
-  //     });
-  //   },
-  //   [navigation]
-  // );
+  const onPressBakery = useCallback(
+    (bakery: Pick<RankBakery, 'id' | 'name'>) => {
+      navigation.navigate('MainStack', {
+        screen: 'MainTab',
+        params: {
+          screen: 'HomeStack',
+          params: {
+            screen: 'Bakery',
+            params: {
+              screen: 'BakeryDetailHome',
+              params: {
+                bakeryId: bakery.id,
+                bakeryName: bakery.name,
+              },
+            },
+          },
+        },
+      });
+    },
+    [navigation]
+  );
 
   return (
     <View>
@@ -90,6 +100,7 @@ export const NewReportedBakeriesContainer = () => {
               isFollow={item.isFollowed}
               onPressFollow={onPressFollow}
               onPressFlag={onPressFlag}
+              onPressBakery={onPressBakery}
             />
           );
         }}

@@ -7,12 +7,12 @@ import { Text } from '@shared/Text';
 
 export const Rating = (props: { flagNum: number; rating: number }) => {
   return (
-    <View style={[styles.row]}>
+    <View style={[styles.row, styles.alignCenter]}>
       <View style={[styles.row, styles.alignCenter, styles.reportIconWrapper]}>
         <View style={styles.icon}>
           <IcReport style={styles.primaryColor} />
         </View>
-        <Text presets={['caption1']} style={styles.shortAddress} color={'gray900'}>
+        <Text presets={['caption1']} style={[styles.shortAddress, styles.scoreText]} color={'gray900'}>
           {props.flagNum}
         </Text>
       </View>
@@ -20,7 +20,7 @@ export const Rating = (props: { flagNum: number; rating: number }) => {
         <View style={styles.icon}>
           <IcStart style={styles.primaryColor} />
         </View>
-        <Text presets={['caption1']} style={styles.shortAddress} color={'gray900'}>
+        <Text presets={['caption1']} style={[styles.shortAddress, styles.scoreText]} color={'gray900'}>
           {props.rating}
         </Text>
       </View>
@@ -55,5 +55,8 @@ const styles = StyleSheet.create({
   },
   shortAddress: {
     lineHeight: 13,
+  },
+  scoreText: {
+    lineHeight: 16,
   },
 });

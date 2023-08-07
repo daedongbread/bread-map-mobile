@@ -24,7 +24,9 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
           <TouchableOpacity onPress={() => onPressBakery(item)}>
             <View style={[styles.row]}>
               <View style={[styles.row, styles.center, styles.imageWrapper]}>
-                <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>{index + 1}</Text>
+                <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>
+                  {index + 1}
+                </Text>
                 <Image source={item.image ? { uri: item.image } : defaultThumbnail} style={styles.image} />
               </View>
               <View style={styles.contentWrapper}>
@@ -32,7 +34,7 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
                   {item.name}
                 </Text>
                 <ShortAddress shortAddress={item.shortAddress} />
-                <Rating rating={item.rating} flagNum={item.flagNum} />
+                <Rating rating={item.rating || 0} flagNum={item.flagNum || 0} />
               </View>
               <View style={[styles.center]}>
                 <TouchableOpacity onPress={() => onPressFlag(item)}>

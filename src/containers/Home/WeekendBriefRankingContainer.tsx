@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { requestGetBakery } from '@/apis/bakery/useGetBakery';
 import { RankBakery, useRankBakeries } from '@/apis/bakery/useRankBakeries';
+import { useBookmarkDisableBakery } from '@/apis/flag';
 import { Header } from '@/components/Home';
 import { RankBakeries } from '@/components/RankBakeries';
 import { RootStackScreenProps } from '@/pages/Stack';
@@ -9,7 +11,9 @@ import { useNavigation } from '@react-navigation/core';
 export const WeekendBriefRankingContainer = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
 
-  const { data } = useRankBakeries();
+  const { data, refetch } = useRankBakeries();
+
+  const { mutateAsync } = useBookmarkDisableBakery();
 
   const onPressMore = useCallback(() => {
     navigation.navigate('MainStack', {
@@ -24,7 +28,19 @@ export const WeekendBriefRankingContainer = () => {
   }, [navigation]);
 
   const onPressFlag = useCallback(
-    (bakery: RankBakery) => {
+    async (bakery: RankBakery) => {
+      if (bakery.isFlagged) {
+        const { flagInfo } = await requestGetBakery({ bakeryId: bakery.id });
+        if (flagInfo.flagId) {
+          await mutateAsync({
+            bakeryId: bakery.id,
+            flagId: flagInfo.flagId,
+          });
+          refetch();
+        }
+        return;
+      }
+
       navigation.navigate('MainStack', {
         screen: 'BookmarkBottomSheet',
         params: {
@@ -33,7 +49,7 @@ export const WeekendBriefRankingContainer = () => {
         },
       });
     },
-    [navigation]
+    [mutateAsync, navigation, refetch]
   );
 
   const onPressBakery = useCallback(
