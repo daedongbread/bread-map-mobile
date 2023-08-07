@@ -2,8 +2,9 @@ import React, { useCallback } from 'react';
 
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { requestGetBakery } from '@/apis/bakery/useGetBakery';
 import { RankBakery, useRankBakeries } from '@/apis/bakery/useRankBakeries';
+import { useBookmarkDisableBakery } from '@/apis/flag';
 import { Rating } from '@/components/RankBakeries/Rating';
 import { ShortAddress } from '@/components/RankBakeries/ShortAddress';
 import { RootStackScreenProps } from '@/pages/Stack';
@@ -16,20 +17,33 @@ import { Text } from '@shared/Text';
 export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
 
-  const { data } = useRankBakeries({ count: 10 });
+  const { data, refetch } = useRankBakeries({ count: 10 });
+
+  const { mutateAsync } = useBookmarkDisableBakery();
 
   const onPressFlag = useCallback(
-    (bakery: RankBakery) => {
+    async (bakery: RankBakery) => {
+      if (bakery.isFlagged) {
+        const { flagInfo } = await requestGetBakery({ bakeryId: bakery.id });
+        if (flagInfo.flagId) {
+          await mutateAsync({
+            bakeryId: bakery.id,
+            flagId: flagInfo.flagId,
+          });
+          refetch();
+        }
+        return;
+      }
+
       navigation.navigate('MainStack', {
         screen: 'BookmarkBottomSheet',
         params: {
           bakeryId: bakery.id,
           name: bakery.name,
-          // onSaveSuccess: (selectBookmark: BookmarkList) => onBookmarkSuccess(selectBookmark),
         },
       });
     },
-    [navigation]
+    [mutateAsync, navigation, refetch]
   );
 
   const onPressBakery = useCallback(
@@ -55,7 +69,7 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   );
 
   return (
-    <SafeAreaView style={[styles.flex, styles.row, styles.wrap, styles.layout]}>
+    <View style={[styles.flex, styles.row, styles.wrap, styles.layout]}>
       {data?.map((item, i) => {
         return (
           <View key={item.id} style={[i % 2 === 0 ? styles.gap : undefined, i > 1 ? styles.horizontalGap : undefined]}>
@@ -84,7 +98,7 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
                 <TouchableOpacity onPress={() => onPressBakery(item)}>
                   <Text presets={['body1', 'bold']}>{item.name}</Text>
                   <ShortAddress shortAddress={item.shortAddress} />
-                  <Rating flagNum={item.flagNum} rating={item.rating} />
+                  <Rating flagNum={item.flagNum || 0} rating={item.rating || 0} />
                 </TouchableOpacity>
               </View>
               <View style={[styles.center]}>
@@ -96,7 +110,7 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
           </View>
         );
       })}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -111,8 +125,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 9,
   },
   gap: {
     marginRight: 8,

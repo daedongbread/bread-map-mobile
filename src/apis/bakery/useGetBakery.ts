@@ -28,4 +28,4 @@ const useGetBakery = ({ bakeryId }: UseGetBakeryProps) => {
   };
 };
 
-export { useGetBakery };
+export { useGetBakery, requestGetBakery };

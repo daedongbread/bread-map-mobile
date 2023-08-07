@@ -6,9 +6,10 @@ import { presets as textPresets, TextPresets } from '@shared/Text/presets';
 type Props = TextProps & {
   presets?: TextPresets | Array<TextPresets>;
   color?: string | keyof typeof theme['color'];
+  lineHeight?: number;
 };
 
-export const Text: React.FC<Props> = memo(({ presets, style: styleOverride, color, ...rest }) => {
+export const Text: React.FC<Props> = memo(({ presets, style: styleOverride, color, lineHeight, ...rest }) => {
   const parsingPresets = useCallback(() => {
     if (!presets) {
       return [{}];
@@ -25,9 +26,12 @@ export const Text: React.FC<Props> = memo(({ presets, style: styleOverride, colo
     color: {
       color: color && color in theme.color ? theme.color[color as keyof typeof theme.color] : color,
     },
+    lineHeight: {
+      lineHeight: lineHeight,
+    },
   });
 
-  const style = [...parsingPresets(), styles.color, styleOverride];
+  const style = [...parsingPresets(), styles.color, styles.lineHeight, styleOverride];
 
   return <ReactNativeText style={style} {...rest} />;
 });

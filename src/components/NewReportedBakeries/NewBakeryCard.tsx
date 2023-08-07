@@ -22,6 +22,7 @@ type Props = {
 
   onPressFollow: (userId: number) => void;
   onPressFlag: (bakery: { id: number; name: string }) => void;
+  onPressBakery: (bakery: { id: number; name: string }) => void;
 };
 export const NewBakeryCard = ({
   id,
@@ -36,6 +37,7 @@ export const NewBakeryCard = ({
   isFollow,
   onPressFollow,
   onPressFlag,
+  onPressBakery,
 }: Props) => {
   const handlePressFollow = () => {
     if (userId) {
@@ -47,7 +49,10 @@ export const NewBakeryCard = ({
     onPressFlag({ id, name });
   };
 
-  console.log(image);
+  const handlePressBakery = () => {
+    onPressBakery({ id, name });
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.row, styles.center, styles.userSection]}>
@@ -68,31 +73,33 @@ export const NewBakeryCard = ({
           </Button>
         </View>
       </View>
-      <View style={styles.row}>
-        <View style={styles.rightGap}>
-          <Image source={{ uri: image || '' }} width={100} height={100} style={styles.bakeryImage} />
-        </View>
-        <View style={styles.bakeryInfo}>
-          <View style={[styles.row, styles.spaceBetween]}>
-            <View>
-              <Text presets={['body2', 'semibold']} color={'gray900'} style={styles.bottomGap}>
-                {name}
+      <TouchableOpacity onPress={handlePressBakery}>
+        <View style={styles.row}>
+          <View style={styles.rightGap}>
+            <Image source={{ uri: image || '' }} width={100} height={100} style={styles.bakeryImage} />
+          </View>
+          <View style={styles.bakeryInfo}>
+            <View style={[styles.row, styles.spaceBetween]}>
+              <View>
+                <Text presets={['body2', 'semibold']} color={'gray900'} style={[styles.bottomGap, styles.nameText]}>
+                  {name}
+                </Text>
+                <ShortAddress shortAddress={shortAddress} />
+              </View>
+              <View style={[styles.flagContainer]}>
+                <TouchableOpacity onPress={handlePressFlag}>
+                  <IcReport width={28} height={28} style={isFlag ? styles.primaryColor : styles.dimColor} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.reviewContainer}>
+              <Text style={styles.reviewText} color={'gray900'}>
+                {content}
               </Text>
-              <ShortAddress shortAddress={shortAddress} />
             </View>
-            <View style={[styles.flagContainer]}>
-              <TouchableOpacity onPress={handlePressFlag}>
-                <IcReport width={28} height={28} style={isFlag ? styles.primaryColor : styles.dimColor} />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.reviewContainer}>
-            <Text style={styles.reviewText} color={'gray900'}>
-              {content}
-            </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -133,6 +140,9 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
   },
+  nameText: {
+    lineHeight: 15,
+  },
   followText: {
     fontSize: 12,
   },
@@ -144,6 +154,7 @@ const styles = StyleSheet.create({
   },
   bakeryInfo: {
     flex: 1,
+    height: 100,
   },
   bakeryImage: {
     width: 100,
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
   reviewContainer: {
     backgroundColor: theme.color.gray100,
     flex: 1,
-    height: 52,
+    height: 51,
     paddingHorizontal: 10,
     paddingVertical: 11,
   },
