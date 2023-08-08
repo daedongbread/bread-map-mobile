@@ -40,7 +40,7 @@ export const CurationDetailContainer = () => {
         if (error?.response?.data?.code === 50002) {
           dispatch(
             showToast({
-              text: '좋아요를 5번 이상 누를 수 없어요.',
+              text: '빵을 좋아하시는군요❤️',
               duration: 2 * 1000,
             })
           );
