@@ -10,6 +10,7 @@ export type FeedDetail = {
   curation: Array<FeedDetailCuration>;
   landing: null;
   likeCounts: number;
+  likeStatus: string;
 };
 
 export type FeedDetailCommon = {
@@ -44,6 +45,8 @@ export type FeedDetailCuration = {
   productName: string;
   productPrice: string;
   productImageUrl: string;
+  reason: string;
+  flagged: boolean;
 };
 
 export type LikeEntity = {

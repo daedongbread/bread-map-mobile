@@ -25,6 +25,9 @@ export const CurationDetailContainer = () => {
         params: {
           bakeryId,
           name: bakeryName,
+          onSaveSuccess: (selectBookmark: BookmarkList) => {
+            refetchCurationDetail();
+          },
         },
       });
     },
