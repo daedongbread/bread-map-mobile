@@ -107,6 +107,8 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
             productName,
             productPrice,
             productImageUrl,
+            reason,
+            flagged,
           } = item;
           return (
             <View key={`curationBody:${curationId}`}>
@@ -164,7 +166,11 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
 
                   <View style={styles.reportButtonContainer}>
                     <TouchableOpacity onPress={() => onPressFlag(bakeryId, bakeryName)}>
-                      <IcReport width={28} height={28} style={{ color: theme.color.primary600 }} />
+                      <IcReport
+                        width={28}
+                        height={28}
+                        style={{ color: flagged ? theme.color.primary600 : theme.color.gray300 }}
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -205,14 +211,12 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
                     {`${productPrice ? Number(productPrice).toLocaleString() : 0}원`}
                   </Text>
                 </View>
-                {/* <View>
+                <View>
                   <SplitRow height={15} />
                   <Text presets={['body2']} color={theme.color.gray900}>
-                    {
-                      '소금빵 전문점이라고 들어보셨나요?\n자연도 소금빵은 캐나다산 최고등급 cw1 alf 100%와\n서해 천일염 100% 만을 사용해서 만들고 있어요.'
-                    }
+                    {reason}
                   </Text>
-                </View> */}
+                </View>
                 {checkPoint && (
                   <View>
                     <SplitRow height={30} />
