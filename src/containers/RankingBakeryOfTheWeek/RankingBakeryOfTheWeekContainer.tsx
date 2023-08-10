@@ -73,19 +73,7 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
       {data?.map((item, i) => {
         return (
           <View key={item.id} style={[i % 2 === 0 ? styles.gap : undefined, i > 1 ? styles.horizontalGap : undefined]}>
-            <View
-              style={{
-                position: 'absolute',
-                backgroundColor: theme.color.gray900,
-                width: 30,
-                height: 28,
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 5,
-                borderTopStartRadius: 4,
-                borderBottomEndRadius: 4,
-              }}
-            >
+            <View style={styles.indexLayout}>
               <Text presets={['body2', 'medium']} color={'white'}>
                 {i + 1}
               </Text>
@@ -96,7 +84,9 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
             <View style={styles.row}>
               <View style={styles.flex}>
                 <TouchableOpacity onPress={() => onPressBakery(item)}>
-                  <Text presets={['body1', 'bold']}>{item.name}</Text>
+                  <Text presets={['body1', 'bold']} style={styles.titleGap}>
+                    {item.name}
+                  </Text>
                   <ShortAddress shortAddress={item.shortAddress} />
                   <Rating flagNum={item.flagNum || 0} rating={item.rating || 0} />
                 </TouchableOpacity>
@@ -143,6 +133,20 @@ const styles = StyleSheet.create({
     width: (WINDOW_WIDTH - 40 - 8) / 2,
     height: (WINDOW_WIDTH - 40 - 8) / 2,
     borderRadius: 4,
+  },
+  indexLayout: {
+    position: 'absolute',
+    backgroundColor: theme.color.gray900,
+    width: 30,
+    height: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 5,
+    borderTopStartRadius: 4,
+    borderBottomEndRadius: 4,
+  },
+  titleGap: {
+    marginBottom: 4,
   },
   primaryColor: {
     color: theme.color.primary600,
