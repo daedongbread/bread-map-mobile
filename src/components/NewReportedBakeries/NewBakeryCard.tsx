@@ -57,7 +57,7 @@ export const NewBakeryCard = ({
     <View style={styles.container}>
       <View style={[styles.row, styles.center, styles.userSection]}>
         <Image source={{ uri: userProfile || '' }} width={20} height={20} style={[styles.avatar, styles.rightGap]} />
-        <Text presets={['body2', 'semibold']} color={'gray900'} style={styles.rightGap}>
+        <Text presets={['body2', 'semibold']} color={'gray900'} style={[styles.rightGap, styles.userName]}>
           {userNickname}
         </Text>
         <View>
@@ -66,6 +66,7 @@ export const NewBakeryCard = ({
             borderRadius={4}
             appearance={isFollow ? 'terdary' : 'secondary'}
             onPress={handlePressFollow}
+            style={styles.followButton}
           >
             <Text presets={['bold']} style={styles.followText}>
               팔로우
@@ -167,9 +168,16 @@ const styles = StyleSheet.create({
     height: 51,
     paddingHorizontal: 10,
     paddingVertical: 11,
+    borderRadius: 4,
   },
   reviewText: {
     fontSize: 12,
     lineHeight: 15.12,
+  },
+  userName: {
+    lineHeight: 15,
+  },
+  followButton: {
+    height: 22,
   },
 });

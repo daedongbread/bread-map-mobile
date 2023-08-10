@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   image: {
     width: 76,
     height: 76,
-    borderRadius: 8,
+    borderRadius: 4,
   },
   name: {
     marginBottom: 4,
