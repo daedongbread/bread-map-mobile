@@ -7,6 +7,7 @@ import { Header } from '@/components/Home';
 import { RankBakeries } from '@/components/RankBakeries';
 import { RootStackScreenProps } from '@/pages/Stack';
 import { useNavigation } from '@react-navigation/core';
+import { Text } from '@shared/Text';
 
 export const WeekendBriefRankingContainer = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
@@ -76,7 +77,14 @@ export const WeekendBriefRankingContainer = () => {
 
   return (
     <View>
-      <Header title="이번주 인기 빵집" onPressMore={onPressMore} />
+      <Header
+        title={
+          <Text color="#1E1E1E" presets={['heading2', 'bold']}>
+            {'이번주 인기 빵집'}
+          </Text>
+        }
+        onPressMore={onPressMore}
+      />
       <View style={styles.gap} />
       <RankBakeries bakeries={data} onPressFlag={onPressFlag} onPressBakery={onPressBakery} />
     </View>
