@@ -8,9 +8,6 @@ export type BakeryReviewDetailParamList = {
   BakeryReviewDetail: {
     reviewId: number;
   };
-  ReviewCommentsDetail: {
-    reviewId: number;
-  };
 };
 
 export type BakeryReviewDetailScreenProps<T extends keyof BakeryReviewDetailParamList> = CompositeScreenProps<
