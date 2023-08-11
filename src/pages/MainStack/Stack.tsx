@@ -1,4 +1,5 @@
 import React from 'react';
+import { PostTopic } from '@/apis/community/types';
 import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { BlockList } from '@/pages/MainStack/BlockList';
@@ -15,7 +16,7 @@ import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
-import { CommentMenuBottomSheet, CommunityStack, CommunityStackParamList } from './Community';
+import { CommentMenuBottomSheet, CommunityStack, CommunityStackParamList, PostMenuBottomSheet } from './Community';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
 import { ReportMenu } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryMenu/ReportMenu';
 import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
@@ -41,9 +42,16 @@ export type MainStackParamList = {
     reviewId: number;
     userId: number;
   };
+  PostMenuBottomSheet: {
+    postId: number;
+    postTopic: PostTopic;
+    userId: number;
+  };
   CommentMenuBottomSheet: {
     commentId: number;
-    type: number;
+    ownerId: number;
+    postTopic: PostTopic;
+    postId: number;
   };
   BlockUserBottomSheet: {
     userId: number;
@@ -106,6 +114,7 @@ const MainStack = () => {
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
         <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
+        <Stack.Screen name="PostMenuBottomSheet" component={PostMenuBottomSheet} />
         <Stack.Screen name="CommentMenuBottomSheet" component={CommentMenuBottomSheet} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
