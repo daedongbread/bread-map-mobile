@@ -31,7 +31,7 @@ export const AccuseReviewContainer = () => {
   const route = useRoute<Route>();
 
   const { reviewId } = route.params;
-  const { mutateAsync: reportReview } = useReportReview();
+  const { mutateAsync: reportReview, isLoading } = useReportReview();
 
   const [form, setForm] = useState<AccuseForm>(initialForm);
 
@@ -45,6 +45,10 @@ export const AccuseReviewContainer = () => {
   );
 
   const onSubmit = async () => {
+    if (isLoading) {
+      return;
+    }
+
     await reportReview({
       reviewId,
       ...form,
@@ -64,6 +68,7 @@ export const AccuseReviewContainer = () => {
       subTitle={'타당한 근거 없이 신고된 내용은 관리자 확인 후\n반영되지 않을 수 있습니다.'}
       reasonList={reasonList}
       form={form}
+      isLoading={isLoading}
       onChange={onChange}
       onSubmit={onSubmit}
     />

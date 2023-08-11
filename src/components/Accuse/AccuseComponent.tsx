@@ -9,6 +9,7 @@ import { TextInput } from '@/components/Shared/TextInput';
 import { AccuseForm } from '@/containers/BakeryDetail/BakeryReview/AccuseReviewContainer';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { Loading } from '../Shared/Loading';
 import { AccuesItem } from './AccuesItem';
 
 const { height } = Dimensions.get('screen');
@@ -24,12 +25,13 @@ type Props = {
   subTitle: string;
   reasonList: ReasonType[];
   form: AccuseForm;
+  isLoading: boolean;
   onChange: (key: keyof AccuseForm, value: string) => void;
   onSubmit: () => void;
 };
 
 export const AccuseComponent = React.memo(
-  ({ headerText, title, subTitle, reasonList, form, onChange, onSubmit }: Props) => {
+  ({ headerText, title, subTitle, reasonList, form, isLoading, onChange, onSubmit }: Props) => {
     const navigation = useNavigation();
 
     const isValid = Boolean(form.reason);
@@ -82,6 +84,8 @@ export const AccuseComponent = React.memo(
         >
           신고하기
         </Button>
+
+        {isLoading && <Loading />}
       </SafeAreaView>
     );
   }
