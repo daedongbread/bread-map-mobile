@@ -30,7 +30,7 @@ export const AccuseCommentContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { targetId, type, postTopic } = route.params;
+  const { targetId, type } = route.params;
   const { mutateAsync: accusePost, isLoading } = usePostAccusePost();
 
   const [form, setForm] = useState<AccuseForm>(initialForm);
@@ -50,7 +50,7 @@ export const AccuseCommentContainer = () => {
     }
 
     await accusePost({
-      postTopic,
+      reportType: type,
       targetId,
       ...form,
     });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostTopic } from '@/apis/community/types';
+import { ReportType } from '@/apis/community/types';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { AccuseComment } from '../MainStack/Community';
@@ -11,8 +11,7 @@ export type ModalStackParamList = {
     reviewId: number;
   };
   AccuseComment: {
-    type: 'POST' | 'COMMENT';
-    postTopic: PostTopic;
+    type: ReportType;
     targetId: number;
   };
 };

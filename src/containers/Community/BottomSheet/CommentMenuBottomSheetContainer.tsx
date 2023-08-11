@@ -22,7 +22,7 @@ export const CommentMenuBottomSheetContainer = () => {
   const route = useRoute<Route>();
   const { userId: userId } = useAppSelector(selector => selector.auth);
 
-  const { commentId, ownerId, postTopic, postId } = route.params;
+  const { commentId, ownerId, postId } = route.params;
   const { mutateAsync: deleteCommentApi } = useDeleteComment(postId);
 
   const ref = useRef<BottomSheet>(null);
@@ -69,7 +69,6 @@ export const CommentMenuBottomSheetContainer = () => {
       screen: 'AccuseComment',
       params: {
         type: 'COMMENT',
-        postTopic,
         targetId: commentId,
       },
     });

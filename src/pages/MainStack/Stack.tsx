@@ -50,7 +50,6 @@ export type MainStackParamList = {
   CommentMenuBottomSheet: {
     commentId: number;
     ownerId: number;
-    postTopic: PostTopic;
     postId: number;
   };
   BlockUserBottomSheet: {

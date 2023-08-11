@@ -15,6 +15,7 @@ export type Post = {
 };
 
 export type PostTopic = 'ALL' | 'BREAD_STORY' | 'EVENT' | 'REVIEW' | 'FREE_TALK';
+export type ReportType = PostTopic | 'COMMENT';
 
 export type Comment = {
   id: number;

@@ -1,8 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { fetcher } from '../fetcher';
+import { PostTopic } from './types';
 
-const deletePost = async (postId: number) => {
-  return await fetcher.delete(`/v1/posts/${postId}`);
+type UseDeletePostParams = {
+  postId: number;
+  postTopic: PostTopic;
+};
+
+const deletePost = async ({ postId, postTopic }: UseDeletePostParams) => {
+  return await fetcher.delete(`/v1/posts/${postTopic}/${postId}`);
 };
 
 export const useDeletePost = () => {

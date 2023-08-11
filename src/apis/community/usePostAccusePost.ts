@@ -1,16 +1,16 @@
 import { useMutation } from 'react-query';
+import { ReportType } from '@/containers/Community/AccuseCommentContainer';
 import { fetcher } from '../fetcher';
-import { PostTopic } from './types';
 
 type UsePostAccusePostRequest = {
-  postTopic: PostTopic;
+  reportType: ReportType;
   targetId: number;
   reason: string;
   content: string;
 };
 
-const accusePost = ({ postTopic, targetId, content, reason }: UsePostAccusePostRequest) => {
-  return fetcher.post(`/v1/reports/${postTopic}/${targetId}`, {
+const accusePost = ({ reportType, targetId, content, reason }: UsePostAccusePostRequest) => {
+  return fetcher.post(`/v1/reports/${reportType}/${targetId}`, {
     reason,
     content,
   });

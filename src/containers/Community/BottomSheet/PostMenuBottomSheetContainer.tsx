@@ -51,8 +51,7 @@ export const PostMenuBottomSheetContainer = () => {
     navigation.navigate('ModalStack', {
       screen: 'AccuseComment',
       params: {
-        type: 'POST',
-        postTopic,
+        type: postTopic,
         targetId: postId,
       },
     });
@@ -91,13 +90,16 @@ export const PostMenuBottomSheetContainer = () => {
   };
 
   const deletePost = async () => {
-    await deletePostApi(postId, {
-      onSuccess: () => {
-        navigation.navigate('SuccessBottomSheet', {
-          content: '요청 주신 게시글 삭제가\n완료되었어요!',
-        });
-      },
-    });
+    await deletePostApi(
+      { postId, postTopic },
+      {
+        onSuccess: () => {
+          navigation.navigate('SuccessBottomSheet', {
+            content: '요청 주신 게시글 삭제가\n완료되었어요!',
+          });
+        },
+      }
+    );
   };
 
   const onPressCloseButton = () => {
