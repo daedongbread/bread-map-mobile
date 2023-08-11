@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Post, PostTopic } from '@/apis/community/types';
 import { ToggleMenu } from '@/containers/Community/CommunityContainer';
-import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Row } from '../Shared/View';
 import { Header } from './Header';
@@ -11,15 +11,28 @@ import { PostSummary } from './Post';
 import { Toggle } from './Toggle';
 
 type Props = {
+  posts: Post[];
   menus: ToggleMenu[];
-  topic: string;
+  postTopic: PostTopic;
   onPressPrev: () => void;
   onPressWrite: () => void;
-  onPressToggle: (topic: string) => void;
-  onPressPost: (type: number) => void;
+  onPressToggle: (topic: PostTopic) => void;
+  onPressPost: (postTopic: PostTopic, postId: number) => void;
+  onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
+  onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
 };
 
-export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, onPressToggle, onPressPost }: Props) => {
+export const CommunityComponent = ({
+  posts,
+  menus,
+  postTopic,
+  onPressPrev,
+  onPressWrite,
+  onPressToggle,
+  onPressPost,
+  onPressMenu,
+  onPressLike,
+}: Props) => {
   return (
     <ScrollView>
       <SafeAreaView>
@@ -33,8 +46,8 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
             renderItem={({ item }) => (
               <Toggle
                 title={item.title}
-                isSeleted={item.topic === topic}
-                onPressToggle={() => onPressToggle(item.topic)}
+                isSeleted={item.postTopic === postTopic}
+                onPressToggle={() => onPressToggle(item.postTopic)}
               />
             )}
             contentContainerStyle={styles.toggleContainer}
@@ -46,10 +59,13 @@ export const CommunityComponent = ({ menus, topic, onPressPrev, onPressWrite, on
         <SplitRow height={16} />
 
         <View style={styles.postCntainer}>
-          <TouchableOpacity onPress={() => onPressPost(0)}>
-            <PostSummary isFirst />
-          </TouchableOpacity>
-          <PostSummary isFirst={false} />
+          {posts.map((post, index) => {
+            return (
+              <TouchableOpacity key={post.postId} onPress={() => onPressPost(post.postTopic, post.postId)}>
+                <PostSummary post={post} isFirst={index === 0} onPressLike={onPressLike} onPressMenu={onPressMenu} />
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </SafeAreaView>
     </ScrollView>

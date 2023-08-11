@@ -43,7 +43,7 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
 
         <Divider />
 
-        <CommentContainer />
+        <CommentContainer postId={review.reviewDto.reviewInfo.id} postTopic="REVIEW" />
 
         {insets.bottom === 0 && <SplitRow height={12} />}
       </SafeAreaView>

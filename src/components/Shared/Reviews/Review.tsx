@@ -86,15 +86,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
     refetchReview();
   };
 
-  const onPressAddCommentButton = () => {
-    navigation.navigate('BakeryReviewDetailStack', {
-      screen: 'ReviewCommentsDetail',
-      params: {
-        reviewId: review.reviewInfo.id,
-      },
-    });
-  };
-
   const onPressMoreButton = (userId: number, reviewId: number) => {
     navigation.navigate('ReviewMoreBottomSheet', {
       reviewId,
@@ -190,7 +181,12 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
           <>
             <SplitRow height={20} />
             <View style={styles.bakeryInfoCardContainer}>
-              <BakeryInfoCard onPress={onPressBakery} />
+              <BakeryInfoCard
+                bakeryId={review.bakeryInfo.bakeryId}
+                bakeryName={review.bakeryInfo.bakeryName}
+                address={review.bakeryInfo.bakeryAddress}
+                thumbnail={review.bakeryInfo.bakeryImage}
+              />
             </View>
           </>
         )}
@@ -204,7 +200,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
             commentCount={review.reviewInfo.commentNum}
             date={review.reviewInfo.createdAt}
             onPressLike={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
-            onPressComment={onPressAddCommentButton}
             onPressMenu={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}
           />
         </View>

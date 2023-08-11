@@ -1,4 +1,5 @@
 import React from 'react';
+import { PostTopic } from '@/apis/community/types';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList, MainStackScreenProps } from '../Stack';
@@ -10,7 +11,8 @@ export type CommunityStackParamList = {
   Community: undefined;
   PostWrite: undefined;
   PostDetail: {
-    type: number;
+    postId: number;
+    postTopic: PostTopic;
   };
 };
 

@@ -11,14 +11,16 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { TextInput } from '@/components/Shared/TextInput';
 import { Row } from '@/components/Shared/View';
-import { PostForm, PostValidFormData } from '@/containers/Community/PostWriteContainer';
+import { PostForm, PostValidFormData, TopicForm } from '@/containers/Community/PostWriteContainer';
 import { theme } from '@/styles/theme';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
 const { height } = Dimensions.get('screen');
 
 type Props = {
   form: PostForm;
   formValid: PostValidFormData;
+  topics: TopicForm[];
   isLoading: boolean;
   onChange: (key: keyof PostForm, value: string) => void;
   onSelectPhotos: () => void;
@@ -30,6 +32,7 @@ type Props = {
 export const PostWriteComponent: React.FC<Props> = ({
   form,
   formValid,
+  topics,
   isLoading,
   onChange,
   onSelectPhotos,
@@ -50,16 +53,19 @@ export const PostWriteComponent: React.FC<Props> = ({
           <SubTitle isRequire>토픽</SubTitle>
           <SplitRow height={13} />
           <Row>
-            <View style={[styles.topic, styles.topicActive]}>
-              <Text color={theme.color.white} presets={['caption1', 'semibold']}>
-                빵이야기
-              </Text>
-            </View>
-            <View style={[styles.topic]}>
-              <Text color={theme.color.white} presets={['caption1', 'semibold']}>
-                빵터지는 이야기
-              </Text>
-            </View>
+            {topics.map(topic => {
+              return (
+                <TouchableOpacity
+                  key={topic.postTopic}
+                  style={[styles.topic, form.postTopic === topic.postTopic && styles.topicActive]}
+                  onPress={() => onChange('postTopic', topic.postTopic)}
+                >
+                  <Text color={theme.color.white} presets={['caption1', 'semibold']}>
+                    {topic.value}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </Row>
 
           <SplitRow height={28} />
@@ -71,7 +77,6 @@ export const PostWriteComponent: React.FC<Props> = ({
               placeholder="제목을 입력해주세요"
               value={form.title}
               isAlert
-              hint={`${form.title.length}자 / 최소 10자`}
               error={!formValid.isValidTitle && !isValidTitle ? '10자이상 입력해주세요' : ''}
               onChangeText={text => onChange('title', text)}
             />
@@ -85,7 +90,6 @@ export const PostWriteComponent: React.FC<Props> = ({
               value={form.content}
               multiline
               isAlert
-              hint={`${form.content.length}자 / 최소 10자`}
               error={!formValid.isValidContent && !isValidContent ? '10자이상 입력해주세요' : ''}
               onChangeText={text => onChange('content', text)}
             />

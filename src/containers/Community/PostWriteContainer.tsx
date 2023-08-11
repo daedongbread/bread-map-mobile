@@ -1,5 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { Asset, launchImageLibrary } from 'react-native-image-picker';
+import { usePostPost } from '@/apis/community';
+import { PostTopic } from '@/apis/community/types';
+import { usePostImages } from '@/apis/image';
 import { PostWriteComponent } from '@/components/Community';
 import { useAppDispatch } from '@/hooks/redux';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
@@ -8,15 +11,31 @@ import { useNavigation } from '@react-navigation/native';
 
 export const PHOTO_LIMIT = 10;
 
+export type TopicForm = {
+  postTopic: PostTopic;
+  value: string;
+};
+
+const topics: TopicForm[] = [
+  {
+    postTopic: 'BREAD_STORY',
+    value: '빵 이야기',
+  },
+  {
+    postTopic: 'FREE_TALK',
+    value: '빵터지는 이야기',
+  },
+];
+
 export type PostForm = {
-  topic: string;
+  postTopic: PostTopic;
   title: string;
   content: string;
   photos: Asset[];
 };
 
 const initialForm: PostForm = {
-  topic: '빵이야기',
+  postTopic: 'BREAD_STORY',
   title: '',
   content: '',
   photos: [],
@@ -42,10 +61,9 @@ export const PostWriteContainer = () => {
   const [formValid, setFormValid] = useState(initialFormValid);
 
   // const { bakeryId } = route.params;
-  // const { mutateAsync: postReview, isLoading: isReviewSaving } = usePostReview();
-  // const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
-  // const isLoading = isReviewSaving || isImageSaving;
-  const isLoading = false;
+  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost();
+  const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
+  const isLoading = isPostSaving || isImageSaving;
 
   const onChange = useCallback(
     (key: keyof PostForm, value: string) => {
@@ -106,35 +124,22 @@ export const PostWriteContainer = () => {
       return;
     }
 
-    closePage();
-    goNavSuccessBottomSheet();
-    // if (!validate() || isLoading) {
-    //   return;
-    // }
+    const imagePaths = form.photos.length > 0 ? await postImages(form.photos) : [];
 
-    // 선택한 빵이 없다면 빵 선택 화면으로 이동
-    // if ([...selectedBreads, ...manualSelectedBreads].length === 0) {
-    //   navigation.pop();
-    //   return;
-    // }
-
-    // await postReview(
-    //   {
-    //     bakeryId,
-    //     request: {
-    //       productRatingList,
-    //       noExistProductRatingRequestList,
-    //       content: detailReview,
-    //       images: imagePaths,
-    //     },
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       closePage();
-    //       goNavSuccessBottomSheet();
-    //     },
-    //   }
-    // );
+    await postPost(
+      {
+        title: form.title,
+        content: form.content,
+        postTopic: form.postTopic,
+        images: imagePaths,
+      },
+      {
+        onSuccess: () => {
+          closePage();
+          goNavSuccessBottomSheet();
+        },
+      }
+    );
   };
 
   const onPressClose = () => {
@@ -158,6 +163,7 @@ export const PostWriteContainer = () => {
     <PostWriteComponent
       form={form}
       formValid={formValid}
+      topics={topics}
       isLoading={isLoading}
       onChange={onChange}
       onSelectPhotos={onSelectPhotos}

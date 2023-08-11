@@ -1,74 +1,81 @@
+import format from 'date-fns/format';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { FollowButton } from '@/components/Shared/Reviews/FollowButton';
-import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { Post as PostType } from '@/apis/community/types';
+import { CustomImage } from '@/components/Shared/CustomImage';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
-import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
-import DividerIcon from '@shared/Icons/DividerIcon.svg';
 import { Footer } from './Footer';
+import { ProfileInfo } from './ProfileInfo';
 
-type Props = {};
+type Props = {
+  post: PostType;
+  onPressLike: (postId: number) => void;
+  onPressMenu: () => void;
+};
 
-const tempText =
-  '항상 남부터미널오면 꼭 방문해서 몇개씩 사갑니다. 너무 맛있어요!!갑니다. 너무 맛있어요!! 맛있어요!!갑 항상 남부터미널오면 꼭 방문해서 몇개씩 사갑니다. 너무 맛있어요!!갑니다. 너무 맛있어요!! 맛있어요!!갑항상 남부터미널오면 꼭 방문해서 몇개씩 사갑니다. 너무 맛있어요!!갑니다. 너무 맛있어요!! 맛있어요!!갑';
+const { width } = Dimensions.get('window');
 
-export const Post = ({}: Props) => {
+export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
   return (
     <View style={styles.container}>
-      <Row style={styles.profileContainer}>
-        <Row>
-          <Image style={styles.profileImage} source={{ uri: 'https://picsum.photos/40/40' }} />
-
-          <SplitColumn width={8} />
-
-          <View>
-            <Text color={theme.color.gray900} presets={['body2', 'bold']}>
-              빵순이22
-            </Text>
-
-            <SplitRow height={2} />
-
-            <Row style={styles.otherProfile}>
-              <Text color="#BDBDBD" presets={['caption2', 'medium']}>
-                리뷰 80
-              </Text>
-
-              <SplitColumn width={4} />
-              <DividerIcon />
-              <SplitColumn width={4} />
-
-              <Text color="#BDBDBD" presets={['caption2', 'medium']}>
-                팔로워 80
-              </Text>
-            </Row>
-          </View>
-        </Row>
-
-        <FollowButton isFollow={false} onPress={() => null} />
-      </Row>
+      <ProfileInfo
+        postId={post.postId}
+        writerId={post.writerInfo.userId}
+        imageUrl={post.writerInfo.profileImage}
+        nickname={post.writerInfo.nickname}
+        reviewCount={post.writerInfo.reviewCount}
+        followerCount={post.writerInfo.followerCount}
+        isFollowed={post.writerInfo.isFollowed}
+      />
 
       <SplitRow height={22} />
 
       <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
-        가장 좋아하는 빵집과 이유를 댓글로 달아주세요!
+        {post.title}
       </Text>
 
       <SplitRow height={20} />
 
+      {post.images.length > 0 && (
+        <FlatList
+          style={styles.imageContainer}
+          contentContainerStyle={styles.imageContentContainerStyle}
+          keyExtractor={item => item}
+          data={post.images}
+          renderItem={({ item }) => (
+            <CustomImage
+              style={styles.postImage}
+              width={styles.postImage.width}
+              height={styles.postImage.height}
+              source={{ uri: item }}
+            />
+          )}
+          snapToInterval={width * 0.88 + 12}
+          decelerationRate="fast"
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
+      )}
+
+      <SplitRow height={16} />
+
       <Text color={theme.color.gray700} presets={['body2', 'medium']}>
-        {tempText}
+        {post.content}
       </Text>
 
       <SplitRow height={20} />
 
       <Footer
-        isLiked={false}
-        likeCount={25}
-        commentCount={39}
-        date="2021.10.01"
-        onPressLike={() => null}
-        onPressMenu={() => null}
+        isLiked={post.isUserLiked}
+        likeCount={post.likeCount}
+        commentCount={post.commentCount}
+        date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
+        onPressLike={() => onPressLike(post.postId)}
+        onPressMenu={onPressMenu}
       />
     </View>
   );
@@ -87,7 +94,16 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 10,
   },
-  otherProfile: {
-    alignItems: 'center',
+  imageContainer: {
+    marginHorizontal: -20,
+  },
+  imageContentContainerStyle: {
+    paddingHorizontal: 20,
+  },
+  postImage: {
+    width: width * 0.88,
+    height: width * 0.88,
+    borderRadius: 8,
+    marginRight: 12,
   },
 });
