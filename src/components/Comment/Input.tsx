@@ -5,19 +5,20 @@ import { UploadIcon } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { Row } from '@/components/Shared/View';
+import { CommentParentInfo } from '@/containers/Comment/CommentContainer';
 import { theme } from '@/styles/theme';
 import { resizePixel } from '@/utils';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
 type Props = {
   comment: string;
-  mentionInfo: string;
-  setComment: (text: string) => void;
+  parentInfo: CommentParentInfo;
+  onChangeComment: (text: string) => void;
   onPressCommentSubmit: () => void;
 };
 
-export const Input = ({ comment, mentionInfo, setComment, onPressCommentSubmit }: Props) => {
-  const isSubmittable = comment.trim().length > 0;
+export const Input = ({ comment, parentInfo, onChangeComment, onPressCommentSubmit }: Props) => {
+  const isSubmittable = comment.trim().length >= 1;
 
   return (
     <Row style={styles.container}>
@@ -26,14 +27,14 @@ export const Input = ({ comment, mentionInfo, setComment, onPressCommentSubmit }
           style={styles.input}
           placeholder="댓글을 입력하세요"
           multiline
-          value={`${mentionInfo} ${comment}`}
-          onChangeText={text => setComment(text)}
+          value={parentInfo.parentId === 0 ? comment : `@${parentInfo.targetCommentUserName} ${comment}`}
+          onChangeText={text => onChangeComment(text)}
         />
       </Row>
 
       <SplitColumn width={10} />
 
-      <TouchableOpacity onPress={isSubmittable ? onPressCommentSubmit : () => null}>
+      <TouchableOpacity onPress={onPressCommentSubmit} disabled={!isSubmittable}>
         <UploadIcon style={styles.enterIcon} fill={isSubmittable ? theme.color.primary500 : '#FFA88C'} />
       </TouchableOpacity>
     </Row>
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
   },
   input: {
+    flex: 1,
     flexShrink: 1,
     paddingTop: 0,
     paddingBottom: 0,

@@ -1,66 +1,88 @@
+import { format } from 'date-fns';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Comment as CommentType } from '@/apis/community/types';
 import { IcLike, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
+import { theme } from '@/styles/theme';
 import Ellipse from '@shared/Icons/Ellipse.svg';
 
 type Props = {
+  comment: CommentType;
   isReply?: boolean;
-  onPressCommentMenu: (commentId: number, commentOwnerId: number) => void;
-  onPressReply: (commentId: string, writerNickname: string) => void;
+  onPressProfile: (userId: number) => void;
+  onPressLike: (commentId: number) => void;
+  onPressMenu: (commentId: number, ownerId: number) => void;
+  onPressReply: (parentId: number, targetCommentUserId: number, targetCommentUserName: string) => void;
 };
 
-export const Comment = ({ isReply = false, onPressCommentMenu, onPressReply }: Props) => {
+export const Comment = ({
+  comment,
+  isReply = false,
+  onPressProfile,
+  onPressLike,
+  onPressMenu,
+  onPressReply,
+}: Props) => {
   return (
     <Row style={isReply ? styles.replyContainer : styles.container}>
-      <Image style={styles.profileImage} source={{ uri: 'https://picsum.photos/40/40' }} />
+      <TouchableWithoutFeedback onPress={() => onPressProfile(comment.userId)}>
+        <Image style={styles.profileImage} source={{ uri: comment.profileImage }} />
+      </TouchableWithoutFeedback>
 
       <SplitColumn width={8} />
 
       <View style={styles.commentContainer}>
-        <Row style={styles.commentHeader}>
-          <Text color="#000000" presets={['body2', 'semibold']}>
-            크로와상짱짱
-          </Text>
-
-          <Row style={styles.commentHeaderRightContainer}>
-            <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-              2021.12.05
+        <TouchableWithoutFeedback onPress={() => onPressProfile(comment.userId)}>
+          <Row style={styles.commentHeader}>
+            <Text color="#000000" presets={['body2', 'semibold']}>
+              {comment.nickname}
             </Text>
 
-            <SplitColumn width={2} />
+            <Row style={styles.commentHeaderRightContainer}>
+              <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+                {format(new Date(comment.createdDate), 'yyyy.MM.dd')}
+              </Text>
 
-            <TouchableOpacity onPress={() => onPressCommentMenu(0, 7)}>
-              <ViewMoreIcon />
-            </TouchableOpacity>
+              <SplitColumn width={2} />
+
+              <TouchableOpacity onPress={() => onPressMenu(comment.id, comment.userId)}>
+                <ViewMoreIcon />
+              </TouchableOpacity>
+            </Row>
           </Row>
-        </Row>
+        </TouchableWithoutFeedback>
 
         <SplitRow height={2} />
 
         <Text color="#616161" presets={['caption2', 'medium']}>
-          {isReply
-            ? '오! 감사합니당~'
-            : '헐 저도 출근길에 아침마다 크로와상 몇개씩 사오는데! 저기 애플파이나 잠봉뵈르도 너무맛있어요...!제가 너무좋아하는 빵집인데 여기서 보니 반갑네용'}
+          {comment.targetCommentUserNickname && (
+            <Text color={theme.color.primary500}>@{comment.targetCommentUserNickname} </Text>
+          )}
+          {comment.content}
         </Text>
 
         <SplitRow height={8} />
 
         <Row style={styles.commentFooter}>
-          <IcLike width={16} height={16} fill={false ? '#F66131' : '#BDBDBD'} />
-          <SplitColumn width={2} />
-          <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-            12
-          </Text>
+          <TouchableOpacity onPress={() => onPressLike(comment.id)}>
+            <Row>
+              <IcLike width={16} height={16} fill={comment.isUserLiked ? '#F66131' : '#BDBDBD'} />
+              <SplitColumn width={2} />
+              <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+                {comment.likeCount}
+              </Text>
+            </Row>
+          </TouchableOpacity>
 
           <SplitColumn width={4} />
           <Ellipse />
           <SplitColumn width={4} />
 
-          <TouchableOpacity onPress={() => onPressReply('1', '빵또라이')}>
+          <TouchableOpacity onPress={() => onPressReply(comment.id, comment.userId, comment.nickname)}>
             <Text color="#9E9E9E" presets={['caption2', 'medium']}>
               댓글달기
             </Text>
