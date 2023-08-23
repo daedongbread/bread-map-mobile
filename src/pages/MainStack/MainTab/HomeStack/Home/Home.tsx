@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
-import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ReportBanner } from '@/components/Banners/ReportBanner';
 import { BottomBanner } from '@/components/Home/HomeCommunityPart';
@@ -13,27 +12,34 @@ import { NewReportedBakeriesContainer } from '@/containers/Home/NewReportedBaker
 import { WeekendBriefRankingContainer } from '@/containers/Home/WeekendBriefRankingContainer';
 
 export const Home: React.FC = () => (
-  <ScrollView style={styles.flex}>
-    <SafeAreaView style={styles.flex} edges={['top']}>
-      <CurationContainer />
-      <SplitRow height={28} />
+  <FlatList
+    data={['']}
+    renderItem={() => {
+      return (
+        <>
+          <SafeAreaView style={styles.flex} edges={['top']}>
+            <CurationContainer />
+            <SplitRow height={28} />
 
-      <View style={styles.layout}>
-        <WeekendBriefRankingContainer />
+            <View style={styles.layout}>
+              <WeekendBriefRankingContainer />
 
-        <View style={styles.gap} />
-        <ReportBanner />
+              <View style={styles.gap} />
+              <ReportBanner />
 
-        <View style={styles.gap} />
-        <NewReportedBakeriesContainer />
+              <View style={styles.gap} />
+              <NewReportedBakeriesContainer />
 
-        <View style={styles.gap} />
-        <HomeCommunityPartContainer />
-      </View>
-    </SafeAreaView>
+              <View style={styles.gap} />
+              <HomeCommunityPartContainer />
+            </View>
+          </SafeAreaView>
 
-    <BottomBanner />
-  </ScrollView>
+          <BottomBanner />
+        </>
+      );
+    }}
+  />
 );
 
 const styles = StyleSheet.create({

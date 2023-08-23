@@ -85,6 +85,8 @@ export const NewReportedBakeriesContainer = () => {
         ItemSeparatorComponent={() => {
           return <View style={styles.cardGap} />;
         }}
+        showsHorizontalScrollIndicator={false}
+        style={styles.flatList}
         renderItem={({ item }) => {
           return (
             <NewBakeryCard
@@ -104,6 +106,12 @@ export const NewReportedBakeriesContainer = () => {
             />
           );
         }}
+        ListHeaderComponent={() => {
+          return <View style={styles.listGap} />;
+        }}
+        ListFooterComponent={() => {
+          return <View style={styles.listGap} />;
+        }}
       />
     </View>
   );
@@ -118,5 +126,11 @@ const styles = StyleSheet.create({
   },
   cardGap: {
     marginRight: 8,
+  },
+  flatList: {
+    marginHorizontal: -20,
+  },
+  listGap: {
+    width: 20,
   },
 });
