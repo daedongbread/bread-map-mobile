@@ -2,27 +2,37 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { requestDeleteAccount } from '@/apis/auth/useDeleteAccount';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
-import { useAuth } from '@/hooks/useAuth';
+import { useAppSelector } from '@/hooks/redux';
+import { forceLogout } from '@/slices/auth';
 import { theme } from '@/styles/theme';
 import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
 export const DeleteAccount = () => {
   const insets = useSafeAreaInsets();
 
-  const { logOut } = useAuth();
+  const dispatch = useDispatch();
+  const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
+  const { deviceToken } = useAppSelector(selector => selector.notice);
 
   const { mutate } = useMutation({
     mutationFn: requestDeleteAccount,
     onSuccess: () => {
-      logOut();
+      dispatch(forceLogout());
     },
   });
 
   const onPressDeleteButton = () => {
-    mutate();
+    if (accessToken && refreshToken) {
+      mutate({
+        accessToken,
+        refreshToken,
+        deviceToken: deviceToken || '1',
+      });
+    }
   };
 
   const labels = [

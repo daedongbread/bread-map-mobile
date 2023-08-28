@@ -10,7 +10,6 @@ export const useAuth = () => {
 
   const signIn = useCallback(
     async ({ token, provider }: LoginRequest) => {
-      console.log({ token, provider });
       try {
         const { data } = await requestSocialLogin({
           token,
@@ -19,7 +18,6 @@ export const useAuth = () => {
         const { accessToken: _accessToken, refreshToken: _refreshToken, userId } = data;
         dispatch(login({ accessToken: _accessToken, refreshToken: _refreshToken, userId }));
       } catch (error: any) {
-        console.error(error);
         // 등록되지 않은 유저 일 경우
         if (error.response.data.code === 40410) {
           dispatch(
