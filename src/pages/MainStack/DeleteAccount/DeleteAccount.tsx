@@ -1,23 +1,38 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { requestDeleteAccount } from '@/apis/auth/useDeleteAccount';
-import { useAuth } from '@/hooks/useAuth';
+import { Header } from '@/components/Shared/Header';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { useAppSelector } from '@/hooks/redux';
+import { forceLogout } from '@/slices/auth';
 import { theme } from '@/styles/theme';
 import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
 export const DeleteAccount = () => {
-  const { logOut } = useAuth();
+  const insets = useSafeAreaInsets();
+
+  const dispatch = useDispatch();
+  const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
+  const { deviceToken } = useAppSelector(selector => selector.notice);
 
   const { mutate } = useMutation({
     mutationFn: requestDeleteAccount,
     onSuccess: () => {
-      logOut();
+      dispatch(forceLogout());
     },
   });
 
   const onPressDeleteButton = () => {
-    mutate();
+    if (accessToken && refreshToken) {
+      mutate({
+        accessToken,
+        refreshToken,
+        deviceToken: deviceToken || '1',
+      });
+    }
   };
 
   const labels = [
@@ -29,6 +44,7 @@ export const DeleteAccount = () => {
 
   return (
     <SafeAreaView style={styles.flex}>
+      <Header title={'탈퇴하기'} isPrevButtonShown />
       <View style={[styles.wrapper, styles.flex]}>
         <Text presets={['body1', 'bold']} style={styles.title}>
           {'잠깐만요! 탈퇴하기 전에 \n읽어보세요.'}
@@ -42,6 +58,8 @@ export const DeleteAccount = () => {
           탈퇴하기
         </Button>
       </View>
+
+      {insets.bottom === 0 && <SplitRow height={16} />}
     </SafeAreaView>
   );
 };
@@ -88,7 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.gray800,
   },
   buttonWrapper: {
-    paddingVertical: 20,
     paddingHorizontal: 16,
   },
 });

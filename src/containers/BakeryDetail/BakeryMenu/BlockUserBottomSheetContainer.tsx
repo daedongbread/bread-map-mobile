@@ -28,17 +28,24 @@ export const BlockUserBottomSheetContainer = () => {
         goNavSuccessPopup();
       })
       .catch((error: AxiosError) => {
-        if (error.response?.data.code === 40913) {
-          dispatch(
-            showToast({
-              text: '이미 차단한 사용자 입니다.',
-              duration: 5000,
-            })
-          );
+        const errorCode = error.response?.data.code;
+        if (errorCode === 40913) {
+          _showToast('이미 차단한 사용자 입니다.');
+        } else if (errorCode === 40012) {
+          _showToast('자기 자신은 차단할 수 없습니다.');
         }
 
         onClose();
       });
+  };
+
+  const _showToast = (text: string) => {
+    dispatch(
+      showToast({
+        text: text,
+        duration: 5000,
+      })
+    );
   };
 
   const closeBottomSheet = () => {

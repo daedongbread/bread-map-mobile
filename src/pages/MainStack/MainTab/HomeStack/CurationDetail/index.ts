@@ -1,0 +1,1 @@
+export { CurationDetail } from './CurationDetail';

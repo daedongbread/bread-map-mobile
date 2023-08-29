@@ -61,6 +61,9 @@ export const presets = StyleSheet.create(
     black: {
       color: 'black',
     },
+    opacity1: {
+      opacity: 0.8,
+    },
   })
 );
 

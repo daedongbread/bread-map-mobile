@@ -1,1 +1,1 @@
-export { BakeryMarker } from './BakeryMarker';
+export { Header } from './Header';

@@ -5,16 +5,15 @@ import { ReviewContent } from '@/apis/bakery/types';
 import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
+import { BakeryInfoCard, Footer } from '@/components/Community/Post';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
-import { IcLike, ViewMoreIcon } from '../Icons';
-import { SplitColumn, SplitRow } from '../SplitSpace';
+import { SplitRow } from '../SplitSpace';
 import { Text } from '../Text';
 import { FollowButton, FollowType } from './FollowButton';
-import { InteractionButton } from './InteractionButton';
 import { ProductRating } from './ProductRating';
 
 const { width } = Dimensions.get('window');
@@ -23,12 +22,13 @@ type ReviewProps = {
   mode: 'preview' | 'detail';
   review: ReviewContent;
   isEnd: boolean;
+  onPressBakery?: () => void;
   refetchReview: () => void;
 };
 
 const CONTENT_TEXT_LIMIT = 60;
 
-export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
+export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
   const { mutateAsync: likeReview } = useLikeReview();
@@ -39,7 +39,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
 
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} />
+        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} resizeMode="stretch" />
       </TouchableWithoutFeedback>
     );
   };
@@ -86,15 +86,6 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
     refetchReview();
   };
 
-  // const onPressAddCommentButton = () => {
-  //   navigation.navigate('BakeryReviewDetailStack', {
-  //     screen: 'ReviewCommentsDetail',
-  //     params: {
-  //       reviewId: review.reviewInfo.id,
-  //     },
-  //   });
-  // };
-
   const onPressMoreButton = (userId: number, reviewId: number) => {
     navigation.navigate('ReviewMoreBottomSheet', {
       reviewId,
@@ -104,7 +95,6 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
 
   return (
     <View>
-      <SplitRow height={30} />
       <View style={styles.reviewHeader}>
         <TouchableWithoutFeedback
           style={styles.reviewerContainer}
@@ -126,6 +116,7 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
             </View>
           </View>
         </TouchableWithoutFeedback>
+
         {!review.userInfo.isMe && (
           <FollowButton
             isFollow={review.userInfo.isFollow}
@@ -134,9 +125,28 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
         )}
       </View>
 
-      <SplitRow height={10} />
+      <TouchableWithoutFeedback style={styles.reviewContainer} onPress={() => onPressReview()}>
+        {review.reviewInfo.imageList.length > 0 && (
+          <>
+            <SplitRow height={22} />
+            <FlatList
+              contentContainerStyle={styles.reviewImageContainer}
+              keyExtractor={(item, index) => index.toString()}
+              data={review.reviewInfo.imageList}
+              renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled={mode === 'detail'}
+              snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
+              snapToAlignment="start"
+              decelerationRate="fast"
+              automaticallyAdjustContentInsets={false}
+              horizontal
+            />
+          </>
+        )}
 
-      <View style={styles.breadRatingListContainer}>
+        <SplitRow height={12} />
+
         <FlatList
           contentContainerStyle={styles.productRatingStyle}
           data={review.reviewInfo.productRatingList}
@@ -151,28 +161,8 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
           showsHorizontalScrollIndicator={false}
           horizontal
         />
-      </View>
 
-      <SplitRow height={11} />
-
-      <TouchableWithoutFeedback style={styles.reviewContainer} onPress={() => onPressReview()}>
-        {review.reviewInfo.imageList.length > 0 && (
-          <FlatList
-            contentContainerStyle={styles.reviewImageContainer}
-            keyExtractor={(item, index) => index.toString()}
-            data={review.reviewInfo.imageList}
-            renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled={mode === 'detail'}
-            snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
-            snapToAlignment="start"
-            decelerationRate="fast"
-            automaticallyAdjustContentInsets={false}
-            horizontal
-          />
-        )}
-
-        <SplitRow height={16} />
+        <SplitRow height={20} />
 
         <Text presets={['body2', 'medium']} style={styles.reviewText}>
           {mode === 'preview' && review.reviewInfo.content.trim().length > CONTENT_TEXT_LIMIT ? (
@@ -186,40 +176,40 @@ export const Review = ({ mode, review, isEnd, refetchReview }: ReviewProps) => {
             review.reviewInfo.content.trim()
           )}
         </Text>
+
+        {mode === 'detail' && onPressBakery && (
+          <>
+            <SplitRow height={20} />
+            <View style={styles.bakeryInfoCardContainer}>
+              <BakeryInfoCard
+                bakeryId={review.bakeryInfo.bakeryId}
+                bakeryName={review.bakeryInfo.bakeryName}
+                address={review.bakeryInfo.bakeryAddress}
+                thumbnail={review.bakeryInfo.bakeryImage}
+              />
+            </View>
+          </>
+        )}
+
         <SplitRow height={20} />
+
         <View style={styles.footerContainer}>
-          <View style={styles.footerLeftContainer}>
-            <InteractionButton
-              icon={IcLike}
-              count={review.reviewInfo.likeNum}
-              defaultText={'좋아요'}
-              isActive={review.reviewInfo.isLike}
-              onPress={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
-            />
-            <SplitColumn width={8} />
-            {/* <InteractionButton
-              icon={IcComment}
-              count={review.reviewInfo.commentNum}
-              defaultText={'댓글달기'}
-              onPress={onPressAddCommentButton}
-            /> */}
-          </View>
-          <View style={styles.footerRightContainer}>
-            <Text presets={['caption1', 'medium']} style={styles.dateText}>
-              {review.reviewInfo.createdAt}
-            </Text>
-            <SplitColumn width={6} />
-            <TouchableWithoutFeedback onPress={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}>
-              <ViewMoreIcon />
-            </TouchableWithoutFeedback>
-          </View>
+          <Footer
+            isLiked={review.reviewInfo.isLike}
+            likeCount={review.reviewInfo.likeNum}
+            commentCount={review.reviewInfo.commentNum}
+            date={review.reviewInfo.createdAt}
+            onPressLike={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
+            onPressMenu={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}
+          />
         </View>
+
         <SplitRow height={25} />
       </TouchableWithoutFeedback>
       {isEnd || <Divider style={styles.endDivider} />}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create(
   resizePixels({
@@ -247,9 +237,6 @@ const styles = StyleSheet.create(
     divider: {
       color: theme.color.gray300,
       fontSize: 12,
-    },
-    breadRatingListContainer: {
-      marginHorizontal: -20,
     },
     productRatingStyle: {
       paddingHorizontal: 20,
@@ -279,20 +266,11 @@ const styles = StyleSheet.create(
     reviewTextSuffix: {
       color: theme.color.gray500,
     },
+    bakeryInfoCardContainer: {
+      paddingHorizontal: 20,
+    },
     footerContainer: {
       paddingHorizontal: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    footerLeftContainer: {
-      flexDirection: 'row',
-    },
-    footerRightContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    dateText: {
-      color: theme.color.gray600,
     },
     endDivider: {
       height: 1,

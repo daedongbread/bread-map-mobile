@@ -24,6 +24,7 @@ declare module '@emotion/react' {
       primary300: string;
       primary400: string;
       primary500: string;
+      primary600: string;
       overLay: string;
       red: string;
     };

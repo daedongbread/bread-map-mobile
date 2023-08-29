@@ -5,7 +5,7 @@ import { useGetFlags } from '@/apis/profile/useGetFlags';
 import { requestGetReviews } from '@/apis/profile/useGetReviews';
 import { ProfileComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { RootRouteProps } from '@/pages/MainStack/MainTab/ProfileStack/Stack';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 

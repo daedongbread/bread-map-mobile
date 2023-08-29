@@ -3,7 +3,7 @@ import { useQueryClient } from 'react-query';
 import { deleteFlag, useGetFlag } from '@/apis/profile';
 import { ListDetailComponent } from '@/components/Profile';
 import { useAppSelector } from '@/hooks/redux';
-import { RootRouteProps } from '@/pages/MainStack/ProfileStack/Stack';
+import { RootRouteProps } from '@/pages/MainStack/MainTab/ProfileStack/Stack';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
 

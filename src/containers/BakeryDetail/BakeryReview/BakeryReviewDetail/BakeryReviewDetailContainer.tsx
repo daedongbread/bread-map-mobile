@@ -14,6 +14,7 @@ type Navigation = CompositeScreenProps<
 export const BakeryReviewDetailContainer = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<Navigation>();
+  // const { userId } = useAppSelector(selector => selector.auth);
 
   const { reviewId } = route.params;
   const { review, refetch } = useGetReview({ reviewId });
@@ -31,6 +32,23 @@ export const BakeryReviewDetailContainer = () => {
       },
     });
   };
+
+  // const onPressCommentMenu = (commentId: number, commentOwnerId: number) => {
+  //   let type = 2;
+
+  //   if (commentOwnerId === userId) {
+  //     type = 0;
+  //   } else if (review.reviewDto.userInfo.userId === userId) {
+  //     type = 2;
+  //   } else {
+  //     type = 1;
+  //   }
+
+  //   navigation.navigate('CommentMenuBottomSheet', {
+  //     commentId,
+  //     type,
+  //   });
+  // };
 
   return <BakeryReviewDetailComponent review={review} refetch={refetch} goNavBakeryDetail={goNavBakeryDetail} />;
 };

@@ -1,24 +1,56 @@
 import React from 'react';
 
-import { StyleSheet, View } from 'react-native';
-import { BakeryBottomSheetContainer, BakeryMapContainer } from '@/containers/Home';
+import { FlatList, StyleSheet, View } from 'react-native';
 
-import { useNotification } from '@/hooks/useNotification';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ReportBanner } from '@/components/Banners/ReportBanner';
+import { BottomBanner } from '@/components/Home/HomeCommunityPart';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { CurationContainer } from '@/containers/Home/CurationContainer';
+import { HomeCommunityPartContainer } from '@/containers/Home/HomeCommunityPartContainer';
+import { NewReportedBakeriesContainer } from '@/containers/Home/NewReportedBakeriesContainer';
+import { WeekendBriefRankingContainer } from '@/containers/Home/WeekendBriefRankingContainer';
 
-export const Home: React.VFC = () => {
-  useNotification();
+export const Home: React.FC = () => (
+  <FlatList
+    data={['']}
+    renderItem={() => {
+      return (
+        <>
+          <SafeAreaView style={styles.flex} edges={['top']}>
+            <CurationContainer />
+            <SplitRow height={28} />
 
-  return (
-    <View style={styles.container}>
-      <BakeryMapContainer />
-      <BakeryBottomSheetContainer />
-    </View>
-  );
-};
+            <View style={styles.layout}>
+              <WeekendBriefRankingContainer />
+
+              <View style={styles.gap} />
+              <ReportBanner />
+
+              <View style={styles.gap} />
+              <NewReportedBakeriesContainer />
+
+              <View style={styles.gap} />
+              <HomeCommunityPartContainer />
+            </View>
+          </SafeAreaView>
+
+          <BottomBanner />
+        </>
+      );
+    }}
+  />
+);
 
 const styles = StyleSheet.create({
-  container: {
+  flex: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+  },
+  layout: {
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  gap: {
+    marginBottom: 40,
   },
 });
