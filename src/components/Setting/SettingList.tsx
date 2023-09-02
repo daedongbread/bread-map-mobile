@@ -1,18 +1,12 @@
 import React, { ComponentProps } from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Switch,
-  SwitchProps,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet, Switch, SwitchProps, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { SettingDivider, SettingItem } from '@/pages/MainStack/Setting';
 import { theme } from '@/styles/theme';
 import { Text } from '@shared/Text';
+import { Header } from '../Shared/Header';
+import { SplitRow } from '../Shared/SplitSpace';
 
 interface Props {
   isEnableNotice: boolean;
@@ -36,27 +30,29 @@ export const SettingList = ({
   onPressPrivacyTerm,
   onPressServiceTerm,
 }: Props) => {
+  const { top, bottom } = useSafeAreaInsets();
+
   const settings: Array<SettingItem | SettingDivider> = [
-    {
-      type: 'section',
-      action: 'none',
-      label: '알림',
-    },
-    {
-      type: 'item',
-      action: 'toggle',
-      label: '활동알림',
-      subLabel: '댓글, 리뷰, 팔로우 등 알림',
-      switchProps: {
-        onValueChange: value => {
-          onChangeEnableNotice(value);
-        },
-        value: isEnableNotice,
-      },
-    },
-    {
-      type: 'divide',
-    },
+    // {
+    //   type: 'section',
+    //   action: 'none',
+    //   label: '알림',
+    // },
+    // {
+    //   type: 'item',
+    //   action: 'toggle',
+    //   label: '활동알림',
+    //   subLabel: '댓글, 리뷰, 팔로우 등 알림',
+    //   switchProps: {
+    //     onValueChange: value => {
+    //       onChangeEnableNotice(value);
+    //     },
+    //     value: isEnableNotice,
+    //   },
+    // },
+    // {
+    //   type: 'divide',
+    // },
     //   고객센터
     {
       type: 'section',
@@ -130,30 +126,35 @@ export const SettingList = ({
     },
   ];
   return (
-    <SafeAreaView>
-      <FlatList
-        data={settings}
-        renderItem={({ item }) => {
-          if (item.type === 'divide') {
-            return <Divider style={styles.divider} />;
-          }
+    <FlatList
+      data={settings}
+      ListHeaderComponent={
+        <>
+          <SplitRow height={top} />
+          <Header title={'설정'} isPrevButtonShown />
+        </>
+      }
+      ListFooterComponent={<SplitRow height={bottom} />}
+      renderItem={({ item }) => {
+        if (item.type === 'divide') {
+          return <Divider style={styles.divider} />;
+        }
 
-          return (
-            <Wrapper action={item.action} style={[styles.flex, styles.wrapper]} onPress={item.onPress}>
-              <View style={styles.flex}>
-                <Text {...getLabelProps(item.type)}>{item.label}</Text>
-                {'subLabel' in item ? (
-                  <Text presets={['caption1']} style={styles.subLabel}>
-                    {item.subLabel}
-                  </Text>
-                ) : null}
-              </View>
-              <View>{item.action === 'toggle' ? <Toggle {...item.switchProps} /> : item.right}</View>
-            </Wrapper>
-          );
-        }}
-      />
-    </SafeAreaView>
+        return (
+          <Wrapper action={item.action} style={[styles.flex, styles.wrapper]} onPress={item.onPress}>
+            <View style={styles.flex}>
+              <Text {...getLabelProps(item.type)}>{item.label}</Text>
+              {'subLabel' in item ? (
+                <Text presets={['caption1']} style={styles.subLabel}>
+                  {item.subLabel}
+                </Text>
+              ) : null}
+            </View>
+            <View>{item.action === 'toggle' ? <Toggle {...item.switchProps} /> : item.right}</View>
+          </Wrapper>
+        );
+      }}
+    />
   );
 };
 
