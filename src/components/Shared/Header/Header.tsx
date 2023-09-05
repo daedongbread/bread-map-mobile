@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CloseIcon } from '@/components/Shared/Icons';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
@@ -46,9 +46,9 @@ export const Header = ({
     <View style={styles.headerContainer}>
       <View style={[styles.prevButton, styles.icon]}>
         {isPrevButtonShown && (
-          <TouchableOpacity onPress={onPressPrevBtn}>
+          <Pressable onPress={onPressPrevBtn} hitSlop={{ top: 10, bottom: 10, left: 20 }}>
             <PrevIcon />
-          </TouchableOpacity>
+          </Pressable>
         )}
       </View>
       <Text presets={['subhead', 'bold']} style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>

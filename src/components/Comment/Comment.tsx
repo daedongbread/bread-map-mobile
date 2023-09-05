@@ -69,7 +69,7 @@ export const Comment = ({
 
         <Row style={styles.commentFooter}>
           <TouchableOpacity onPress={() => onPressLike(comment.id)}>
-            <Row>
+            <Row style={styles.footerLeftContainer}>
               <IcLike width={16} height={16} fill={comment.isUserLiked ? '#F66131' : '#BDBDBD'} />
               <SplitColumn width={2} />
               <Text color="#9E9E9E" presets={['caption2', 'medium']}>
@@ -122,6 +122,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   commentFooter: {
+    alignItems: 'center',
+  },
+  footerLeftContainer: {
     alignItems: 'center',
   },
 });
