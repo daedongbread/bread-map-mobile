@@ -53,7 +53,7 @@ export const BakeryDetailInfoComponent = ({
   const actionSheetRef = useRef<ActionSheet>(null);
 
   const actionSheetOptions = [`통화 ${bakery?.bakeryInfo.phoneNumber}`, '취소'];
-  const isDefaultImage = bakery?.bakeryInfo?.image?.includes('defaultImage');
+  const isDefaultImage = bakery?.bakeryInfo?.images[0]?.includes('defaultImage');
 
   const onPressSaveBtn = () => {
     if (flagInfo.isFlaged) {
@@ -128,7 +128,7 @@ export const BakeryDetailInfoComponent = ({
         <CustomImage
           style={styles.image}
           width={width}
-          source={{ uri: bakery?.bakeryInfo.image }}
+          source={{ uri: bakery?.bakeryInfo.images[0] }}
           resizeMode="stretch"
           isDimmed={isDefaultImage}
         />

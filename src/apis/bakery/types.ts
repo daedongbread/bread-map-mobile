@@ -81,7 +81,7 @@ export type BakeryMenuEntity = {
 
 export type BakerySingleEntity = {
   bakeryInfo: {
-    image: string | null;
+    images: string[];
     name: string;
     flagNum: number;
     rating: number;
