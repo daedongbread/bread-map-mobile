@@ -12,7 +12,9 @@ type Props = {
 export const Header: React.FC<Props> = memo(({ name }) => {
   return (
     <View style={styles.container}>
-      <Text presets={['body1', 'medium']}>{name}</Text>
+      <Text color="#424242" presets={['body2', 'semibold']}>
+        {name}
+      </Text>
     </View>
   );
 });

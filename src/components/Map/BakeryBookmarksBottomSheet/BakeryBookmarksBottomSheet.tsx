@@ -45,7 +45,7 @@ const RenderItem: React.FC<RenderItemProps> = ({ item, isSelected, onClick }) =>
         <View style={styles.iconWrapper}>
           <item.icon width={32} height={32} color={item.color || theme.color.primary500} />
         </View>
-        <Text style={styles.flex} presets={['body1', 'bold']}>
+        <Text color="#222222" style={styles.flex} presets={['body1', 'bold']}>
           {item.name}
         </Text>
         <Checkbox checked={isSelected} />
