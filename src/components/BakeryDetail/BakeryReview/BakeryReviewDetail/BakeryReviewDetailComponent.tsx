@@ -27,6 +27,7 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
       enableAutomaticScroll={true}
       extraHeight={12}
       keyboardShouldPersistTaps="handled"
+      scrollIndicatorInsets={{ right: 1 }}
     >
       <SafeAreaView style={styles.container}>
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />

@@ -27,6 +27,7 @@ export const PostDetailComponent = ({ postTopic, post, onPressLike, onPressMenu 
       enableAutomaticScroll={true}
       extraHeight={12}
       keyboardShouldPersistTaps="handled"
+      scrollIndicatorInsets={{ right: 1 }}
     >
       <SafeAreaView style={styles.container}>
         <Header title={headerTexts[0]} isPrevButtonShown />
