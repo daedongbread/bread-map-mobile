@@ -84,7 +84,7 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
             <View style={styles.row}>
               <View style={styles.flex}>
                 <TouchableOpacity onPress={() => onPressBakery(item)}>
-                  <Text presets={['body1', 'bold']} style={styles.titleGap}>
+                  <Text color="gray900" presets={['body1', 'bold']} style={styles.titleGap}>
                     {item.name}
                   </Text>
                   <ShortAddress shortAddress={item.shortAddress} />
