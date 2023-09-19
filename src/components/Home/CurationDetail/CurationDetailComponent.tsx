@@ -217,7 +217,7 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
                     {reason}
                   </Text>
                 </View>
-                {checkPoint && (
+                {checkPoint ? (
                   <View>
                     <SplitRow height={30} />
                     <View>
@@ -227,8 +227,8 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
                       </Text>
                     </View>
                   </View>
-                )}
-                {newBreadTime && (
+                ) : null}
+                {newBreadTime ? (
                   <View>
                     <SplitRow height={30} />
                     <Text presets={['body2', 'bold']}>{'🥐 갓군빵 나오는 시간'}</Text>
@@ -239,7 +239,7 @@ export const CurationDetailComponent: React.FC<Props> = ({ feedDetail, onPressFl
                       {newBreadTime}
                     </Text>
                   </View>
-                )}
+                ) : null}
               </View>
               {curation.length - 1 !== curationId ? (
                 <View>
