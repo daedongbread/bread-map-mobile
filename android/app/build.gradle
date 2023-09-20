@@ -234,7 +234,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // For Java
-    implementation 'androidx.work:work-runtime:2.7.1' 
+    implementation 'androidx.work:work-runtime:2.7.1'
 
     // For Kotlin
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
@@ -244,6 +244,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     implementation 'com.facebook.soloader:soloader:0.9.0+'
+
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
