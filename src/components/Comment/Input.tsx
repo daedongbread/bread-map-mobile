@@ -26,6 +26,7 @@ export const Input = ({ comment, parentInfo, onChangeComment, onPressCommentSubm
         <TextInput
           style={styles.input}
           placeholder="댓글을 입력하세요"
+          placeholderTextColor={'#BDBDBD'}
           multiline
           value={parentInfo.parentId === 0 ? comment : `@${parentInfo.targetCommentUserName} ${comment}`}
           onChangeText={text => onChangeComment(text)}
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     flexShrink: 1,
+    color: '#000000',
     paddingTop: 0,
     paddingBottom: 0,
     paddingHorizontal: 3,
