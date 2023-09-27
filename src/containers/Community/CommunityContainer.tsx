@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useGetInfinitePosts, usePostToggleLike } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
@@ -56,7 +56,7 @@ export const CommunityContainer = () => {
   const flatPosts = posts && posts.map(post => post.contents).flat();
 
   useDidMountEffect(() => {
-    refetch();
+    resetPaging();
   }, [postTopic]);
 
   useEffect(() => {
@@ -75,6 +75,15 @@ export const CommunityContainer = () => {
       remove();
     };
   }, [remove]);
+
+  const resetPaging = useCallback(() => {
+    remove();
+    refetch();
+  }, [refetch, remove]);
+
+  const onRefresh = useCallback(() => {
+    resetPaging();
+  }, [resetPaging]);
 
   const onPressPrev = () => {
     navigation.goBack();
@@ -163,6 +172,7 @@ export const CommunityContainer = () => {
       posts={flatPosts}
       menus={menus}
       postTopic={postTopic}
+      onRefresh={onRefresh}
       onPressPrev={onPressPrev}
       onPressWrite={onPressWrite}
       onPressToggle={onPressToggle}

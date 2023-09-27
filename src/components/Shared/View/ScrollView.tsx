@@ -7,7 +7,11 @@ type Props = ScrollViewProps & {
   onScrollEnd?: () => void;
 };
 
-export const ScrollView = ({ onScrollEnd, children, ...rest }: PropsWithChildren<Props>) => {
+/**
+ * 해당 컴포넌트는 react-native의 <ScrollView /> 컴포넌트를 Override 합니다.
+ * @param onScrollEnd
+ */
+export const ScrollView = React.memo(({ onScrollEnd, children, ...rest }: PropsWithChildren<Props>) => {
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isCloseToBottom(event) && onScrollEnd) {
       onScrollEnd();
@@ -19,4 +23,4 @@ export const ScrollView = ({ onScrollEnd, children, ...rest }: PropsWithChildren
       {children}
     </OriginScrollView>
   );
-};
+});

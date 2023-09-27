@@ -49,7 +49,6 @@ export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
     navigation.navigate('CommentMenuBottomSheet', {
       commentId,
       ownerId,
-      postTopic,
       postId,
     });
   };

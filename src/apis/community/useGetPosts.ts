@@ -27,8 +27,8 @@ type UseGetInfinitePostsProps = {
 const requestPosts = async ({ postTopic, pageParam, offset }: UseGetInfinitePostsProps) => {
   const { data } = await fetcher.get<GetPostsRes>(`/v1/posts/cards/${postTopic}`, {
     params: {
-      reviewOffset: offset.reviewOffset,
-      postOffset: offset.postOffset,
+      reviewOffset: pageParam === 0 ? 0 : offset.reviewOffset,
+      postOffset: pageParam === 0 ? 0 : offset.postOffset,
       page: pageParam,
     },
   });
