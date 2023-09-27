@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Post as PostType, PostTopic } from '@/apis/community/types';
 import { CommentContainer } from '@/containers/Comment';
 import { Divider } from '../BakeryDetail/Divider';
@@ -14,11 +15,13 @@ type Props = {
   post: PostType;
   onPressLike: (postId: number) => void;
   onPressMenu: () => void;
+  refetchPost: () => void;
 };
 
 const headerTexts = ['빵 이야기', '이벤트', '빵터지는 이야기'];
 
-export const PostDetailComponent = ({ postTopic, post, onPressLike, onPressMenu }: Props) => {
+export const PostDetailComponent = ({ postTopic, post, onPressLike, onPressMenu, refetchPost }: Props) => {
+  const { top } = useSafeAreaInsets();
   return (
     <KeyboardAwareScrollView
       style={styles.container}
@@ -27,6 +30,8 @@ export const PostDetailComponent = ({ postTopic, post, onPressLike, onPressMenu 
       enableAutomaticScroll={true}
       extraHeight={12}
       keyboardShouldPersistTaps="handled"
+      scrollIndicatorInsets={{ right: 1 }}
+      refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPost} />}
     >
       <SafeAreaView style={styles.container}>
         <Header title={headerTexts[0]} isPrevButtonShown />

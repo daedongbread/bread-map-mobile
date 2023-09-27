@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQueryClient } from 'react-query';
 import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview/BakeryReviewDetail';
 import { BakeryReviewDetailScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
@@ -14,14 +15,23 @@ type Navigation = CompositeScreenProps<
 export const BakeryReviewDetailContainer = () => {
   const route = useRoute<Route>();
   const navigation = useNavigation<Navigation>();
-  // const { userId } = useAppSelector(selector => selector.auth);
+  const queryClient = useQueryClient();
 
   const { reviewId } = route.params;
-  const { review, refetch } = useGetReview({ reviewId });
+  const { review, refetch: refetchReview } = useGetReview({ reviewId });
 
   if (!review) {
     return null;
   }
+
+  const refetchPage = () => {
+    // 리뷰내용 refetch
+    refetchReview();
+    // 댓글 refetch
+    queryClient.refetchQueries({
+      queryKey: ['useGetComments', { postId: reviewId }],
+    });
+  };
 
   const goNavBakeryDetail = () => {
     navigation.navigate('Bakery', {
@@ -33,22 +43,12 @@ export const BakeryReviewDetailContainer = () => {
     });
   };
 
-  // const onPressCommentMenu = (commentId: number, commentOwnerId: number) => {
-  //   let type = 2;
-
-  //   if (commentOwnerId === userId) {
-  //     type = 0;
-  //   } else if (review.reviewDto.userInfo.userId === userId) {
-  //     type = 2;
-  //   } else {
-  //     type = 1;
-  //   }
-
-  //   navigation.navigate('CommentMenuBottomSheet', {
-  //     commentId,
-  //     type,
-  //   });
-  // };
-
-  return <BakeryReviewDetailComponent review={review} refetch={refetch} goNavBakeryDetail={goNavBakeryDetail} />;
+  return (
+    <BakeryReviewDetailComponent
+      review={review}
+      refetchReview={refetchReview}
+      refetchPage={refetchPage}
+      goNavBakeryDetail={goNavBakeryDetail}
+    />
+  );
 };

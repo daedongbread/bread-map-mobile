@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ReviewDetailEntity } from '@/apis/bakery/types';
@@ -12,12 +13,13 @@ import { Divider } from '../../Divider';
 
 type Props = {
   review: ReviewDetailEntity;
-  refetch: () => void;
+  refetchReview: () => void;
+  refetchPage: () => void;
   goNavBakeryDetail: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail }: Props) => {
-  const insets = useSafeAreaInsets();
+export const BakeryReviewDetailComponent = ({ review, refetchReview, refetchPage, goNavBakeryDetail }: Props) => {
+  const { top, bottom } = useSafeAreaInsets();
 
   return (
     <KeyboardAwareScrollView
@@ -27,6 +29,8 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
       enableAutomaticScroll={true}
       extraHeight={12}
       keyboardShouldPersistTaps="handled"
+      scrollIndicatorInsets={{ right: 1 }}
+      refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPage} />}
     >
       <SafeAreaView style={styles.container}>
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
@@ -37,7 +41,7 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
             review={review.reviewDto}
             isEnd={true}
             onPressBakery={goNavBakeryDetail}
-            refetchReview={refetch}
+            refetchReview={refetchReview}
           />
         </View>
 
@@ -45,7 +49,7 @@ export const BakeryReviewDetailComponent = ({ review, refetch, goNavBakeryDetail
 
         <CommentContainer postId={review.reviewDto.reviewInfo.id} postTopic="REVIEW" />
 
-        {insets.bottom === 0 && <SplitRow height={12} />}
+        {bottom === 0 && <SplitRow height={12} />}
       </SafeAreaView>
     </KeyboardAwareScrollView>
   );
