@@ -6,10 +6,8 @@ export const notification = () => {
     return messaging().registerDeviceForRemoteMessages();
   };
 
-  const getDeviceToken = async (cb?: (token: string | null | undefined) => void) => {
-    const token = await messaging().getToken();
-
-    cb?.(token);
+  const getDeviceToken = () => {
+    return messaging().getToken();
   };
 
   const setDeviceToken = (token: string) => {
@@ -20,8 +18,17 @@ export const notification = () => {
     return storage.set('deviceToken', null);
   };
 
+  const requestPermission = async () => {
+    const status = await messaging().requestPermission();
+    const enabled =
+      status === messaging.AuthorizationStatus.AUTHORIZED || status === messaging.AuthorizationStatus.PROVISIONAL;
+
+    return enabled;
+  };
+
   return {
     init,
+    requestPermission,
     getDeviceToken,
     setDeviceToken,
     clearDeviceToken,
