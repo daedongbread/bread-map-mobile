@@ -560,10 +560,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadDebug.entitlements;
+								CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = daedongbread/Info.plist;
@@ -573,7 +573,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 2.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -596,10 +596,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadRelease.entitlements;
+								CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
@@ -608,7 +608,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 2.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -694,7 +694,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbread.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
@@ -703,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 2.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
