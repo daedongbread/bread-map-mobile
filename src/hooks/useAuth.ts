@@ -5,7 +5,7 @@ import { login, logout, updateNewbieInfo } from '@/slices/auth';
 
 export const useAuth = () => {
   const { accessToken, refreshToken, isNewbie } = useAppSelector(selector => selector.auth);
-  const { deviceToken } = useAppSelector(selector => selector.notice);
+  const { deviceToken } = useAppSelector(selector => selector.notification);
   const dispatch = useAppDispatch();
 
   const signIn = useCallback(
@@ -14,6 +14,7 @@ export const useAuth = () => {
         const { data } = await requestSocialLogin({
           token,
           provider,
+          deviceToken: deviceToken || '',
         });
         const { accessToken: _accessToken, refreshToken: _refreshToken, userId } = data;
         dispatch(login({ accessToken: _accessToken, refreshToken: _refreshToken, userId }));
@@ -30,7 +31,7 @@ export const useAuth = () => {
         }
       }
     },
-    [dispatch]
+    [dispatch, deviceToken]
   );
 
   const signOut = useCallback(() => {
@@ -42,7 +43,7 @@ export const useAuth = () => {
       logout({
         accessToken: accessToken,
         refreshToken: refreshToken,
-        deviceToken: deviceToken || '1',
+        deviceToken: deviceToken || '',
       })
     );
   }, [accessToken, deviceToken, dispatch, refreshToken]);
