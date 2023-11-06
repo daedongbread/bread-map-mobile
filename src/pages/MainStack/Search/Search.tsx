@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
 import { useSearchQuery } from '@/apis/bakery/useSearch';
 import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
@@ -8,9 +8,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/Search/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { theme } from '@/styles/theme';
 import { getStorageSearchHistory, setStorageSearchHistory } from '@/utils/storage/searchHistory';
-import { Text } from '@shared/Text';
 
 type Props = MainStackScreenProps<'Search'>;
 
@@ -68,6 +66,16 @@ const Search: React.FC<Props> = ({ navigation }) => {
     });
   }, []);
 
+  const removeSearchHistory = useCallback((bakeryId: number) => {
+    setSearchHistory(prevState => {
+      const newSearchHistory = prevState.filter(el => el.bakeryId !== bakeryId);
+
+      setStorageSearchHistory(newSearchHistory);
+
+      return newSearchHistory;
+    });
+  }, []);
+
   const onPressBakery = useCallback(
     (searchEntity: SearchEntity) => {
       navigateDetail(searchEntity);
@@ -89,18 +97,17 @@ const Search: React.FC<Props> = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.fullScreen]}>
       <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
-      <View style={styles.container}>
+      <ScrollView>
         {searchValue && data ? (
           <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
         ) : (
-          <>
-            <Text presets={['body1', 'bold']} style={styles.historyTitle}>
-              최근검색
-            </Text>
-            <SearchHistoryList searchHistory={searchHistory} onPressBakery={onPressBakery} />
-          </>
+          <SearchHistoryList
+            searchHistory={searchHistory}
+            onPressBakery={onPressBakery}
+            removeSearchHistory={removeSearchHistory}
+          />
         )}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -110,12 +117,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-  },
-  historyTitle: {
-    color: theme.color.gray900,
-    marginBottom: 16,
+    // paddingVertical: 16,
+    // paddingHorizontal: 16,
   },
 });
 

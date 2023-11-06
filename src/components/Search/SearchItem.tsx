@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { ButtonProps, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
+import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
 import { convertDistance } from '@/utils/convert/convert';
 import { BreadCakeIcon } from '@shared/Icons';
@@ -15,9 +16,10 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.iconWrapper}>
-          <BreadCakeIcon width={26} height={26} color={theme.color.primary500} />
-        </View>
+        <BreadCakeIcon width={26} height={26} color={theme.color.primary500} />
+
+        <SplitColumn width={12} />
+
         <View style={styles.wrapper}>
           <Text presets={['body1', 'medium']} color={theme.color.gray900}>
             {bakery.bakeryName}
@@ -35,7 +37,7 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 13,
+    padding: 20,
     alignItems: 'center',
   },
   iconWrapper: {

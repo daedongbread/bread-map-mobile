@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
+import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
 import { BreadCakeIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
@@ -13,9 +14,10 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <BreadCakeIcon width={26} height={26} color={theme.color.primary500} />
-        </View>
+        <BreadCakeIcon width={20} height={20} color={theme.color.gray400} />
+
+        <SplitColumn width={12} />
+
         <Text presets={['body1', 'medium']} color={'gray900'}>
           {name}
         </Text>
@@ -27,11 +29,8 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 13,
+    padding: 20,
     alignItems: 'center',
-  },
-  iconContainer: {
-    marginRight: 8,
   },
 });
 
