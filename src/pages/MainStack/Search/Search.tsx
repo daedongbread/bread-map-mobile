@@ -4,6 +4,8 @@ import { SearchEntity } from '@/apis/bakery/types';
 import { useSearchQuery } from '@/apis/bakery/useSearch';
 import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
+import { SplitRow } from '@/components/Shared/SplitSpace';
+import { PopularSearchContainer } from '@/containers/Search';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/Search/Header';
@@ -101,11 +103,17 @@ const Search: React.FC<Props> = ({ navigation }) => {
         {searchValue && data ? (
           <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
         ) : (
-          <SearchHistoryList
-            searchHistory={searchHistory}
-            onPressBakery={onPressBakery}
-            removeSearchHistory={removeSearchHistory}
-          />
+          <>
+            <SearchHistoryList
+              searchHistory={searchHistory}
+              onPressBakery={onPressBakery}
+              removeSearchHistory={removeSearchHistory}
+            />
+
+            <SplitRow height={20} />
+
+            <PopularSearchContainer />
+          </>
         )}
       </ScrollView>
     </SafeAreaView>

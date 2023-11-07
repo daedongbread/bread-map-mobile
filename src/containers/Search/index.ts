@@ -1,0 +1,1 @@
+export { PopularSearchContainer } from './PopularSearchContainer';

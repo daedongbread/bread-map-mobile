@@ -19,7 +19,7 @@ const Title = () => {
   return (
     <View style={styles.titleContainer}>
       <Text presets={['body1', 'bold']} color={theme.color.gray900}>
-        최근검색
+        최근 검색
       </Text>
     </View>
   );
