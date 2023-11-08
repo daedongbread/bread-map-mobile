@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">대동빵지도</string>
     <string name="kakao_app_key">@string/KAKAO_NATIVE_APP_KEY</string>
+    <string name="facebook_app_id">@string/FACEBOOK_API_ID</string>
 </resources>

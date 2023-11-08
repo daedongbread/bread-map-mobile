@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.facebook.react.views.text.ReactFontManager;
 import com.microsoft.codepush.react.CodePush;
+import com.facebook.FacebookSdk;
 
 public class MainApplication extends Application implements ReactApplication {
 
