@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
 import { useSearchQuery } from '@/apis/bakery/useSearch';
-import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
+import { SearchingComponent } from '@/components/Search';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { PopularSearchContainer } from '@/containers/Search';
@@ -101,9 +101,14 @@ const Search: React.FC<Props> = ({ navigation }) => {
       <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
       <ScrollView>
         {searchValue && data ? (
-          <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
+          <>
+            {/* <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} /> */}
+
+            <SearchingComponent searchValue={searchValue} />
+          </>
         ) : (
           <>
+            {/* 최근 검색 */}
             <SearchHistoryList
               searchHistory={searchHistory}
               onPressBakery={onPressBakery}
@@ -112,6 +117,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
 
             <SplitRow height={20} />
 
+            {/* 인기 검색 */}
             <PopularSearchContainer />
           </>
         )}

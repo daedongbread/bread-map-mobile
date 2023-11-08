@@ -8,9 +8,10 @@ import { Text } from '@shared/Text';
 type Props = {
   name: string;
   onPress: () => void;
+  searchValue?: string;
 };
 
-const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
+const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
@@ -18,9 +19,31 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress }) => {
 
         <SplitColumn width={12} />
 
-        <Text presets={['body1', 'medium']} color={'gray900'}>
-          {name}
-        </Text>
+        {name === searchValue && (
+          <Text presets={['body1', 'medium']} color={'primary500'}>
+            {name}
+          </Text>
+        )}
+
+        {name !== searchValue && (
+          <>
+            {name?.split(searchValue)?.map(text => {
+              if (!text) {
+                return (
+                  <Text presets={['body1', 'medium']} color={'primary500'}>
+                    {searchValue}
+                  </Text>
+                );
+              }
+
+              return (
+                <Text presets={['body1', 'medium']} color={'gray900'}>
+                  {text}
+                </Text>
+              );
+            })}
+          </>
+        )}
       </View>
     </Pressable>
   );
