@@ -146,7 +146,6 @@ export const NotificationContainer = () => {
   // };
 
   // const goCurationPage = () => {
-  //   console.log('goCurationPage');
   // };
 
   const onPressFollowButton = async (toggle: boolean, userId: number, index: number) => {

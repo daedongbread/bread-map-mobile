@@ -17,8 +17,6 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 // PushNotification.configure({
 //   onNotification: function (notification) {
-//     console.log('notification', notification);
-
 //     notification.finish(PushNotificationIOS.FetchResult.NoData); //추가
 //   },
 //   popInitialNotification: true,
