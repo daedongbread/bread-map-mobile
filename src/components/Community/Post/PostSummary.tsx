@@ -23,6 +23,7 @@ const topics: any = {
   BREAD_STORY: '빵 이야기',
   REVIEW: '리뷰',
   FREE_TALK: '빵터지는 이야기',
+  EATEN_BREAD: '먹은 빵 자랑',
 };
 
 export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) => {
