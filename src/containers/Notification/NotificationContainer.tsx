@@ -4,7 +4,7 @@ import { useGetInfiniteNotifications } from '@/apis/notification';
 import { NotificationType } from '@/apis/notification/types';
 import { NotificationComponent } from '@/components/Notification';
 import { MainTabNavigation } from '@/pages/MainStack/MainTab/Tab';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 type Navigation = MainTabNavigation<'Notification'>['navigation'];
 
@@ -28,6 +28,13 @@ export const NotificationContainer = () => {
     lastId,
   });
   const flatNotifications = notifications && notifications.map(notification => notification.contents).flat();
+
+  useFocusEffect(
+    useCallback(() => {
+      resetPaging();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+  );
 
   useEffect(() => {
     if (notifications.length > 0 && notifications[0].numberOfElements > 0) {
@@ -62,23 +69,22 @@ export const NotificationContainer = () => {
       case 'RECOMMENT':
       case 'COMMENT_LIKE':
         // 해당 댓글로 이동
-        goReviewComment();
+        goReviewComment(contentId);
         break;
       case 'REVIEW_LIKE':
         // 해당 리뷰로 이동
-        goReviewPage();
+        goReviewPage(contentId);
         break;
       case 'REPORT_BAKERY_ADDED':
         // 해당 빵집 이동
-        goBakeryPage();
+        // goBakeryPage(contentId);
         break;
       case 'ADD_PRODUCT':
         // 해당 빵집 - 메뉴 이동
-        goMenuPage();
+        // goMenuPage();
         break;
       case 'CURATION':
         // 해당 큐레이션 페이지 이동
-        goCurationPage();
         break;
       default:
         return;
@@ -86,27 +92,62 @@ export const NotificationContainer = () => {
   };
 
   const goUserProfilePage = (userId: number) => {
-    console.log('go user profile page: ', userId);
-    navigation.navigate('Profile', {
-      userId,
+    navigation.navigate('MainStack', {
+      screen: 'ProfileStack',
+      params: {
+        screen: 'Profile',
+        params: {
+          userId,
+        },
+      },
     });
   };
 
-  const goReviewComment = () => {
-    console.log('goReviewComment');
+  const goReviewComment = (reviewId: number) => {
+    goReviewPage(reviewId);
   };
-  const goReviewPage = () => {
-    console.log('goReviewPage');
+
+  const goReviewPage = (reviewId: number) => {
+    navigation.navigate('MainStack', {
+      screen: 'BakeryReviewDetailStack',
+      params: {
+        screen: 'BakeryReviewDetail',
+        params: {
+          reviewId,
+        },
+      },
+    });
   };
-  const goBakeryPage = () => {
-    console.log('goBakeryPage');
-  };
-  const goMenuPage = () => {
-    console.log('goMenuPage');
-  };
-  const goCurationPage = () => {
-    console.log('goCurationPage');
-  };
+
+  // const goBakeryPage = (bakeryId: number) => {
+  //   navigation.navigate('HomeStack', {
+  //     screen: 'Bakery',
+  //     params: {
+  //       screen: 'BakeryDetailHome',
+  //       params: {
+  //         bakeryId: bakeryId,
+  //         bakeryName: '',
+  //       },
+  //     },
+  //   });
+  // };
+
+  // const goMenuPage = (bakeryId: number, menuId: number) => {
+  //   navigation.navigate('HomeStack', {
+  //     screen: 'Bakery',
+  //     params: {
+  //       screen: 'BakeryDetailMenu',
+  //       params: {
+  //         bakeryId: bakeryId,
+  //         bakeryName: '',
+  //       },
+  //     },
+  //   });
+  // };
+
+  // const goCurationPage = () => {
+  //   console.log('goCurationPage');
+  // };
 
   const onPressFollowButton = async (toggle: boolean, userId: number, index: number) => {
     const pageNum = Math.floor(index / NUMBER_OF_ELEMENTS);
