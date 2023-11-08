@@ -23,15 +23,10 @@ export interface SettingDivider {
 export const Setting = () => {
   const navigation = useNavigation<MainStackScreenProps<'SettingModal'>['navigation']>();
   const { logOut } = useAuth();
-  const { alarmOn, getDeviceToken, clearDeviceToken } = useNotification();
+  const { alarmOn, updateAlarmToggle } = useNotification();
 
-  const onChangeNotice = (value: boolean) => {
-    if (value) {
-      getDeviceToken();
-
-      return;
-    }
-    clearDeviceToken();
+  const onChangeNotice = async (value: boolean) => {
+    updateAlarmToggle(value);
   };
 
   return (

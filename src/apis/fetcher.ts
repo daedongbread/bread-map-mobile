@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import store from '@/slices';
+import store, { RootState } from '@/slices';
 import { forceLogout, login } from '@/slices/auth';
 import { Config } from '@/utils';
 import { requestRefresh } from './auth/requestLogin';
@@ -60,8 +60,10 @@ fetcher.interceptors.response.use(
           return;
         }
 
+        const state = store.getState() as RootState;
+        const deviceToken = state.notification.deviceToken || '';
         const { refreshToken, accessToken } = JSON.parse(user);
-        const { data } = await requestRefresh({ accessToken, refreshToken });
+        const { data } = await requestRefresh({ accessToken, refreshToken, deviceToken });
 
         store.dispatch(login(data));
         onAccessTokenFetched(data.accessToken);

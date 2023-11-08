@@ -10,6 +10,7 @@ interface GetAlarmResponse {
 
 interface UpdateAlarmRequest {
   deviceToken: string;
+  toggleValue: boolean;
 }
 interface UpdateAlarmResponse {}
 
@@ -17,10 +18,11 @@ const getAlarm = () => {
   return fetcher.get<GetAlarmResponse>('/v1/users/alarm').then(res => res.data);
 };
 
-const updateAlarm = ({ deviceToken }: UpdateAlarmRequest) => {
-  return fetcher
+const updateAlarm = async ({ deviceToken, toggleValue }: UpdateAlarmRequest) => {
+  return await fetcher
     .patch<UpdateAlarmResponse>('/v1/users/alarm', {
       deviceToken,
+      noticeAgree: toggleValue,
     })
     .then(res => res.data);
 };
@@ -29,7 +31,6 @@ export const useAlarm = () => {
   const { data, refetch } = useQuery({
     queryKey: 'alarm',
     queryFn: getAlarm,
-    staleTime: 5000,
   });
 
   const { mutate } = useMutation({
@@ -41,8 +42,8 @@ export const useAlarm = () => {
   });
 
   const update = useCallback(
-    (deviceToken: string) => {
-      mutate({ deviceToken });
+    (deviceToken: string, toggleValue: boolean) => {
+      mutate({ deviceToken, toggleValue });
     },
     [mutate]
   );

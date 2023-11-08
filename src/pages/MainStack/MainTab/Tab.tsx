@@ -57,6 +57,9 @@ const MainTab = () => {
         name={'Notification'}
         options={{
           tabBarIcon: ({ focused }) => (focused ? <NotificationActiveIcon /> : <NotificationIcon />),
+          tabBarStyle: {
+            display: 'none',
+          },
         }}
         component={Notification}
       />
