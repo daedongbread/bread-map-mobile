@@ -26,6 +26,11 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/GOOGLE_MAP_API_KEY_ANDROID" />
+
+      <meta-data 
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_notification" />
+        
       <uses-library android:name="org.apache.http.legacy" android:required="false" />
       <activity
         android:name=".MainActivity"
@@ -55,7 +60,10 @@
       <!-- Change the value to true to enable pop-up for in foreground on receiving remote notifications (for prevent duplicating while showing local notifications set this to false) -->
       <meta-data android:name="com.dieam.reactnativepushnotification.notification_foreground" android:value="false"/>
       <!-- Change the resource name to your App's accent color - or any other color you want -->
-      <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white"/> <!-- or @android:color/{name} to use a standard color -->
+      <!-- <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white"/> -->
+
+      <!-- <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="@string/default_notification_channel_id" /> -->
 
       <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
       <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
