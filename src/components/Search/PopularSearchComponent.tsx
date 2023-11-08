@@ -5,6 +5,7 @@ import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 
 export type PopularSearchTagType = {
+  id: number;
   name: string;
 };
 
@@ -23,9 +24,9 @@ export const PopularSearchComponent = ({ popularSearchList }: Props) => {
 
       <View style={styles.tagContainer}>
         {popularSearchList?.map(tag => {
-          const { name } = tag;
+          const { name, id } = tag;
           return (
-            <View style={styles.tag}>
+            <View style={styles.tag} key={id}>
               <PopularSearchTag name={name} onPress={() => {}} />
             </View>
           );
