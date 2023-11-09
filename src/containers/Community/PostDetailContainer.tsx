@@ -37,12 +37,6 @@ export const PostDetailContainer = () => {
   }
 
   return (
-    <PostDetailComponent
-      postTopic={postTopic}
-      post={post}
-      onPressLike={onPressLike}
-      onPressMenu={onPressMenu}
-      refetchPost={refetchPost}
-    />
+    <PostDetailComponent post={post} onPressLike={onPressLike} onPressMenu={onPressMenu} refetchPost={refetchPost} />
   );
 };

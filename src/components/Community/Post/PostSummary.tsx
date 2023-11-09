@@ -18,7 +18,7 @@ type Props = {
 const MAIN_TEXT_LIMIT = 38;
 // const NO_IMAGE_MAIN_TEXT_LIMIT = 55;
 
-const topics: any = {
+export const topics: any = {
   EVENT: '이벤트',
   BREAD_STORY: '빵 이야기',
   REVIEW: '리뷰',
