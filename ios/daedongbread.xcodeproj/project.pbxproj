@@ -563,7 +563,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = daedongbread/Info.plist;
@@ -599,7 +599,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
@@ -694,7 +694,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbread.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";

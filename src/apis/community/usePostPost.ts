@@ -13,14 +13,14 @@ const postPost = (request: PostPostRequest) => {
   return fetcher.post('/v1/posts', request);
 };
 
-export const usePostPost = () => {
+export const usePostPost = (postTopic: PostTopic) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postPost,
     onSuccess: () => {
       queryClient.refetchQueries({
-        queryKey: ['useGetPosts'],
+        queryKey: ['useGetInfinitePosts', { postTopic }],
       });
     },
   });
