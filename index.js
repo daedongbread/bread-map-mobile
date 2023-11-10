@@ -12,7 +12,7 @@ LogBox.ignoreLogs([
 ]);
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  notification().showANDROIDNotification();
+  notification().showANDROIDNotification(remoteMessage);
 });
 
 // PushNotification.configure({

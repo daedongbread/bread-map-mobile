@@ -9,12 +9,19 @@ const NotificationProvider: FC = ({ children }) => {
   const dispatch = useDispatch();
   const [isRequesting, setIsRequesting] = useState(true);
 
-  const requestPermission = useCallback(async () => {
-    const enabled = await notification().requestPermission();
+  const setDeviceToken = useCallback(async () => {
+    let enabled = true;
+
+    if (Platform.OS === 'ios') {
+      // IOS의 경우 권한체크
+      enabled = await notification().requestPermission();
+    } else if (Platform.OS === 'android') {
+      // ANDROID의 경우 채널생성
+      notification().createChannel();
+    }
 
     if (enabled) {
       const token = await notification().getDeviceToken();
-      // notification init
       dispatch(updateDeviceToken(token));
     }
 
@@ -22,13 +29,9 @@ const NotificationProvider: FC = ({ children }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (Platform.OS === 'ios') {
-      requestPermission();
-    } else {
-      notification().createChannel();
-      setIsRequesting(false);
-    }
+    setDeviceToken();
 
+    // 푸시서버 구독
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       if (!remoteMessage.notification) {
         return;
@@ -42,7 +45,7 @@ const NotificationProvider: FC = ({ children }) => {
     });
 
     return unsubscribe;
-  }, [requestPermission]);
+  }, [setDeviceToken]);
 
   if (isRequesting) {
     return null;
