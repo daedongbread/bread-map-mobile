@@ -48,19 +48,6 @@ const useGetReview = ({ reviewId }: UseGetReviewProps) => {
   };
 };
 
-const useGetReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['useGetReviews', { bakeryId }], () =>
-    requestGetReviews({ bakeryId, sortBy, pageParam: 0 })
-  );
-
-  return {
-    reviews: data,
-    loading: isLoading,
-    error: isError,
-    refetch,
-  };
-};
-
 const useGetInfiniteReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsProps) => {
   const { data, isLoading, isError, hasNextPage, fetchNextPage, refetch, remove } = useInfiniteQuery(
     ['useGetInfiniteReviews', { bakeryId }],
@@ -94,4 +81,4 @@ const useGetInfiniteReviews = ({ bakeryId, sortBy = 'latest' }: UseGetReviewsPro
   };
 };
 
-export { useGetReviews, useGetReview, useGetInfiniteReviews };
+export { useGetReview, useGetInfiniteReviews };

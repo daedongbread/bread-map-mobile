@@ -64,8 +64,7 @@ export const PostWriteContainer = () => {
   const [form, setForm] = useState(initialForm);
   const [formValid, setFormValid] = useState(initialFormValid);
 
-  // const { bakeryId } = route.params;
-  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost();
+  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(form.postTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isPostSaving || isImageSaving;
 
