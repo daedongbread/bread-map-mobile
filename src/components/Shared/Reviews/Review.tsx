@@ -109,6 +109,7 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
 
   return (
     <View>
+      {mode === 'preview' && <SplitRow height={32} />}
       <View style={styles.reviewHeader}>
         <TouchableWithoutFeedback
           style={styles.reviewerContainer}
