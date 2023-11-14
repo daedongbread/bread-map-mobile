@@ -13,14 +13,9 @@ export const PostDetailContainer = () => {
 
   const { postId, postTopic } = params;
 
-  const { mutateAsync: postToggleLike } = usePostToggleLike();
+  const { mutateAsync: onPressLike } = usePostToggleLike();
 
   const { post, refetch: refetchPost } = useGetPost({ postTopic, postId });
-
-  const onPressLike = async (_postId: number) => {
-    await postToggleLike(_postId);
-    refetchPost();
-  };
 
   const onPressMenu = () => {
     if (post?.writerInfo.userId) {

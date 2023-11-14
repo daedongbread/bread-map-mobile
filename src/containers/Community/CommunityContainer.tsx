@@ -119,8 +119,6 @@ export const CommunityContainer = () => {
     } else {
       await postToggleLike(_postId);
     }
-
-    refetch();
   };
 
   const onPressMenu = (_postTopic: PostTopic, postId: number, userId: number) => {

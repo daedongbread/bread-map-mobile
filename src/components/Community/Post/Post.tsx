@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Post as PostType } from '@/apis/community/types';
@@ -19,6 +19,32 @@ type Props = {
 const { width } = Dimensions.get('window');
 
 export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: post.isUserLiked,
+    count: post.likeCount,
+  });
+
+  const _onPressLike = async (_postId: number) => {
+    try {
+      if (likeToggle.isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+      }
+
+      await onPressLike(_postId);
+    } catch (e) {
+      // 에러발생시 좋아요 상태 롤백
+      setLikeToggle(likeToggle);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ProfileInfo
@@ -71,11 +97,11 @@ export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
       <SplitRow height={20} />
 
       <Footer
-        isLiked={post.isUserLiked}
-        likeCount={post.likeCount}
+        isLiked={likeToggle.isLiked}
+        likeCount={likeToggle.count}
         commentCount={post.commentCount}
         date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
-        onPressLike={() => onPressLike(post.postId)}
+        onPressLike={() => _onPressLike(post.postId)}
         onPressMenu={onPressMenu}
       />
     </View>

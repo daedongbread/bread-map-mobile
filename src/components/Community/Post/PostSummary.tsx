@@ -1,7 +1,8 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Post, PostTopic } from '@/apis/community/types';
+import { ResizedImage } from '@/components/Shared/CustomImage';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
@@ -27,6 +28,31 @@ export const topics: any = {
 };
 
 export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: post.isUserLiked,
+    count: post.likeCount,
+  });
+
+  const _onPressLike = async (_postTopic: PostTopic, _postId: number, isLiked: boolean) => {
+    try {
+      if (isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+      }
+
+      await onPressLike(post.postTopic, post.postId, likeToggle.isLiked);
+    } catch (e) {
+      setLikeToggle(likeToggle);
+    }
+  };
+
   return (
     <View style={[styles.container, !isFirst && styles.divider]}>
       <Text presets={['caption2', 'bold']} style={[styles.tag, post.postTopic === 'EVENT' && styles.reviewTag]}>
@@ -70,7 +96,9 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
 
           <SplitColumn width={17} />
 
-          {post.thumbnail && <Image style={styles.postImage} source={{ uri: post.thumbnail }} />}
+          {post.thumbnail && (
+            <ResizedImage width={80} height={80} style={styles.postImage} source={{ uri: post.thumbnail }} />
+          )}
         </View>
 
         <SplitRow height={15} />
@@ -89,13 +117,13 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
         )}
 
         <Footer
-          isLiked={post.isUserLiked}
-          likeCount={post.likeCount}
+          isLiked={likeToggle.isLiked}
+          likeCount={likeToggle.count}
           commentCount={post.commentCount}
           date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
           onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
           onPressComment={() => null}
-          onPressLike={() => onPressLike(post.postTopic, post.postId, post.isUserLiked)}
+          onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
         />
       </View>
     </View>
