@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { Rating } from '@/components/RankBakeries/Rating';
 import IcReport from '@/components/Shared/Icons/IcReport.svg';
@@ -7,6 +7,7 @@ import { theme } from '@/styles/theme';
 import defaultThumbnail from '@shared/Images/thumbnail.png';
 import { Text } from '@shared/Text';
 
+import { ResizedImage } from '../Shared/CustomImage';
 import { ShortAddress } from './ShortAddress';
 
 type Props = {
@@ -27,7 +28,12 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
                 <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>
                   {index + 1}
                 </Text>
-                <Image source={item.image ? { uri: item.image } : defaultThumbnail} style={styles.image} />
+                <ResizedImage
+                  source={item.image ? { uri: item.image } : defaultThumbnail}
+                  width={76}
+                  height={76}
+                  style={styles.image}
+                />
               </View>
               <View style={styles.contentWrapper}>
                 <Text presets={['body1', 'bold']} color={'gray900'} style={styles.name}>
