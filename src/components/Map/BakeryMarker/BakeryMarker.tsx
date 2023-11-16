@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Marker } from 'react-native-maps';
 
+import { Marker } from 'react-native-nmap';
 import { BakeryMapBakeryEntity } from '@/apis/bakery/types';
 import { flagColorHexColors } from '@/containers/Bookmark';
 import { BreadCakeIcon, HeartIcon } from '@shared/Icons';
@@ -36,21 +36,48 @@ export const BakeryMarker: React.FC<Props> = React.memo(
 
       if (color === 'GRAY') {
         return (
-          <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
+          <Marker
+            coordinate={bakeryMapEntity}
+            onClick={handlePress}
+            width={isActive ? 38 : 16}
+            height={isActive ? 42 : 18}
+            caption={{ text: bakeryMapEntity.name.split(' ').join('\n') }}
+            isHideCollidedCaptions
+            isHideCollidedMarkers
+            isHideCollidedSymbols
+          >
             {isActive ? <IcSelectedMapPin color={iconColor} /> : <BreadCakeIcon color={iconColor} />}
           </Marker>
         );
       }
 
       return (
-        <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
+        <Marker
+          coordinate={bakeryMapEntity}
+          onClick={handlePress}
+          width={isActive ? 38 : 16}
+          height={isActive ? 42 : 18}
+          caption={{ text: bakeryMapEntity.name.split(' ').join('\n') }}
+          isHideCollidedCaptions
+          isHideCollidedMarkers
+          isHideCollidedSymbols
+        >
           {isActive ? <IcMapSaveHeartSelected color={iconColor} /> : <HeartIcon color={iconColor} />}
         </Marker>
       );
     }
 
     return (
-      <Marker coordinate={bakeryMapEntity} onPress={handlePress}>
+      <Marker
+        coordinate={bakeryMapEntity}
+        onClick={handlePress}
+        width={isActive ? 38 : 16}
+        height={isActive ? 42 : 18}
+        caption={{ text: bakeryMapEntity.name.split(' ').join('\n') }}
+        isHideCollidedCaptions
+        isHideCollidedMarkers
+        isHideCollidedSymbols
+      >
         {isActive ? <IcSelectedMapPin color={DEFAULT_ICON_COLOR} /> : <BreadCakeIcon color={DEFAULT_ICON_COLOR} />}
       </Marker>
     );

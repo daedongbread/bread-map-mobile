@@ -22,6 +22,10 @@ const topics: TopicForm[] = [
     value: '빵 이야기',
   },
   {
+    postTopic: 'EATEN_BREAD',
+    value: '먹은 빵 자랑',
+  },
+  {
     postTopic: 'FREE_TALK',
     value: '빵터지는 이야기',
   },
@@ -60,8 +64,7 @@ export const PostWriteContainer = () => {
   const [form, setForm] = useState(initialForm);
   const [formValid, setFormValid] = useState(initialFormValid);
 
-  // const { bakeryId } = route.params;
-  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost();
+  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(form.postTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isPostSaving || isImageSaving;
 

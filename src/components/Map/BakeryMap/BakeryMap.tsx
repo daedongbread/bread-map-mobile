@@ -1,25 +1,27 @@
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { EventUserLocation, MapViewProps } from 'react-native-maps';
 
+import NaverMapView, { NaverMapViewProps, Region } from 'react-native-nmap';
 import { useSharedValue } from 'react-native-reanimated';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { BakeryMarker } from '../BakeryMarker';
 
-type Props = MapViewProps & {
+type Props = NaverMapViewProps & {
   markers?: Array<BakeryMapBakeryEntity> | Array<BakeryMapBakeryFilterEntity>;
   onPressMarker: (mapBakeryEntity?: BakeryMapBakeryEntity) => void;
   selectedMarker?: BakeryMapBakeryEntity;
   isWatch: boolean;
   handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
   markerIcon: 'default' | 'saved';
+  initialRegion?: Region;
+  onPanDrag: () => void;
+  onRegionChange: (region: Region) => void;
 };
 
 export const BakeryMap = React.memo(
-  React.forwardRef<MapView, Props>(
+  React.forwardRef<NaverMapView, Props>(
     (
       {
-        provider,
         initialRegion,
         markers,
         onPressMarker,
@@ -42,25 +44,24 @@ export const BakeryMap = React.memo(
         }
       }, [activeMarkerId, selectedMarker]);
 
-      const onUserLocationChange = (e: EventUserLocation) => {
-        const { coordinate } = e.nativeEvent;
-
-        handleUserLocationChange(coordinate);
-      };
-
       return (
-        <MapView
+        <NaverMapView
           ref={mapView}
-          provider={provider}
-          initialRegion={initialRegion}
-          style={styles.container}
-          showsUserLocation
-          showsMyLocationButton={false}
-          followsUserLocation={isWatch}
-          onPanDrag={onPanDrag}
-          onUserLocationChange={onUserLocationChange}
-          zoomTapEnabled={false}
-          onRegionChangeComplete={onRegionChange}
+          style={{ width: '100%', height: '100%' }}
+          showsMyLocationButton={true}
+          zoomControl={true}
+          center={initialRegion ? { zoom: 14, ...initialRegion } : undefined}
+          onTouch={onPanDrag}
+          onCameraChange={e => {
+            if (e.contentRegion) {
+              onRegionChange({
+                latitude: e.latitude,
+                longitude: e.longitude,
+                latitudeDelta: Math.abs(e.contentRegion[0].latitude - e.contentRegion[1].latitude),
+                longitudeDelta: Math.abs(e.contentRegion[1].longitude - e.contentRegion[2].longitude),
+              });
+            }
+          }}
         >
           {markers?.map(marker => {
             return (
@@ -74,7 +75,7 @@ export const BakeryMap = React.memo(
               />
             );
           })}
-        </MapView>
+        </NaverMapView>
       );
     }
   )

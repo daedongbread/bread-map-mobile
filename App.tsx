@@ -3,6 +3,7 @@ import CodePush from 'react-native-code-push';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AuthProvider } from '@/provider/AuthProvider/AuthProvider';
+import { NotificationProvider } from '@/provider/NotificationProvider';
 import { SplashProvider } from '@/provider/SplashProvider';
 import { ToastProvider } from '@/provider/ToastProvider/ToastProvider';
 import store from '@/slices';
@@ -25,9 +26,11 @@ const App: FC = () => (
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <ToastProvider>
-            <AuthProvider>
-              <RootNavigation />
-            </AuthProvider>
+            <NotificationProvider>
+              <AuthProvider>
+                <RootNavigation />
+              </AuthProvider>
+            </NotificationProvider>
           </ToastProvider>
         </ThemeProvider>
       </QueryClientProvider>

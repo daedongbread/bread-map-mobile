@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
@@ -6,6 +6,7 @@ import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { BakeryInfoCard, Footer } from '@/components/Community/Post';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -31,18 +32,20 @@ const CONTENT_TEXT_LIMIT = 60;
 export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
 
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: review.reviewInfo.isLike,
+    count: review.reviewInfo.likeNum,
+  });
+
+  useDidMountEffect(() => {
+    setLikeToggle({
+      isLiked: review.reviewInfo.isLike,
+      count: review.reviewInfo.likeNum,
+    });
+  }, [review.reviewInfo]);
+
   const { mutateAsync: likeReview } = useLikeReview();
   const { mutateAsync: unLikeReview } = useUnLikeReview();
-
-  const ImageRenderItem = ({ uri, onPress }: { uri: string; onPress: () => void }) => {
-    const style = nonResizeStyles[`${mode}ReviewImage`];
-
-    return (
-      <TouchableWithoutFeedback onPress={onPress}>
-        <CustomImage style={style} width={style.width} height={style.height} source={{ uri }} resizeMode="stretch" />
-      </TouchableWithoutFeedback>
-    );
-  };
 
   const onPressReview = () => {
     if (mode === 'detail') {
@@ -77,13 +80,24 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
   };
 
   const onPressLikeButton = async (isLiked: boolean, reviewId: number) => {
-    if (isLiked) {
-      await unLikeReview(reviewId);
-    } else {
-      await likeReview(reviewId);
+    try {
+      if (isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+        await unLikeReview(reviewId);
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+        await likeReview(reviewId);
+      }
+    } catch (e) {
+      // 에러발생시 좋아요 상태 롤백
+      setLikeToggle(likeToggle);
     }
-
-    refetchReview();
   };
 
   const onPressMoreButton = (userId: number, reviewId: number) => {
@@ -95,6 +109,7 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
 
   return (
     <View>
+      {mode === 'preview' && <SplitRow height={32} />}
       <View style={styles.reviewHeader}>
         <TouchableWithoutFeedback
           style={styles.reviewerContainer}
@@ -133,7 +148,17 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
               contentContainerStyle={styles.reviewImageContainer}
               keyExtractor={(item, index) => index.toString()}
               data={review.reviewInfo.imageList}
-              renderItem={({ item }) => <ImageRenderItem uri={item} onPress={() => onPressReview()} />}
+              renderItem={({ item }) => (
+                <TouchableWithoutFeedback onPress={onPressReview}>
+                  <CustomImage
+                    style={nonResizeStyles[`${mode}ReviewImage`]}
+                    width={nonResizeStyles[`${mode}ReviewImage`].width}
+                    height={nonResizeStyles[`${mode}ReviewImage`].height}
+                    source={{ uri: item }}
+                    resizeMode="stretch"
+                  />
+                </TouchableWithoutFeedback>
+              )}
               showsHorizontalScrollIndicator={false}
               pagingEnabled={mode === 'detail'}
               snapToInterval={mode === 'detail' ? width * 0.88 + 12 : 0}
@@ -195,11 +220,11 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
 
         <View style={styles.footerContainer}>
           <Footer
-            isLiked={review.reviewInfo.isLike}
-            likeCount={review.reviewInfo.likeNum}
+            isLiked={likeToggle.isLiked}
+            likeCount={likeToggle.count}
             commentCount={review.reviewInfo.commentNum}
             date={review.reviewInfo.createdAt}
-            onPressLike={() => onPressLikeButton(review.reviewInfo.isLike, review.reviewInfo.id)}
+            onPressLike={() => onPressLikeButton(likeToggle.isLiked, review.reviewInfo.id)}
             onPressMenu={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}
           />
         </View>

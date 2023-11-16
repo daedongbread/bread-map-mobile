@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
-import MapView, { MapViewProps, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
 
+import NaverMapView, { Region } from 'react-native-nmap/index';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BakeryMapBakeryEntity, BakeryMapBakeryFilterEntity } from '@/apis/bakery/types';
 import { useGetBakeriesFilter } from '@/apis/bakery/useGetBakeriesFilter';
@@ -21,7 +21,7 @@ export type Coordinate = {
 };
 
 //TODO: 현재 위치 정보를 받아와야함
-const INITIAL_REGION: Region = {
+const INITIAL_REGION = {
   latitude: 37.6799006,
   longitude: 127.0549781,
   latitudeDelta: 0.007820701277672981,
@@ -49,7 +49,7 @@ const getCameraProperty = (coordinate?: { latitude: number; longitude: number })
 };
 
 export const BakeryMapContainer: React.FC = () => {
-  const mapView = useRef<MapView>(null);
+  const mapView = useRef<NaverMapView>(null);
 
   const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
   const { currentPositionRef, geolocationAuthorization, currentPosition } = useGeolocation();
@@ -98,18 +98,18 @@ export const BakeryMapContainer: React.FC = () => {
   }, [navigate]);
 
   const searchBakeriesWith = useCallback(
-    (region: Region) => {
+    region => {
       dispatch(searchCurrentCameraLocation(region));
     },
     [dispatch]
   );
 
-  const onPanDrag: MapViewProps['onPanDrag'] = useCallback(() => {
+  const onPanDrag = useCallback(() => {
     setIsWatched(false);
     setShowSearchButton(true);
   }, []);
 
-  const onRegionChange: MapViewProps['onRegionChange'] = useCallback(region => {
+  const onRegionChange = useCallback(region => {
     setCameraCoordinate(region);
   }, []);
 
@@ -153,8 +153,11 @@ export const BakeryMapContainer: React.FC = () => {
   }, [currentPosition, geolocationAuthorization, initialRegion]);
 
   useEffect(() => {
-    if (isWatched) {
-      mapView.current?.animateCamera(getCameraProperty(currentPositionRef.current));
+    if (isWatched && currentPositionRef.current) {
+      mapView.current?.animateToCoordinate({
+        longitude: currentPositionRef.current.longitude,
+        latitude: currentPositionRef.current.latitude,
+      });
     }
   }, [currentPositionRef, isWatched]);
 
@@ -162,7 +165,6 @@ export const BakeryMapContainer: React.FC = () => {
     <View style={styles.container}>
       <BakeryMap
         ref={mapView}
-        provider={Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE}
         initialRegion={initialRegion}
         markers={markerCoordinates}
         onPressMarker={onPressMarker}
@@ -179,7 +181,6 @@ export const BakeryMapContainer: React.FC = () => {
         onPressSearch={onPressSearch}
         onPressFlagIcon={onPressFlagIcon}
         onPressNavigationIcon={onPressNavigationIcon}
-        isWatched={isWatched}
         isFilterSaved={isFilterSaved}
         showSearchButton={showSearchButton}
         onPressSearchButton={onPressSearchButton}

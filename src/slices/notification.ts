@@ -8,8 +8,8 @@ const initialState: NoticeState = {
   deviceToken: null,
 };
 
-const noticeSlice = createSlice({
-  name: 'notice',
+const notificationSlice = createSlice({
+  name: 'notification',
   initialState,
   reducers: {
     updateDeviceToken(state, action: PayloadAction<string | null>) {
@@ -18,5 +18,5 @@ const noticeSlice = createSlice({
   },
 });
 
-export default noticeSlice.reducer;
-export const { updateDeviceToken } = noticeSlice.actions;
+export default notificationSlice.reducer;
+export const { updateDeviceToken } = notificationSlice.actions;

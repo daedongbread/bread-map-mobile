@@ -16,9 +16,6 @@ export const useBlockUser = () => {
       queryClient.refetchQueries({
         queryKey: ['useGetInfiniteReviews'],
       });
-      queryClient.refetchQueries({
-        queryKey: ['useGetReviews'],
-      });
     },
   });
 };

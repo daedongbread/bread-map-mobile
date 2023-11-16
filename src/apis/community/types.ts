@@ -14,7 +14,7 @@ export type Post = {
   bakeryInfo: BakeryInfo;
 };
 
-export type PostTopic = 'ALL' | 'BREAD_STORY' | 'EVENT' | 'REVIEW' | 'FREE_TALK';
+export type PostTopic = 'ALL' | 'BREAD_STORY' | 'EVENT' | 'REVIEW' | 'FREE_TALK' | 'EATEN_BREAD';
 export type ReportType = PostTopic | 'COMMENT';
 
 export type Comment = {

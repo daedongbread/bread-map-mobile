@@ -1,15 +1,10 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-# react-native-maps dependencies
-rn_maps_path = '../node_modules/react-native-maps'
-
 platform :ios, '11.0'
 
 target 'daedongbread' do
-  pod 'react-native-google-maps', :path => rn_maps_path
-  pod 'GoogleMaps'
-  pod 'Google-Maps-iOS-Utils'
+  pod 'NMapsMap'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
@@ -53,5 +48,4 @@ target 'daedongbread' do
       react_native_post_install(installer)
       __apply_Xcode_12_5_M1_post_install_workaround(installer)
     end
-
 end

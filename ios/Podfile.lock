@@ -137,25 +137,6 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - Google-Maps-iOS-Utils (3.10.3):
-    - Google-Maps-iOS-Utils/Clustering (= 3.10.3)
-    - Google-Maps-iOS-Utils/Geometry (= 3.10.3)
-    - Google-Maps-iOS-Utils/GeometryUtils (= 3.10.3)
-    - Google-Maps-iOS-Utils/Heatmap (= 3.10.3)
-    - Google-Maps-iOS-Utils/QuadTree (= 3.10.3)
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Clustering (3.10.3):
-    - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Geometry (3.10.3):
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/GeometryUtils (3.10.3):
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Heatmap (3.10.3):
-    - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/QuadTree (3.10.3):
-    - GoogleMaps
   - GoogleAppMeasurement (10.7.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
@@ -180,11 +161,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (5.1.0):
-    - GoogleMaps/Maps (= 5.1.0)
-  - GoogleMaps/Base (5.1.0)
-  - GoogleMaps/Maps (5.1.0):
-    - GoogleMaps/Base
   - GoogleSignIn (6.1.0):
     - AppAuth (~> 1.4)
     - GTMAppAuth (~> 1.0)
@@ -263,6 +239,9 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - NMapsGeometry (1.0.1)
+  - NMapsMap (3.17.0):
+    - NMapsGeometry
   - OpenSSL-Universal (1.1.180)
   - Permission-LocationAccuracy (3.8.0):
     - RNPermissions
@@ -481,14 +460,11 @@ PODS:
     - React-Core
   - react-native-geolocation-service (5.3.0):
     - React
-  - react-native-google-maps (0.30.1):
-    - Google-Maps-iOS-Utils (= 3.10.3)
-    - GoogleMaps (= 5.1.0)
-    - React-Core
   - react-native-image-picker (4.10.0):
     - React-Core
-  - react-native-maps (0.30.1):
-    - React-Core
+  - react-native-nmap (0.0.66):
+    - NMapsMap
+    - React
   - react-native-pager-view (5.4.15):
     - React-Core
   - react-native-safe-area-context (4.0.1):
@@ -694,11 +670,10 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.163.0)
   - FlipperKit/SKIOSNetworkPlugin (= 0.163.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - Google-Maps-iOS-Utils
-  - GoogleMaps
   - GoogleUtilities
   - "kakao-login (from `../node_modules/@react-native-seoul/kakao-login`)"
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - NMapsMap
   - OpenSSL-Universal (= 1.1.180)
   - Permission-LocationAccuracy (from `../node_modules/react-native-permissions/ios/LocationAccuracy`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
@@ -722,9 +697,8 @@ DEPENDENCIES:
   - "react-native-cookies (from `../node_modules/@react-native-cookies/cookies`)"
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
-  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
-  - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-nmap (from `../node_modules/react-native-nmap`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -786,10 +760,8 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
-    - Google-Maps-iOS-Utils
     - GoogleAppMeasurement
     - GoogleDataTransport
-    - GoogleMaps
     - GoogleSignIn
     - GoogleUtilities
     - GTMAppAuth
@@ -802,6 +774,8 @@ SPEC REPOS:
     - libwebp
     - lottie-ios
     - nanopb
+    - NMapsGeometry
+    - NMapsMap
     - OpenSSL-Universal
     - PromisesObjC
     - SDWebImage
@@ -870,12 +844,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-encrypted-storage"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
-  react-native-google-maps:
-    :path: "../node_modules/react-native-maps"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
-  react-native-maps:
-    :path: "../node_modules/react-native-maps"
+  react-native-nmap:
+    :path: "../node_modules/react-native-nmap"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
@@ -980,10 +952,8 @@ SPEC CHECKSUMS:
   FlipperKit: 0674bb0e923016a5296838ae2aa9a10e7efc6b91
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
-  Google-Maps-iOS-Utils: 95d5ca4d2004314eff88c1819b969db6cac37ab6
   GoogleAppMeasurement: fe17c92a32207dd5cdd4e8d742767f2da74857f6
   GoogleDataTransport: ea169759df570f4e37bdee1623ec32a7e64e67c4
-  GoogleMaps: 086ae1dab659eaa7339bdb30fc88e2f44e7c597c
   GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
@@ -998,6 +968,8 @@ SPEC CHECKSUMS:
   lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
   lottie-react-native: b702fab740cdb952a8e2354713d3beda63ff97b0
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
+  NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-LocationAccuracy: d6aa5146c084e7077e7efc4cbb543c7f6c72c51a
   Permission-LocationAlways: e7ce67f3091ec096b6ac274bc30a18830a66b33c
@@ -1020,9 +992,8 @@ SPEC CHECKSUMS:
   react-native-cookies: cd92f3824ed1e32a20802e8185101e14bb5b76da
   react-native-encrypted-storage: e78d848ce0fb663c2ce306e37921d026809322e6
   react-native-geolocation-service: f32ef48fa665bd710207a3ac39bc127cac9cb993
-  react-native-google-maps: 17432eb7412df3c65d7c7c52ede085d0f5624f77
   react-native-image-picker: 4bc9ed38c8be255b515d8c88babbaf74973f91a8
-  react-native-maps: d752b0dd0e1951d815b1336332835aab6b4a836f
+  react-native-nmap: cfcc5402746040494c544ea90a6062f49505acdf
   react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
   react-native-safe-area-context: eec048ba481a7ec7b1bf9d7b7a78fb1103f4806d
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -1067,6 +1038,6 @@ SPEC CHECKSUMS:
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 3eff28c71fe01df96ff55ddbedd60aa069a938f2
+PODFILE CHECKSUM: 2fb405b888f9b85429ace63c43370fe834e78474
 
 COCOAPODS: 1.12.1

@@ -24,6 +24,10 @@ const menus: ToggleMenu[] = [
     postTopic: 'BREAD_STORY',
   },
   {
+    title: '먹은 빵 자랑',
+    postTopic: 'EATEN_BREAD',
+  },
+  {
     title: '리뷰',
     postTopic: 'REVIEW',
   },
@@ -115,8 +119,6 @@ export const CommunityContainer = () => {
     } else {
       await postToggleLike(_postId);
     }
-
-    refetch();
   };
 
   const onPressMenu = (_postTopic: PostTopic, postId: number, userId: number) => {

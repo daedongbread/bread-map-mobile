@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.5</string>
+	<string>2.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -36,6 +36,8 @@
 	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>${CODEPUSH_KEY}</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>KAKAO_APP_KEY</key>
@@ -71,6 +73,11 @@
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -83,5 +90,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NMFClientId</key>
+    <string>${NAVER_MAP_CLIENT_ID}</string>
 </dict>
 </plist>

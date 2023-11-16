@@ -31,29 +31,27 @@ export const SettingList = ({
   onPressServiceTerm,
 }: Props) => {
   const { top, bottom } = useSafeAreaInsets();
-
   const settings: Array<SettingItem | SettingDivider> = [
-    // {
-    //   type: 'section',
-    //   action: 'none',
-    //   label: '알림',
-    // },
-    // {
-    //   type: 'item',
-    //   action: 'toggle',
-    //   label: '활동알림',
-    //   subLabel: '댓글, 리뷰, 팔로우 등 알림',
-    //   switchProps: {
-    //     onValueChange: value => {
-    //       onChangeEnableNotice(value);
-    //     },
-    //     value: isEnableNotice,
-    //   },
-    // },
-    // {
-    //   type: 'divide',
-    // },
-    //   고객센터
+    {
+      type: 'section',
+      action: 'none',
+      label: '알림',
+    },
+    {
+      type: 'item',
+      action: 'toggle',
+      label: '활동알림',
+      subLabel: '댓글, 리뷰, 팔로우 등 알림',
+      switchProps: {
+        onValueChange: value => {
+          onChangeEnableNotice(value);
+        },
+        value: isEnableNotice,
+      },
+    },
+    {
+      type: 'divide',
+    },
     {
       type: 'section',
       action: 'none',
