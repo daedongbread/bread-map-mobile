@@ -1089,6 +1089,11 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
+"@bam.tech/react-native-image-resizer@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@bam.tech/react-native-image-resizer/-/react-native-image-resizer-3.0.7.tgz#4e762399af7ba4eea4136d85b51b4eb49b699564"
+  integrity sha512-TRYfjuaEOQjrGkj9736kW5A3xgyuVD5B2HlhPHvgVn0nM4zjPDLbjTqjId15hQCBNK6Udapcgvfb8lWlwcr7Gw==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -8049,10 +8054,10 @@ react-native-encrypted-storage@^4.0.2:
   resolved "https://registry.yarnpkg.com/react-native-encrypted-storage/-/react-native-encrypted-storage-4.0.2.tgz#c7d59b1d3ff2f80d572be3e85aaab3fdee16744a"
   integrity sha512-vneDkHGDuTvLQjUBztqb2YI8QoH1zxdJonPGTS+g57lfJZff9fAjoLSSb6NgMBebpXFcK3I3sEresGyL+3AArw==
 
-react-native-fast-image@^8.6.3:
-  version "8.6.3"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
-  integrity sha512-Sdw4ESidXCXOmQ9EcYguNY2swyoWmx53kym2zRsvi+VeFCHEdkO+WG1DK+6W81juot40bbfLNhkc63QnWtesNg==
+react-native-fast-image@8.5.12:
+  version "8.5.12"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.5.12.tgz#af22cac1c37b381459cf68ecef4d5e8e10bc812f"
+  integrity sha512-9IzMDUpJJYHcKmR3i5uV45+o+zSLeCYYpoIVQfWoO4bgDv3CM7uGMuK2/eAjrksz0zxFQP79HSZuuC2zArGh4A==
 
 react-native-fs@^2.20.0:
   version "2.20.0"

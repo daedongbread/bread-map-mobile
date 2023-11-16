@@ -76,7 +76,7 @@ export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
               style={styles.postImage}
               width={styles.postImage.width}
               height={styles.postImage.height}
-              resizeMode="stretch"
+              resizeMode="cover"
               source={{ uri: item }}
             />
           )}

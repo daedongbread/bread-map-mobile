@@ -97,7 +97,13 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
           <SplitColumn width={17} />
 
           {post.thumbnail && (
-            <ResizedImage width={80} height={80} style={styles.postImage} source={{ uri: post.thumbnail }} />
+            <ResizedImage
+              width={80}
+              height={80}
+              style={styles.postImage}
+              source={{ uri: post.thumbnail }}
+              resizeMode="cover"
+            />
           )}
         </View>
 
