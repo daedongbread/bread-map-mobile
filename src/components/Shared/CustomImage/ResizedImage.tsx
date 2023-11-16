@@ -9,7 +9,8 @@ type Props = ImageProps & {
 
 export const ResizedImage = React.memo(({ width, height, ...rest }: Props) => {
   const source = rest.source;
-  const query = `?w=${width}&h=${height}`;
+  // 화질을 보존하기 위해 * 2
+  const query = `?w=${width * 2}&h=${height * 2}`;
   const uri = source.uri + query;
 
   source.uri = uri;

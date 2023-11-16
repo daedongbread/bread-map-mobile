@@ -60,13 +60,18 @@ export function EditProfileContainer() {
 
     if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
-      const imagePath = await postImages([
+      const images = [
         {
           fileName: 'fileName',
           type: 'image/jpg',
           uri: curImage,
         },
-      ]);
+      ];
+      const imagePath = await postImages({
+        images,
+        width: 100,
+        height: 100,
+      });
 
       fetcher({
         method: 'post',

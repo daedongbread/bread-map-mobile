@@ -24,6 +24,7 @@ export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
           source={{
             uri: menu.image,
           }}
+          resizeMode="cover"
         />
       )}
       <View style={styles.breadInfoContainer}>

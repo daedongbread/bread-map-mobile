@@ -127,7 +127,14 @@ export const PostWriteContainer = () => {
       return;
     }
 
-    const imagePaths = form.photos.length > 0 ? await postImages(form.photos) : [];
+    const imagePaths =
+      form.photos.length > 0
+        ? await postImages({
+            images: form.photos,
+            width: 310,
+            height: 310,
+          })
+        : [];
 
     await postPost(
       {

@@ -106,7 +106,14 @@ export const ReportBaekryContainer: React.FC = ({}) => {
       return;
     }
 
-    const imagePaths = form.images.length > 0 ? await postImages(form.images) : [];
+    const imagePaths =
+      form.images.length > 0
+        ? await postImages({
+            images: form.images,
+            width: 360,
+            height: 200,
+          })
+        : [];
 
     await reportBakery(
       {

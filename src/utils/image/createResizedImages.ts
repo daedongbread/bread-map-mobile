@@ -10,8 +10,8 @@ export const createResizedImages = async ({ images, width, height, quality = 100
 
     const res = await ImageResizer.createResizedImage(
       image.uri || '',
-      width,
-      height,
+      width * 2,
+      height * 2,
       imageType,
       quality,
       0,
