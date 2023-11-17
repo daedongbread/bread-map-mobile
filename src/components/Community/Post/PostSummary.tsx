@@ -1,8 +1,9 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Post, PostTopic } from '@/apis/community/types';
-import { ResizedImage } from '@/components/Shared/CustomImage';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
@@ -27,7 +28,7 @@ export const topics: any = {
   EATEN_BREAD: '먹은 빵 자랑',
 };
 
-export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu }: Props) => {
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
@@ -63,7 +64,7 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
 
       <View>
         <View style={styles.profileContainer}>
-          <Image style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
+          <FastImage style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
 
           <SplitColumn width={10} />
 
@@ -97,12 +98,13 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
           <SplitColumn width={17} />
 
           {post.thumbnail && (
-            <ResizedImage
+            <CustomImage
               width={80}
               height={80}
               style={styles.postImage}
               source={{ uri: post.thumbnail }}
               resizeMode="cover"
+              isResizable={true}
             />
           )}
         </View>
@@ -134,7 +136,7 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

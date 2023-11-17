@@ -6,6 +6,7 @@ import { Post as PostType } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { theme } from '@/styles/theme';
 import { Footer } from './Footer';
 import { ProfileInfo } from './ProfileInfo';
@@ -18,11 +19,18 @@ type Props = {
 
 const { width } = Dimensions.get('window');
 
-export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
+export const Post = React.memo(({ post, onPressLike, onPressMenu }: Props) => {
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
   });
+
+  useDidMountEffect(() => {
+    setLikeToggle({
+      isLiked: post.isUserLiked,
+      count: post.likeCount,
+    });
+  }, [post]);
 
   const _onPressLike = async (_postId: number) => {
     try {
@@ -106,7 +114,7 @@ export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

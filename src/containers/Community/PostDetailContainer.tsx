@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useGetPost, usePostToggleLike } from '@/apis/community';
 import { PostDetailComponent } from '@/components/Community/PostDetailComponent';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
@@ -17,7 +17,7 @@ export const PostDetailContainer = () => {
 
   const { post, refetch: refetchPost } = useGetPost({ postTopic, postId });
 
-  const onPressMenu = () => {
+  const onPressMenu = useCallback(() => {
     if (post?.writerInfo.userId) {
       navigation.navigate('PostMenuBottomSheet', {
         postId,
@@ -25,7 +25,8 @@ export const PostDetailContainer = () => {
         userId: post?.writerInfo.userId,
       });
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!post) {
     return null;
