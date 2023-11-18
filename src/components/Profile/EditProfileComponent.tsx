@@ -1,16 +1,19 @@
 import React, { useCallback } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { TextInput } from '@/components/Shared/TextInput';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { Button } from '../Shared/Button/Button';
+import { Loading } from '../Shared/Loading';
 import { Text } from '../Shared/Text';
 import { EditProfileImage } from './EditProfileImage';
 import { Header } from './Header';
 
 type Props = {
   name: string;
+  isSaving: boolean;
   onChange: ({ name, value }: { name: string; value: string }) => void;
   onCameraClick: () => void;
   curImage: string;
@@ -18,7 +21,16 @@ type Props = {
   errorMsg: string;
 };
 
-export function EditProfileComponent({ name, onChange, onCameraClick, curImage, onConfirmClick, errorMsg }: Props) {
+export function EditProfileComponent({
+  name,
+  isSaving,
+  onChange,
+  onCameraClick,
+  curImage,
+  onConfirmClick,
+  errorMsg,
+}: Props) {
+  const insets = useSafeAreaInsets();
   const handleChange = useCallback(
     ({ label, value }: { label: string; value: string }) => {
       onChange({ name: label, value });
@@ -28,36 +40,46 @@ export function EditProfileComponent({ name, onChange, onCameraClick, curImage, 
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <Header type="DETAIL" title="프로필 수정" />
+      <Header type="DETAIL" title="프로필 수정" isMe={false} name="" />
       <SplitRow height={20} />
-      <View style={styles.Container}>
-        <EditProfileImage onCameraClick={onCameraClick} curImage={curImage} />
-        <SplitRow height={40} />
-        <Text style={styles.Title} presets={['body2', 'bold']}>
-          닉네임
-        </Text>
+
+      <View style={styles.mainContainer}>
+        <View style={styles.Container}>
+          <EditProfileImage onCameraClick={onCameraClick} curImage={curImage} />
+          <SplitRow height={40} />
+          <Text style={styles.Title} presets={['body2', 'bold']}>
+            닉네임
+          </Text>
+        </View>
+        <TextInput
+          label={'name'}
+          value={name}
+          onChange={handleChange}
+          placeholder={'빵순이'}
+          hint={`${name?.length}자 / 최대 10자`}
+          isAlert
+          error={errorMsg + ''}
+          maxLength={10}
+          autoCorrect={false}
+          style={[styles.TextInput, { borderColor: errorMsg ? theme.color.red : theme.color.gray200 }]}
+        />
       </View>
-      <TextInput
-        label={'name'}
-        value={name}
-        onChange={handleChange}
-        placeholder={'빵순이'}
-        hint={`${name?.length}자 / 최대 10자`}
-        isAlert
-        error={errorMsg + ''}
-        maxLength={10}
-        autoCorrect={false}
-        style={[styles.TextInput, { borderColor: errorMsg ? theme.color.red : theme.color.gray200 }]}
-      />
-      <View style={styles.Button}>
-        <Button onPress={onConfirmClick}>확인</Button>
-      </View>
+
+      <Button style={styles.Button} onPress={onConfirmClick}>
+        {'확인'}
+      </Button>
+
+      {insets.bottom === 0 && <SplitRow height={16} />}
+      {isSaving && <Loading />}
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create(
   resizePixels({
     SafeAreaView: {
+      flex: 1,
+    },
+    mainContainer: {
       flex: 1,
     },
     Container: {
@@ -77,8 +99,6 @@ const styles = StyleSheet.create(
     },
     Button: {
       marginHorizontal: 21,
-      marginTop: 'auto',
-      marginBottom: 16,
     },
   })
 );

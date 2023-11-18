@@ -17,6 +17,7 @@ export function EditProfileContainer() {
   const [name, setName] = useState(route.params?.nickName);
   const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
 
@@ -60,6 +61,7 @@ export function EditProfileContainer() {
 
     if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
+      setIsSaving(true);
       const images = [
         {
           fileName: 'fileName',
@@ -92,6 +94,9 @@ export function EditProfileContainer() {
           } else if (res?.response?.status === 400) {
             setErrorMsg('닉네임을 확인해주세요.');
           }
+        })
+        .finally(() => {
+          setIsSaving(false);
         });
     }
   };
@@ -103,6 +108,7 @@ export function EditProfileContainer() {
   return (
     <EditProfileComponent
       name={name}
+      isSaving={isSaving}
       onChange={onChange}
       onCameraClick={getAlbum}
       curImage={curImage}
