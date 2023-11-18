@@ -130,6 +130,7 @@ export const BakeryDetailInfoComponent = ({
           width={width}
           height={200}
           source={{ uri: bakery?.bakeryInfo.images[0] }}
+          isResizable
           resizeMode="stretch"
           isDimmed={isDefaultImage}
         />
