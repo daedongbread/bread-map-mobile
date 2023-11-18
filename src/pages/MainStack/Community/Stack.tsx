@@ -9,7 +9,9 @@ import { PostWrite } from './PostWrite';
 
 export type CommunityStackParamList = {
   Community: undefined;
-  PostWrite: undefined;
+  PostWrite: {
+    listToggleTopic: PostTopic;
+  };
   PostDetail: {
     postId: number;
     postTopic: PostTopic;
