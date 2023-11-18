@@ -128,6 +128,7 @@ export const BakeryDetailInfoComponent = ({
         <CustomImage
           style={styles.image}
           width={width}
+          height={200}
           source={{ uri: bakery?.bakeryInfo.images[0] }}
           resizeMode="stretch"
           isDimmed={isDefaultImage}

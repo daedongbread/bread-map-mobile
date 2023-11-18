@@ -16,10 +16,7 @@ export const createResizedImages = async ({ images, width, height, quality = 100
       quality,
       0,
       undefined,
-      false,
-      {
-        mode: 'stretch',
-      }
+      false
     );
 
     resizedImages.push({

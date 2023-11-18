@@ -7,7 +7,7 @@ import { theme } from '@/styles/theme';
 import defaultThumbnail from '@shared/Images/thumbnail.png';
 import { Text } from '@shared/Text';
 
-import { ResizedImage } from '../Shared/CustomImage';
+import { CustomImage } from '../Shared/CustomImage';
 import { ShortAddress } from './ShortAddress';
 
 type Props = {
@@ -28,7 +28,7 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
                 <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>
                   {index + 1}
                 </Text>
-                <ResizedImage
+                <CustomImage
                   source={item.image ? { uri: item.image } : defaultThumbnail}
                   width={76}
                   height={76}
