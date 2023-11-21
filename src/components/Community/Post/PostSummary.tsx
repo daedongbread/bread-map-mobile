@@ -99,11 +99,13 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
 
           {post.thumbnail && (
             <CustomImage
-              width={80}
-              height={80}
               style={styles.postImage}
               source={{ uri: post.thumbnail }}
               resizeMode="cover"
+              width={styles.postImage.width}
+              height={styles.postImage.height}
+              resizedWidth={80}
+              resizedHeight={80}
               isResizable={true}
             />
           )}

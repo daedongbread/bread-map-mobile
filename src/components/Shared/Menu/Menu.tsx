@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { theme } from '@/styles/theme';
+import { CustomImage } from '../CustomImage';
 import { BreadRating } from '../Rating';
 
 type MenuProps = {
@@ -21,7 +22,19 @@ const Menu: React.FC<MenuProps> = ({ name, price, rating, reviewNum, image }) =>
         <BreadRating type={'menu'} rating={rating} reviewLength={reviewNum} />
         <Text style={styles.price}>{formattedPrice}</Text>
       </View>
-      {image ? <Image style={styles.image} source={{ uri: image }} /> : <View style={styles.image} />}
+      {image ? (
+        <CustomImage
+          style={styles.image}
+          source={{ uri: image }}
+          width={styles.image.width}
+          height={styles.image.height}
+          resizedWidth={100}
+          resizedHeight={100}
+          isResizable
+        />
+      ) : (
+        <View style={styles.image} />
+      )}
     </View>
   );
 };

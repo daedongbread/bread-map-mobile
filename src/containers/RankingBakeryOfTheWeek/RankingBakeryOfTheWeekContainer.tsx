@@ -81,10 +81,13 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
             </View>
             <View style={[styles.imageWrapper]}>
               <CustomImage
+                style={styles.image}
+                source={{ uri: item.image }}
                 width={styles.image.width}
                 height={styles.image.height}
-                source={{ uri: item.image }}
-                style={styles.image}
+                resizedWidth={150}
+                resizedHeight={150}
+                isResizable
               />
             </View>
             <View style={styles.row}>

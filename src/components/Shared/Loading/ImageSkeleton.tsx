@@ -42,8 +42,11 @@ export const ImageSkeleton = React.memo(({ width, height = '100%', style }: Prop
     <View
       style={StyleSheet.flatten([
         {
-          width: '100%',
-          height: height,
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width,
+          height,
           backgroundColor: '#f5f5f5',
           overflow: 'hidden',
         },

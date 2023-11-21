@@ -4,7 +4,6 @@ import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { Rating } from '@/components/RankBakeries/Rating';
 import IcReport from '@/components/Shared/Icons/IcReport.svg';
 import { theme } from '@/styles/theme';
-import defaultThumbnail from '@shared/Images/thumbnail.png';
 import { Text } from '@shared/Text';
 
 import { CustomImage } from '../Shared/CustomImage';
@@ -29,10 +28,13 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
                   {index + 1}
                 </Text>
                 <CustomImage
-                  source={item.image ? { uri: item.image } : defaultThumbnail}
-                  width={76}
-                  height={76}
                   style={styles.image}
+                  source={{ uri: item.image }}
+                  width={styles.image.width}
+                  height={styles.image.height}
+                  resizedWidth={150}
+                  resizedHeight={150}
+                  isResizable
                 />
               </View>
               <View style={styles.contentWrapper}>

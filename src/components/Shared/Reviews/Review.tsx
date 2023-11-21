@@ -152,10 +152,10 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
                 <TouchableWithoutFeedback onPress={onPressReview}>
                   <CustomImage
                     style={nonResizeStyles[`${mode}ReviewImage`]}
+                    resizeMode="cover"
+                    source={{ uri: item }}
                     width={nonResizeStyles[`${mode}ReviewImage`].width}
                     height={nonResizeStyles[`${mode}ReviewImage`].height}
-                    source={{ uri: item }}
-                    resizeMode="cover"
                   />
                 </TouchableWithoutFeedback>
               )}

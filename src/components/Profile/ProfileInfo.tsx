@@ -24,11 +24,11 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
   return (
     <View style={styles.Container}>
       <CustomImage
-        width={styles.Image.width}
-        height={styles.Image.height}
+        style={styles.Image}
         resizeMode="cover"
         source={{ uri: profileInfoData?.userImage }}
-        style={styles.Image}
+        width={styles.Image.width}
+        height={styles.Image.height}
       />
       <SplitColumn width={16} />
       <View style={styles.Info}>

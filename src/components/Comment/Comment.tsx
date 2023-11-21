@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Comment as CommentType } from '@/apis/community/types';
 import { IcLike, ViewMoreIcon } from '@/components/Shared/Icons';
@@ -9,6 +9,7 @@ import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
 import Ellipse from '@shared/Icons/Ellipse.svg';
+import { CustomImage } from '../Shared/CustomImage';
 
 type Props = {
   comment: CommentType;
@@ -30,7 +31,15 @@ export const Comment = ({
   return (
     <Row style={isReply ? styles.replyContainer : styles.container}>
       <TouchableWithoutFeedback onPress={() => onPressProfile(comment.userId)}>
-        <Image style={styles.profileImage} source={{ uri: comment.profileImage }} />
+        <CustomImage
+          style={styles.profileImage}
+          source={{ uri: comment.profileImage }}
+          width={styles.profileImage.width}
+          height={styles.profileImage.height}
+          resizedWidth={40}
+          resizedHeight={40}
+          isResizable
+        />
       </TouchableWithoutFeedback>
 
       <SplitColumn width={8} />

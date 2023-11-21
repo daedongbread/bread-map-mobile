@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MenuEntity } from '@/apis/menu/type';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { Header } from '@/components/Shared/Header';
 import { BreadRating } from '@/components/Shared/Rating';
 import { SplitRow } from '@/components/Shared/SplitSpace';
@@ -12,6 +13,8 @@ type Props = {
   menu: MenuEntity;
 };
 
+const { width } = Dimensions.get('screen');
+
 export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
   const formattedPrice = Number(menu.price) ? `${Number(menu.price).toLocaleString()}원` : menu.price;
 
@@ -19,12 +22,14 @@ export const BakeryMenuDetailComponent = ({ bakeryName, menu }: Props) => {
     <SafeAreaView edges={['top']}>
       <Header title={bakeryName} isPrevButtonShown />
       {!!menu.image && (
-        <Image
+        <CustomImage
           style={styles.image}
+          resizeMode="cover"
           source={{
             uri: menu.image,
           }}
-          resizeMode="cover"
+          width={width}
+          height={styles.image.height}
         />
       )}
       <View style={styles.breadInfoContainer}>
