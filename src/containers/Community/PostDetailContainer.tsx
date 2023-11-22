@@ -26,7 +26,7 @@ export const PostDetailContainer = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [post]);
 
   if (!post) {
     return null;
