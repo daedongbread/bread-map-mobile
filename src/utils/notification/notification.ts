@@ -46,7 +46,7 @@ export const notification = () => {
       channelId: 'com.daedongbread', // (required) channelId, if the channel doesn't exist, notification will not trigger.
       showWhen: true, // (optional) default: true
       autoCancel: true, // (optional) default: true
-      color: 'white',
+      color: '#FFF1EC',
       // largeIcon: 'ic_notification', // (optional) default: "ic_launcher". Use "" for no large icon.
       smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher". Use "" for default small icon.
       // bigLargeIcon: 'ic_notification',

@@ -4,4 +4,6 @@
 
     <color name="carrot_1">#FF6E40</color>
     <color name="white">#FFF</color>
+
+    <color name="push_icon_background">#FFF1EC</color>
 </resources>
