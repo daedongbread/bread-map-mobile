@@ -132,7 +132,6 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           commentCount={post.commentCount}
           date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
           onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
-          onPressComment={() => null}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
         />
       </View>
