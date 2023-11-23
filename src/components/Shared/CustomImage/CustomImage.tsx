@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import FastImage, { FastImageProps } from 'react-native-fast-image';
 import { DimImage } from '@/components/DimImage/DimImage';
 import { ImageSkeleton } from '../Loading';
@@ -32,7 +32,7 @@ export const CustomImage = React.memo(
     const uri = isResizable ? source.uri + query : source.uri;
 
     return (
-      <React.Fragment>
+      <View>
         {uri && (
           <FastImage
             {...rest}
@@ -57,7 +57,7 @@ export const CustomImage = React.memo(
         {!isLoading && isDimmed && <DimImage show={true} />}
 
         {isLoading && <ImageSkeleton width={width} height={height} style={rest.style} />}
-      </React.Fragment>
+      </View>
     );
   }
 );
