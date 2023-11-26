@@ -12,11 +12,16 @@ export type Notification = {
 
 export type NotificationType =
   | 'FOLLOW'
-  | 'REVIEW_COMMENT'
   | 'REVIEW_LIKE'
+  | 'REVIEW_COMMENT'
+  | 'REVIEW_RECOMMENT'
+  | 'REVIEW_COMMENT_LIKE'
+  | 'COMMUNITY_LIKE'
+  | 'COMMUNITY_COMMENT'
+  | 'COMMUNITY_RECOMMENT'
+  | 'COMMUNITY_COMMENT_LIKE'
   | 'RECOMMENT'
   | 'COMMENT_LIKE'
-  | 'ADD_BAKERY'
   | 'ADD_PRODUCT'
   | 'REPORT_BAKERY_ADDED'
   | 'EVENT'
