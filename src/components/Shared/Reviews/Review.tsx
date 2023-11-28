@@ -6,6 +6,7 @@ import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { BakeryInfoCard, Footer } from '@/components/Community/Post';
+import { useAppSelector } from '@/hooks/redux';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
@@ -29,6 +30,7 @@ type ReviewProps = {
 
 export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
+  const { userId: myUserId } = useAppSelector(state => state.auth);
 
   const [likeToggle, setLikeToggle] = useState({
     isLiked: review.reviewInfo.isLike,
@@ -225,7 +227,11 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
             commentCount={review.reviewInfo.commentNum}
             date={review.reviewInfo.createdAt}
             onPressLike={() => onPressLikeButton(likeToggle.isLiked, review.reviewInfo.id)}
-            onPressMenu={() => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)}
+            onPressMenu={
+              myUserId !== review.userInfo.userId
+                ? () => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)
+                : undefined
+            }
           />
         </View>
 

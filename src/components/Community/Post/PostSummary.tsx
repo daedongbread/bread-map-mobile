@@ -6,6 +6,7 @@ import { Post, PostTopic } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { MoreLineText, Text } from '@/components/Shared/Text';
+import { useAppSelector } from '@/hooks/redux';
 import { theme } from '@/styles/theme';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
@@ -26,6 +27,8 @@ export const topics: any = {
 };
 
 export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+  const { userId: myUserId } = useAppSelector(state => state.auth);
+
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
@@ -124,8 +127,12 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           likeCount={likeToggle.count}
           commentCount={post.commentCount}
           date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
-          onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
+          onPressMenu={
+            post.postTopic === 'REVIEW' && myUserId === post.writerInfo.userId
+              ? undefined
+              : () => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)
+          }
         />
       </View>
     </View>
