@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import { Post, PostTopic } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
-import { Text } from '@/components/Shared/Text';
+import { MoreLineText, Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
@@ -16,9 +16,6 @@ type Props = {
   onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
   onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
 };
-
-const MAIN_TEXT_LIMIT = 38;
-// const NO_IMAGE_MAIN_TEXT_LIMIT = 55;
 
 export const topics: any = {
   EVENT: '이벤트',
@@ -77,22 +74,18 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
 
         <View style={styles.contentsContainer}>
           <View style={styles.textContainer}>
-            <Text color={theme.color.gray900} presets={['body1', 'semibold']} numberOfLines={2} ellipsizeMode="tail">
-              {post.title}
-            </Text>
-            {post.content.trim().length > MAIN_TEXT_LIMIT ? (
-              <Text color={theme.color.gray600} presets={['body2', 'medium']} numberOfLines={2} ellipsizeMode="tail">
-                {post.content.trim().substring(0, MAIN_TEXT_LIMIT)}...
-                <Text color={theme.color.gray500} presets={['body2', 'medium']}>
-                  {' '}
-                  더보기
-                </Text>
-              </Text>
-            ) : (
-              <Text color={theme.color.gray600} presets={['body2', 'medium']}>
-                {post.content}
+            {post.postTopic !== 'REVIEW' && (
+              <Text color={theme.color.gray900} presets={['body1', 'semibold']} numberOfLines={2} ellipsizeMode="tail">
+                {post.title}
               </Text>
             )}
+
+            <MoreLineText
+              color={theme.color.gray600}
+              presets={['body2', 'medium']}
+              linesToTruncate={post.postTopic === 'REVIEW' ? 4 : 2}
+              text={post.content.trim()}
+            />
           </View>
 
           <SplitColumn width={17} />
@@ -174,7 +167,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    alignItems: 'flex-start',
   },
   text: {
     height: 80,
@@ -182,6 +174,6 @@ const styles = StyleSheet.create({
   postImage: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    borderRadius: 5,
   },
 });

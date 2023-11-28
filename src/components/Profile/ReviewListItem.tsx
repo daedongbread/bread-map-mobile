@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import IcMapPin from '@/components/Shared/Icons/IcMapPin.svg';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
-import { Text } from '@/components/Shared/Text';
+import { MoreLineText, Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { Footer } from '../Community/Post';
@@ -75,7 +75,12 @@ export function ReviewListItem({ item, onItemClick, onPressLike }: any) {
       </ScrollView>
       <SplitRow height={12} />
       <View style={styles.Content}>
-        <MoreInfo linesToTruncate={2} text={item?.reviewInfo?.content} />
+        <MoreLineText
+          color="#616161"
+          presets={['body2', 'medium']}
+          linesToTruncate={2}
+          text={item?.reviewInfo?.content}
+        />
       </View>
 
       <SplitRow height={12} />
@@ -92,39 +97,6 @@ export function ReviewListItem({ item, onItemClick, onPressLike }: any) {
     </TouchableWithoutFeedback>
   );
 }
-
-const MoreLessComponent = ({ truncatedText }: { truncatedText: string }) => {
-  return (
-    <Text style={styles.ContentText}>
-      {`${truncatedText}...`}
-      <TouchableOpacity>
-        <Text style={styles.MoreText}>{'더 보기'}</Text>
-      </TouchableOpacity>
-    </Text>
-  );
-};
-const MoreInfo = ({ text, linesToTruncate }: { text: string; linesToTruncate: number }) => {
-  const [clippedText, setClippedText] = React.useState('');
-  const [lineLength, setLineLength] = React.useState(0);
-  return clippedText && lineLength > linesToTruncate ? (
-    <MoreLessComponent truncatedText={clippedText} />
-  ) : (
-    <Text
-      onTextLayout={event => {
-        const { lines } = event.nativeEvent;
-        setLineLength(lines.length);
-        let lineText = lines
-          .splice(0, linesToTruncate)
-          .map(line => line.text)
-          .join('');
-
-        setClippedText(lineText.substring(0, lineText.length - 10));
-      }}
-    >
-      {text}
-    </Text>
-  );
-};
 
 const styles = StyleSheet.create(
   resizePixels({
@@ -148,31 +120,6 @@ const styles = StyleSheet.create(
     },
     ContentContainer: {
       paddingHorizontal: 20,
-    },
-    ContentText: {
-      color: '#616161',
-      fontSize: 14,
-    },
-    MoreText: {
-      color: theme.color.gray500,
-      top: 2,
-      left: 2,
-      fontSize: 13,
-    },
-    ReviewTimeWrap: {
-      width: 320,
-      height: 34,
-      alignSelf: 'center',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    ReviewTimeWrapRight: {
-      marginLeft: 'auto',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    ReviewTimeText: {
-      color: '#666666',
     },
     footerContainer: {
       paddingHorizontal: 20,

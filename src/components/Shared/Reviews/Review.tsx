@@ -13,7 +13,7 @@ import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
 import { SplitRow } from '../SplitSpace';
-import { Text } from '../Text';
+import { MoreLineText, Text } from '../Text';
 import { FollowButton, FollowType } from './FollowButton';
 import { ProductRating } from './ProductRating';
 
@@ -26,8 +26,6 @@ type ReviewProps = {
   onPressBakery?: () => void;
   refetchReview: () => void;
 };
-
-const CONTENT_TEXT_LIMIT = 60;
 
 export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
@@ -189,18 +187,20 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
 
         <SplitRow height={20} />
 
-        <Text presets={['body2', 'medium']} style={styles.reviewText}>
-          {mode === 'preview' && review.reviewInfo.content.trim().length > CONTENT_TEXT_LIMIT ? (
-            <>
-              {review.reviewInfo.content.trim().substring(0, CONTENT_TEXT_LIMIT)}
-              <Text presets={['body2', 'medium']} style={styles.reviewTextSuffix}>
-                ... 더보기
-              </Text>
-            </>
+        <View style={styles.reviewTextContainer}>
+          {mode === 'preview' ? (
+            <MoreLineText
+              color="#616161"
+              presets={['body2', 'medium']}
+              linesToTruncate={2}
+              text={review.reviewInfo.content.trim()}
+            />
           ) : (
-            review.reviewInfo.content.trim()
+            <Text color="#616161" presets={['body2', 'medium']}>
+              {review.reviewInfo.content.trim()}
+            </Text>
           )}
-        </Text>
+        </View>
 
         {mode === 'detail' && onPressBakery && (
           <>
@@ -284,12 +284,8 @@ const styles = StyleSheet.create(
       paddingLeft: 20,
       paddingRight: 8,
     },
-    reviewText: {
+    reviewTextContainer: {
       paddingHorizontal: 20,
-      color: theme.color.gray700,
-    },
-    reviewTextSuffix: {
-      color: theme.color.gray500,
     },
     bakeryInfoCardContainer: {
       paddingHorizontal: 20,
