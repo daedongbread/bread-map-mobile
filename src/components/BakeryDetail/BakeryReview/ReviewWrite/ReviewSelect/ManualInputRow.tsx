@@ -100,6 +100,7 @@ export const ManualInputRow: React.FC<Props> = ({
           placeholder={'메뉴명'}
           placeholderTextColor={theme.color.gray500}
           value={name}
+          maxLength={20}
           onChange={e => onChange('name', e)}
         />
         <TextInput

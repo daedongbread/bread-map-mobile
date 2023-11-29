@@ -89,6 +89,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
               isAlert
               hint={`${detailReview.length}자 / 최소 10자`}
               error={isShowErrorMessage && detailReview.trim().length < 10 ? '10자이상 입력해주세요' : ''}
+              maxLength={200}
               onChangeText={onChangeDetailReviewText}
             />
           </View>
