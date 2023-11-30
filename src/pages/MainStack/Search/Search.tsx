@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
-import { useSearchQuery } from '@/apis/bakery/useSearch';
+import { useGetSuggestions } from '@/apis/search/useGetSuggestions';
 import { SearchingComponent } from '@/components/Search';
-import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { PopularSearchContainer } from '@/containers/Search';
@@ -22,11 +21,13 @@ const Search: React.FC<Props> = ({ navigation }) => {
 
   const word = useDebounce(searchValue, 300);
 
-  const { data } = useSearchQuery({
-    word,
-    longitude: currentPosition?.longitude,
-    latitude: currentPosition?.latitude,
-  });
+  // const { data } = useSearchQuery({
+  //   word,
+  //   longitude: currentPosition?.longitude,
+  //   latitude: currentPosition?.latitude,
+  // });
+
+  const { data } = useGetSuggestions({ keyword: word });
 
   const goBack = () => {
     if (navigation.canGoBack()) {
@@ -103,9 +104,16 @@ const Search: React.FC<Props> = ({ navigation }) => {
       <ScrollView>
         {searchValue && data ? (
           <>
-            <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
+            {/* <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} /> */}
 
-            <SearchingComponent searchValue={searchValue} />
+            {/* 검색 진행중 component */}
+            <SearchingComponent
+              searchValue={word}
+              suggestions={data}
+              onPress={(name: string) => {
+                console.log(name);
+              }}
+            />
           </>
         ) : (
           <>

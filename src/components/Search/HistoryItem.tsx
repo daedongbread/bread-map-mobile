@@ -8,10 +8,12 @@ import { Text } from '@shared/Text';
 type Props = {
   name: string;
   onPress: () => void;
-  searchValue?: string;
+  searchValue: string;
 };
 
 const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
+  const index = name.indexOf(searchValue);
+
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
@@ -19,31 +21,15 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
 
         <SplitColumn width={12} />
 
-        {name === searchValue && (
-          <Text presets={['body1', 'medium']} color={'primary500'}>
-            {name}
-          </Text>
-        )}
-
-        {name !== searchValue && (
-          <>
-            {name?.split(searchValue)?.map((text, index) => {
-              if (!text) {
-                return (
-                  <Text presets={['body1', 'medium']} color={'primary500'} key={index}>
-                    {searchValue}
-                  </Text>
-                );
-              }
-
-              return (
-                <Text presets={['body1', 'medium']} color={'gray900'} key={index}>
-                  {text}
-                </Text>
-              );
-            })}
-          </>
-        )}
+        <Text presets={['body1', 'medium']} color={'gray900'}>
+          {name.substring(0, index)}
+        </Text>
+        <Text presets={['body1', 'medium']} color={'primary500'}>
+          {searchValue}
+        </Text>
+        <Text presets={['body1', 'medium']} color={'gray900'}>
+          {name.substring(index + searchValue?.length ?? 0)}
+        </Text>
       </View>
     </Pressable>
   );

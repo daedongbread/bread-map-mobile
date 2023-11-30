@@ -4,15 +4,25 @@ import { Divider } from '@/components/BakeryDetail/Divider';
 import { HistoryItem } from '@/components/Search/HistoryItem';
 import { theme } from '@/styles/theme';
 
-export const SearchingComponent = ({ searchValue }) => {
+type Props = {
+  searchValue: string;
+  suggestions: Array<string>;
+  onPress: (name: string) => void;
+};
+
+export const SearchingComponent = ({ searchValue, suggestions, onPress }: Props) => {
   return (
     <View>
-      <HistoryItem name={'소금빵'} onPress={() => {}} searchValue={searchValue} />
-      <Divider style={styles.divider} />
-      <HistoryItem name={'소금집'} onPress={() => {}} searchValue={searchValue} />
-      <Divider style={styles.divider} />
-      <HistoryItem name={'소라빵'} onPress={() => {}} searchValue={searchValue} />
-      <Divider style={styles.divider} />
+      <>
+        {suggestions?.map((name, index) => {
+          return (
+            <View key={index}>
+              <HistoryItem name={name} onPress={() => onPress(name)} searchValue={searchValue} />
+              <Divider style={styles.divider} />
+            </View>
+          );
+        })}
+      </>
     </View>
   );
 };
