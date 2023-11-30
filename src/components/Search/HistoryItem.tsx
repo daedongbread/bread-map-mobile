@@ -27,17 +27,17 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
 
         {name !== searchValue && (
           <>
-            {name?.split(searchValue)?.map(text => {
+            {name?.split(searchValue)?.map((text, index) => {
               if (!text) {
                 return (
-                  <Text presets={['body1', 'medium']} color={'primary500'}>
+                  <Text presets={['body1', 'medium']} color={'primary500'} key={index}>
                     {searchValue}
                   </Text>
                 );
               }
 
               return (
-                <Text presets={['body1', 'medium']} color={'gray900'}>
+                <Text presets={['body1', 'medium']} color={'gray900'} key={index}>
                   {text}
                 </Text>
               );

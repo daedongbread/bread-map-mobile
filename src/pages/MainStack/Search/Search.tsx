@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
 import { useSearchQuery } from '@/apis/bakery/useSearch';
 import { SearchingComponent } from '@/components/Search';
+import { SearchBakeryList } from '@/components/Search/SearchBakeryList';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { PopularSearchContainer } from '@/containers/Search';
@@ -102,7 +103,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
       <ScrollView>
         {searchValue && data ? (
           <>
-            {/* <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} /> */}
+            <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} />
 
             <SearchingComponent searchValue={searchValue} />
           </>
