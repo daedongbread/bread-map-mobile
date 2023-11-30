@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 export const Home: React.FC = () => {
   const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
   const onPressSearch = useCallback(() => {
-    navigate('MainStack', {
+    navigate('SearchStack', {
       screen: 'Search',
     });
   }, [navigate]);

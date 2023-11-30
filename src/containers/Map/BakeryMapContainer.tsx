@@ -92,7 +92,7 @@ export const BakeryMapContainer: React.FC = () => {
   }, []);
 
   const onPressSearch = useCallback(() => {
-    navigate('MainStack', {
+    navigate('SearchStack', {
       screen: 'Search',
     });
   }, [navigate]);

@@ -8,7 +8,7 @@ import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
 import { DeleteAccount } from '@/pages/MainStack/DeleteAccount';
 import { MainTab, MainTabParamList } from '@/pages/MainStack/MainTab/Tab';
 import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack/ReportBakeryStack/Stack';
-import { Search } from '@/pages/MainStack/Search';
+import { SearchStack, SearchStackParamList } from '@/pages/MainStack/SearchStack/Stack';
 import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
@@ -72,7 +72,7 @@ export type MainStackParamList = {
     color?: string;
     flagId?: number;
   };
-  Search: undefined;
+  SearchStack: NavigatorScreenParams<SearchStackParamList>;
   ReportBakeryStack: NavigatorScreenParams<ReportBakeryStackParamList>;
   ReportMenu: {
     bakeryId: number;
@@ -118,7 +118,7 @@ const MainStack = () => {
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />
-        <Stack.Screen name={'Search'} component={Search} />
+        <Stack.Screen name={'SearchStack'} component={SearchStack} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{

@@ -8,11 +8,11 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { PopularSearchContainer } from '@/containers/Search';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
-import { Header } from '@/pages/MainStack/Search/Header';
+import { Header } from '@/pages/MainStack/SearchStack/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { getStorageSearchHistory, setStorageSearchHistory } from '@/utils/storage/searchHistory';
 
-type Props = MainStackScreenProps<'Search'>;
+type Props = MainStackScreenProps<'SearchStack'>;
 
 const Search: React.FC<Props> = ({ navigation }) => {
   const { currentPosition, getLocation } = useGeolocation();
