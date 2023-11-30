@@ -7,10 +7,10 @@ import { presets } from '@/components/Shared/Text/presets';
 import { TextInput } from '@/components/Shared/TextInput';
 import { theme } from '@/styles/theme';
 
-type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText'> &
+type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText' | 'onSubmitEditing'> &
   Pick<ComponentProps<typeof TouchableOpacity>, 'onPress'> & {};
 
-const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
+const Header: React.VFC<Props> = ({ value, onChangeText, onPress, onSubmitEditing }) => {
   const textInputRef = useRef<OriginTextInput | null>(null);
 
   // 마운트시 TextInput focus
@@ -33,6 +33,7 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress }) => {
           onChangeText={onChangeText}
           placeholder={'빵집 이름을 검색해보세요'}
           defaultStyleEnable={false}
+          onSubmitEditing={onSubmitEditing}
         />
       </View>
       <Divider />

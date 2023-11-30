@@ -88,6 +88,20 @@ const Search: React.FC<Props> = ({ navigation }) => {
     [appendSearchHistory, navigateDetail]
   );
 
+  const navigateSearchComplete = useCallback(
+    (name: string) => {
+      navigation.push('SearchStack', {
+        screen: 'SearchComplete',
+        params: {
+          keyword: name,
+          longitude: currentPosition?.longitude,
+          latitude: currentPosition?.latitude,
+        },
+      });
+    },
+    [navigation]
+  );
+
   useEffect(() => {
     getStorageSearchHistory().then(el => {
       setSearchHistory(el);
@@ -100,18 +114,22 @@ const Search: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[styles.fullScreen]}>
-      <Header value={searchValue} onChangeText={setSearchValue} onPress={goBack} />
+      <Header
+        value={searchValue}
+        onChangeText={setSearchValue}
+        onPress={goBack}
+        onSubmitEditing={() => navigateSearchComplete(searchValue)}
+      />
       <ScrollView>
         {searchValue && data ? (
           <>
-            {/* <SearchBakeryList bakeries={data} onPressReport={navigateReport} onPressBakery={onPressBakery} /> */}
-
             {/* 검색 진행중 component */}
             <SearchingComponent
               searchValue={word}
               suggestions={data}
               onPress={(name: string) => {
-                console.log(name);
+                // 검색 하면 완료 페이지로 이동
+                navigateSearchComplete(name);
               }}
             />
           </>
