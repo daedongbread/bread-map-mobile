@@ -28,19 +28,19 @@ const NotificationProvider: FC = ({ children }) => {
     setIsRequesting(false);
   }, [dispatch]);
 
+  // 푸시서버 구독
   useEffect(() => {
     setDeviceToken();
 
-    // 푸시서버 구독
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       if (!remoteMessage.notification) {
         return;
       }
 
       if (Platform.OS === 'ios') {
-        notification().showIOSNotification(remoteMessage.notification);
+        notification().showIOSNotification(remoteMessage.notification, remoteMessage.data);
       } else if (Platform.OS === 'android') {
-        notification().showANDROIDNotification(remoteMessage.notification);
+        notification().showANDROIDNotification(remoteMessage.notification, remoteMessage.data);
       }
     });
 

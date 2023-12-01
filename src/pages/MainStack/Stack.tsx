@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PostTopic } from '@/apis/community/types';
 import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
+import { useNotificationNavigation } from '@/hooks/Navigation';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { BlockList } from '@/pages/MainStack/BlockList';
 import { Bookmark } from '@/pages/MainStack/Bookmark';
 import { BookmarkBottomSheet } from '@/pages/MainStack/BookmarkBottomSheet';
@@ -11,6 +13,7 @@ import { ReportBakeryStack, ReportBakeryStackParamList } from '@/pages/MainStack
 import { Search } from '@/pages/MainStack/Search';
 import { Setting } from '@/pages/MainStack/Setting';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
+import { clearRequestedScreenInfo } from '@/slices/notification';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
@@ -95,6 +98,21 @@ export type MainStackScreenProps<T extends keyof MainStackParamList> = Composite
 const Stack = createStackNavigator<MainStackParamList>();
 
 const MainStack = () => {
+  const dispatch = useAppDispatch();
+  const { requestedScreenInfo } = useAppSelector(selctor => selctor.notification);
+  const { goNavRequestedScreen } = useNotificationNavigation();
+
+  // 요청된 화면이 있는지 체크하고, 있다면 navigate
+  useEffect(() => {
+    if (!requestedScreenInfo) {
+      return;
+    }
+
+    goNavRequestedScreen(requestedScreenInfo);
+
+    dispatch(clearRequestedScreenInfo());
+  }, [dispatch, goNavRequestedScreen, requestedScreenInfo]);
+
   return (
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />

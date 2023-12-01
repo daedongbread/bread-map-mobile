@@ -24,7 +24,7 @@ export const RankBakeries = ({ bakeries, onPressBakery, onPressFlag }: Props) =>
           <TouchableOpacity onPress={() => onPressBakery(item)}>
             <View style={[styles.row]}>
               <View style={[styles.row, styles.center, styles.imageWrapper]}>
-                <Text presets={['subhead', 'medium']} style={styles.rankingIndex}>
+                <Text color={theme.color.gray900} presets={['subhead', 'medium']} style={styles.rankingIndex}>
                   {index + 1}
                 </Text>
                 <CustomImage

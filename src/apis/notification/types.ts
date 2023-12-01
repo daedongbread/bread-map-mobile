@@ -1,8 +1,12 @@
+import { PostTopic } from '../community/types';
+
 export type Notification = {
   noticeId: number;
   image: string;
   title: string;
   contentId: number;
+  subContentId: number;
+  extraParam: PostTopic;
   content: string;
   contentParam: string;
   isFollow: boolean;

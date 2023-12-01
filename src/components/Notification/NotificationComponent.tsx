@@ -1,14 +1,14 @@
 import React from 'react';
 import { RefreshControl, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Notification, NotificationType } from '@/apis/notification/types';
+import { Notification } from '@/apis/notification/types';
 import { Header } from '../Shared/Header';
 import { ScrollView } from '../Shared/View';
 import { NotificationRow } from './NotificationRow';
 
 type Props = {
   notifications: Notification[];
-  onPressRow: (noticeType: NotificationType, contentId: number) => void;
+  onPressRow: (notification: Notification) => void;
   onPressFollowButton: (toggle: boolean, userId: number, index: number) => void;
   onScrollEnd: () => void;
   onRefresh: () => void;
@@ -31,10 +31,7 @@ export const NotificationComponent = ({
         <Header title={'알림'} isPrevButtonShown />
 
         {notifications.map((notification, index) => (
-          <TouchableWithoutFeedback
-            key={notification.noticeId}
-            onPress={() => onPressRow(notification.noticeType, notification.contentId)}
-          >
+          <TouchableWithoutFeedback key={notification.noticeId} onPress={() => onPressRow(notification)}>
             <NotificationRow
               notification={notification}
               onPressFollowButton={toggle => onPressFollowButton(toggle, notification.contentId, index)}
