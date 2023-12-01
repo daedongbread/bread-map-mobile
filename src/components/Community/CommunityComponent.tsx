@@ -70,7 +70,10 @@ export const CommunityComponent = ({
         <View style={styles.postCntainer}>
           {posts.map((post, index) => {
             return (
-              <TouchableOpacity key={index} onPress={() => onPressPost(post.postTopic, post.postId)}>
+              <TouchableOpacity
+                key={`${post.postTopic}${post.postId}`}
+                onPress={() => onPressPost(post.postTopic, post.postId)}
+              >
                 <PostSummary post={post} isFirst={index === 0} onPressLike={onPressLike} onPressMenu={onPressMenu} />
               </TouchableOpacity>
             );
