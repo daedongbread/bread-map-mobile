@@ -19,6 +19,8 @@ export function EditProfileContainer() {
   const [errorMsg, setErrorMsg] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
+  const isSavable = !(route.params?.nickName === name && curImage === route.params?.userImage);
+
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
 
   const onChange = useCallback(({ name: label, value }) => {
@@ -69,18 +71,23 @@ export function EditProfileContainer() {
           uri: curImage,
         },
       ];
-      const imagePath = await postImages({
-        images,
-        width: 100,
-        height: 100,
-      });
+
+      let imagePath: string[] = [];
+      // 이미지 변경 사항이 있을때
+      if (curImage !== route.params.userImage) {
+        imagePath = await postImages({
+          images,
+          width: 100,
+          height: 100,
+        });
+      }
 
       fetcher({
         method: 'post',
         url: '/v1/users/nickname',
         data: {
           nickName: name,
-          image: imagePath[0],
+          image: imagePath.length === 0 ? null : imagePath[0],
         },
       })
         .then(res => {
@@ -109,6 +116,7 @@ export function EditProfileContainer() {
     <EditProfileComponent
       name={name}
       isSaving={isSaving}
+      isSavable={isSavable}
       onChange={onChange}
       onCameraClick={getAlbum}
       curImage={curImage}

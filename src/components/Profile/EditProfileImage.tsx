@@ -49,7 +49,7 @@ const styles = StyleSheet.create(
       paddingBottom: 2,
     },
     Image: {
-      borderRadius: 8,
+      borderRadius: 10,
       width: 100,
       height: 100,
     },

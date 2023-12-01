@@ -14,6 +14,7 @@ import { Header } from './Header';
 type Props = {
   name: string;
   isSaving: boolean;
+  isSavable: boolean;
   onChange: ({ name, value }: { name: string; value: string }) => void;
   onCameraClick: () => void;
   curImage: string;
@@ -24,6 +25,7 @@ type Props = {
 export function EditProfileComponent({
   name,
   isSaving,
+  isSavable,
   onChange,
   onCameraClick,
   curImage,
@@ -65,7 +67,7 @@ export function EditProfileComponent({
         />
       </View>
 
-      <Button style={styles.Button} onPress={onConfirmClick}>
+      <Button style={styles.Button} onPress={onConfirmClick} disabled={!isSavable}>
         {'확인'}
       </Button>
 
