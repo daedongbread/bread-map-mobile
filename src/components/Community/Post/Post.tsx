@@ -86,6 +86,9 @@ export const Post = React.memo(({ post, onPressLike, onPressMenu }: Props) => {
               source={{ uri: item }}
               width={styles.postImage.width}
               height={styles.postImage.height}
+              resizedWidth={310}
+              resizedHeight={310}
+              isResizable
             />
           )}
           snapToInterval={width * 0.88 + 12}

@@ -156,6 +156,9 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
                     source={{ uri: item }}
                     width={nonResizeStyles[`${mode}ReviewImage`].width}
                     height={nonResizeStyles[`${mode}ReviewImage`].height}
+                    resizedWidth={310}
+                    resizedHeight={310}
+                    isResizable
                   />
                 </TouchableWithoutFeedback>
               )}
