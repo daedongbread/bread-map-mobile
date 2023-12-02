@@ -27,7 +27,9 @@ PushNotification.configure({
     }
 
     if (Platform.OS === 'ios') {
-      notification.finish(PushNotificationIOS.FetchResult.NoData);
+      if (notification.finish) {
+        notification.finish(PushNotificationIOS.FetchResult.NoData); //추가
+      }
     }
   },
 });
