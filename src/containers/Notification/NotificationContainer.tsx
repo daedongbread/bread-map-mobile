@@ -61,8 +61,8 @@ export const NotificationContainer = () => {
   const onPressRow = (notification: Notification) => {
     goNavRequestedScreen({
       type: notification.noticeType,
-      contentId: notification.contentId.toString(),
-      subContentId: notification.subContentId.toString(),
+      contentId: notification.contentId ? notification.contentId.toString() : '',
+      subContentId: notification.subContentId ? notification.subContentId.toString() : '',
       extraParam: notification.extraParam,
     });
   };
