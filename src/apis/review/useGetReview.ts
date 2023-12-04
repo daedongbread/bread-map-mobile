@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { ReviewDetailEntity, ReviewEntity } from '@/apis/bakery/types';
 import { fetcher } from '../fetcher';
@@ -10,6 +11,7 @@ type UseGetReviewsProps = {
 
 type UseGetReviewProps = {
   reviewId: number;
+  onErrorCb: (error: AxiosError) => void;
 };
 
 type GetReviewsResponse = {
@@ -35,9 +37,13 @@ export const requestGetReview = async ({ reviewId }: { reviewId: number }) => {
   return resp.data.data;
 };
 
-const useGetReview = ({ reviewId }: UseGetReviewProps) => {
-  const { data, isLoading, isError, refetch } = useQuery(['UseGetReview', { reviewId }], () =>
-    requestGetReview({ reviewId })
+const useGetReview = ({ reviewId, onErrorCb }: UseGetReviewProps) => {
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['UseGetReview', { reviewId }],
+    () => requestGetReview({ reviewId }),
+    {
+      onError: error => onErrorCb(error as AxiosError),
+    }
   );
 
   return {

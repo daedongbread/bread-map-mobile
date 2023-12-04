@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { fetcher } from '../fetcher';
 import { Post, PostTopic } from './types';
@@ -5,6 +6,7 @@ import { Post, PostTopic } from './types';
 type UseGetPostProps = {
   postTopic: PostTopic;
   postId: number;
+  onErrorCb: (error: AxiosError) => void;
 };
 
 type GetPostRes = {
@@ -17,8 +19,10 @@ const requestPost = async (postTopic: PostTopic, postId: number) => {
   return data.data;
 };
 
-export const useGetPost = ({ postTopic, postId }: UseGetPostProps) => {
-  const { data, isLoading, refetch } = useQuery(['useGetPost', { postId }], () => requestPost(postTopic, postId));
+export const useGetPost = ({ postTopic, postId, onErrorCb }: UseGetPostProps) => {
+  const { data, isLoading, refetch } = useQuery(['useGetPost', { postId }], () => requestPost(postTopic, postId), {
+    onError: error => onErrorCb(error as AxiosError),
+  });
 
   return {
     post: data,
