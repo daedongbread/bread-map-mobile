@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { ButtonProps, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/types';
+import { BakeryDTO } from '@/apis/search';
 import { BreadCircle } from '@/components/Shared/Icons/BreadCircle';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
@@ -9,11 +9,12 @@ import { StarIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
 
 type Props = {
-  bakery: SearchEntity;
+  bakery: BakeryDTO;
   onPress: ButtonProps['onPress'];
 };
 
 const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
+  const { address, reviewNum, totalScore, bakeryName, distance } = bakery;
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -24,13 +25,13 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
 
           <View style={styles.wrapper}>
             <Text presets={['body2', 'semibold']} color={theme.color.gray900}>
-              {bakery.bakeryName}
+              {bakeryName}
             </Text>
 
             <SplitRow height={4} />
 
             <Text presets={'caption2'} color={theme.color.gray500}>
-              서울특별시 하드코딩
+              {address}
             </Text>
 
             <SplitRow height={4} />
@@ -42,7 +43,7 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
                 <SplitColumn width={4} />
 
                 <Text presets={'caption2'} color={theme.color.gray500}>
-                  3.5
+                  {totalScore}
                 </Text>
               </View>
 
@@ -53,13 +54,13 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
               <SplitColumn width={4} />
 
               <Text presets={'caption2'} color={theme.color.gray500}>
-                리뷰 {bakery.reviewNum}
+                리뷰 {reviewNum}
               </Text>
             </View>
           </View>
         </View>
         <Text presets={'caption2'} color={theme.color.gray500}>
-          {convertDistance(bakery.distance)}
+          {convertDistance(distance)}
         </Text>
       </View>
     </TouchableOpacity>
