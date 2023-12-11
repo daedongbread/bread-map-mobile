@@ -15,7 +15,7 @@ const useGetRecentKeywords = () => {
   const { data, isLoading, isError, refetch } = useQuery(['useGetRecentKeywords'], () => requestGetRecentKeywords());
 
   return {
-    data: data,
+    recentKeywords: data?.recentKeywords,
     loading: isLoading,
     error: isError,
     refetch,
