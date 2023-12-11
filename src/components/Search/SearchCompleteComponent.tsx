@@ -50,6 +50,13 @@ export const SearchCompleteComponent = ({ keyword, bakeries, subwayStationName, 
     [navigateDetail]
   );
 
+  const goMap = () => {
+    navigation.navigate('MainTab', {
+      screen: 'Map',
+      params: {},
+    });
+  };
+
   const goHome = () => {
     navigation.navigate('MainTab', {
       screen: 'HomeStack',
@@ -59,7 +66,7 @@ export const SearchCompleteComponent = ({ keyword, bakeries, subwayStationName, 
 
   const MapIcon = () => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goMap}>
         <ColoredMapIcon />
       </TouchableOpacity>
     );
