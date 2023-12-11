@@ -3,6 +3,7 @@ import { LoginRequest, SocialProvider, requestRefresh } from '@/apis/auth/reques
 import { LogoutRequest, requestLogout } from '@/apis/auth/requestLogout';
 import { removeHeader, setHeader } from '@/apis/fetcher';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '.';
 
 const USER_KEY = 'user';
 
@@ -50,14 +51,16 @@ const storeTokens = ({ accessToken, refreshToken, userId }: StoreTokens) => {
   );
 };
 
-export const initAuth = createAsyncThunk('auth/initAuth', async () => {
+export const initAuth = createAsyncThunk('auth/initAuth', async (arg, { getState }) => {
   const user = await EncryptedStorage.getItem(USER_KEY);
   if (!user) {
     return;
   }
+  const state = getState() as RootState;
+  const deviceToken = state.notification.deviceToken || '';
 
   const { refreshToken, accessToken, userId } = JSON.parse(user);
-  const { data } = await requestRefresh({ accessToken, refreshToken });
+  const { data } = await requestRefresh({ accessToken, refreshToken, deviceToken });
   storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, userId: userId });
 
   return { ...data, userId };

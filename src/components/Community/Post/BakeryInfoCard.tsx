@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { LocationMarker } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -34,7 +35,16 @@ export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Pro
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.row}>
-        <Image style={styles.bakeryImage} source={{ uri: thumbnail }} />
+        <CustomImage
+          style={styles.bakeryImage}
+          source={{ uri: thumbnail }}
+          resizeMode="cover"
+          width={styles.bakeryImage.width}
+          height={styles.bakeryImage.height}
+          resizedWidth={150}
+          resizedHeight={150}
+          isResizable
+        />
         <SplitColumn width={19} />
         <View style={styles.bakeryInfoContainer}>
           <Text color="#222222" presets={['body2', 'bold']}>

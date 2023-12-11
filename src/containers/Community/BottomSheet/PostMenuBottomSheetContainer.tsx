@@ -61,7 +61,7 @@ export const PostMenuBottomSheetContainer = () => {
     await postBlockUser(userId, {
       onSuccess: () => {
         navigation.navigate('SuccessBottomSheet', {
-          content: '요청 주신 댓글 삭제가\n완료되었어요!',
+          content: '요청 주신 사용자의 차단이\n완료되었어요!',
         });
       },
     });

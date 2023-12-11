@@ -1,11 +1,12 @@
 import format from 'date-fns/format';
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Post as PostType } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { theme } from '@/styles/theme';
 import { Footer } from './Footer';
 import { ProfileInfo } from './ProfileInfo';
@@ -18,7 +19,40 @@ type Props = {
 
 const { width } = Dimensions.get('window');
 
-export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
+export const Post = React.memo(({ post, onPressLike, onPressMenu }: Props) => {
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: post.isUserLiked,
+    count: post.likeCount,
+  });
+
+  useDidMountEffect(() => {
+    setLikeToggle({
+      isLiked: post.isUserLiked,
+      count: post.likeCount,
+    });
+  }, [post]);
+
+  const _onPressLike = async (_postId: number) => {
+    try {
+      if (likeToggle.isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+      }
+
+      await onPressLike(_postId);
+    } catch (e) {
+      // 에러발생시 좋아요 상태 롤백
+      setLikeToggle(likeToggle);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ProfileInfo
@@ -48,10 +82,13 @@ export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
           renderItem={({ item }) => (
             <CustomImage
               style={styles.postImage}
+              resizeMode="cover"
+              source={{ uri: item }}
               width={styles.postImage.width}
               height={styles.postImage.height}
-              resizeMode="stretch"
-              source={{ uri: item }}
+              resizedWidth={310}
+              resizedHeight={310}
+              isResizable
             />
           )}
           snapToInterval={width * 0.88 + 12}
@@ -71,16 +108,16 @@ export const Post = ({ post, onPressLike, onPressMenu }: Props) => {
       <SplitRow height={20} />
 
       <Footer
-        isLiked={post.isUserLiked}
-        likeCount={post.likeCount}
+        isLiked={likeToggle.isLiked}
+        likeCount={likeToggle.count}
         commentCount={post.commentCount}
         date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
-        onPressLike={() => onPressLike(post.postId)}
+        onPressLike={() => _onPressLike(post.postId)}
         onPressMenu={onPressMenu}
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ type Navigation = MainStackScreenProps<'CommunityStack'>;
 export const HomeCommunityPartContainer = () => {
   const navigation = useNavigation<Navigation['navigation']>();
 
-  const { posts = [], refetch } = useGetTopPosts();
+  const { posts = [] } = useGetTopPosts();
 
   const { mutateAsync: postToggleLike } = usePostToggleLike();
   const { mutateAsync: likeReview } = useLikeReview();
@@ -35,8 +35,6 @@ export const HomeCommunityPartContainer = () => {
     } else {
       await postToggleLike(_postId);
     }
-
-    refetch();
   };
 
   const onPressMore = useCallback(() => {

@@ -1,37 +1,63 @@
 import React, { useState } from 'react';
-import FastImage from 'react-native-fast-image';
-import { FastImageProps } from 'react-native-fast-image';
+import { StyleSheet, View } from 'react-native';
+import FastImage, { FastImageProps } from 'react-native-fast-image';
 import { DimImage } from '@/components/DimImage/DimImage';
 import { ImageSkeleton } from '../Loading';
 
 type Props = Omit<FastImageProps, 'onLoadEnd' | 'source'> & {
   isDimmed?: boolean;
+  isResizable?: boolean;
   width: number;
-  height?: number;
+  height: number;
+  resizedWidth?: number;
+  resizedHeight?: number;
   source: {
     uri?: string | null | undefined;
   };
 };
 
-export const CustomImage = React.memo(({ isDimmed = false, width, height, source, ...rest }: Props) => {
-  const [isLoadEnd, setIsLoadEnd] = useState(false);
+export const CustomImage = React.memo(
+  ({
+    isDimmed = false,
+    isResizable = false,
+    width,
+    height,
+    resizedWidth = 0,
+    resizedHeight = 0,
+    source,
+    ...rest
+  }: Props) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const query = `?w=${resizedWidth * 2}&h=${resizedHeight * 2}`;
+    const uri = isResizable ? source.uri + query : source.uri;
 
-  return (
-    <React.Fragment>
-      {source.uri && (
-        <FastImage
-          {...rest}
-          source={{
-            uri: source.uri,
-          }}
-          style={isLoadEnd && rest.style}
-          onLoadEnd={() => setIsLoadEnd(true)}
-        />
-      )}
+    return (
+      <View>
+        {uri && (
+          <FastImage
+            {...rest}
+            source={{
+              uri,
+            }}
+            style={StyleSheet.flatten([
+              rest.style,
+              isLoading && {
+                opacity: 0,
+              },
+            ])}
+            onLoadStart={() => {
+              setIsLoading(true);
+            }}
+            onLoadEnd={() => {
+              setIsLoading(false);
+            }}
+          />
+        )}
 
-      {isLoadEnd && isDimmed && <DimImage show={true} />}
+        {!isLoading && isDimmed && <DimImage show={true} />}
 
-      {!isLoadEnd && <ImageSkeleton width={width} height={height} style={rest.style} />}
-    </React.Fragment>
-  );
-});
+        {isLoading && <ImageSkeleton width={width} height={height} style={rest.style} />}
+      </View>
+    );
+  }
+);

@@ -1,7 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useGetReviews } from '@/apis/profile/useGetReviews';
+import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -20,6 +21,9 @@ export function ReviewList({ userId }: { userId: number }) {
   } = useGetReviews({ userId: userId });
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
   const [refreshing, setRefreshing] = useState(false);
+
+  const { mutateAsync: likeReview } = useLikeReview();
+  const { mutateAsync: unLikeReview } = useUnLikeReview();
 
   const loadMore = () => {
     if (hasNextPage) {
@@ -45,6 +49,17 @@ export function ReviewList({ userId }: { userId: number }) {
     });
   };
 
+  const onPressLike = useCallback(
+    async (isLiked: boolean, reviewId: number) => {
+      if (isLiked) {
+        await unLikeReview(reviewId);
+      } else {
+        await likeReview(reviewId);
+      }
+    },
+    [likeReview, unLikeReview]
+  );
+
   return (
     <>
       {!reviewLoading && (
@@ -59,7 +74,7 @@ export function ReviewList({ userId }: { userId: number }) {
             })
             .flat()}
           renderItem={data => {
-            return <ReviewListItem item={data?.item} onItemClick={onItemClick} />;
+            return <ReviewListItem item={data?.item} onItemClick={onItemClick} onPressLike={onPressLike} />;
           }}
           keyExtractor={item => {
             return item?.reviewInfo?.id;

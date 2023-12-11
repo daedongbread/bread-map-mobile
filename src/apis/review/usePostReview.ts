@@ -19,9 +19,6 @@ export const usePostReview = () => {
       queryClient.refetchQueries({
         queryKey: ['useGetInfiniteReviews'],
       });
-      queryClient.refetchQueries({
-        queryKey: ['useGetReviews'],
-      });
     },
   });
 };

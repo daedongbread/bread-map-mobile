@@ -17,6 +17,9 @@ export function EditProfileContainer() {
   const [name, setName] = useState(route.params?.nickName);
   const [curImage, setCurImage] = useState(route.params?.userImage);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  const isSavable = !(route.params?.nickName === name && curImage === route.params?.userImage);
 
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
 
@@ -60,20 +63,31 @@ export function EditProfileContainer() {
 
     if (route.params?.nickName === name && curImage === route.params?.userImage) {
     } else {
-      const imagePath = await postImages([
+      setIsSaving(true);
+      const images = [
         {
           fileName: 'fileName',
           type: 'image/jpg',
           uri: curImage,
         },
-      ]);
+      ];
+
+      let imagePath: string[] = [];
+      // 이미지 변경 사항이 있을때
+      if (curImage !== route.params.userImage) {
+        imagePath = await postImages({
+          images,
+          width: 100,
+          height: 100,
+        });
+      }
 
       fetcher({
         method: 'post',
         url: '/v1/users/nickname',
         data: {
           nickName: name,
-          image: imagePath[0],
+          image: imagePath.length === 0 ? null : imagePath[0],
         },
       })
         .then(res => {
@@ -87,6 +101,9 @@ export function EditProfileContainer() {
           } else if (res?.response?.status === 400) {
             setErrorMsg('닉네임을 확인해주세요.');
           }
+        })
+        .finally(() => {
+          setIsSaving(false);
         });
     }
   };
@@ -98,6 +115,8 @@ export function EditProfileContainer() {
   return (
     <EditProfileComponent
       name={name}
+      isSaving={isSaving}
+      isSavable={isSavable}
       onChange={onChange}
       onCameraClick={getAlbum}
       curImage={curImage}

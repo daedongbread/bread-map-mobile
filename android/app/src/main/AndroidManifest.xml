@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.daedongbread">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.daedongbread">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--    GEOLOCATION-->
@@ -12,6 +11,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
       android:usesCleartextTraffic="true"
       android:name=".MainApplication"
@@ -23,6 +25,16 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/GOOGLE_MAP_API_KEY_ANDROID" />
+
+      <meta-data 
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_notification" />
+
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color" 
+        android:resource="@color/push_icon_background"
+        tools:replace="android:resource"/>
+        
       <uses-library android:name="org.apache.http.legacy" android:required="false" />
       <activity
         android:name=".MainActivity"
@@ -48,5 +60,32 @@
               android:scheme="@string/KAKAO_API_KEY" />
         </intent-filter>
       </activity>
+
+      <!-- Change the value to true to enable pop-up for in foreground on receiving remote notifications (for prevent duplicating while showing local notifications set this to false) -->
+      <meta-data android:name="com.dieam.reactnativepushnotification.notification_foreground" android:value="false"/>
+      <!-- Change the resource name to your App's accent color - or any other color you want -->
+      <!-- <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@color/white"/> -->
+
+      <!-- <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="@string/default_notification_channel_id" /> -->
+
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver" android:exported="true">
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" />
+              <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+              <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+          </intent-filter>
+      </receiver>
+
+      <service
+          android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+          android:exported="false" >
+          <intent-filter>
+              <action android:name="com.google.firebase.MESSAGING_EVENT" />
+          </intent-filter>
+      </service>
+
     </application>
 </manifest>

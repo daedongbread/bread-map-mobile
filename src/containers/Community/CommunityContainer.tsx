@@ -3,7 +3,6 @@ import { useGetInfinitePosts, usePostToggleLike } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { CommunityComponent } from '@/components/Community';
-import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community/Stack';
 import { useNavigation } from '@react-navigation/native';
 
@@ -59,10 +58,6 @@ export const CommunityContainer = () => {
   const { posts = [], hasNextPage, refetch, fetchNextPage, remove } = useGetInfinitePosts({ postTopic, offset });
   const flatPosts = posts && posts.map(post => post.contents).flat();
 
-  useDidMountEffect(() => {
-    resetPaging();
-  }, [postTopic]);
-
   useEffect(() => {
     const lastPostObject = posts[posts.length - 1];
 
@@ -94,10 +89,13 @@ export const CommunityContainer = () => {
   };
 
   const onPressWrite = () => {
-    navigation.navigate('PostWrite');
+    navigation.navigate('PostWrite', {
+      listToggleTopic: postTopic,
+    });
   };
 
   const onPressToggle = (_topic: PostTopic) => {
+    remove();
     setPostTopic(_topic);
   };
 
@@ -109,27 +107,30 @@ export const CommunityContainer = () => {
     }
   };
 
-  const onPressLike = async (_postTopic: PostTopic, _postId: number, isLiked: boolean) => {
-    if (_postTopic === 'REVIEW') {
-      if (isLiked) {
-        await unLikeReview(_postId);
+  const onPressLike = useCallback(
+    async (_postTopic: PostTopic, _postId: number, isLiked: boolean) => {
+      if (_postTopic === 'REVIEW') {
+        if (isLiked) {
+          await unLikeReview(_postId);
+        } else {
+          await likeReview(_postId);
+        }
       } else {
-        await likeReview(_postId);
+        await postToggleLike(_postId);
       }
-    } else {
-      await postToggleLike(_postId);
-    }
+    },
+    [likeReview, postToggleLike, unLikeReview]
+  );
 
-    refetch();
-  };
-
-  const onPressMenu = (_postTopic: PostTopic, postId: number, userId: number) => {
+  const onPressMenu = useCallback((_postTopic: PostTopic, postId: number, userId: number) => {
     if (_postTopic === 'REVIEW') {
       goNavReviewMenuBottomSheet(postId, userId);
     } else {
       goNavPostMenuBottomSheet(_postTopic, postId, userId);
     }
-  };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const goNavReviewDetail = (reviewId: number) => {
     navigation.navigate('BakeryReviewDetailStack', {

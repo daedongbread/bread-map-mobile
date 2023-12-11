@@ -5,9 +5,9 @@ import { PostTopic } from '@/apis/community/types';
 import { usePostImages } from '@/apis/image';
 import { PostWriteComponent } from '@/components/Community';
 import { useAppDispatch } from '@/hooks/redux';
-import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
+import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
 import { showToast } from '@/slices/toast';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const PHOTO_LIMIT = 10;
 
@@ -38,13 +38,6 @@ export type PostForm = {
   photos: Asset[];
 };
 
-const initialForm: PostForm = {
-  postTopic: 'BREAD_STORY',
-  title: '',
-  content: '',
-  photos: [],
-};
-
 export type PostValidFormData = {
   isValidTitle: boolean;
   isValidContent: boolean;
@@ -55,17 +48,24 @@ const initialFormValid: PostValidFormData = {
   isValidContent: true,
 };
 
-type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
+type Navigation = CommunityStackScreenProps<'PostWrite'>['navigation'];
+type Route = CommunityStackScreenProps<'PostWrite'>['route'];
 
 export const PostWriteContainer = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
 
-  const [form, setForm] = useState(initialForm);
+  const { listToggleTopic } = route.params;
+  const [form, setForm] = useState<PostForm>({
+    postTopic: ['BREAD_STORY', 'EATEN_BREAD', 'FREE_TALK'].includes(listToggleTopic) ? listToggleTopic : 'BREAD_STORY',
+    title: '',
+    content: '',
+    photos: [],
+  });
   const [formValid, setFormValid] = useState(initialFormValid);
 
-  // const { bakeryId } = route.params;
-  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost();
+  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(listToggleTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isPostSaving || isImageSaving;
 
@@ -128,7 +128,14 @@ export const PostWriteContainer = () => {
       return;
     }
 
-    const imagePaths = form.photos.length > 0 ? await postImages(form.photos) : [];
+    const imagePaths =
+      form.photos.length > 0
+        ? await postImages({
+            images: form.photos,
+            width: 310,
+            height: 310,
+          })
+        : [];
 
     await postPost(
       {

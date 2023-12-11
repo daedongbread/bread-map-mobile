@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { StyleSheet } from 'react-native';
 import { resizePixels } from '@/utils';
+import { CustomImage } from '../Shared/CustomImage';
 
 type Props = {
   url: string;
@@ -9,9 +9,13 @@ type Props = {
 
 export function ReviewListItemInImageItem({ url }: Props) {
   return (
-    <TouchableOpacity activeOpacity={1}>
-      <FastImage style={styles.Image} source={{ uri: url }} />
-    </TouchableOpacity>
+    <CustomImage
+      style={styles.Image}
+      resizeMode="cover"
+      source={{ uri: url }}
+      width={styles.Image.width}
+      height={styles.Image.height}
+    />
   );
 }
 

@@ -1,9 +1,12 @@
 import { format } from 'date-fns';
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Post, PostTopic } from '@/apis/community/types';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
-import { Text } from '@/components/Shared/Text';
+import { MoreLineText, Text } from '@/components/Shared/Text';
+import { useAppSelector } from '@/hooks/redux';
 import { theme } from '@/styles/theme';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
@@ -15,10 +18,7 @@ type Props = {
   onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
 };
 
-const MAIN_TEXT_LIMIT = 38;
-// const NO_IMAGE_MAIN_TEXT_LIMIT = 55;
-
-const topics: any = {
+export const topics: any = {
   EVENT: '이벤트',
   BREAD_STORY: '빵 이야기',
   REVIEW: '리뷰',
@@ -26,7 +26,34 @@ const topics: any = {
   EATEN_BREAD: '먹은 빵 자랑',
 };
 
-export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+  const { userId: myUserId } = useAppSelector(state => state.auth);
+
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: post.isUserLiked,
+    count: post.likeCount,
+  });
+
+  const _onPressLike = async (_postTopic: PostTopic, _postId: number, isLiked: boolean) => {
+    try {
+      if (isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+      }
+
+      await onPressLike(post.postTopic, post.postId, likeToggle.isLiked);
+    } catch (e) {
+      setLikeToggle(likeToggle);
+    }
+  };
+
   return (
     <View style={[styles.container, !isFirst && styles.divider]}>
       <Text presets={['caption2', 'bold']} style={[styles.tag, post.postTopic === 'EVENT' && styles.reviewTag]}>
@@ -37,7 +64,7 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
 
       <View>
         <View style={styles.profileContainer}>
-          <Image style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
+          <FastImage style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
 
           <SplitColumn width={10} />
 
@@ -50,27 +77,34 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
 
         <View style={styles.contentsContainer}>
           <View style={styles.textContainer}>
-            <Text color={theme.color.gray900} presets={['body1', 'semibold']} numberOfLines={2} ellipsizeMode="tail">
-              {post.title}
-            </Text>
-            {post.content.trim().length > MAIN_TEXT_LIMIT ? (
-              <Text color={theme.color.gray600} presets={['body2', 'medium']} numberOfLines={2} ellipsizeMode="tail">
-                {post.content.trim().substring(0, MAIN_TEXT_LIMIT)}...
-                <Text color={theme.color.gray500} presets={['body2', 'medium']}>
-                  {' '}
-                  더보기
-                </Text>
-              </Text>
-            ) : (
-              <Text color={theme.color.gray600} presets={['body2', 'medium']}>
-                {post.content}
+            {post.postTopic !== 'REVIEW' && (
+              <Text color={theme.color.gray900} presets={['body1', 'semibold']} numberOfLines={2} ellipsizeMode="tail">
+                {post.title}
               </Text>
             )}
+
+            <MoreLineText
+              color={theme.color.gray600}
+              presets={['body2', 'medium']}
+              linesToTruncate={post.postTopic === 'REVIEW' ? 4 : 2}
+              text={post.content.trim()}
+            />
           </View>
 
           <SplitColumn width={17} />
 
-          {post.thumbnail && <Image style={styles.postImage} source={{ uri: post.thumbnail }} />}
+          {post.thumbnail && (
+            <CustomImage
+              style={styles.postImage}
+              source={{ uri: post.thumbnail }}
+              resizeMode="cover"
+              width={styles.postImage.width}
+              height={styles.postImage.height}
+              resizedWidth={80}
+              resizedHeight={80}
+              isResizable={true}
+            />
+          )}
         </View>
 
         <SplitRow height={15} />
@@ -89,18 +123,21 @@ export const PostSummary = ({ post, isFirst, onPressLike, onPressMenu }: Props) 
         )}
 
         <Footer
-          isLiked={post.isUserLiked}
-          likeCount={post.likeCount}
+          isLiked={likeToggle.isLiked}
+          likeCount={likeToggle.count}
           commentCount={post.commentCount}
           date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
-          onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
-          onPressComment={() => null}
-          onPressLike={() => onPressLike(post.postTopic, post.postId, post.isUserLiked)}
+          onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
+          onPressMenu={
+            post.postTopic === 'REVIEW' && myUserId === post.writerInfo.userId
+              ? undefined
+              : () => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)
+          }
         />
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -137,7 +174,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    alignItems: 'flex-start',
   },
   text: {
     height: 80,
@@ -145,6 +181,6 @@ const styles = StyleSheet.create({
   postImage: {
     width: 80,
     height: 80,
-    borderRadius: 8,
+    borderRadius: 5,
   },
 });

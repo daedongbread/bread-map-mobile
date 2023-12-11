@@ -127,9 +127,13 @@ export const BakeryDetailInfoComponent = ({
       <View style={styles.imageContainer}>
         <CustomImage
           style={styles.image}
-          width={width}
+          resizeMode="cover"
           source={{ uri: bakery?.bakeryInfo.images[0] }}
-          resizeMode="stretch"
+          width={width}
+          height={200}
+          resizedWidth={360}
+          resizedHeight={200}
+          isResizable
           isDimmed={isDefaultImage}
         />
 

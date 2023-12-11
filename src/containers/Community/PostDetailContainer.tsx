@@ -1,4 +1,7 @@
-import React from 'react';
+import { AxiosError } from 'axios';
+import React, { useCallback } from 'react';
+import { Alert } from 'react-native';
+import { useQueryClient } from 'react-query';
 import { useGetPost, usePostToggleLike } from '@/apis/community';
 import { PostDetailComponent } from '@/components/Community/PostDetailComponent';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
@@ -9,20 +12,36 @@ type Navigation = CommunityStackScreenProps<'PostDetail'>['navigation'];
 
 export const PostDetailContainer = () => {
   const navigation = useNavigation<Navigation>();
-  const { params } = useRoute<Route>();
+  const queryClient = useQueryClient();
 
+  const { params } = useRoute<Route>();
   const { postId, postTopic } = params;
 
-  const { mutateAsync: postToggleLike } = usePostToggleLike();
+  const { mutateAsync: onPressLike } = usePostToggleLike();
 
-  const { post, refetch: refetchPost } = useGetPost({ postTopic, postId });
-
-  const onPressLike = async (_postId: number) => {
-    await postToggleLike(_postId);
-    refetchPost();
+  const onError = async (error: AxiosError) => {
+    if (error.response && error.response.status === 404) {
+      Alert.alert('존재하지 않는 게시글 입니다.', '', [
+        {
+          text: '확인',
+          onPress: () => navigation.pop(),
+        },
+      ]);
+    }
   };
 
-  const onPressMenu = () => {
+  const { post, refetch: refetchPost } = useGetPost({ postTopic, postId, onErrorCb: onError });
+
+  const refetchAll = () => {
+    // 리뷰내용 refetch
+    refetchPost();
+    // 댓글 refetch
+    queryClient.refetchQueries({
+      queryKey: ['useGetComments', { postId }],
+    });
+  };
+
+  const onPressMenu = useCallback(() => {
     if (post?.writerInfo.userId) {
       navigation.navigate('PostMenuBottomSheet', {
         postId,
@@ -30,19 +49,14 @@ export const PostDetailContainer = () => {
         userId: post?.writerInfo.userId,
       });
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post]);
 
   if (!post) {
     return null;
   }
 
   return (
-    <PostDetailComponent
-      postTopic={postTopic}
-      post={post}
-      onPressLike={onPressLike}
-      onPressMenu={onPressMenu}
-      refetchPost={refetchPost}
-    />
+    <PostDetailComponent post={post} onPressLike={onPressLike} onPressMenu={onPressMenu} refetchPost={refetchAll} />
   );
 };

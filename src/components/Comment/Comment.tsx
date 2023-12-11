@@ -1,14 +1,16 @@
 import { format } from 'date-fns';
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Comment as CommentType } from '@/apis/community/types';
 import { IcLike, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
+import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { theme } from '@/styles/theme';
 import Ellipse from '@shared/Icons/Ellipse.svg';
+import { CustomImage } from '../Shared/CustomImage';
 
 type Props = {
   comment: CommentType;
@@ -27,10 +29,51 @@ export const Comment = ({
   onPressMenu,
   onPressReply,
 }: Props) => {
+  const [likeToggle, setLikeToggle] = useState({
+    isLiked: comment.isUserLiked,
+    count: comment.likeCount,
+  });
+
+  useDidMountEffect(() => {
+    setLikeToggle({
+      isLiked: comment.isUserLiked,
+      count: comment.likeCount,
+    });
+  }, [comment]);
+
+  const _onPressLike = async (commentId: number) => {
+    try {
+      if (likeToggle.isLiked) {
+        setLikeToggle({
+          isLiked: false,
+          count: likeToggle.count - 1,
+        });
+      } else {
+        setLikeToggle({
+          isLiked: true,
+          count: likeToggle.count + 1,
+        });
+      }
+
+      await onPressLike(commentId);
+    } catch (e) {
+      // 에러발생시 좋아요 상태 롤백
+      setLikeToggle(likeToggle);
+    }
+  };
+
   return (
     <Row style={isReply ? styles.replyContainer : styles.container}>
       <TouchableWithoutFeedback onPress={() => onPressProfile(comment.userId)}>
-        <Image style={styles.profileImage} source={{ uri: comment.profileImage }} />
+        <CustomImage
+          style={styles.profileImage}
+          source={{ uri: comment.profileImage }}
+          width={styles.profileImage.width}
+          height={styles.profileImage.height}
+          resizedWidth={40}
+          resizedHeight={40}
+          isResizable
+        />
       </TouchableWithoutFeedback>
 
       <SplitColumn width={8} />
@@ -68,12 +111,12 @@ export const Comment = ({
         <SplitRow height={8} />
 
         <Row style={styles.commentFooter}>
-          <TouchableOpacity onPress={() => onPressLike(comment.id)}>
+          <TouchableOpacity onPress={() => _onPressLike(comment.id)}>
             <Row style={styles.footerLeftContainer}>
-              <IcLike width={16} height={16} fill={comment.isUserLiked ? '#F66131' : '#BDBDBD'} />
+              <IcLike width={16} height={16} fill={likeToggle.isLiked ? '#F66131' : '#BDBDBD'} />
               <SplitColumn width={2} />
               <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-                {comment.likeCount}
+                {likeToggle.count}
               </Text>
             </Row>
           </TouchableOpacity>

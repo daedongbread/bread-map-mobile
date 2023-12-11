@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
+import { CustomImage } from '../Shared/CustomImage';
 
 export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButtonClick, myId, userId, otherId }: any) {
   const navigation = useNavigation<MainStackScreenProps<'MainTab'>['navigation']>();
@@ -22,7 +23,13 @@ export function ProfileInfo({ profileInfoData, onClickUpdateButton, onFollowButt
   };
   return (
     <View style={styles.Container}>
-      <Image resizeMode="cover" source={{ uri: profileInfoData?.userImage }} style={styles.Image} />
+      <CustomImage
+        style={styles.Image}
+        resizeMode="cover"
+        source={{ uri: profileInfoData?.userImage }}
+        width={styles.Image.width}
+        height={styles.Image.height}
+      />
       <SplitColumn width={16} />
       <View style={styles.Info}>
         <Text style={styles.InfoTitle}>{profileInfoData?.nickName}</Text>

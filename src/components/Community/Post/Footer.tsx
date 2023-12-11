@@ -12,11 +12,10 @@ type Props = {
   commentCount: number;
   date: string;
   onPressLike: () => void;
-  onPressComment?: () => void;
-  onPressMenu: () => void;
+  onPressMenu?: () => void;
 };
 
-export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, onPressComment, onPressMenu }: Props) => (
+export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, onPressMenu }: Props) => (
   <View style={styles.container}>
     <View style={styles.row}>
       <TouchableOpacity style={styles.row} onPress={onPressLike}>
@@ -29,13 +28,13 @@ export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, on
 
       <SplitColumn width={10} />
 
-      <TouchableOpacity style={styles.row} onPress={onPressComment} disabled={!onPressComment}>
+      <View style={styles.row}>
         <CommentIcon />
         <SplitColumn width={2} />
         <Text color={theme.color.gray800} presets={['caption1', 'medium']}>
           {commentCount ? commentCount : '댓글'}
         </Text>
-      </TouchableOpacity>
+      </View>
     </View>
 
     <View style={styles.row}>
@@ -44,9 +43,11 @@ export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, on
       </Text>
       <SplitColumn width={12} />
 
-      <TouchableOpacity onPress={onPressMenu}>
-        <ViewMoreIcon />
-      </TouchableOpacity>
+      {onPressMenu && (
+        <TouchableOpacity onPress={onPressMenu}>
+          <ViewMoreIcon />
+        </TouchableOpacity>
+      )}
     </View>
   </View>
 );

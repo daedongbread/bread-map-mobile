@@ -4,7 +4,7 @@ import { useGetBakery } from '@/apis/bakery';
 import { FlagInfo } from '@/apis/bakery/types';
 import { useBookmarkDisableBakery } from '@/apis/flag';
 import { BakeryDetailInfoComponent } from '@/components/BakeryDetail/BakeryHome';
-import { BookmarkList } from '@/components/Home/BakeryBookmarksBottomSheet';
+import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { useAppDispatch } from '@/hooks/redux';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';

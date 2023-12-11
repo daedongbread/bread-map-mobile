@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textInput: {
+    flex: 1,
     fontSize: resizePixel(14),
     textAlignVertical: 'center',
     fontWeight: 'bold',

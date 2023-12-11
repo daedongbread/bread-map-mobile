@@ -78,6 +78,7 @@ export const PostWriteComponent: React.FC<Props> = ({
               value={form.title}
               isAlert
               error={!formValid.isValidTitle && !isValidTitle ? '10자이상 입력해주세요' : ''}
+              maxLength={40}
               onChangeText={text => onChange('title', text)}
             />
           </View>
@@ -91,6 +92,7 @@ export const PostWriteComponent: React.FC<Props> = ({
               multiline
               isAlert
               error={!formValid.isValidContent && !isValidContent ? '10자이상 입력해주세요' : ''}
+              maxLength={400}
               onChangeText={text => onChange('content', text)}
             />
           </View>
@@ -145,7 +147,8 @@ const styles = StyleSheet.create({
   titleInput: {
     backgroundColor: theme.color.gray50,
     paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 41,
     borderRadius: 8,
     color: theme.color.gray800,
   },

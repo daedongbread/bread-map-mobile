@@ -16,7 +16,7 @@ export const DeleteAccount = () => {
 
   const dispatch = useDispatch();
   const { accessToken, refreshToken } = useAppSelector(selector => selector.auth);
-  const { deviceToken } = useAppSelector(selector => selector.notice);
+  const { deviceToken } = useAppSelector(selector => selector.notification);
 
   const { mutate } = useMutation({
     mutationFn: requestDeleteAccount,

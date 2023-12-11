@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import React from 'react';
+import { Alert } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview/BakeryReviewDetail';
@@ -18,7 +20,19 @@ export const BakeryReviewDetailContainer = () => {
   const queryClient = useQueryClient();
 
   const { reviewId } = route.params;
-  const { review, refetch: refetchReview } = useGetReview({ reviewId });
+
+  const onError = async (error: AxiosError) => {
+    if (error.response && error.response.status === 404) {
+      Alert.alert('존재하지 않는 게시글 입니다.', '', [
+        {
+          text: '확인',
+          onPress: () => navigation.pop(),
+        },
+      ]);
+    }
+  };
+
+  const { review, refetch: refetchReview } = useGetReview({ reviewId, onErrorCb: onError });
 
   if (!review) {
     return null;

@@ -75,6 +75,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
               value={form.name}
               isAlert
               error={!formValid.isValidName && !isValidName ? '빵집이름을 입력해주세요' : ''}
+              maxLength={20}
               onChangeText={text => onChange('name', text)}
             />
           </View>
@@ -87,6 +88,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
               value={form.location}
               isAlert
               error={!formValid.isValidLocation && !isValidLocation ? '위치를 입력해주세요' : ''}
+              maxLength={100}
               onChangeText={text => onChange('location', text)}
             />
           </View>
@@ -98,6 +100,7 @@ export const ReportBakeryComponent: React.FC<Props> = ({
               style={[styles.input, styles.reasonInput]}
               placeholder="이 빵집을 추천하는 이유는 무엇인가요!"
               value={form.content}
+              maxLength={500}
               onChangeText={text => onChange('content', text)}
             />
           </View>

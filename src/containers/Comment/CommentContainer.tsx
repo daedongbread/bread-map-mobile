@@ -34,7 +34,7 @@ export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
   const { comments = [], refetch } = useGetComments({ postId, postTopic, page: 0 });
 
   const { mutateAsync: postComment } = usePostComment();
-  const { mutateAsync: postLike } = usePostToggleCommentsLike();
+  const { mutateAsync: onPressLike } = usePostToggleCommentsLike();
 
   const onPressProfile = (userId: number) => {
     navigation.navigate('ProfileStack', {
@@ -50,12 +50,6 @@ export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
       commentId,
       ownerId,
       postId,
-    });
-  };
-
-  const onPressLike = async (commentId: number) => {
-    await postLike(commentId, {
-      onSuccess: () => refetch(),
     });
   };
 

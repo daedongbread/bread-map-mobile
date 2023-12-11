@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
 
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { requestGetBakery } from '@/apis/bakery/useGetBakery';
 import { RankBakery, useRankBakeries } from '@/apis/bakery/useRankBakeries';
 import { useBookmarkDisableBakery } from '@/apis/flag';
 import { Rating } from '@/components/RankBakeries/Rating';
 import { ShortAddress } from '@/components/RankBakeries/ShortAddress';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { RootStackScreenProps } from '@/pages/Stack';
 import { theme } from '@/styles/theme';
 import { WINDOW_WIDTH } from '@/utils/constants/dimensions';
@@ -79,7 +80,15 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
               </Text>
             </View>
             <View style={[styles.imageWrapper]}>
-              <Image source={{ uri: item.image }} style={styles.image} />
+              <CustomImage
+                style={styles.image}
+                source={{ uri: item.image }}
+                width={styles.image.width}
+                height={styles.image.height}
+                resizedWidth={150}
+                resizedHeight={150}
+                isResizable
+              />
             </View>
             <View style={styles.row}>
               <View style={styles.flex}>
