@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchEntity } from '@/apis/bakery/types';
+import { useGetRecentKeywords } from '@/apis/search';
+import { useGetPopularKeywords } from '@/apis/search/useGetPopularKeywords';
 import { useGetSuggestions } from '@/apis/search/useGetSuggestions';
 import { SearchingComponent } from '@/components/Search';
 import { SearchHistoryList } from '@/components/Search/SearchHistoryList';
+import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { PopularSearchContainer } from '@/containers/Search';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -19,27 +22,26 @@ const Search: React.FC<Props> = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState('');
   const [searchHistory, setSearchHistory] = useState<SearchEntity[]>([]);
 
+  // 검색 창에 검색어 state, debounce로 delay set state
   const word = useDebounce(searchValue, 300);
 
-  // const { data } = useSearchQuery({
-  //   word,
-  //   longitude: currentPosition?.longitude,
-  //   latitude: currentPosition?.latitude,
-  // });
-
+  // 검색 중 API
   const { data } = useGetSuggestions({ keyword: word });
+  console.log('data', data);
+
+  // 최근 검색어 API
+  const { recentKeywords } = useGetRecentKeywords();
+  console.log('recentKeywords', recentKeywords);
+
+  // 인기 검색어 API
+  const { popularKeywords } = useGetPopularKeywords();
+  console.log('popularKeywords', popularKeywords);
 
   const goBack = () => {
     if (navigation.canGoBack()) {
       navigation.pop();
     }
   };
-
-  const navigateReport = useCallback(() => {
-    navigation.push('ReportBakeryStack', {
-      screen: 'ReportBakeryOnboard',
-    });
-  }, [navigation]);
 
   const navigateDetail = useCallback(
     (bakery: SearchEntity) => {
@@ -88,19 +90,16 @@ const Search: React.FC<Props> = ({ navigation }) => {
     [appendSearchHistory, navigateDetail]
   );
 
-  const navigateSearchComplete = useCallback(
-    (name: string) => {
-      navigation.push('SearchStack', {
-        screen: 'SearchComplete',
-        params: {
-          keyword: name,
-          longitude: currentPosition?.longitude,
-          latitude: currentPosition?.latitude,
-        },
-      });
-    },
-    [navigation]
-  );
+  const navigateSearchComplete = (name: string) => {
+    navigation.push('SearchStack', {
+      screen: 'SearchComplete',
+      params: {
+        keyword: name,
+        longitude: currentPosition?.longitude,
+        latitude: currentPosition?.latitude,
+      },
+    });
+  };
 
   useEffect(() => {
     getStorageSearchHistory().then(el => {
@@ -112,12 +111,20 @@ const Search: React.FC<Props> = ({ navigation }) => {
     getLocation();
   }, [getLocation]);
 
+  const BackButton = () => {
+    return (
+      <TouchableOpacity onPress={goBack}>
+        <PrevIcon />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <SafeAreaView style={[styles.fullScreen]}>
       <Header
         value={searchValue}
         onChangeText={setSearchValue}
-        onPress={goBack}
+        LeftIcon={BackButton}
         onSubmitEditing={() => navigateSearchComplete(searchValue)}
       />
       <ScrollView>
