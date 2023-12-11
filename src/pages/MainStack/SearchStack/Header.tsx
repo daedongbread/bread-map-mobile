@@ -1,16 +1,18 @@
-import React, { ComponentProps, useEffect, useRef } from 'react';
-import { StyleSheet, TextInput as OriginTextInput, TouchableOpacity, View } from 'react-native';
+import React, { ComponentProps, FC, useEffect, useRef } from 'react';
+import { StyleSheet, TextInput as OriginTextInput, View } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { TextInput } from '@/components/Shared/TextInput';
 import { theme } from '@/styles/theme';
 
-type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText' | 'onSubmitEditing'> &
-  Pick<ComponentProps<typeof TouchableOpacity>, 'onPress'> & {};
+type Props = Pick<ComponentProps<typeof TextInput>, 'value' | 'onChangeText' | 'onSubmitEditing'> & {
+  isCompleted?: boolean;
+  LeftIcon: FC;
+  RightIcon?: FC;
+};
 
-const Header: React.VFC<Props> = ({ value, onChangeText, onPress, onSubmitEditing }) => {
+const Header: React.VFC<Props> = ({ value, isCompleted, onChangeText, LeftIcon, RightIcon, onSubmitEditing }) => {
   const textInputRef = useRef<OriginTextInput | null>(null);
 
   // 마운트시 TextInput focus
@@ -21,10 +23,10 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress, onSubmitEditin
   return (
     <View>
       <View style={[styles.container, styles.TextInputContainer]}>
-        <TouchableOpacity onPress={onPress}>
-          <PrevIcon />
-        </TouchableOpacity>
+        <LeftIcon />
+
         <SplitColumn width={6} />
+
         <TextInput
           ref={textInputRef}
           value={value}
@@ -34,7 +36,10 @@ const Header: React.VFC<Props> = ({ value, onChangeText, onPress, onSubmitEditin
           placeholder={'빵집 이름을 검색해보세요'}
           defaultStyleEnable={false}
           onSubmitEditing={onSubmitEditing}
+          editable={!isCompleted}
         />
+
+        {RightIcon && <RightIcon />}
       </View>
       <Divider />
     </View>
