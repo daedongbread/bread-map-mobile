@@ -1,6 +1,8 @@
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { Button } from '@/components/Shared/Button/Button';
+import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { FlagIcon, NavigationIcon } from '@shared/Icons';
 import IcReset from '@shared/Icons/IcReset.svg';
 import { Text } from '@shared/Text';
@@ -15,6 +17,7 @@ type Props = {
   onPressNavigationIcon: () => void;
   showSearchButton: boolean;
   onPressSearchButton: () => void;
+  navigateReport: () => void;
 };
 
 export const BakeryMapOverlay: React.FC<Props> = React.memo(
@@ -27,12 +30,27 @@ export const BakeryMapOverlay: React.FC<Props> = React.memo(
     onPressNavigationIcon,
     showSearchButton,
     onPressSearchButton,
+    navigateReport,
   }) => {
     return (
       <>
         <View style={[styles.container, { top: topInsets + 20 }]}>
           <View style={styles.searchWrapper}>
-            <BakeryMapSearch onPress={onPressSearch} />
+            <View style={styles.flex}>
+              <BakeryMapSearch onPress={onPressSearch} />
+            </View>
+
+            <SplitColumn width={8} />
+
+            <Button
+              appearance="primary"
+              presets={['caption1', 'semibold']}
+              size="big"
+              activeOpacity={0.7}
+              onPress={navigateReport}
+            >
+              제보
+            </Button>
           </View>
 
           <View style={styles.iconsWrapper}>
@@ -86,7 +104,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    height: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   iconsWrapper: {
     position: 'absolute',
@@ -143,5 +162,8 @@ const styles = StyleSheet.create({
   searchText: {
     marginRight: 4,
     color: '#222222',
+  },
+  flex: {
+    flex: 1,
   },
 });
