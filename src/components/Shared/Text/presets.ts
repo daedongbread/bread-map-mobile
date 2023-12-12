@@ -45,6 +45,10 @@ export const presets = StyleSheet.create(
       // lineHeight: 16,
       fontFamily: FONT_FAMILY.medium,
     },
+    caption3: {
+      fontSize: 10,
+      fontFamily: FONT_FAMILY.medium,
+    },
     bold: {
       fontFamily: FONT_FAMILY.bold,
     },
