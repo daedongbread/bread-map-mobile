@@ -5,12 +5,12 @@ import { theme } from '@/styles/theme';
 
 type Props = {
   name: string;
-  onPress: () => void;
+  onPress: (name: string) => void;
 };
 
 export const PopularSearchTag = ({ name, onPress }: Props) => {
   return (
-    <TouchableOpacity style={styles.tag} activeOpacity={0.7} onPress={onPress}>
+    <TouchableOpacity style={styles.tag} activeOpacity={0.7} onPress={() => onPress(name)}>
       <Text presets={['body2', 'medium']} color={theme.color.gray700}>
         {name}
       </Text>

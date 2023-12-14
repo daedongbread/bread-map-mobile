@@ -152,7 +152,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
             <SplitRow height={20} />
 
             {/* 인기 검색 */}
-            <PopularSearchContainer />
+            <PopularSearchContainer keywords={popularKeywords} onPress={navigateSearchComplete} />
           </>
         )}
       </ScrollView>

@@ -6,11 +6,9 @@ export type SuggestionsEntity = {
   keywordSuggestions: Array<string>;
 };
 
-export type PopularKeywordsEntity = {
-  keywordSuggestions: Array<PopularKeyword>;
-};
+export type PopularKeywordsEntity = Array<PopularKeyword>;
 
-type PopularKeyword = {
+export type PopularKeyword = {
   keyword: string;
   rank: number;
 };

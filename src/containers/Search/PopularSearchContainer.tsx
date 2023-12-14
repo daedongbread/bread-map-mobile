@@ -1,19 +1,16 @@
 import React from 'react';
+import { PopularKeywordsEntity } from '@/apis/search';
 import { PopularSearchComponent } from '@/components/Search';
 
-export const PopularSearchContainer = () => {
-  const popularSearchList = [
-    { name: '소금빵', id: 0 },
-    { name: '치아바타', id: 1 },
-    { name: '크루아상', id: 2 },
-    { name: '베이글', id: 3 },
-    { name: '피자빵', id: 4 },
-    { name: '마늘빵', id: 5 },
-  ];
+type Props = {
+  keywords: PopularKeywordsEntity | undefined;
+  onPress: (name: string) => void;
+};
 
-  if (!popularSearchList?.length) {
+export const PopularSearchContainer = ({ keywords, onPress }: Props) => {
+  if (!keywords?.length) {
     return null;
   }
 
-  return <PopularSearchComponent popularSearchList={popularSearchList} />;
+  return <PopularSearchComponent keywords={keywords} onPress={onPress} />;
 };

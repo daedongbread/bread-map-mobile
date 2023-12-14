@@ -1,19 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { PopularKeywordsEntity } from '@/apis/search';
 import { PopularSearchTag } from '@/components/Search';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
 
-export type PopularSearchTagType = {
-  id: number;
-  name: string;
-};
-
 type Props = {
-  popularSearchList: Array<PopularSearchTagType>;
+  keywords: PopularKeywordsEntity;
+  onPress: (name: string) => void;
 };
 
-export const PopularSearchComponent = ({ popularSearchList }: Props) => {
+export const PopularSearchComponent = ({ keywords, onPress }: Props) => {
   return (
     <View>
       <View style={styles.titleContainer}>
@@ -23,11 +20,11 @@ export const PopularSearchComponent = ({ popularSearchList }: Props) => {
       </View>
 
       <View style={styles.tagContainer}>
-        {popularSearchList?.map(tag => {
-          const { name, id } = tag;
+        {keywords?.map((item, index) => {
+          const { keyword, rank } = item;
           return (
-            <View style={styles.tag} key={id}>
-              <PopularSearchTag name={name} onPress={() => {}} />
+            <View style={styles.tag} key={`popularKeyword:${index}`}>
+              <PopularSearchTag name={keyword} onPress={onPress} />
             </View>
           );
         })}
