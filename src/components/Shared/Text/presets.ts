@@ -5,6 +5,7 @@ const FONT_FAMILY = {
   bold: 'Pretendard-Bold',
   semibold: 'Pretendard-SemiBold',
   medium: 'Pretendard-Medium',
+  regular: 'Pretendard-Regular',
 };
 export const presets = StyleSheet.create(
   resizePixels({
@@ -57,6 +58,10 @@ export const presets = StyleSheet.create(
     },
     medium: {
       fontFamily: FONT_FAMILY.medium,
+    },
+    regular: {
+      fontSize: 14,
+      fontFamily: FONT_FAMILY.regular,
     },
     subTitle1: {
       fontSize: 24,
