@@ -33,6 +33,7 @@ export { ImageCloseIcon } from './ImageCloseIcon';
 export { CopyIcon } from './CopyIcon';
 export { ViewMoreIcon } from './ViewMoreIcon';
 export { IcLike } from './IcLike';
+export { IcUnLike } from './IcUnLike';
 export { IcComment } from './IcComment';
 export { LocationMarker } from './LocationMarker';
 export { IcChecked } from './IcChecked';

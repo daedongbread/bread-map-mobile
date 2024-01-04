@@ -60,7 +60,6 @@ export const presets = StyleSheet.create(
       fontFamily: FONT_FAMILY.medium,
     },
     regular: {
-      fontSize: 14,
       fontFamily: FONT_FAMILY.regular,
     },
     subTitle1: {

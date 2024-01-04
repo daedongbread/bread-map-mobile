@@ -19,9 +19,9 @@
 		34C35D40281E1BC500872416 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C35D3E281E1BC500872416 /* Launch Screen.storyboard */; };
 		49C4029AFB08450FAB8ABC9F /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F04A0BFDC13C4AE29A3BE9E2 /* Pretendard-SemiBold.otf */; };
 		61F52173E2F2A626B78EFABA /* libPods-daedongbread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C73A98B993C44FC44CB65C4 /* libPods-daedongbread.a */; };
+		95E55934FA8F4DDBB19E3EC7 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84CA1525847446CDACCD46C7 /* Pretendard-Regular.otf */; };
 		EA34E376230D464E8E656C10 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B2B65235BF7E49B6BBE9BF65 /* Pretendard-Medium.otf */; };
 		F1DC745A5B3D449EBAEA9EA6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0CA9648AF28848B5884B48AC /* Pretendard-Bold.otf */; };
-		95E55934FA8F4DDBB19E3EC7 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84CA1525847446CDACCD46C7 /* Pretendard-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +57,7 @@
 		49EECC44738185DC6FB65E81 /* libPods-daedongbread-daedongbreadTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-daedongbread-daedongbreadTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6DF2C81DAF4755860C63B5 /* Pods-daedongbread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.debug.xcconfig"; sourceTree = "<group>"; };
 		5C75F3B6FBF07174021BD608 /* Pods-daedongbread-daedongbreadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.debug.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.debug.xcconfig"; sourceTree = "<group>"; };
+		84CA1525847446CDACCD46C7 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		9E94E0223563507EF5610599 /* Pods-daedongbread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.release.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.release.xcconfig"; sourceTree = "<group>"; };
 		B2B65235BF7E49B6BBE9BF65 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.otf"; path = "../src/assets/fonts/Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		BC9ECBEE8759C3016097715C /* Pods-daedongbread.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread.staging.xcconfig"; path = "Target Support Files/Pods-daedongbread/Pods-daedongbread.staging.xcconfig"; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		CBE2A9D9B668CA1045BE9304 /* Pods-daedongbread-daedongbreadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daedongbread-daedongbreadTests.release.xcconfig"; path = "Target Support Files/Pods-daedongbread-daedongbreadTests/Pods-daedongbread-daedongbreadTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F04A0BFDC13C4AE29A3BE9E2 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		84CA1525847446CDACCD46C7 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; name = "Pretendard-Regular.otf"; path = "../src/assets/fonts/Pretendard-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,7 +567,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = daedongbread/Info.plist;
@@ -577,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -603,7 +603,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbreadRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
@@ -612,7 +612,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -698,7 +698,7 @@
 				CODE_SIGN_ENTITLEMENTS = daedongbread/daedongbread.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = SZ42T8W24M;
 				INFOPLIST_FILE = daedongbread/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "대동빵지도";
@@ -707,7 +707,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

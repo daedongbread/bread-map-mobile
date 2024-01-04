@@ -60,7 +60,7 @@ export const useGetInfinitePosts = ({ postTopic, offset }: UseGetInfinitePostsPr
   return {
     posts: data?.pages,
     pageParams: data?.pageParams,
-    loading: isLoading,
+    isLoading: isLoading,
     error: isError,
     hasNextPage,
     fetchNextPage,

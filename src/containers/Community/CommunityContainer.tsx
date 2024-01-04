@@ -19,7 +19,7 @@ const menus: ToggleMenu[] = [
     postTopic: 'ALL',
   },
   {
-    title: '빵이야기',
+    title: '빵지순례',
     postTopic: 'BREAD_STORY',
   },
   {
@@ -27,16 +27,28 @@ const menus: ToggleMenu[] = [
     postTopic: 'EATEN_BREAD',
   },
   {
-    title: '리뷰',
+    title: '베이킹',
+    postTopic: 'EATEN_BREAD',
+  },
+  {
+    title: '빵집리뷰',
     postTopic: 'REVIEW',
+  },
+  {
+    title: '빵 수다',
+    postTopic: 'EVENT',
+  },
+  {
+    title: '원데이 클래스',
+    postTopic: 'FREE_TALK',
+  },
+  {
+    title: '빵 공구',
+    postTopic: 'FREE_TALK',
   },
   {
     title: '이벤트',
     postTopic: 'EVENT',
-  },
-  {
-    title: '빵터지는 이야기',
-    postTopic: 'FREE_TALK',
   },
 ];
 
@@ -55,7 +67,14 @@ export const CommunityContainer = () => {
   const { mutateAsync: likeReview } = useLikeReview();
   const { mutateAsync: unLikeReview } = useUnLikeReview();
 
-  const { posts = [], hasNextPage, refetch, fetchNextPage, remove } = useGetInfinitePosts({ postTopic, offset });
+  const {
+    posts = [],
+    hasNextPage,
+    isLoading,
+    refetch,
+    fetchNextPage,
+    remove,
+  } = useGetInfinitePosts({ postTopic, offset });
   const flatPosts = posts && posts.map(post => post.contents).flat();
 
   useEffect(() => {
@@ -83,10 +102,6 @@ export const CommunityContainer = () => {
   const onRefresh = useCallback(() => {
     resetPaging();
   }, [resetPaging]);
-
-  const onPressPrev = () => {
-    navigation.goBack();
-  };
 
   const onPressWrite = () => {
     navigation.navigate('PostWrite', {
@@ -175,10 +190,10 @@ export const CommunityContainer = () => {
   return (
     <CommunityComponent
       posts={flatPosts}
+      isLoading={isLoading}
       menus={menus}
       postTopic={postTopic}
       onRefresh={onRefresh}
-      onPressPrev={onPressPrev}
       onPressWrite={onPressWrite}
       onPressToggle={onPressToggle}
       onPressPost={onPressPost}

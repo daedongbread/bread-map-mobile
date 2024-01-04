@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
@@ -8,11 +8,12 @@ import { Text } from '../Text';
 export type FollowType = 'follow' | 'unFollow';
 
 type Props = {
+  style?: StyleProp<ViewStyle>;
   isFollow: boolean;
   onPress: (type: FollowType) => void;
 };
 
-export const FollowButton = ({ isFollow, onPress }: Props) => {
+export const FollowButton = ({ style, isFollow, onPress }: Props) => {
   const type: FollowType = isFollow ? 'unFollow' : 'follow';
   const containerStyle = isFollow ? styles.followingContainer : styles.followContainer;
   const text = isFollow ? (
@@ -26,7 +27,7 @@ export const FollowButton = ({ isFollow, onPress }: Props) => {
   );
 
   return (
-    <TouchableOpacity style={containerStyle} onPress={() => onPress(type)}>
+    <TouchableOpacity style={[containerStyle, style]} onPress={() => onPress(type)}>
       {text}
     </TouchableOpacity>
   );

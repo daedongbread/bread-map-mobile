@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CustomImage } from '@/components/Shared/CustomImage';
-import { LocationMarker } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { Row } from '@/components/Shared/View';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
-import MoreIcon from '@shared/Icons/MoreIcon.svg';
+import MapActiveIcon from '@shared/Icons/MapActiveIcon.svg';
+import RightArrow from '@shared/Icons/RightArrow.svg';
 
 type Props = {
   bakeryId: number;
@@ -45,18 +46,21 @@ export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Pro
           resizedHeight={150}
           isResizable
         />
-        <SplitColumn width={19} />
+
+        <SplitColumn width={12} />
+
         <View style={styles.bakeryInfoContainer}>
-          <Text color="#222222" presets={['body2', 'bold']}>
-            {bakeryName}
-          </Text>
+          <Row style={styles.bakeryNameContainer}>
+            <Text color="#222222" presets={['body2', 'bold']}>
+              {bakeryName}
+            </Text>
+            <RightArrow />
+          </Row>
 
           <View style={styles.adressRow}>
-            <LocationMarker />
-            <SplitColumn width={4} />
             <Text
-              color="#424242"
-              presets={['caption2', 'medium']}
+              color={theme.color.gray600}
+              presets={['caption2', 'regular']}
               numberOfLines={1}
               ellipsizeMode="tail"
               style={styles.addressText}
@@ -68,7 +72,7 @@ export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Pro
       </View>
 
       <View>
-        <MoreIcon width={24} height={24} />
+        <MapActiveIcon />
       </View>
     </TouchableOpacity>
   );
@@ -79,8 +83,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingVertical: 12,
+    paddingLeft: 16,
+    paddingRight: 20,
     borderWidth: 1,
     borderColor: theme.color.gray200,
     borderRadius: 5,
@@ -90,13 +95,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bakeryImage: {
-    width: 48,
-    height: 48,
-    borderRadius: 4,
+    width: 36,
+    height: 36,
+    borderRadius: 8,
   },
   bakeryInfoContainer: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flex: 1,
+  },
+  bakeryNameContainer: {
+    alignItems: 'center',
   },
   adressRow: {
     flexDirection: 'row',
@@ -104,5 +112,6 @@ const styles = StyleSheet.create({
   },
   addressText: {
     flexShrink: 1,
+    paddingRight: 10,
   },
 });

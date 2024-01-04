@@ -2,12 +2,17 @@ import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Post, PostTopic } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
+import { StarIcon } from '@/components/Shared/Icons';
+import { FollowButton } from '@/components/Shared/Reviews/FollowButton';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { MoreLineText, Text } from '@/components/Shared/Text';
-import { useAppSelector } from '@/hooks/redux';
+
+import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
+import VerticalViewMoreIcon from '@shared/Icons/VerticalViewMoreIcon.svg';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
 
@@ -27,8 +32,6 @@ export const topics: any = {
 };
 
 export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu }: Props) => {
-  const { userId: myUserId } = useAppSelector(state => state.auth);
-
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
@@ -56,36 +59,65 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
 
   return (
     <View style={[styles.container, !isFirst && styles.divider]}>
-      <Text presets={['caption2', 'bold']} style={[styles.tag, post.postTopic === 'EVENT' && styles.reviewTag]}>
-        {topics[post.postTopic]}
-      </Text>
+      <Row style={[styles.tag]}>
+        {post.postTopic === 'EVENT' && (
+          <>
+            <StarIcon fillColor="orange" width={11} height={11} />
+            <SplitColumn width={4} />
+          </>
+        )}
+
+        <Text color={theme.color.gray600} presets={['caption2', 'bold']}>
+          {topics[post.postTopic]}
+        </Text>
+      </Row>
 
       <SplitRow height={16} />
 
       <View>
-        <View style={styles.profileContainer}>
-          <FastImage style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
+        <Row style={styles.headerContainer}>
+          <Row>
+            <FastImage style={styles.profileImage} source={{ uri: post.writerInfo.profileImage }} />
 
-          <SplitColumn width={10} />
+            <SplitColumn width={10} />
 
-          <Text color={theme.color.gray900} presets={['body2', 'bold']}>
-            {post.writerInfo.nickname}
-          </Text>
-        </View>
+            <View>
+              <Text color={theme.color.gray900} presets={['body2', 'bold']}>
+                {post.writerInfo.nickname}
+              </Text>
+
+              <SplitRow height={2} />
+
+              <Text color={theme.color.gray500} presets={['caption2', 'regular']}>
+                리뷰 {post.writerInfo.reviewCount || 0}
+              </Text>
+            </View>
+          </Row>
+
+          <Row>
+            <FollowButton style={styles.followButton} isFollow={false} onPress={() => null} />
+
+            <SplitColumn width={8} />
+
+            <TouchableOpacity onPress={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}>
+              <VerticalViewMoreIcon />
+            </TouchableOpacity>
+          </Row>
+        </Row>
 
         <SplitRow height={10} />
 
         <View style={styles.contentsContainer}>
           <View style={styles.textContainer}>
             {post.postTopic !== 'REVIEW' && (
-              <Text color={theme.color.gray900} presets={['body1', 'semibold']} numberOfLines={2} ellipsizeMode="tail">
+              <Text color={theme.color.gray900} presets={['body1', 'bold']} numberOfLines={2} ellipsizeMode="tail">
                 {post.title}
               </Text>
             )}
 
             <MoreLineText
               color={theme.color.gray600}
-              presets={['body2', 'medium']}
+              presets={['body2', 'regular']}
               linesToTruncate={post.postTopic === 'REVIEW' ? 4 : 2}
               text={post.content.trim()}
             />
@@ -128,11 +160,6 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           commentCount={post.commentCount}
           date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
-          onPressMenu={
-            post.postTopic === 'REVIEW' && myUserId === post.writerInfo.userId
-              ? undefined
-              : () => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)
-          }
         />
       </View>
     </View>
@@ -148,26 +175,28 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.25,
   },
   tag: {
-    backgroundColor: theme.color.gray100,
-    color: theme.color.gray600,
+    backgroundColor: theme.color.white,
+    borderWidth: 1,
+    borderColor: theme.color.gray200,
     alignSelf: 'flex-start',
+    alignItems: 'center',
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 4,
     overflow: 'hidden',
   },
-  reviewTag: {
-    backgroundColor: theme.color.primary600,
-    color: theme.color.white,
-  },
-  profileContainer: {
-    flexDirection: 'row',
+  headerContainer: {
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   profileImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 27,
+    width: 36,
+    height: 36,
+    borderRadius: 60,
+  },
+  followButton: {
+    paddingHorizontal: 16,
+    borderRadius: 8,
   },
   contentsContainer: {
     flexDirection: 'row',
@@ -181,6 +210,6 @@ const styles = StyleSheet.create({
   postImage: {
     width: 80,
     height: 80,
-    borderRadius: 5,
+    borderRadius: 8,
   },
 });
