@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { presets } from '@/components/Shared/Text/presets';
 import { HomeStack, HomeStackParamList } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { Profile } from '@/pages/MainStack/MainTab/ProfileStack';
@@ -34,6 +35,8 @@ export type MainTabNavigation<T extends keyof MainTabParamList> = CompositeScree
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTab = () => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,6 +44,7 @@ const MainTab = () => {
         tabBarInactiveTintColor: theme.color.gray500,
         tabBarActiveTintColor: theme.color.primary600,
         tabBarLabelStyle: {
+          paddingBottom: bottom === 0 ? 5 : 0,
           ...presets.caption3,
         },
       }}
