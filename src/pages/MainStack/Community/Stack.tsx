@@ -5,13 +5,9 @@ import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import { MainStackParamList, MainStackScreenProps } from '../Stack';
 import { Community } from './Community';
 import { PostDetail } from './PostDetail';
-import { PostWrite } from './PostWrite';
 
 export type CommunityStackParamList = {
   Community: undefined;
-  PostWrite: {
-    listToggleTopic: PostTopic;
-  };
   PostDetail: {
     postId: number;
     postTopic: PostTopic;
@@ -32,7 +28,6 @@ export const CommunityStack = () => (
     }}
   >
     <Stack.Screen name={'Community'} component={Community} />
-    <Stack.Screen name={'PostWrite'} component={PostWrite} />
     <Stack.Screen name={'PostDetail'} component={PostDetail} />
   </Stack.Navigator>
 );

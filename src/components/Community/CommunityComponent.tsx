@@ -41,7 +41,7 @@ export const CommunityComponent = ({
 }: Props) => {
   return (
     <View style={styles.container}>
-      <Header title="커뮤니티" onPressWrite={onPressWrite} />
+      <Header title="커뮤니티" onPressNotification={onPressWrite} />
 
       <SplitRow height={8} />
 
@@ -90,11 +90,11 @@ export const CommunityComponent = ({
               </View>
             </ScrollView>
 
-            <TouchableOpacity style={styles.floatingButtonContainer} onPress={onPressWrite}>
+            <Pressable style={styles.floatingButtonContainer} onPress={onPressWrite}>
               <View style={styles.floatingButton}>
                 <PencilIcon />
               </View>
-            </TouchableOpacity>
+            </Pressable>
           </>
         )}
       </View>

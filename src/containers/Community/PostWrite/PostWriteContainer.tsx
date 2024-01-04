@@ -3,7 +3,7 @@ import { Asset, launchImageLibrary } from 'react-native-image-picker';
 import { usePostPost } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { usePostImages } from '@/apis/image';
-import { PostWriteComponent } from '@/components/Community';
+import { PostWriteComponent } from '@/components/Community/PostWrite';
 import { useAppDispatch } from '@/hooks/redux';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
 import { showToast } from '@/slices/toast';

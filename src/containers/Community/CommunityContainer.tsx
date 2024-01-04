@@ -104,8 +104,11 @@ export const CommunityContainer = () => {
   }, [resetPaging]);
 
   const onPressWrite = () => {
-    navigation.navigate('PostWrite', {
-      listToggleTopic: postTopic,
+    navigation.navigate('PostWriteStack', {
+      screen: 'PostTagSelect',
+      params: {
+        listToggleTopic: postTopic,
+      },
     });
   };
 

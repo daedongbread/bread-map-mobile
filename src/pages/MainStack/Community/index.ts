@@ -1,5 +1,5 @@
 export { Community } from './Community';
-export { PostWrite } from './PostWrite';
+export { PostWrite } from './PostWriteStack/PostWrite';
 export { PostDetail } from './PostDetail';
 export { AccuseComment } from './AccuseComment';
 

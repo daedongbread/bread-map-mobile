@@ -10,10 +10,10 @@ import { Row } from '../Shared/View';
 
 type Props = {
   title: string;
-  onPressWrite: () => void;
+  onPressNotification: () => void;
 };
 
-export const Header = ({ title, onPressWrite }: Props) => {
+export const Header = ({ title, onPressNotification }: Props) => {
   const { top } = useSafeAreaInsets();
 
   return (
@@ -24,7 +24,7 @@ export const Header = ({ title, onPressWrite }: Props) => {
           {title}
         </Text>
 
-        <TouchableOpacity onPress={onPressWrite}>
+        <TouchableOpacity onPress={onPressNotification}>
           <NotificationIcon />
         </TouchableOpacity>
       </Row>
