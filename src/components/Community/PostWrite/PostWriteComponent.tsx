@@ -2,13 +2,11 @@ import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SubTitle } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
-import { PhotoSelect } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating/PhotoSelect';
-import { Button } from '@/components/Shared/Button/Button';
+import { UploadButton } from '@/components/Shared/Button';
 import { Loading } from '@/components/Shared/Loading';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
-import { PostForm, PostValidFormData, TopicForm } from '@/containers/Community/PostWrite/PostWriteContainer';
+import { PostForm, PostValidFormData, TopicData, TopicForm } from '@/containers/Community/PostWrite/PostWriteContainer';
 import { theme } from '@/styles/theme';
 import { BakeryTagRow } from './BakeryTagRow';
 import { Header } from './Header';
@@ -20,23 +18,25 @@ type Props = {
   formValid: PostValidFormData;
   topics: TopicForm[];
   isLoading: boolean;
+  topicData: TopicData;
   onChange: (key: keyof PostForm, value: string) => void;
-  onSelectPhotos: () => void;
+  onPressUploadButton: () => void;
   deSelectPhoto: (uri?: string) => void;
   onPressConfirm: () => void;
   onPressClose: () => void;
 };
 
-export const PostWriteComponent: React.FC<Props> = ({
+export const PostWriteComponent = ({
   form,
   formValid,
   topics,
+  topicData,
   isLoading,
   onChange,
-  onSelectPhotos,
+  onPressUploadButton,
   deSelectPhoto,
   onPressConfirm,
-}) => {
+}: Props) => {
   const insets = useSafeAreaInsets();
 
   const isValidTitle = form.title.trim().length >= 10;
@@ -44,9 +44,9 @@ export const PostWriteComponent: React.FC<Props> = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'빵지순례'} />
+      <Header title={topicData.title} />
 
-      <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
+      <BakeryTagRow bakeryName="" />
 
       <View style={styles.formContainer}>
         <SplitRow height={20} />
@@ -54,6 +54,7 @@ export const PostWriteComponent: React.FC<Props> = ({
         <TextInput
           style={styles.titleInput}
           placeholder="(선택)제목을 입력해주세요."
+          placeholderTextColor={theme.color.gray500}
           value={form.title}
           maxLength={40}
           onChangeText={text => onChange('title', text)}
@@ -61,33 +62,27 @@ export const PostWriteComponent: React.FC<Props> = ({
 
         <SplitRow height={20} />
 
-        <TextInput
-          style={styles.detailReviewTextInput}
-          placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
-          placeholderTextColor={theme.color.gray500}
-          value={form.content}
-          multiline
-          maxLength={400}
-          onChangeText={text => onChange('content', text)}
-        />
-
-        <View>
-          <SubTitle isRequire={false}>사진 업로드</SubTitle>
-
-          <View style={styles.photoContainer}>
-            <PhotoSelect images={form.photos} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
-          </View>
+        <View style={styles.contentTextInputContainer}>
+          <TextInput
+            style={styles.contentTextInput}
+            placeholder={topicData.contentPlaceholder}
+            placeholderTextColor={theme.color.gray500}
+            value={form.content}
+            multiline
+            maxLength={400}
+            onChangeText={text => onChange('content', text)}
+          />
         </View>
 
-        <SplitRow height={16} />
+        <View style={styles.photoContainer}>
+          {/* <PhotoSelect images={form.photos} onSelectPhotos={onSelectPhotos} deSelectPhoto=
+          {deSelectPhoto} /> */}
+          <UploadButton onPress={onPressUploadButton} />
+        </View>
+        {/* <SplitRow height={16} /> */}
       </View>
 
-      <Button style={styles.confirmBtn} onPress={onPressConfirm}>
-        {'확인'}
-      </Button>
-
-      {insets.bottom === 0 && <SplitRow height={16} />}
-
+      <SplitRow height={20} />
       {isLoading && <Loading />}
     </SafeAreaView>
   );
@@ -97,10 +92,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  contentsContainer: {
-    flex: 1,
-  },
   formContainer: {
+    flex: 1,
     paddingHorizontal: 20,
   },
   topic: {
@@ -116,9 +109,12 @@ const styles = StyleSheet.create({
   titleInput: {
     color: theme.color.gray900,
     ...presets.heading2,
+    ...presets.bold,
   },
-  detailReviewTextInput: {
+  contentTextInputContainer: {
     flex: 1,
+  },
+  contentTextInput: {
     color: theme.color.gray800,
     textAlignVertical: 'top',
   },
@@ -127,9 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
   },
-  photoContainer: {
-    marginHorizontal: -20,
-  },
+  photoContainer: {},
   confirmBtn: {
     paddingHorizontal: 20,
   },

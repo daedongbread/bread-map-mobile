@@ -19,7 +19,13 @@ export const Header = ({ title }: Props) => {
           <PrevIcon />
         </Pressable>
       </View>
-      <Text presets={['subhead', 'bold']} style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>
+      <Text
+        color={theme.color.gray900}
+        presets={['body1', 'bold']}
+        style={styles.headerText}
+        numberOfLines={1}
+        ellipsizeMode={'tail'}
+      >
         {title}
       </Text>
       <View style={[styles.registButton, styles.activeRegistButton]}>
@@ -46,7 +52,6 @@ const styles = StyleSheet.create({
   headerText: {
     flex: 1,
     textAlign: 'center',
-    color: theme.color.gray900,
   },
   registButton: {
     backgroundColor: theme.color.primary200,

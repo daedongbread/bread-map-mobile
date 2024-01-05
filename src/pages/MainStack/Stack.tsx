@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { PostTopic } from '@/apis/community/types';
 import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
+import { ImageItemBttomSheetButtonType } from '@/containers/Modal/ImageItemBottomSheetContainer';
 import { useNotificationNavigation } from '@/hooks/Navigation';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { BlockList } from '@/pages/MainStack/BlockList';
@@ -16,6 +17,7 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { clearRequestedScreenInfo } from '@/slices/notification';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
+import { ImageItemBottomSheet } from '../Modal/ImageItemBottomSheet';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
@@ -72,6 +74,9 @@ export type MainStackParamList = {
     onPressLeftButton?: () => void;
     onPressRightButton?: () => void;
     onClose?: () => void;
+  };
+  ImageItemBottomSheet: {
+    buttonList: ImageItemBttomSheetButtonType[];
   };
   Bookmark: {
     name?: string;
@@ -136,6 +141,7 @@ const MainStack = () => {
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
         <Stack.Screen name="PostMenuBottomSheet" component={PostMenuBottomSheet} />
         <Stack.Screen name="CommentMenuBottomSheet" component={CommentMenuBottomSheet} />
+        <Stack.Screen name="ImageItemBottomSheet" component={ImageItemBottomSheet} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />

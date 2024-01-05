@@ -24,7 +24,7 @@ const Stack = createStackNavigator<PostWriteStackParamList>();
 
 export const PostWriteStack = () => (
   <Stack.Navigator initialRouteName="PostWrite" screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="PostTagSelect" component={PostTagSelect} />
     <Stack.Screen name="PostWrite" component={PostWrite} />
+    <Stack.Screen name="PostTagSelect" component={PostTagSelect} />
   </Stack.Navigator>
 );

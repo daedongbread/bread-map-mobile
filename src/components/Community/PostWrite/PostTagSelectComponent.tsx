@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
@@ -29,6 +29,8 @@ const bakeryAndDrinkToggleList = [
 ];
 
 export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <ScrollView contentContainerStyle={styles.flex}>
       <SafeAreaView style={styles.flex}>
@@ -86,9 +88,12 @@ export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
           </Row>
         </View>
 
+        <SplitRow height={50} />
+
         <Button style={styles.confirmButton} onPress={onPressSubmit}>
           {'확인'}
         </Button>
+        {insets.bottom === 0 && <SplitRow height={16} />}
       </SafeAreaView>
     </ScrollView>
   );

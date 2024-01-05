@@ -28,7 +28,9 @@ export const BakeryTagRow = ({ bakeryName }: Props) => {
           <>
             <LocationMarker fillColor="#9E9E9E" subFillColor="#F5F5F5" />
             <SplitColumn width={8} />
-            <Text color={theme.color.gray600}>빵집을 태그해 주세요.</Text>
+            <Text color={theme.color.gray600} presets={['body2', 'regular']}>
+              빵집을 태그해 주세요.
+            </Text>
           </>
         )}
       </Row>
@@ -39,7 +41,9 @@ export const BakeryTagRow = ({ bakeryName }: Props) => {
         ) : (
           <>
             <View style={styles.requireTag}>
-              <Text color={theme.color.primary600}>필수</Text>
+              <Text color={theme.color.primary600} presets={['caption2', 'regular']}>
+                필수
+              </Text>
             </View>
             <SplitColumn width={8} />
             <BigRightArrow />

@@ -1,15 +1,6 @@
 import React from 'react';
 
-import { FlatList, StyleSheet, View } from 'react-native';
-
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ReportBanner } from '@/components/Banners/ReportBanner';
-import { BottomBanner } from '@/components/Home/HomeCommunityPart';
-import { SplitRow } from '@/components/Shared/SplitSpace';
-import { CurationContainer } from '@/containers/Home/CurationContainer';
-import { HomeCommunityPartContainer } from '@/containers/Home/HomeCommunityPartContainer';
-import { NewReportedBakeriesContainer } from '@/containers/Home/NewReportedBakeriesContainer';
-import { WeekendBriefRankingContainer } from '@/containers/Home/WeekendBriefRankingContainer';
+import { FlatList, StyleSheet } from 'react-native';
 
 export const Home: React.FC = () => (
   <FlatList
@@ -17,7 +8,7 @@ export const Home: React.FC = () => (
     renderItem={() => {
       return (
         <>
-          <SafeAreaView style={styles.flex} edges={['top']}>
+          {/* <SafeAreaView style={styles.flex} edges={['top']}>
             <CurationContainer />
             <SplitRow height={28} />
 
@@ -35,7 +26,7 @@ export const Home: React.FC = () => (
             </View>
           </SafeAreaView>
 
-          <BottomBanner />
+          <BottomBanner /> */}
         </>
       );
     }}
