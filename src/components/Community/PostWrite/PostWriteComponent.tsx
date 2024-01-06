@@ -1,17 +1,20 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { UploadButton } from '@/components/Shared/Button';
+import { ImageCloseIcon } from '@/components/Shared/Icons';
 import { Loading } from '@/components/Shared/Loading';
-import { SplitRow } from '@/components/Shared/SplitSpace';
+import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
+import { Row } from '@/components/Shared/View';
 import { PostForm, PostValidFormData, TopicData, TopicForm } from '@/containers/Community/PostWrite/PostWriteContainer';
 import { theme } from '@/styles/theme';
 import { BakeryTagRow } from './BakeryTagRow';
 import { Header } from './Header';
 
-const { height } = Dimensions.get('screen');
+// const { height } = Dimensions.get('screen');
+const { width } = Dimensions.get('window');
 
 type Props = {
   form: PostForm;
@@ -73,14 +76,29 @@ export const PostWriteComponent = ({
             onChangeText={text => onChange('content', text)}
           />
         </View>
-
-        <View style={styles.photoContainer}>
-          {/* <PhotoSelect images={form.photos} onSelectPhotos={onSelectPhotos} deSelectPhoto=
-          {deSelectPhoto} /> */}
-          <UploadButton onPress={onPressUploadButton} />
-        </View>
-        {/* <SplitRow height={16} /> */}
       </View>
+
+      <Row>
+        <FlatList
+          data={form.photos}
+          contentContainerStyle={styles.imageListContainer}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          ListHeaderComponent={<UploadButton style={styles.uploadImage} onPress={onPressUploadButton} />}
+          ListHeaderComponentStyle={styles.photoButton}
+          ItemSeparatorComponent={() => <SplitColumn width={8} />}
+          renderItem={({ item }) => {
+            return (
+              <View>
+                <Image style={styles.uploadImage} source={{ uri: item.uri }} />
+                <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
+                  <ImageCloseIcon />
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        />
+      </Row>
 
       <SplitRow height={20} />
       {isLoading && <Loading />}
@@ -123,7 +141,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 8,
   },
-  photoContainer: {},
+  photoButton: {
+    marginRight: 8,
+  },
+  uploadImage: {
+    width: width * 0.2,
+    height: width * 0.2,
+    borderRadius: 8,
+  },
+  uploadImageCloseButton: {
+    position: 'absolute',
+
+    right: -5,
+    top: -5,
+  },
+  imageListContainer: {
+    paddingTop: 12,
+    paddingHorizontal: 20,
+  },
   confirmBtn: {
     paddingHorizontal: 20,
   },

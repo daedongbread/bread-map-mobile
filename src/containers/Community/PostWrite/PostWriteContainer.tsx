@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
-import { Asset, launchImageLibrary } from 'react-native-image-picker';
+import { Asset, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { usePostPost } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { usePostImages } from '@/apis/image';
@@ -9,7 +9,6 @@ import { CameraIcon } from '@/components/Shared/Icons/Camera';
 import { ImageItemBttomSheetButtonType } from '@/containers/Modal/ImageItemBottomSheetContainer';
 import { useAppDispatch } from '@/hooks/redux';
 import { PostWriteStackNavigationProps } from '@/pages/MainStack/Community/PostWriteStack/Stack';
-import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AlbumIcon from '@shared/Icons/AlbumIcon.svg';
 
@@ -124,20 +123,31 @@ export const PostWriteContainer = () => {
   const onPressUploadButton = () => {
     const buttonList: ImageItemBttomSheetButtonType[] = [
       {
+        // 보류
         image: CameraIcon,
         title: '사진 촬영하기',
-        onPress: () => null,
+        onPress: () => onPressTakePicture(),
       },
       {
         image: AlbumIcon,
         title: '앨범에서 선택하기',
-        onPress: () => null,
+        onPress: () => onSelectPhotos(),
       },
     ];
 
     navigation.navigate('ImageItemBottomSheet', {
       buttonList,
     });
+  };
+
+  const onPressTakePicture = async () => {
+    console.log('take picture');
+    const { assets } = await launchCamera({
+      mediaType: 'photo',
+    });
+
+    console.log(assets);
+    console.log('end');
   };
 
   const onSelectPhotos = async () => {
@@ -147,20 +157,12 @@ export const PostWriteContainer = () => {
     });
 
     if (!didCancel && assets) {
-      if (assets[0].fileSize! > 10485760) {
-        dispatch(
-          showToast({
-            text: '10mb 이하만 업로드 가능합니다',
-            duration: 5 * 1000,
-          })
-        );
-        return;
-      }
-
       setForm(prev => {
         return { ...prev, photos: [...prev.photos, ...assets] };
       });
     }
+
+    navigation.pop();
   };
 
   const deSelectPhoto = (uri?: string) => {
