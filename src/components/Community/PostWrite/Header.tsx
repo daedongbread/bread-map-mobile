@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PrevIcon } from '@/components/Shared/Icons/PrevIcon';
 import { Text } from '@/components/Shared/Text';
 import { theme } from '@/styles/theme';
@@ -7,9 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
+  onPressRightButton: () => void;
 }
 
-export const Header = ({ title }: Props) => {
+export const Header = ({ title, onPressRightButton }: Props) => {
   const navigation = useNavigation();
 
   return (
@@ -28,11 +30,11 @@ export const Header = ({ title }: Props) => {
       >
         {title}
       </Text>
-      <View style={[styles.registButton, styles.activeRegistButton]}>
+      <TouchableOpacity style={[styles.registButton, styles.activeRegistButton]} onPress={onPressRightButton}>
         <Text color={theme.color.white} presets={['bold']}>
           등록
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

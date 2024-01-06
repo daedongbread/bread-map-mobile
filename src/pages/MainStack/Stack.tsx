@@ -17,6 +17,7 @@ import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
 import { clearRequestedScreenInfo } from '@/slices/notification';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
+import { AlertBottomSheet } from '../Modal';
 import { ImageItemBottomSheet } from '../Modal/ImageItemBottomSheet';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
@@ -77,6 +78,10 @@ export type MainStackParamList = {
   };
   ImageItemBottomSheet: {
     buttonList: ImageItemBttomSheetButtonType[];
+  };
+  AlertBottomSheet: {
+    title: string;
+    subTitle: string;
   };
   Bookmark: {
     name?: string;
@@ -141,7 +146,9 @@ const MainStack = () => {
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
         <Stack.Screen name="PostMenuBottomSheet" component={PostMenuBottomSheet} />
         <Stack.Screen name="CommentMenuBottomSheet" component={CommentMenuBottomSheet} />
+
         <Stack.Screen name="ImageItemBottomSheet" component={ImageItemBottomSheet} />
+        <Stack.Screen name="AlertBottomSheet" component={AlertBottomSheet} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'card', headerShown: false }}>
         <Stack.Screen name={'Bookmark'} component={Bookmark} />

@@ -172,20 +172,31 @@ export const PostWriteContainer = () => {
     });
   };
 
+  const goNavAlertBottomSheet = useCallback(
+    (title: string, subTitle: string) => {
+      navigation.navigate('AlertBottomSheet', {
+        title,
+        subTitle,
+      });
+    },
+    [navigation]
+  );
+
   const validate = useCallback(() => {
     let _formValid: PostValidFormData = initialFormValid;
 
-    if (form.title.trim().length < 10) {
-      _formValid = { ..._formValid, isValidTitle: false };
-    }
     if (form.content.trim().length < 10) {
       _formValid = { ..._formValid, isValidContent: false };
+      goNavAlertBottomSheet(
+        '본문 10자 이상 작성해주세요!',
+        '본문을 최소 10자 이상 작성해주셔야\n글을 등록할 수 있습니다.'
+      );
     }
 
     setFormValid(_formValid);
 
-    return _formValid.isValidTitle && _formValid.isValidContent;
-  }, [form.title, form.content]);
+    return _formValid.isValidContent;
+  }, [form.content, goNavAlertBottomSheet]);
 
   const onPressConfirm = async () => {
     if (!validate() || isLoading) {

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { UploadButton } from '@/components/Shared/Button';
 import { ImageCloseIcon } from '@/components/Shared/Icons';
 import { Loading } from '@/components/Shared/Loading';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { Row } from '@/components/Shared/View';
-import { PostForm, PostValidFormData, TopicData, TopicForm } from '@/containers/Community/PostWrite/PostWriteContainer';
+import { PostForm, TopicData } from '@/containers/Community/PostWrite/PostWriteContainer';
 import { theme } from '@/styles/theme';
 import { BakeryTagRow } from './BakeryTagRow';
 import { Header } from './Header';
@@ -18,8 +18,6 @@ const { width } = Dimensions.get('window');
 
 type Props = {
   form: PostForm;
-  formValid: PostValidFormData;
-  topics: TopicForm[];
   isLoading: boolean;
   topicData: TopicData;
   onChange: (key: keyof PostForm, value: string) => void;
@@ -31,8 +29,6 @@ type Props = {
 
 export const PostWriteComponent = ({
   form,
-  formValid,
-  topics,
   topicData,
   isLoading,
   onChange,
@@ -40,14 +36,9 @@ export const PostWriteComponent = ({
   deSelectPhoto,
   onPressConfirm,
 }: Props) => {
-  const insets = useSafeAreaInsets();
-
-  const isValidTitle = form.title.trim().length >= 10;
-  const isValidContent = form.content.trim().length >= 10;
-
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={topicData.title} />
+      <Header title={topicData.title} onPressRightButton={onPressConfirm} />
 
       <BakeryTagRow bakeryName="" />
 
