@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Post, PostTopic } from '@/apis/community/types';
 import { PostSummary } from '../../Community/Post';
-import { Header } from '../Header';
+import { SubHeader } from '../SubHeader';
 
 type Props = {
   posts: Post[];
@@ -17,7 +17,7 @@ export const HomeCommunityPartComponent = ({ posts, onPressPost, onPressLike, on
   return (
     <View>
       <View>
-        <Header title="커뮤니티 핫한 글" onPressMore={onPressMore} />
+        <SubHeader title="커뮤니티 핫한 글" onPressMore={onPressMore} />
 
         {posts.map((post, index) => {
           return (
