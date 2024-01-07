@@ -1,43 +1,28 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Text } from '@/components/Shared/Text';
-import { theme } from '@/styles/theme';
-import MoreIcon from '@shared/Icons/MoreIcon.svg';
+import Logo from '@shared/Icons/Logo.svg';
+import NotificationIcon from '@shared/Icons/NotificationIcon.svg';
+import { Row } from '../Shared/View';
 
 type Props = {
-  title: ReactNode | string;
-  onPressMore: () => void;
+  onPressRightButton: () => void;
 };
 
-export const Header = ({ title, onPressMore }: Props) => {
-  return (
-    <View style={styles.container}>
-      {typeof title === 'string' ? (
-        <Text color="#1E1E1E" presets={['subhead', 'bold']}>
-          {title}
-        </Text>
-      ) : (
-        title
-      )}
+export const Header = ({ onPressRightButton }: Props) => (
+  <Row style={styles.container}>
+    <Logo />
 
-      <TouchableOpacity style={styles.moreButtonContainer} onPress={onPressMore}>
-        <Text color={theme.color.gray500} presets={['body2', 'medium']}>
-          더보기
-        </Text>
-        <MoreIcon />
-      </TouchableOpacity>
-    </View>
-  );
-};
+    <TouchableOpacity onPress={onPressRightButton}>
+      <NotificationIcon />
+    </TouchableOpacity>
+  </Row>
+);
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     justifyContent: 'space-between',
-  },
-  moreButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });
