@@ -14,11 +14,10 @@ import { topics } from './Post/PostSummary';
 type Props = {
   post: PostType;
   onPressLike: (postId: number) => void;
-  onPressMenu: () => void;
   refetchPost: () => void;
 };
 
-export const PostDetailComponent = ({ post, onPressLike, onPressMenu, refetchPost }: Props) => {
+export const PostDetailComponent = ({ post, onPressLike, refetchPost }: Props) => {
   const { top } = useSafeAreaInsets();
   return (
     <KeyboardAwareScrollView
@@ -34,7 +33,7 @@ export const PostDetailComponent = ({ post, onPressLike, onPressMenu, refetchPos
       <SafeAreaView style={styles.container}>
         <Header title={topics[post.postTopic]} isPrevButtonShown />
 
-        <Post post={post} onPressLike={onPressLike} onPressMenu={onPressMenu} />
+        <Post post={post} onPressLike={onPressLike} />
 
         <SplitRow height={20} />
 

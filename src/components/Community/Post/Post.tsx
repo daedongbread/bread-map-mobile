@@ -14,12 +14,11 @@ import { ProfileInfo } from './ProfileInfo';
 type Props = {
   post: PostType;
   onPressLike: (postId: number) => void;
-  onPressMenu: () => void;
 };
 
 const { width } = Dimensions.get('window');
 
-export const Post = React.memo(({ post, onPressLike, onPressMenu }: Props) => {
+export const Post = React.memo(({ post, onPressLike }: Props) => {
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
@@ -113,7 +112,6 @@ export const Post = React.memo(({ post, onPressLike, onPressMenu }: Props) => {
         commentCount={post.commentCount}
         date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
         onPressLike={() => _onPressLike(post.postId)}
-        onPressMenu={onPressMenu}
       />
     </View>
   );

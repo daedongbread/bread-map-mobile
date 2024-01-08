@@ -1,15 +1,13 @@
-import { useCallback } from 'react';
 import { useQuery } from 'react-query';
-import { useFocusEffect } from '@react-navigation/native';
 import { fetcher } from '../fetcher';
 
-type NewBakery = {
+export type NewBakery = {
   id: number;
-  image: string | null;
+  image: string;
   name: string;
   pioneerId: number | null;
   pioneerNickname: string | null;
-  pioneerProfileImage: string | null;
+  pioneerProfileImage: string;
   shortAddress: string;
   content: string | null;
   isFlagged: boolean;
@@ -31,12 +29,6 @@ export const useGetNewBakeries = () => {
     queryFn: requestGetBakery,
     enabled: false,
   });
-
-  useFocusEffect(
-    useCallback(() => {
-      refetch();
-    }, [refetch])
-  );
 
   return {
     data,

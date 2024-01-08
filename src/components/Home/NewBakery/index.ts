@@ -1,0 +1,1 @@
+export { NewBakeryComponent } from './NewBakeryComponent';

@@ -34,7 +34,6 @@ export const presets = StyleSheet.create(
       fontSize: 14,
       lineHeight: 20,
       letterSpacing: -14 * 0.02,
-      fontFamily: FONT_FAMILY.medium,
     },
     caption1: {
       fontSize: 13,

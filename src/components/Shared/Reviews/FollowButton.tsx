@@ -17,11 +17,11 @@ export const FollowButton = ({ style, isFollow, onPress }: Props) => {
   const type: FollowType = isFollow ? 'unFollow' : 'follow';
   const containerStyle = isFollow ? styles.followingContainer : styles.followContainer;
   const text = isFollow ? (
-    <Text presets={['caption2', 'bold']} style={styles.followingText}>
+    <Text color={theme.color.gray600} presets={['caption2', 'bold']}>
       팔로잉
     </Text>
   ) : (
-    <Text presets={['caption2', 'bold']} style={styles.followText}>
+    <Text color={theme.color.primary600} presets={['caption2', 'bold']}>
       팔로우
     </Text>
   );
@@ -48,12 +48,6 @@ const styles = StyleSheet.create(
       borderRadius: 4,
       borderColor: theme.color.gray300,
       borderWidth: 1,
-    },
-    followText: {
-      color: theme.color.primary500,
-    },
-    followingText: {
-      color: theme.color.gray600,
     },
   })
 );

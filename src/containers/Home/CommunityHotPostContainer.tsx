@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useGetTopPosts, usePostToggleLike } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
-import { HomeCommunityPartComponent } from '@/components/Home/HomeCommunityPart';
+import { CommunityHotPostComponent } from '@/components/Home/CommunityHotPost';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
 
 type Navigation = MainStackScreenProps<'CommunityStack'>;
 
-export const HomeCommunityPartContainer = () => {
+export const CommunityHotPostContainer = () => {
   const navigation = useNavigation<Navigation['navigation']>();
 
   const { posts = [] } = useGetTopPosts();
@@ -86,7 +86,7 @@ export const HomeCommunityPartContainer = () => {
   };
 
   return (
-    <HomeCommunityPartComponent
+    <CommunityHotPostComponent
       posts={posts}
       onPressPost={onPressPost}
       onPressLike={onPressLike}

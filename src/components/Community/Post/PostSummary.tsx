@@ -67,7 +67,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           </>
         )}
 
-        <Text color={theme.color.gray600} presets={['caption2', 'bold']}>
+        <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
           {topics[post.postTopic]}
         </Text>
       </Row>
@@ -88,7 +88,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
 
               <SplitRow height={2} />
 
-              <Text color={theme.color.gray500} presets={['caption2', 'regular']}>
+              <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
                 리뷰 {post.writerInfo.reviewCount || 0}
               </Text>
             </View>
@@ -110,7 +110,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
         <View style={styles.contentsContainer}>
           <View style={styles.textContainer}>
             {post.postTopic !== 'REVIEW' && (
-              <Text color={theme.color.gray900} presets={['body1', 'bold']} numberOfLines={2} ellipsizeMode="tail">
+              <Text color={theme.color.gray900} presets={['subhead', 'bold']} numberOfLines={2} ellipsizeMode="tail">
                 {post.title}
               </Text>
             )}

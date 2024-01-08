@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Alert } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useGetPost, usePostToggleLike } from '@/apis/community';
@@ -41,22 +41,9 @@ export const PostDetailContainer = () => {
     });
   };
 
-  const onPressMenu = useCallback(() => {
-    if (post?.writerInfo.userId) {
-      navigation.navigate('PostMenuBottomSheet', {
-        postId,
-        postTopic,
-        userId: post?.writerInfo.userId,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post]);
-
   if (!post) {
     return null;
   }
 
-  return (
-    <PostDetailComponent post={post} onPressLike={onPressLike} onPressMenu={onPressMenu} refetchPost={refetchAll} />
-  );
+  return <PostDetailComponent post={post} onPressLike={onPressLike} refetchPost={refetchAll} />;
 };
