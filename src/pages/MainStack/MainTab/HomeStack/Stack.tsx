@@ -3,8 +3,9 @@ import { MenuEntity } from '@/apis/menu/type';
 import { Home } from '@/pages/MainStack/MainTab/HomeStack/Home';
 import { RankingBakeryOfTheWeek } from '@/pages/MainStack/MainTab/HomeStack/RankingBakeryOfTheWeek/RankingBakeryOfTheWeek';
 import { BakeryDetailProvider } from '@/provider/BakeryDetailProvider';
-import { NavigatorScreenParams } from '@react-navigation/native';
+import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
+import { MainStackParamList, MainStackScreenProps } from '../../Stack';
 import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail/BakeryDetailTopTab';
 import { BakeryMenuDetail } from './BakeryDetail/Tab';
 import { CurationDetail } from './CurationDetail';
@@ -23,7 +24,10 @@ export type HomeStackParamList = {
   RankingBakeryOfTheWeek: undefined;
 };
 
-export type HomeStackScreenProps<T extends keyof HomeStackParamList> = StackScreenProps<HomeStackParamList, T>;
+export type HomeStackScreenProps<T extends keyof HomeStackParamList> = CompositeScreenProps<
+  StackScreenProps<HomeStackParamList, T>,
+  MainStackScreenProps<keyof MainStackParamList>
+>;
 
 const Stack = createStackNavigator<HomeStackParamList>();
 

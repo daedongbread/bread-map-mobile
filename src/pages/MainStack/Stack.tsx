@@ -32,10 +32,12 @@ import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
+import { Notification } from './MainTab/Notification';
 import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
+  Notification: undefined;
   CommunityStack: NavigatorScreenParams<CommunityStackParamList>;
   BookmarkBottomSheet: {
     bakeryId: number;
@@ -93,7 +95,6 @@ export type MainStackParamList = {
   ReportMenu: {
     bakeryId: number;
   };
-  NotificationModal: undefined;
   SettingModal: undefined;
   BlockListModal?: {
     blockUserId?: number;
@@ -129,8 +130,9 @@ const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="PostWriteStack" component={PostWriteStack} />
-      <Stack.Screen name={'ReviewWriteStack'} component={ReviewWriteStack} />
+      <Stack.Screen name="ReviewWriteStack" component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
       <Stack.Screen
         name={'ModalStack'}
@@ -139,7 +141,7 @@ const MainStack = () => {
       />
 
       <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
-        <Stack.Screen name={'BookmarkBottomSheet'} component={BookmarkBottomSheet} />
+        <Stack.Screen name="BookmarkBottomSheet" component={BookmarkBottomSheet} />
         <Stack.Screen name="ReviewMoreBottomSheet" component={ReviewMoreBottomSheet} />
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
         <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />

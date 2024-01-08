@@ -3,6 +3,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CustomerServiceBanner, ReportBanner } from '@/components/Home';
 import { CommunityLoading } from '@/components/Shared/Loading';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { useNavigation } from '@react-navigation/native';
 import { Header } from '../../components/Home/Header';
 import { SplitRow } from '../../components/Shared/SplitSpace';
 import { Spacer } from '../../components/Shared/SplitSpace/Spacer';
@@ -12,14 +14,14 @@ import { MenuContainer } from './MenuContainer';
 import { NewBakeryContainer } from './NewBakeryContainer';
 import { SearchContainer } from './SearchContainer';
 
-// type Navigation = HomeStackScreenProps<'Home'>['navigation'];
+type Navigation = HomeStackScreenProps<'Home'>['navigation'];
 
 export const HomeContainer = () => {
-  // const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation<Navigation>();
   const { top } = useSafeAreaInsets();
 
   const onPressNotification = () => {
-    // navigation.navigate('')
+    navigation.navigate('Notification');
   };
 
   return (
