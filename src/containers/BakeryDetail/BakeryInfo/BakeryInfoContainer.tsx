@@ -1,5 +1,6 @@
 import React from 'react';
 import { SvgProps } from 'react-native-svg';
+import { useGetBakery } from '@/apis/bakery';
 import { BakeryInfoComponent } from '@/components/BakeryDetail/BakeryInfo/BakeryInfoComponent';
 import {
   InfoDeliveryIcon,
@@ -10,8 +11,7 @@ import {
   InfoWifiIcon,
 } from '@/components/Shared/Icons';
 import { InfoBookingIcon } from '@/components/Shared/Icons/InfoBookingIcon';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
-import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/BakeryDetail';
 import { useRoute } from '@react-navigation/native';
 
 type FacilityCategory = 'PARKING' | 'WIFI' | 'DELIVERY' | 'PET' | 'SHIPPING' | 'BOOKING';
@@ -80,7 +80,7 @@ export const BakeryInfoContainer = () => {
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailInfo'>['route']>();
 
   const { bakeryId } = route.params;
-  const { bakery } = useBakeryDetail(bakeryId);
+  const { bakery = null } = useGetBakery({ bakeryId });
 
   return <BakeryInfoComponent bakery={bakery} facilityList={facilityList} />;
 };

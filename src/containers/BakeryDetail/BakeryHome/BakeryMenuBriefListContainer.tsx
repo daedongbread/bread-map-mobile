@@ -2,7 +2,7 @@ import React from 'react';
 import { useGetMenus } from '@/apis/menu';
 import { MenuEntity } from '@/apis/menu/type';
 import { BakeryMenuBriefListComponent } from '@/components/BakeryDetail/BakeryHome';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/BakeryDetail';
 import { HomeStackParamList, HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
@@ -16,7 +16,7 @@ export const BakeryMenuBriefListContainer = () => {
   const route = useRoute<BakeryDetailTabScreenProps<'BakeryDetailHome'>['route']>();
   const navigation = useNavigation<Navigation>();
 
-  const bakeryId = route.params.bakeryId;
+  const { bakeryId, bakeryName } = route.params;
   const { menus = [] } = useGetMenus({ bakeryId });
 
   const onPress = (menu: MenuEntity) => {
@@ -25,6 +25,7 @@ export const BakeryMenuBriefListContainer = () => {
     }
     navigation.push('BakeryMenuDetail', {
       bakeryId,
+      bakeryName,
       menu,
     });
   };

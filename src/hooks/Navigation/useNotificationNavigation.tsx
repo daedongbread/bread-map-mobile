@@ -97,18 +97,12 @@ export const useNotificationNavigation = () => {
   const goNavBakeryDetail = useCallback(
     (bakeryId: number) => {
       navigation.navigate('MainStack', {
-        screen: 'MainTab',
+        screen: 'BakeryDetail',
         params: {
-          screen: 'HomeStack',
+          screen: 'BakeryDetailHome',
           params: {
-            screen: 'Bakery',
-            params: {
-              screen: 'BakeryDetailHome',
-              params: {
-                bakeryName: '',
-                bakeryId,
-              },
-            },
+            bakeryName: '',
+            bakeryId,
           },
         },
       });

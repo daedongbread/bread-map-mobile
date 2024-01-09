@@ -41,17 +41,11 @@ const Search: React.FC<Props> = ({ navigation }) => {
 
   const navigateDetail = useCallback(
     (bakery: SearchEntity) => {
-      navigation.push('MainTab', {
-        screen: 'HomeStack',
+      navigation.push('BakeryDetail', {
+        screen: 'BakeryDetailHome',
         params: {
-          screen: 'Bakery',
-          params: {
-            screen: 'BakeryDetailHome',
-            params: {
-              bakeryId: bakery.bakeryId,
-              bakeryName: bakery.bakeryName,
-            },
-          },
+          bakeryId: bakery.bakeryId,
+          bakeryName: bakery.bakeryName,
         },
       });
     },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BakeryReview } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
+import { BakeryReview } from '@/pages/MainStack/BakeryDetail/Tab/BakeryReview';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';

@@ -36,17 +36,11 @@ export function ListDetailItem({ item, name, color, flagId, isMe }: any) {
       : FlagColors.PINK;
 
   const onItemClick = () => {
-    navigation.push('MainTab', {
-      screen: 'HomeStack',
+    navigation.push('BakeryDetail', {
+      screen: 'BakeryDetailHome',
       params: {
-        screen: 'Bakery',
-        params: {
-          screen: 'BakeryDetailHome',
-          params: {
-            bakeryId: item?.id,
-            bakeryName: item.name,
-          },
-        },
+        bakeryId: item.id,
+        bakeryName: item.name,
       },
     });
   };

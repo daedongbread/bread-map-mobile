@@ -3,7 +3,7 @@ import { useGetInfiniteReviews } from '@/apis/review';
 import { MoreButton } from '@/components/BakeryDetail/BakeryHome';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/BakeryDetail';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
 

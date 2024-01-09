@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview/BakeryReviewDetail';
-import { BakeryReviewDetailScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
+import { BakeryReviewDetailScreenProps } from '@/pages/MainStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
 import { HomeStackParamList, HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
 
@@ -48,7 +48,7 @@ export const BakeryReviewDetailContainer = () => {
   };
 
   const goNavBakeryDetail = () => {
-    navigation.navigate('Bakery', {
+    navigation.navigate('BakeryDetail', {
       screen: 'BakeryDetailHome',
       params: {
         bakeryId: review.reviewDto.bakeryInfo.bakeryId,

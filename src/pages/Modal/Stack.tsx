@@ -2,8 +2,8 @@ import React from 'react';
 import { ReportType } from '@/apis/community/types';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
+import { AccuseReview } from '../MainStack/BakeryDetail/Tab/BakeryReview';
 import { AccuseComment } from '../MainStack/Community';
-import { AccuseReview } from '../MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
 
 export type ModalStackParamList = {

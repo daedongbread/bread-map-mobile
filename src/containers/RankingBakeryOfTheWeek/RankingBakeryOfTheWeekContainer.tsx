@@ -50,18 +50,12 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   const onPressBakery = useCallback(
     (bakery: RankBakery) => {
       navigation.navigate('MainStack', {
-        screen: 'MainTab',
+        screen: 'BakeryDetail',
         params: {
-          screen: 'HomeStack',
+          screen: 'BakeryDetailHome',
           params: {
-            screen: 'Bakery',
-            params: {
-              screen: 'BakeryDetailHome',
-              params: {
-                bakeryId: bakery.id,
-                bakeryName: bakery.name,
-              },
-            },
+            bakeryId: bakery.id,
+            bakeryName: bakery.name,
           },
         },
       });

@@ -27,7 +27,7 @@ export const useGetNewBakeries = () => {
   const { data, refetch, ...rest } = useQuery({
     queryKey: ['newBakeries'],
     queryFn: requestGetBakery,
-    enabled: false,
+    enabled: true,
   });
 
   return {

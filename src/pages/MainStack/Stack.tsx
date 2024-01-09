@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { PostTopic } from '@/apis/community/types';
+import { MenuEntity } from '@/apis/menu/type';
 import { BookmarkList } from '@/components/Map/BakeryBookmarksBottomSheet';
 import { SuccessBottomSheet } from '@/components/Modal/BottomSheet';
 import { ImageItemBttomSheetButtonType } from '@/containers/Modal/ImageItemBottomSheetContainer';
@@ -22,16 +23,18 @@ import { ImageItemBottomSheet } from '../Modal/ImageItemBottomSheet';
 import { ModalStack, ModalStackParamList } from '../Modal/Stack';
 import { QuestionBottomSheet } from '../ReviewWriteStack/ReviewRating/QuestionBottomSheet';
 import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack/Stack';
+import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail';
+import { BakeryMenuDetail } from './BakeryDetail/Tab';
+import { ReportMenu } from './BakeryDetail/Tab/BakeryMenu/ReportMenu';
+import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './BakeryDetail/Tab/BakeryReview';
+import {
+  BakeryReviewDetailParamList,
+  BakeryReviewDetailStack,
+} from './BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
 import { CommentMenuBottomSheet, CommunityStackParamList, PostMenuBottomSheet } from './Community';
 import { PostWriteStack } from './Community/PostWriteStack';
 import { PostWriteStackParamList } from './Community/PostWriteStack/Stack';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
-import { ReportMenu } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryMenu/ReportMenu';
-import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview';
-import {
-  BakeryReviewDetailParamList,
-  BakeryReviewDetailStack,
-} from './MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
 import { Notification } from './MainTab/Notification';
 import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 
@@ -48,6 +51,12 @@ export type MainStackParamList = {
   PostWriteStack: NavigatorScreenParams<PostWriteStackParamList>;
   ReviewWriteStack: NavigatorScreenParams<ReviewWriteStackParamList>;
   BakeryReviewDetailStack: NavigatorScreenParams<BakeryReviewDetailParamList>;
+  BakeryDetail: NavigatorScreenParams<BakeryDetailTabParamList>;
+  BakeryMenuDetail: {
+    bakeryId: number;
+    bakeryName: string;
+    menu: MenuEntity;
+  };
   ModalStack: NavigatorScreenParams<ModalStackParamList>;
   ReviewMoreBottomSheet: {
     reviewId: number;
@@ -139,6 +148,8 @@ const MainStack = () => {
         options={{ presentation: 'transparentModal', gestureEnabled: false }}
         component={ModalStack}
       />
+      <Stack.Screen name="BakeryDetail" component={BakeryDetailTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="BakeryMenuDetail" component={BakeryMenuDetail} options={{ headerShown: false }} />
 
       <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
         <Stack.Screen name="BookmarkBottomSheet" component={BookmarkBottomSheet} />
@@ -174,6 +185,7 @@ const MainStack = () => {
 
         <Stack.Screen name={'DeleteAccountModal'} component={DeleteAccount} options={{ headerShown: false }} />
       </Stack.Group>
+
       <Stack.Screen name={'ProfileStack'} component={ProfileStack} />
       <Stack.Screen name={'EditBakeryStack'} component={EditBakeryStack} />
       <Stack.Screen name={'BlockListModal'} component={BlockList} />

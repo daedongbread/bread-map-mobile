@@ -3,7 +3,7 @@ import { useGetInfiniteReviews } from '@/apis/review';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { ScrollView } from '@/components/Shared/View';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
-import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { useRoute } from '@react-navigation/native';
 
 export const BakeryReviewContainer = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { NewBakery } from '@/apis/bakery/useGetNewBakeries';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -11,9 +11,10 @@ import { NewBakeryCard } from './NewBakeryCard';
 
 type Props = {
   newBakery?: NewBakery[];
+  onPressBakery: (bakeryId: number, bakeryName: string) => void;
 };
 
-export const NewBakeryComponent = ({ newBakery }: Props) => {
+export const NewBakeryComponent = ({ newBakery, onPressBakery }: Props) => {
   return (
     <View style={styles.container}>
       <Text color={theme.color.primary600} presets={['caption2', 'regular']} style={styles.label}>
@@ -31,7 +32,11 @@ export const NewBakeryComponent = ({ newBakery }: Props) => {
         keyExtractor={item => item.id.toString()}
         style={styles.cardContainer}
         data={newBakery?.slice(0, 2)}
-        renderItem={({ item, index }) => <NewBakeryCard isFirst={index === 0} newBakery={item} />}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity onPress={() => onPressBakery(item.id, item.name)}>
+            <NewBakeryCard isFirst={index === 0} newBakery={item} />
+          </TouchableOpacity>
+        )}
         scrollEnabled={false}
       />
 

@@ -5,7 +5,7 @@ import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import MapActiveIcon from '@shared/Icons/MapActiveIcon.svg';
@@ -18,13 +18,13 @@ type Props = {
   thumbnail: string;
 };
 
-type Navigation = HomeStackScreenProps<'Bakery'>['navigation'];
+type Navigation = MainStackScreenProps<'BakeryDetail'>['navigation'];
 
 export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Props) => {
   const navigation = useNavigation<Navigation>();
 
   const onPress = () => {
-    navigation.navigate('Bakery', {
+    navigation.navigate('BakeryDetail', {
       screen: 'BakeryDetailHome',
       params: {
         bakeryId,

@@ -27,7 +27,7 @@ export const BakeryBottomSheetContainer: React.VFC = () => {
   // TODO: fix params, pass bakeryId not bakery data
   const onClickBakery = useCallback(
     (bakery: BakeryMapBakeryEntity) => {
-      navigate('Bakery', {
+      navigate('BakeryDetail', {
         screen: 'BakeryDetailHome',
         params: {
           bakeryId: bakery.id,

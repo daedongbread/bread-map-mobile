@@ -1,14 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useGetBakery } from '@/apis/bakery';
 import { Header } from '@/components/Shared/Header';
 import { presets } from '@/components/Shared/Text/presets';
 import { RootStackParamList, RootStackScreenProps } from '@/pages/Stack';
-import { useBakeryDetail } from '@/provider/BakeryDetailProvider';
 import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { HomeStackScreenProps } from '../Stack';
+import { MainStackScreenProps } from '../Stack';
 import { BakeryHome, BakeryInfo, BakeryMenu } from './Tab';
 import { BakeryReviewStack } from './Tab/BakeryReview/Stack';
 
@@ -38,19 +38,20 @@ export type BakeryDetailTabScreenProps<T extends keyof BakeryDetailTabParamList>
 
 const Tab = createMaterialTopTabNavigator<BakeryDetailTabParamList>();
 
-export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery'>) => {
+export const BakeryDetailTabNavigator = ({ route }: MainStackScreenProps<'BakeryDetail'>) => {
   const insets = useSafeAreaInsets();
 
   const { bakeryId } = route.params?.params || { bakeryId: 0, bakeryName: '' };
-  const { bakery } = useBakeryDetail(bakeryId);
+  const { bakery } = useGetBakery({ bakeryId });
 
   return (
     <View
-      style={{
-        flex: 1,
-        height: '100%',
-        paddingTop: insets.top,
-      }}
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+        },
+      ]}
     >
       <Header title={bakery?.bakeryInfo.name} isPrevButtonShown />
       <Tab.Navigator
@@ -87,3 +88,10 @@ export const BakeryDetailTabNavigator = ({ route }: HomeStackScreenProps<'Bakery
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: '100%',
+  },
+});

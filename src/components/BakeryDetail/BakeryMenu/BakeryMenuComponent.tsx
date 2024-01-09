@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { MenuEntity } from '@/apis/menu/type';
 import { Menus } from '@/components/Shared/Menu';
 import { ReportMenuButton } from '@/components/Shared/Menu/ReportMenuButton';
-import { BakeryDetailTabScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail';
+import { BakeryDetailTabScreenProps } from '@/pages/MainStack/BakeryDetail';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { Divider } from '../Divider';

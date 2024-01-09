@@ -3,11 +3,11 @@ import { useFollow, useUnFollow } from '@/apis/auth/useFollow';
 import { useGetNewBakeries } from '@/apis/bakery/useGetNewBakeries';
 import { RankBakery } from '@/apis/bakery/useRankBakeries';
 import { NewBakeryComponent } from '@/components/Home/NewBakery';
-import { RootStackScreenProps } from '@/pages/Stack';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useNavigation } from '@react-navigation/core';
 
 export const NewBakeryContainer = () => {
-  const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
+  const navigation = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
 
   const { mutateAsync: followMutationAsync } = useFollow({});
   const { mutateAsync: unfollowMutation } = useUnFollow();
@@ -45,26 +45,17 @@ export const NewBakeryContainer = () => {
   );
 
   const onPressBakery = useCallback(
-    (bakery: Pick<RankBakery, 'id' | 'name'>) => {
-      navigation.navigate('MainStack', {
-        screen: 'MainTab',
+    (bakeryId: number, bakeryName: string) => {
+      navigation.navigate('BakeryDetail', {
+        screen: 'BakeryDetailHome',
         params: {
-          screen: 'HomeStack',
-          params: {
-            screen: 'Bakery',
-            params: {
-              screen: 'BakeryDetailHome',
-              params: {
-                bakeryId: bakery.id,
-                bakeryName: bakery.name,
-              },
-            },
-          },
+          bakeryId,
+          bakeryName: bakeryName,
         },
       });
     },
     [navigation]
   );
 
-  return <NewBakeryComponent newBakery={data} />;
+  return <NewBakeryComponent newBakery={data} onPressBakery={onPressBakery} />;
 };

@@ -4,7 +4,7 @@ import { ReviewContent } from '@/apis/bakery/types';
 import { TabIcon } from '@/components/Map/BakeriesBottomSheet/TabIcon';
 import { Review } from '@/components/Shared/Reviews';
 import { SplitRow } from '@/components/Shared/SplitSpace';
-import { BakeryReviewStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/BakeryDetail/Tab/BakeryReview/Stack';
+import { BakeryReviewStackScreenProps } from '@/pages/MainStack/BakeryDetail/Tab/BakeryReview/Stack';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { resizePixels } from '@/utils';
 import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
