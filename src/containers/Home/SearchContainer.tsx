@@ -9,7 +9,7 @@ export const SearchContainer = () => {
   const navigation = useNavigation<Navigation>();
 
   const onPress = () => {
-    navigation.navigate('');
+    navigation.navigate('Search');
   };
 
   return <SearchComponent onPress={onPress} />;
