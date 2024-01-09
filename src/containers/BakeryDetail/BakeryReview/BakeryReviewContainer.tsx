@@ -52,7 +52,6 @@ export const BakeryReviewContainer = () => {
         reviewCount={reviews.length > 0 ? reviews[0].totalElements : 0}
         activeTab={activeTab}
         onPressTab={onPressTab}
-        refetchReview={refetch}
       />
     </ScrollView>
   );

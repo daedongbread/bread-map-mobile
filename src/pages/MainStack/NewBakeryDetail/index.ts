@@ -1,0 +1,1 @@
+export { NewBakeryDetail } from './NewBakeryDetail';

@@ -16,7 +16,7 @@ type Props = {
 
 export const NewBakeryCard = ({ isFirst, newBakery }: Props) => {
   return (
-    <View style={[styles.container, isFirst && styles.divider]}>
+    <View style={[styles.container, !isFirst && styles.divider]}>
       <Row style={styles.spaceBetween}>
         <Row style={[styles.alignCenter, styles.alignCenter]}>
           <Image style={styles.profileImage} source={{ uri: newBakery.pioneerProfileImage }} />
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.color.gray100,
+    borderTopWidth: 1,
+    borderTopColor: theme.color.gray100,
   },
   alignCenter: {
     alignItems: 'center',

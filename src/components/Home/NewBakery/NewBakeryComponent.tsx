@@ -12,9 +12,10 @@ import { NewBakeryCard } from './NewBakeryCard';
 type Props = {
   newBakery?: NewBakery[];
   onPressBakery: (bakeryId: number, bakeryName: string) => void;
+  onPressMore: () => void;
 };
 
-export const NewBakeryComponent = ({ newBakery, onPressBakery }: Props) => {
+export const NewBakeryComponent = ({ newBakery, onPressBakery, onPressMore }: Props) => {
   return (
     <View style={styles.container}>
       <Text color={theme.color.primary600} presets={['caption2', 'regular']} style={styles.label}>
@@ -40,7 +41,7 @@ export const NewBakeryComponent = ({ newBakery, onPressBakery }: Props) => {
         scrollEnabled={false}
       />
 
-      <ViewMoreButton onPress={() => null} />
+      <ViewMoreButton onPress={onPressMore} />
     </View>
   );
 };
