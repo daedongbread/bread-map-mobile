@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFollow, useUnFollow } from '@/apis/auth/useFollow';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { Text } from '../Text';
@@ -10,13 +11,31 @@ export type FollowType = 'follow' | 'unFollow';
 type Props = {
   style?: StyleProp<ViewStyle>;
   isFollow: boolean;
-  onPress: (type: FollowType) => void;
+  targetUserId: number;
 };
 
-export const FollowButton = ({ style, isFollow, onPress }: Props) => {
-  const type: FollowType = isFollow ? 'unFollow' : 'follow';
-  const containerStyle = isFollow ? styles.followingContainer : styles.followContainer;
-  const text = isFollow ? (
+export const FollowButton = ({ style, isFollow, targetUserId }: Props) => {
+  const { mutateAsync: follow } = useFollow({});
+  const { mutateAsync: unFollow } = useUnFollow();
+
+  const [isFollowing, setIsFollowing] = useState(isFollow);
+
+  const onPress = async () => {
+    try {
+      if (isFollowing) {
+        setIsFollowing(false);
+        await unFollow({ userId: targetUserId });
+      } else {
+        setIsFollowing(true);
+        await follow({ userId: targetUserId });
+      }
+    } catch (e: unknown) {
+      setIsFollowing(isFollowing);
+    }
+  };
+
+  const containerStyle = isFollowing ? styles.followingContainer : styles.followContainer;
+  const text = isFollowing ? (
     <Text color={theme.color.gray600} presets={['caption2', 'bold']}>
       팔로잉
     </Text>
@@ -27,7 +46,7 @@ export const FollowButton = ({ style, isFollow, onPress }: Props) => {
   );
 
   return (
-    <TouchableOpacity style={[containerStyle, style]} onPress={() => onPress(type)}>
+    <TouchableOpacity style={[styles.container, containerStyle, style]} onPress={() => onPress()}>
       {text}
     </TouchableOpacity>
   );
@@ -35,19 +54,19 @@ export const FollowButton = ({ style, isFollow, onPress }: Props) => {
 
 const styles = StyleSheet.create(
   resizePixels({
-    followContainer: {
-      backgroundColor: theme.color.primary100,
+    container: {
       paddingVertical: 6,
       paddingHorizontal: 10,
       borderRadius: 4,
+      borderWidth: 1,
+    },
+    followContainer: {
+      backgroundColor: theme.color.primary100,
+      borderColor: 'transparent',
     },
     followingContainer: {
       backgroundColor: theme.color.white,
-      paddingVertical: 6,
-      paddingHorizontal: 10,
-      borderRadius: 4,
       borderColor: theme.color.gray300,
-      borderWidth: 1,
     },
   })
 );

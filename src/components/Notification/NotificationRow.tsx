@@ -10,10 +10,9 @@ import { Row } from '../Shared/View';
 
 type Props = {
   notification: Notification;
-  onPressFollowButton: (toggle: boolean) => void;
 };
 
-export const NotificationRow = ({ notification, onPressFollowButton }: Props) => {
+export const NotificationRow = ({ notification }: Props) => {
   const splitContent = notification.content ? notification.content.split('%s') : [];
 
   return (
@@ -57,7 +56,7 @@ export const NotificationRow = ({ notification, onPressFollowButton }: Props) =>
         <SplitColumn width={16} />
 
         {notification.noticeType === 'FOLLOW' && (
-          <FollowButton isFollow={notification.isFollow} onPress={type => onPressFollowButton(type === 'follow')} />
+          <FollowButton isFollow={notification.isFollow} targetUserId={notification.contentId} />
         )}
       </Row>
     </Row>

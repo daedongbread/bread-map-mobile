@@ -55,7 +55,6 @@ export const Post = React.memo(({ post, onPressLike }: Props) => {
   return (
     <View style={styles.container}>
       <ProfileInfo
-        postId={post.postId}
         writerId={post.writerInfo.userId}
         imageUrl={post.writerInfo.profileImage}
         nickname={post.writerInfo.nickname}

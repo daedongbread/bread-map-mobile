@@ -4,13 +4,9 @@ import { MoreButton } from '@/components/BakeryDetail/BakeryHome';
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { BakeryDetailTabScreenProps } from '@/pages/MainStack/BakeryDetail';
-import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-type Navigation = CompositeScreenProps<
-  BakeryDetailTabScreenProps<'BakeryDetailHome'>,
-  MainStackScreenProps<keyof MainStackParamList>
->['navigation'];
+type Navigation = BakeryDetailTabScreenProps<'BakeryDetailHome'>['navigation'];
 type Route = BakeryDetailTabScreenProps<'BakeryDetailHome'>['route'];
 
 export const BakeryReviewBriefListContainer = () => {
@@ -48,7 +44,6 @@ export const BakeryReviewBriefListContainer = () => {
         activeTab={activeTab}
         isBrief
         onPressTab={onPressTab}
-        refetchReview={refetchReview}
       />
       {!!briefReviews.length && <MoreButton text="전체리뷰보기" onPress={onPressMoreButton} />}
     </>

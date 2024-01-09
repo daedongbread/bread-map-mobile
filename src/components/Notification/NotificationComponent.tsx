@@ -9,18 +9,11 @@ import { NotificationRow } from './NotificationRow';
 type Props = {
   notifications: Notification[];
   onPressRow: (notification: Notification) => void;
-  onPressFollowButton: (toggle: boolean, userId: number, index: number) => void;
   onScrollEnd: () => void;
   onRefresh: () => void;
 };
 
-export const NotificationComponent = ({
-  notifications,
-  onPressRow,
-  onPressFollowButton,
-  onScrollEnd,
-  onRefresh,
-}: Props) => {
+export const NotificationComponent = ({ notifications, onPressRow, onScrollEnd, onRefresh }: Props) => {
   const { top } = useSafeAreaInsets();
   return (
     <ScrollView
@@ -30,12 +23,9 @@ export const NotificationComponent = ({
       <SafeAreaView>
         <Header title={'알림'} isPrevButtonShown />
 
-        {notifications.map((notification, index) => (
+        {notifications.map(notification => (
           <TouchableWithoutFeedback key={notification.noticeId} onPress={() => onPressRow(notification)}>
-            <NotificationRow
-              notification={notification}
-              onPressFollowButton={toggle => onPressFollowButton(toggle, notification.contentId, index)}
-            />
+            <NotificationRow notification={notification} />
           </TouchableWithoutFeedback>
         ))}
       </SafeAreaView>

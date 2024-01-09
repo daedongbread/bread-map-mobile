@@ -1,7 +1,5 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { useQueryClient } from 'react-query';
-import { follow, unFollow } from '@/apis/profile';
 import { FollowButton } from '@/components/Shared/Reviews/FollowButton';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -13,7 +11,6 @@ import { useNavigation } from '@react-navigation/native';
 import DividerIcon from '@shared/Icons/DividerIcon.svg';
 
 type Props = {
-  postId: number;
   writerId: number;
   imageUrl: string;
   nickname: string;
@@ -24,20 +21,10 @@ type Props = {
 
 type Navigation = MainStackScreenProps<'ProfileStack'>['navigation'];
 
-export const ProfileInfo = ({
-  postId,
-  writerId,
-  imageUrl,
-  nickname,
-  reviewCount,
-  followerCount,
-  isFollowed,
-}: Props) => {
+export const ProfileInfo = ({ writerId, imageUrl, nickname, reviewCount, followerCount, isFollowed }: Props) => {
   const navigation = useNavigation<Navigation>();
 
   const { userId } = useAppSelector(selector => selector.auth);
-
-  const queryClient = useQueryClient();
 
   const onPressProfile = () => {
     navigation.navigate('ProfileStack', {
@@ -45,18 +32,6 @@ export const ProfileInfo = ({
       params: {
         userId: writerId,
       },
-    });
-  };
-
-  const onPressFollowButton = async () => {
-    if (isFollowed) {
-      await unFollow({ userId: writerId });
-    } else {
-      await follow({ userId: writerId });
-    }
-
-    queryClient.refetchQueries({
-      queryKey: ['useGetPost', { postId }],
     });
   };
 
@@ -92,7 +67,7 @@ export const ProfileInfo = ({
         </Row>
       </Pressable>
 
-      {userId !== writerId && <FollowButton isFollow={isFollowed} onPress={() => onPressFollowButton()} />}
+      {userId !== writerId && <FollowButton isFollow={isFollowed} targetUserId={writerId} />}
     </Row>
   );
 };

@@ -5,7 +5,7 @@ export type NewBakery = {
   id: number;
   image: string;
   name: string;
-  pioneerId: number | null;
+  pioneerId: number;
   pioneerNickname: string | null;
   pioneerProfileImage: string;
   shortAddress: string;

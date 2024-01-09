@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
-import { follow, unFollow } from '@/apis/profile';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { BakeryInfoCard, Footer } from '@/components/Community/Post';
-import { useAppSelector } from '@/hooks/redux';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
@@ -15,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
 import { SplitRow } from '../SplitSpace';
 import { MoreLineText, Text } from '../Text';
-import { FollowButton, FollowType } from './FollowButton';
+import { FollowButton } from './FollowButton';
 import { ProductRating } from './ProductRating';
 
 const { width } = Dimensions.get('window');
@@ -25,12 +23,10 @@ type ReviewProps = {
   review: ReviewContent;
   isEnd: boolean;
   onPressBakery?: () => void;
-  refetchReview: () => void;
 };
 
-export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchReview }: ReviewProps) => {
+export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
-  const { userId: myUserId } = useAppSelector(state => state.auth);
 
   const [likeToggle, setLikeToggle] = useState({
     isLiked: review.reviewInfo.isLike,
@@ -69,16 +65,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
     });
   };
 
-  const onPressFollowButton = async (type: FollowType, userId: number) => {
-    if (type === 'follow') {
-      await follow({ userId });
-    } else if (type === 'unFollow') {
-      await unFollow({ userId });
-    }
-
-    refetchReview();
-  };
-
   const onPressLikeButton = async (isLiked: boolean, reviewId: number) => {
     try {
       if (isLiked) {
@@ -98,13 +84,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
       // 에러발생시 좋아요 상태 롤백
       setLikeToggle(likeToggle);
     }
-  };
-
-  const onPressMoreButton = (userId: number, reviewId: number) => {
-    navigation.navigate('ReviewMoreBottomSheet', {
-      reviewId,
-      userId,
-    });
   };
 
   return (
@@ -133,10 +112,7 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
         </TouchableWithoutFeedback>
 
         {!review.userInfo.isMe && (
-          <FollowButton
-            isFollow={review.userInfo.isFollow}
-            onPress={type => onPressFollowButton(type, review.userInfo.userId)}
-          />
+          <FollowButton isFollow={review.userInfo.isFollow} targetUserId={review.userInfo.userId} />
         )}
       </View>
 
@@ -230,11 +206,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery, refetchR
             commentCount={review.reviewInfo.commentNum}
             date={review.reviewInfo.createdAt}
             onPressLike={() => onPressLikeButton(likeToggle.isLiked, review.reviewInfo.id)}
-            onPressMenu={
-              myUserId !== review.userInfo.userId
-                ? () => onPressMoreButton(review.userInfo.userId, review.reviewInfo.id)
-                : undefined
-            }
           />
         </View>
 

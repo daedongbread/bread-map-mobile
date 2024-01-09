@@ -13,12 +13,11 @@ import { Divider } from '../../Divider';
 
 type Props = {
   review: ReviewDetailEntity;
-  refetchReview: () => void;
   refetchPage: () => void;
   goNavBakeryDetail: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review, refetchReview, refetchPage, goNavBakeryDetail }: Props) => {
+export const BakeryReviewDetailComponent = ({ review, refetchPage, goNavBakeryDetail }: Props) => {
   const { top, bottom } = useSafeAreaInsets();
 
   return (
@@ -36,13 +35,7 @@ export const BakeryReviewDetailComponent = ({ review, refetchReview, refetchPage
         <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
 
         <View style={styles.reviewContainer}>
-          <Review
-            mode="detail"
-            review={review.reviewDto}
-            isEnd={true}
-            onPressBakery={goNavBakeryDetail}
-            refetchReview={refetchReview}
-          />
+          <Review mode="detail" review={review.reviewDto} isEnd={true} onPressBakery={goNavBakeryDetail} />
         </View>
 
         <Divider />

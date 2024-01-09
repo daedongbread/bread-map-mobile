@@ -19,7 +19,6 @@ type Props = {
   activeTab: string;
   isBrief?: boolean;
   onPressTab: (tab: string) => void;
-  refetchReview: ((pageNum: number) => void) | (() => void);
 };
 
 const tabItems = [
@@ -33,7 +32,6 @@ type Navigation = CompositeScreenProps<
   MainStackScreenProps<keyof MainStackParamList>
 >['navigation'];
 
-const NUMBER_OF_ELEMENTS = 5;
 const { height } = Dimensions.get('screen');
 
 export const BakeryReviewListComponent = ({
@@ -43,7 +41,6 @@ export const BakeryReviewListComponent = ({
   activeTab,
   isBrief,
   onPressTab,
-  refetchReview,
 }: Props) => {
   const navigation = useNavigation<Navigation>();
 
@@ -95,18 +92,10 @@ export const BakeryReviewListComponent = ({
       <View style={styles.reviewContainer}>
         <HeaderRenderItem />
 
-        {/* <SplitRow height={28} /> */}
-
         {reviews && reviews.length ? (
           reviews.map((review, index) => {
             return (
-              <Review
-                key={review.reviewInfo.id}
-                mode="preview"
-                review={review}
-                refetchReview={() => refetchReview(Math.floor(index / NUMBER_OF_ELEMENTS))}
-                isEnd={reviews?.length - 1 === index}
-              />
+              <Review key={review.reviewInfo.id} mode="preview" review={review} isEnd={reviews?.length - 1 === index} />
             );
           })
         ) : (

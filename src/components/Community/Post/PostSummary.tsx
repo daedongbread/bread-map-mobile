@@ -95,7 +95,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           </Row>
 
           <Row>
-            <FollowButton style={styles.followButton} isFollow={false} onPress={() => null} />
+            <FollowButton style={styles.followButton} isFollow={false} targetUserId={post.writerInfo.userId} />
 
             <SplitColumn width={8} />
 

@@ -58,11 +58,6 @@ export const BakeryReviewDetailContainer = () => {
   };
 
   return (
-    <BakeryReviewDetailComponent
-      review={review}
-      refetchReview={refetchReview}
-      refetchPage={refetchPage}
-      goNavBakeryDetail={goNavBakeryDetail}
-    />
+    <BakeryReviewDetailComponent review={review} refetchPage={refetchPage} goNavBakeryDetail={goNavBakeryDetail} />
   );
 };

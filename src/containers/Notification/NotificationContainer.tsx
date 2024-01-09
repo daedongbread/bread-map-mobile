@@ -1,20 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useFollow, useUnFollow } from '@/apis/auth/useFollow';
 import { useGetInfiniteNotifications } from '@/apis/notification';
 import { Notification } from '@/apis/notification/types';
 import { NotificationComponent } from '@/components/Notification';
 import { useNotificationNavigation } from '@/hooks/Navigation';
 import { useFocusEffect } from '@react-navigation/native';
 
-const NUMBER_OF_ELEMENTS = 20;
-
 export const NotificationContainer = () => {
   const [lastId, setLastId] = useState(0);
 
   const { goNavRequestedScreen } = useNotificationNavigation();
-
-  const { mutateAsync: follow } = useFollow({});
-  const { mutateAsync: unFollow } = useUnFollow();
 
   const {
     notifications = [],
@@ -67,23 +61,10 @@ export const NotificationContainer = () => {
     });
   };
 
-  const onPressFollowButton = async (toggle: boolean, userId: number, index: number) => {
-    const pageNum = Math.floor(index / NUMBER_OF_ELEMENTS);
-
-    if (toggle) {
-      await follow({ userId });
-    } else {
-      await unFollow({ userId });
-    }
-
-    refetch(pageNum);
-  };
-
   return (
     <NotificationComponent
       notifications={flatNotifications}
       onPressRow={onPressRow}
-      onPressFollowButton={onPressFollowButton}
       onScrollEnd={onScrollEnd}
       onRefresh={onRefresh}
     />

@@ -26,7 +26,7 @@ export const NewBakeryCard = ({ isFirst, newBakery }: Props) => {
           </Text>
         </Row>
 
-        <FollowButton style={styles.followButton} isFollow={newBakery.isFollowed} onPress={() => null} />
+        <FollowButton style={styles.followButton} isFollow={newBakery.isFollowed} targetUserId={newBakery.pioneerId} />
       </Row>
 
       <SplitRow height={12} />

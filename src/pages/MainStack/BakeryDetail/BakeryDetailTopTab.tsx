@@ -23,11 +23,9 @@ export type BakeryDetailTabParamList = {
   };
   BakeryDetailReview: {
     bakeryId: number;
-    bakeryName: string;
   };
   BakeryDetailInfo: {
     bakeryId: number;
-    bakeryName: string;
   };
 };
 
