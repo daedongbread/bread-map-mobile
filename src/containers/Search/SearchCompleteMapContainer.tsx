@@ -241,7 +241,7 @@ export const SearchCompleteMapContainer = () => {
           onRegionChange={onRegionChange}
           handleUserLocationChange={onUserLocationChange}
           markerIcon={isFilterSaved ? 'saved' : 'default'}
-          onPress={onClickBakery}
+          onPressMarker={onClickBakery}
         />
       </View>
       <SearchCompleteMapBottomSheet

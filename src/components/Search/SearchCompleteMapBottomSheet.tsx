@@ -101,7 +101,7 @@ const ListEmptyComponent = () => {
       <ImageBread />
       <View style={styles.listEmptyTextContainer}>
         <Text presets={['body2', 'semibold']} color={'gray500'} style={styles.listEmptyText}>
-          해당 위치에 빵집이 없어요{'\n'} 위치를 이동해보세요
+          검색결과가 없어요
         </Text>
       </View>
     </View>

@@ -10,14 +10,14 @@ type Props = MapViewProps & {
   isWatch: boolean;
   handleUserLocationChange: (coordinate: { longitude: number; latitude: number }) => void;
   markerIcon: 'default' | 'saved';
-  onPress: (bakery: BakeryDTO) => void;
+  onPressMarker: (bakery: BakeryDTO) => void;
 };
 const DEFAULT_ICON_COLOR = '#FF6E40';
 
 export const BakeryMap = React.memo(
   React.forwardRef<MapView, Props>(
     (
-      { provider, initialRegion, markers, onRegionChange, onPanDrag, isWatch, handleUserLocationChange, onPress },
+      { provider, initialRegion, markers, onRegionChange, onPanDrag, isWatch, handleUserLocationChange, onPressMarker },
       mapView
     ) => {
       const onUserLocationChange = (e: EventUserLocation) => {
@@ -42,7 +42,7 @@ export const BakeryMap = React.memo(
         >
           {markers?.map(marker => {
             return (
-              <Marker coordinate={marker} onPress={() => onPress(marker)}>
+              <Marker coordinate={marker} onPress={() => onPressMarker(marker)}>
                 <View style={{ alignItems: 'center' }}>
                   <IcSelectedMapPin color={DEFAULT_ICON_COLOR} />
 
