@@ -24,16 +24,6 @@ export const ReportBakeryOnboardingComponent: React.FC<Props> = ({ closePage, on
             우와,{'\n'}빵집 개척자님!{'\n'}반가워요👋
           </Text>
         </View>
-        {/* <SplitRow height={300} /> */}
-        {/* <Carousel
-          layout={'default'}
-          data={data}
-          renderItem={({ item }) => <OnboardCard item={item} />}
-          sliderWidth={width}
-          itemWidth={width * 0.5}
-          firstItem={1}
-          useScrollView
-        /> */}
         <View style={styles.lottieContainer}>
           <LottieView
             source={require('@/assets/lottiles/bakery_onboarding.json')}

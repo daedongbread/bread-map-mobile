@@ -7,23 +7,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RankingBakeryOfTheWeekContainer } from '@/containers/RankingBakeryOfTheWeek/RankingBakeryOfTheWeekContainer';
 import { Header } from '@shared/Header';
 
-export const RankingBakeryOfTheWeek: React.FC = () => (
-  <SafeAreaView style={[styles.flex]} edges={['top']}>
-    <ScrollView style={styles.flex}>
+export const RankingBakeryOfTheWeek = () => (
+  <ScrollView style={styles.flex}>
+    <SafeAreaView style={[styles.flex]}>
       <Header title={'이번주 인기 빵집'} isPrevButtonShown />
       <RankingBakeryOfTheWeekContainer />
-    </ScrollView>
-  </SafeAreaView>
+    </SafeAreaView>
+  </ScrollView>
 );
 
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-  },
-  layout: {
-    paddingHorizontal: 20,
-  },
-  gap: {
-    marginBottom: 40,
   },
 });
