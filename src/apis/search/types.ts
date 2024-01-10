@@ -27,6 +27,11 @@ export type BakeryDTO = {
   distance: number; // 9493401.0,
   reviewNum: number; // 0
   totalScore: number; // 0.0
+  bakeryImageUrl: Array<string>;
+  flagCount: number;
+  latitude: number;
+  longitude: number;
+  flagColor: string;
 };
 
 export type SearchType = 'POPULAR' | 'DISTANCE' | string;

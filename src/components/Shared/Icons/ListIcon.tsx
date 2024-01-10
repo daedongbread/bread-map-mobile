@@ -1,0 +1,67 @@
+import React from 'react';
+import Svg, { Line, SvgProps } from 'react-native-svg';
+
+export const ListIcon: React.FC<SvgProps> = props => (
+  <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <Line
+      x1="3"
+      y1="18.9082"
+      x2="4"
+      y2="18.9082"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <Line
+      x1="3"
+      y1="5.08984"
+      x2="4"
+      y2="5.08984"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <Line
+      x1="3"
+      y1="12"
+      x2="4"
+      y2="12"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <Line
+      x1="8"
+      y1="18.9082"
+      x2="21"
+      y2="18.9082"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <Line
+      x1="8"
+      y1="5.08984"
+      x2="21"
+      y2="5.08984"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <Line
+      x1="8"
+      y1="12"
+      x2="21"
+      y2="12"
+      stroke="#FF6E40"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </Svg>
+);

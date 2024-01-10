@@ -10,12 +10,22 @@ import { useNavigation } from '@react-navigation/native';
 type Props = {
   keyword: string;
   bakeries: Array<BakeryDTO>;
-  subwayStationName: string;
+  goMap: () => void;
+  goHome: () => void;
+  onDistanceSortingPress: () => void;
+  onPopularSortingPress: () => void;
   searchType: SearchType;
-  setSearchType: (type: SearchType) => void;
 };
 
-export const SearchCompleteComponent = ({ keyword, bakeries, subwayStationName, searchType, setSearchType }: Props) => {
+export const SearchCompleteComponent = ({
+  keyword,
+  bakeries,
+  goMap,
+  goHome,
+  onDistanceSortingPress,
+  onPopularSortingPress,
+  searchType,
+}: Props) => {
   const navigation = useNavigation();
 
   const navigateReport = useCallback(() => {
@@ -50,20 +60,6 @@ export const SearchCompleteComponent = ({ keyword, bakeries, subwayStationName, 
     [navigateDetail]
   );
 
-  const goMap = () => {
-    navigation.navigate('MainTab', {
-      screen: 'Map',
-      params: {},
-    });
-  };
-
-  const goHome = () => {
-    navigation.navigate('MainTab', {
-      screen: 'HomeStack',
-      params: {},
-    });
-  };
-
   const MapIcon = () => {
     return (
       <TouchableOpacity onPress={goMap}>
@@ -86,11 +82,12 @@ export const SearchCompleteComponent = ({ keyword, bakeries, subwayStationName, 
 
       <SearchBakeryList
         bakeries={bakeries}
-        searchType={searchType}
-        setSearchType={setSearchType}
         keyword={keyword}
         onPressReport={navigateReport}
         onPressBakery={onPressBakery}
+        onDistanceSortingPress={onDistanceSortingPress}
+        onPopularSortingPress={onPopularSortingPress}
+        searchType={searchType}
       />
     </SafeAreaView>
   );

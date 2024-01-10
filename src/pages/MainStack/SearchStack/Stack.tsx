@@ -1,6 +1,6 @@
 import React from 'react';
+import { SearchCompleteMap, SearchComplete } from '@/pages/MainStack/SearchStack';
 import { Search } from '@/pages/MainStack/SearchStack/Search';
-import { SearchComplete } from '@/pages/MainStack/SearchStack/SearchComplete';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { CompositeScreenProps, RouteProp } from '@react-navigation/native';
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
@@ -8,6 +8,11 @@ import { createStackNavigator, StackScreenProps } from '@react-navigation/stack'
 export type SearchStackParamList = {
   Search: {};
   SearchComplete: {
+    keyword: string;
+    longitude: number;
+    latitude: number;
+  };
+  SearchCompleteMap: {
     keyword: string;
     longitude: number;
     latitude: number;
@@ -28,6 +33,7 @@ export const SearchStack = () => {
     <Stack.Navigator initialRouteName="Search" screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'Search'} component={Search} />
       <Stack.Screen name={'SearchComplete'} component={SearchComplete} />
+      <Stack.Screen name={'SearchCompleteMap'} component={SearchCompleteMap} />
     </Stack.Navigator>
   );
 };

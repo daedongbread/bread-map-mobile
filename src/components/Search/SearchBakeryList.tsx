@@ -15,21 +15,14 @@ type Props = {
   bakeries?: Array<BakeryDTO>;
   keyword: string;
   searchType: SearchType;
-  setSearchType: (type: SearchType) => void;
+  onDistanceSortingPress: () => void;
+  onPopularSortingPress: () => void;
   onPressReport: ButtonProps['onPress'];
   onPressBakery: (bakery: BakeryDTO) => void;
 };
 
 const SearchBakeryList: React.FC<Props> = memo(
-  ({ bakeries, keyword, searchType, setSearchType, onPressBakery, onPressReport }) => {
-    const onDistanceSortingPress = () => {
-      setSearchType('DISTANCE');
-    };
-
-    const onPopularSortingPress = () => {
-      setSearchType('POPULAR');
-    };
-
+  ({ bakeries, keyword, searchType, onDistanceSortingPress, onPopularSortingPress, onPressBakery, onPressReport }) => {
     const renderItem: ListRenderItem<BakeryDTO> = useCallback(
       ({ item }) => {
         const onPress = () => {
