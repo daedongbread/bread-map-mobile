@@ -148,6 +148,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
               bakeryName={post.bakeryInfo.name}
               address={post.bakeryInfo.address}
               thumbnail={post.bakeryInfo.thumbnail}
+              isFlagged={false}
             />
 
             <SplitRow height={15} />

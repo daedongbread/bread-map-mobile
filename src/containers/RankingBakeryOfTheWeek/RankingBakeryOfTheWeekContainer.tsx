@@ -2,12 +2,14 @@ import React, { useCallback } from 'react';
 
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { requestGetBakery } from '@/apis/bakery/useGetBakery';
 import { RankBakery, useRankBakeries } from '@/apis/bakery/useRankBakeries';
 import { useBookmarkDisableBakery } from '@/apis/flag';
 import { Rating } from '@/components/RankBakeries/Rating';
 import { ShortAddress } from '@/components/RankBakeries/ShortAddress';
 import { CustomImage } from '@/components/Shared/CustomImage';
+import { SplitRow } from '@/components/Shared/SplitSpace';
 import { RootStackScreenProps } from '@/pages/Stack';
 import { theme } from '@/styles/theme';
 import { WINDOW_WIDTH } from '@/utils/constants/dimensions';
@@ -17,6 +19,7 @@ import { Text } from '@shared/Text';
 
 export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
+  const { bottom } = useSafeAreaInsets();
 
   const { data, refetch } = useRankBakeries({ count: 10 });
 
@@ -64,45 +67,51 @@ export const RankingBakeryOfTheWeekContainer: React.FC = () => {
   );
 
   return (
-    <View style={[styles.flex, styles.row, styles.wrap, styles.layout]}>
-      {data?.map((item, i) => {
-        return (
-          <View key={item.id} style={[i % 2 === 0 ? styles.gap : undefined, i > 1 ? styles.horizontalGap : undefined]}>
-            <View style={styles.indexLayout}>
-              <Text presets={['body2', 'medium']} color={'white'}>
-                {i + 1}
-              </Text>
-            </View>
-            <View style={[styles.imageWrapper]}>
-              <CustomImage
-                style={styles.image}
-                source={{ uri: item.image }}
-                width={styles.image.width}
-                height={styles.image.height}
-                resizedWidth={150}
-                resizedHeight={150}
-                isResizable
-              />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.flex}>
-                <TouchableOpacity onPress={() => onPressBakery(item)}>
+    <View>
+      <View style={[styles.flex, styles.row, styles.wrap, styles.layout]}>
+        {data?.map((item, i) => {
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={[i % 2 === 0 ? styles.gap : undefined, i > 1 ? styles.horizontalGap : undefined]}
+              onPress={() => onPressBakery(item)}
+            >
+              <View style={styles.indexLayout}>
+                <Text presets={['body2', 'medium']} color={'white'}>
+                  {i + 1}
+                </Text>
+              </View>
+              <View style={[styles.imageWrapper]}>
+                <CustomImage
+                  style={styles.image}
+                  source={{ uri: item.image }}
+                  width={styles.image.width}
+                  height={styles.image.height}
+                  resizedWidth={150}
+                  resizedHeight={150}
+                  isResizable
+                />
+              </View>
+              <View style={styles.row}>
+                <View style={styles.flex}>
                   <Text color="gray900" presets={['body1', 'bold']} style={styles.titleGap}>
                     {item.name}
                   </Text>
                   <ShortAddress shortAddress={item.shortAddress} />
                   <Rating flagNum={item.flagNum || 0} rating={item.rating || 0} />
-                </TouchableOpacity>
+                </View>
+                <View style={[styles.center]}>
+                  <TouchableOpacity onPress={() => onPressFlag(item)}>
+                    <IcReport width={28} height={28} style={item.isFlagged ? styles.primaryColor : styles.dimColor} />
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={[styles.center]}>
-                <TouchableOpacity onPress={() => onPressFlag(item)}>
-                  <IcReport width={28} height={28} style={item.isFlagged ? styles.primaryColor : styles.dimColor} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        );
-      })}
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      {bottom === 0 && <SplitRow height={20} />}
     </View>
   );
 };

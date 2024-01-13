@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Image } from 'react-native';
 import { NewBakery } from '@/apis/bakery/useGetNewBakeries';
+import { FlagButton } from '@/components/Shared/Button';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { FollowButton } from '@/components/Shared/Reviews/FollowButton';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { MoreLineText, Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
-import MapActiveIcon from '@shared/Icons/MapActiveIcon.svg';
 
 type Props = {
   isFirst: boolean;
@@ -19,7 +19,15 @@ export const NewBakeryCard = ({ isFirst, newBakery }: Props) => {
     <View style={[styles.container, !isFirst && styles.divider]}>
       <Row style={styles.spaceBetween}>
         <Row style={[styles.alignCenter, styles.alignCenter]}>
-          <Image style={styles.profileImage} source={{ uri: newBakery.pioneerProfileImage }} />
+          <CustomImage
+            style={styles.profileImage}
+            source={{ uri: newBakery.pioneerProfileImage }}
+            width={styles.profileImage.width}
+            height={styles.profileImage.height}
+            resizedWidth={styles.profileImage.width}
+            resizedHeight={styles.profileImage.height}
+            isResizable
+          />
           <SplitColumn width={8} />
           <Text color={theme.color.gray900} presets={['body2', 'bold']}>
             {newBakery.pioneerNickname}
@@ -33,7 +41,15 @@ export const NewBakeryCard = ({ isFirst, newBakery }: Props) => {
 
       <Row style={[styles.spaceBetween, styles.alignCenter]}>
         <Row style={styles.alignCenter}>
-          <Image style={styles.bakeryImage} source={{ uri: newBakery.image }} />
+          <CustomImage
+            style={styles.bakeryImage}
+            source={{ uri: newBakery.image }}
+            width={styles.bakeryImage.width}
+            height={styles.bakeryImage.height}
+            resizedWidth={styles.bakeryImage.width}
+            resizedHeight={styles.bakeryImage.height}
+            isResizable
+          />
           <SplitColumn width={12} />
 
           <View>
@@ -49,19 +65,22 @@ export const NewBakeryCard = ({ isFirst, newBakery }: Props) => {
           </View>
         </Row>
 
-        <MapActiveIcon />
+        <FlagButton isActive={newBakery.isFlagged} bakeryId={newBakery.id} bakeryName={newBakery.name} />
       </Row>
 
-      <SplitRow height={12} />
-
-      <View style={styles.reviewTextContainer}>
-        <MoreLineText
-          color={theme.color.gray900}
-          presets={['body2', 'regular']}
-          linesToTruncate={2}
-          text={newBakery.content || ''}
-        />
-      </View>
+      {!!newBakery.content && (
+        <>
+          <SplitRow height={12} />
+          <View style={styles.reviewTextContainer}>
+            <MoreLineText
+              color={theme.color.gray900}
+              presets={['body2', 'regular']}
+              linesToTruncate={2}
+              text={newBakery.content}
+            />
+          </View>
+        </>
+      )}
 
       <SplitRow height={16} />
     </View>

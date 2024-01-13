@@ -7,7 +7,9 @@ import { Community } from './Community';
 import { PostDetail } from './PostDetail';
 
 export type CommunityStackParamList = {
-  Community: undefined;
+  Community: {
+    postTopic?: PostTopic;
+  };
   PostDetail: {
     postId: number;
     postTopic: PostTopic;
@@ -27,7 +29,7 @@ export const CommunityStack = () => (
       headerShown: false,
     }}
   >
-    <Stack.Screen name={'Community'} component={Community} />
+    <Stack.Screen name={'Community'} initialParams={{ postTopic: 'ALL' }} component={Community} />
     <Stack.Screen name={'PostDetail'} component={PostDetail} />
   </Stack.Navigator>
 );

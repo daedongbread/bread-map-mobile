@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FlagButton } from '@/components/Shared/Button';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -8,7 +9,6 @@ import { Row } from '@/components/Shared/View';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
-import MapActiveIcon from '@shared/Icons/MapActiveIcon.svg';
 import RightArrow from '@shared/Icons/RightArrow.svg';
 
 type Props = {
@@ -16,11 +16,12 @@ type Props = {
   bakeryName: string;
   address: string;
   thumbnail: string;
+  isFlagged: boolean;
 };
 
 type Navigation = MainStackScreenProps<'BakeryDetail'>['navigation'];
 
-export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Props) => {
+export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail, isFlagged }: Props) => {
   const navigation = useNavigation<Navigation>();
 
   const onPress = () => {
@@ -72,7 +73,7 @@ export const BakeryInfoCard = ({ bakeryId, bakeryName, address, thumbnail }: Pro
       </View>
 
       <View>
-        <MapActiveIcon />
+        <FlagButton isActive={isFlagged} bakeryId={bakeryId} bakeryName={bakeryName} />
       </View>
     </TouchableOpacity>
   );

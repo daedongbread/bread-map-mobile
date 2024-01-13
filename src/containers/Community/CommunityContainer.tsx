@@ -4,9 +4,10 @@ import { PostTopic } from '@/apis/community/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { CommunityComponent } from '@/components/Community';
 import { CommunityStackScreenProps } from '@/pages/MainStack/Community/Stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 type Navigation = CommunityStackScreenProps<'Community'>['navigation'];
+type Route = CommunityStackScreenProps<'Community'>['route'];
 
 export type ToggleMenu = {
   title: string;
@@ -54,8 +55,14 @@ const menus: ToggleMenu[] = [
 
 export const CommunityContainer = () => {
   const navigation = useNavigation<Navigation>();
+  const route = useRoute<Route>();
 
-  const [postTopic, setPostTopic] = useState<PostTopic>('ALL');
+  const postTopicParam = route.params.postTopic || 'ALL';
+  const [postTopic, setPostTopic] = useState<PostTopic>(postTopicParam);
+
+  useEffect(() => {
+    setPostTopic(postTopicParam);
+  }, [postTopicParam]);
 
   // 커뮤니티 페이징 offset
   const [offset, setOffset] = useState({

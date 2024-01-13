@@ -37,7 +37,7 @@ const requestPosts = async ({ postTopic, pageParam, offset }: UseGetInfinitePost
 };
 
 export const useGetInfinitePosts = ({ postTopic, offset }: UseGetInfinitePostsProps) => {
-  const { data, isLoading, isError, hasNextPage, fetchNextPage, refetch, remove } = useInfiniteQuery(
+  const { data, isLoading, isFetching, isError, hasNextPage, fetchNextPage, refetch, remove } = useInfiniteQuery(
     ['useGetInfinitePosts', { postTopic }],
     ({ pageParam = 0 }) => requestPosts({ postTopic, pageParam, offset }),
     {
@@ -60,7 +60,7 @@ export const useGetInfinitePosts = ({ postTopic, offset }: UseGetInfinitePostsPr
   return {
     posts: data?.pages,
     pageParams: data?.pageParams,
-    isLoading: isLoading,
+    isLoading: isLoading || isFetching,
     error: isError,
     hasNextPage,
     fetchNextPage,
