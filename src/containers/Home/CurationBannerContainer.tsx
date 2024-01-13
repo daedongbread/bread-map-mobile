@@ -1,37 +1,53 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { useGetAllFeeds } from '@/apis/feed/useGetFeeds';
 import { CurationBannerComponent } from '@/components/Home/Curation/CurationBannerComponent';
+import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {};
 
+type Navigation = HomeStackScreenProps<'Home'>['navigation'];
+
 export const CurationBannerContainer = ({}: Props) => {
+  const navigation = useNavigation<Navigation>();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const images = [
-    'https://d1xlkuuxh58wex.cloudfront.net/images/e4b04773a1a102d61acccbf71cd9f7d3.png',
-    'https://d1xlkuuxh58wex.cloudfront.net/images/b40caec5ac407ca02eb63ae63040b2c7.png',
-    'https://d1xlkuuxh58wex.cloudfront.net/images/144b85612c055e7ab030925c2ddac775.png',
-    'https://d1xlkuuxh58wex.cloudfront.net/images/e4b04773a1a102d61acccbf71cd9f7d3.png',
-    'https://d1xlkuuxh58wex.cloudfront.net/images/b40caec5ac407ca02eb63ae63040b2c7.png',
-    'https://d1xlkuuxh58wex.cloudfront.net/images/144b85612c055e7ab030925c2ddac775.png',
-  ];
+  const { feed = [] } = useGetAllFeeds();
 
-  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const totalWidth = event.nativeEvent.layoutMeasurement.width;
-    const xPosition = event.nativeEvent.contentOffset.x;
-    const newIndex = Math.round(xPosition / totalWidth);
+  const onScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const totalWidth = event.nativeEvent.layoutMeasurement.width;
+      const xPosition = event.nativeEvent.contentOffset.x;
+      const newIndex = Math.round(xPosition / totalWidth);
 
-    if (newIndex !== currentIndex) {
-      setCurrentIndex(newIndex);
-    }
-  };
+      if (newIndex !== currentIndex) {
+        setCurrentIndex(newIndex);
+      }
+    },
+    [currentIndex]
+  );
+
+  const onPressBanner = useCallback(
+    (feedId: number) => {
+      navigation.navigate('CurationDetail', {
+        feedId,
+      });
+    },
+    [navigation]
+  );
+
+  if (!feed) {
+    return null;
+  }
 
   return (
     <CurationBannerComponent
-      images={images}
-      totalIndex={images.length}
+      feeds={feed}
+      totalIndex={feed.length}
       currentIndex={currentIndex}
       onScroll={onScroll}
+      onPressBanner={onPressBanner}
     />
   );
 };

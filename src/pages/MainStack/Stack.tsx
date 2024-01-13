@@ -34,7 +34,9 @@ import {
 import { CommentMenuBottomSheet, CommunityStackParamList, PostMenuBottomSheet } from './Community';
 import { PostWriteStack } from './Community/PostWriteStack';
 import { PostWriteStackParamList } from './Community/PostWriteStack/Stack';
+import { CurationDetail } from './CurationDetail';
 import { EditBakeryStack, EditBakeryStackParamList } from './EditBakeryStack/Stack';
+import { RankingBakeryOfTheWeek } from './MainTab/HomeStack/RankingBakeryOfTheWeek/RankingBakeryOfTheWeek';
 import { Notification } from './MainTab/Notification';
 import { ProfileStack, ProfileStackParamList } from './MainTab/ProfileStack/Stack';
 import { NewBakeryDetail } from './NewBakeryDetail';
@@ -42,7 +44,11 @@ import { NewBakeryDetail } from './NewBakeryDetail';
 export type MainStackParamList = {
   MainTab: NavigatorScreenParams<MainTabParamList>;
   Notification: undefined;
+  CurationDetail: {
+    feedId: number;
+  };
   NewBakeryDetail: undefined;
+  RankingBakeryOfTheWeek: undefined;
   CommunityStack: NavigatorScreenParams<CommunityStackParamList>;
   BookmarkBottomSheet: {
     bakeryId: number;
@@ -142,7 +148,10 @@ const MainStack = () => {
     <Stack.Navigator initialRouteName="MainTab" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="CurationDetail" component={CurationDetail} />
       <Stack.Screen name="NewBakeryDetail" component={NewBakeryDetail} />
+      <Stack.Screen name="RankingBakeryOfTheWeek" component={RankingBakeryOfTheWeek} />
+
       <Stack.Screen name="PostWriteStack" component={PostWriteStack} />
       <Stack.Screen name="ReviewWriteStack" component={ReviewWriteStack} />
       <Stack.Screen name="BakeryReviewDetailStack" component={BakeryReviewDetailStack} />
