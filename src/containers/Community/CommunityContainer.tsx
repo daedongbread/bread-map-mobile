@@ -167,12 +167,9 @@ export const CommunityContainer = () => {
   };
 
   const goNavPostDetail = (_postTopic: PostTopic, postId: number) => {
-    navigation.navigate('CommunityStack', {
-      screen: 'PostDetail',
-      params: {
-        postId,
-        postTopic: _postTopic,
-      },
+    navigation.navigate('PostDetail', {
+      postId,
+      postTopic: _postTopic,
     });
   };
 

@@ -1,14 +1,14 @@
 import { AxiosError } from 'axios';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useGetPost, usePostToggleLike } from '@/apis/community';
 import { PostDetailComponent } from '@/components/Community/PostDetailComponent';
-import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-type Route = CommunityStackScreenProps<'PostDetail'>['route'];
-type Navigation = CommunityStackScreenProps<'PostDetail'>['navigation'];
+type Navigation = MainStackScreenProps<'PostDetail'>['navigation'];
+type Route = MainStackScreenProps<'PostDetail'>['route'];
 
 export const PostDetailContainer = () => {
   const navigation = useNavigation<Navigation>();
@@ -41,9 +41,22 @@ export const PostDetailContainer = () => {
     });
   };
 
+  const onPressMenu = useCallback(() => {
+    if (post?.writerInfo.userId) {
+      navigation.navigate('PostMenuBottomSheet', {
+        postId,
+        postTopic,
+        userId: post?.writerInfo.userId,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post]);
+
   if (!post) {
     return null;
   }
 
-  return <PostDetailComponent post={post} onPressLike={onPressLike} refetchPost={refetchAll} />;
+  return (
+    <PostDetailComponent post={post} onPressLike={onPressLike} refetchPost={refetchAll} onPressMenu={onPressMenu} />
+  );
 };

@@ -1,4 +1,4 @@
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -109,8 +109,8 @@ export const Post = React.memo(({ post, onPressLike }: Props) => {
         isLiked={likeToggle.isLiked}
         likeCount={likeToggle.count}
         commentCount={post.commentCount}
-        date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
         onPressLike={() => _onPressLike(post.postId)}
+        date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
       />
     </View>
   );

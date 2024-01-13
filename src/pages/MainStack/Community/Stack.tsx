@@ -4,15 +4,10 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList, MainStackScreenProps } from '../Stack';
 import { Community } from './Community';
-import { PostDetail } from './PostDetail';
 
 export type CommunityStackParamList = {
   Community: {
     postTopic?: PostTopic;
-  };
-  PostDetail: {
-    postId: number;
-    postTopic: PostTopic;
   };
 };
 
@@ -30,6 +25,5 @@ export const CommunityStack = () => (
     }}
   >
     <Stack.Screen name={'Community'} initialParams={{ postTopic: 'ALL' }} component={Community} />
-    <Stack.Screen name={'PostDetail'} component={PostDetail} />
   </Stack.Navigator>
 );

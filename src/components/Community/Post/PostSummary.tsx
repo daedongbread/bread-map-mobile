@@ -2,7 +2,6 @@ import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Post, PostTopic } from '@/apis/community/types';
 import { CustomImage } from '@/components/Shared/CustomImage';
 import { StarIcon } from '@/components/Shared/Icons';
@@ -12,7 +11,6 @@ import { MoreLineText, Text } from '@/components/Shared/Text';
 
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
-import VerticalViewMoreIcon from '@shared/Icons/VerticalViewMoreIcon.svg';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
 
@@ -88,21 +86,20 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
 
               <SplitRow height={2} />
 
-              <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
-                리뷰 {post.writerInfo.reviewCount || 0}
-              </Text>
+              <Row>
+                <Text color={theme.color.gray500} presets={['caption2', 'regular']}>
+                  {format(new Date(post.createdDate), 'yyyy.MM.dd')}
+                </Text>
+
+                <SplitColumn width={8} />
+                <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
+                  리뷰 {post.writerInfo.reviewCount || 0}
+                </Text>
+              </Row>
             </View>
           </Row>
 
-          <Row>
-            <FollowButton style={styles.followButton} isFollow={false} targetUserId={post.writerInfo.userId} />
-
-            <SplitColumn width={8} />
-
-            <TouchableOpacity onPress={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}>
-              <VerticalViewMoreIcon />
-            </TouchableOpacity>
-          </Row>
+          <FollowButton style={styles.followButton} isFollow={false} targetUserId={post.writerInfo.userId} />
         </Row>
 
         <SplitRow height={10} />
@@ -159,8 +156,8 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           isLiked={likeToggle.isLiked}
           likeCount={likeToggle.count}
           commentCount={post.commentCount}
-          date={format(new Date(post.createdDate), 'yyyy.MM.dd')}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
+          onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
         />
       </View>
     </View>

@@ -40,6 +40,9 @@ export const CommunityHotPostContainer = () => {
   const onPressMore = useCallback(() => {
     navigation.navigate('CommunityStack', {
       screen: 'Community',
+      params: {
+        postTopic: 'ALL',
+      },
     });
   }, [navigation]);
 
@@ -61,12 +64,9 @@ export const CommunityHotPostContainer = () => {
   };
 
   const goNavPostDetail = (_postTopic: PostTopic, postId: number) => {
-    navigation.navigate('CommunityStack', {
-      screen: 'PostDetail',
-      params: {
-        postId,
-        postTopic: _postTopic,
-      },
+    navigation.navigate('PostDetail', {
+      postId,
+      postTopic: _postTopic,
     });
   };
 

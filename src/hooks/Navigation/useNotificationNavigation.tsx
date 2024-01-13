@@ -81,13 +81,10 @@ export const useNotificationNavigation = () => {
   const goNavPostDetail = useCallback(
     (postTopic: PostTopic, postId: number) => {
       navigation.navigate('MainStack', {
-        screen: 'CommunityStack',
+        screen: 'PostDetail',
         params: {
-          screen: 'PostDetail',
-          params: {
-            postTopic,
-            postId,
-          },
+          postTopic,
+          postId,
         },
       });
     },

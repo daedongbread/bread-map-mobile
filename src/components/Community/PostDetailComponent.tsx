@@ -6,18 +6,18 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Post as PostType } from '@/apis/community/types';
 import { CommentContainer } from '@/containers/Comment';
 import { Divider } from '../BakeryDetail/Divider';
-import { Header } from '../Shared/Header';
 import { SplitRow } from '../Shared/SplitSpace';
-import { Post } from './Post';
+import { Header, Post } from './Post';
 import { topics } from './Post/PostSummary';
 
 type Props = {
   post: PostType;
   onPressLike: (postId: number) => void;
   refetchPost: () => void;
+  onPressMenu: () => void;
 };
 
-export const PostDetailComponent = ({ post, onPressLike, refetchPost }: Props) => {
+export const PostDetailComponent = ({ post, onPressLike, refetchPost, onPressMenu }: Props) => {
   const { top } = useSafeAreaInsets();
   return (
     <KeyboardAwareScrollView
@@ -31,7 +31,7 @@ export const PostDetailComponent = ({ post, onPressLike, refetchPost }: Props) =
       refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPost} />}
     >
       <SafeAreaView style={styles.container}>
-        <Header title={topics[post.postTopic]} isPrevButtonShown />
+        <Header title={topics[post.postTopic]} onPressMenu={onPressMenu} />
 
         <Post post={post} onPressLike={onPressLike} />
 

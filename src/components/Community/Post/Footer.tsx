@@ -4,54 +4,65 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CommentIcon, IcLike, IcUnLike } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
+import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
+import VerticalViewMoreIcon from '@shared/Icons/VerticalViewMoreIcon.svg';
 
 type Props = {
   isLiked: boolean;
   likeCount: number;
   commentCount: number;
-  date: string;
+  date?: string;
   onPressLike: () => void;
+  onPressMenu?: () => void;
 };
 
-export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike }: Props) => (
-  <View style={styles.container}>
-    <View style={styles.row}>
+export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, onPressMenu }: Props) => (
+  <Row style={styles.container}>
+    <Row style={styles.row}>
       <TouchableOpacity style={styles.row} onPress={onPressLike}>
-        {isLiked ? <IcLike /> : <IcUnLike />}
-        <SplitColumn width={4} />
-        <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
-          {likeCount ? likeCount : '좋아요'}
-        </Text>
+        <Row style={styles.row}>
+          {isLiked ? <IcLike /> : <IcUnLike />}
+          <SplitColumn width={4} />
+          <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
+            {likeCount ? likeCount : '좋아요'}
+          </Text>
+        </Row>
       </TouchableOpacity>
 
       <SplitColumn width={10} />
 
-      <View style={styles.row}>
+      <Row style={styles.row}>
         <CommentIcon />
         <SplitColumn width={4} />
         <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
           {commentCount ? commentCount : '댓글'}
         </Text>
-      </View>
-    </View>
+      </Row>
+    </Row>
 
-    <View style={styles.row}>
+    {!!onPressMenu && (
+      <View style={styles.row}>
+        <TouchableOpacity onPress={() => onPressMenu()}>
+          <VerticalViewMoreIcon />
+        </TouchableOpacity>
+      </View>
+    )}
+
+    {!!date && (
       <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
         {date}
       </Text>
-      <SplitColumn width={12} />
-    </View>
-  </View>
+    )}
+  </Row>
 );
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   row: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
 });
