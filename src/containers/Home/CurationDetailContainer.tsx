@@ -3,15 +3,15 @@ import { useGetCurationFeedDetail } from '@/apis/feed/useGetCurationFeedDetail';
 import { usePostLike } from '@/apis/feed/usePostLike';
 import { CurationDetailComponent } from '@/components/Home/CurationDetail/CurationDetailComponent';
 import { useAppDispatch } from '@/hooks/redux';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-type Route = HomeStackScreenProps<'CurationDetail'>['route'];
+type Route = MainStackScreenProps<'CurationDetail'>['route'];
 
 export const CurationDetailContainer = () => {
   const route = useRoute<Route>();
-  const { navigate } = useNavigation<HomeStackScreenProps<'CurationDetail'>['navigation']>();
+  const { navigate } = useNavigation<MainStackScreenProps<'CurationDetail'>['navigation']>();
 
   const { feedId } = route.params;
   const { feedDetail, refetch: refetchCurationDetail } = useGetCurationFeedDetail(feedId);
