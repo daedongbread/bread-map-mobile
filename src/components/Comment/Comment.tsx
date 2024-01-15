@@ -99,7 +99,7 @@ export const Comment = ({
           </Row>
         </TouchableWithoutFeedback>
 
-        <SplitRow height={2} />
+        {/* <SplitRow height={2} /> */}
 
         <Text color="#616161" presets={['caption2', 'medium']}>
           {comment.targetCommentUserNickname && (

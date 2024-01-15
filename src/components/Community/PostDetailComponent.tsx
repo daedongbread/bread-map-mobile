@@ -8,7 +8,6 @@ import { CommentContainer } from '@/containers/Comment';
 import { Divider } from '../BakeryDetail/Divider';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Header, Post } from './Post';
-import { topics } from './Post/PostSummary';
 
 type Props = {
   post: PostType;
@@ -31,7 +30,7 @@ export const PostDetailComponent = ({ post, onPressLike, refetchPost, onPressMen
       refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPost} />}
     >
       <SafeAreaView style={styles.container}>
-        <Header title={topics[post.postTopic]} onPressMenu={onPressMenu} />
+        <Header title={`${post.writerInfo.nickname}님의 게시물`} onPressMenu={onPressMenu} />
 
         <Post post={post} onPressLike={onPressLike} />
 

@@ -188,6 +188,7 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
             <SplitRow height={20} />
             <View style={styles.bakeryInfoCardContainer}>
               <BakeryInfoCard
+                isFlagged={true}
                 bakeryId={review.bakeryInfo.bakeryId}
                 bakeryName={review.bakeryInfo.bakeryName}
                 address={review.bakeryInfo.bakeryAddress}
