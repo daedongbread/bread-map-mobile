@@ -3,15 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import { StarIcon } from '@/components/Shared/Icons';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
+import { SplitColumn } from '../SplitSpace';
+import { Row } from '../View';
 
 type Props = {
   type: 'menu' | 'review';
-  menuName?: string;
   rating: number;
   reviewLength?: number;
 };
 
-export const BreadRating: React.FC<Props> = ({ type, menuName, rating, reviewLength = 0 }) => {
+export const BreadRating: React.FC<Props> = ({ type, rating, reviewLength = 0 }) => {
   switch (type) {
     case 'menu':
     default:
@@ -24,11 +25,11 @@ export const BreadRating: React.FC<Props> = ({ type, menuName, rating, reviewLen
       );
     case 'review':
       return (
-        <View style={reviewTypeStyles.container}>
-          <Text style={reviewTypeStyles.menuName}>{menuName}</Text>
+        <Row style={reviewTypeStyles.container}>
           <StarIcon size={13} fillColor={'orange'} />
+          <SplitColumn width={4} />
           <Text style={reviewTypeStyles.rating}>{rating}</Text>
-        </View>
+        </Row>
       );
   }
 };
@@ -55,12 +56,7 @@ const menuTypeStyles = StyleSheet.create(
 const reviewTypeStyles = StyleSheet.create(
   resizePixels({
     container: {
-      flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.color.gray100,
-      borderRadius: 4,
-      paddingHorizontal: 4,
-      paddingVertical: 4,
     },
     menuName: {
       fontSize: 12,
@@ -68,8 +64,6 @@ const reviewTypeStyles = StyleSheet.create(
       color: theme.color.gray600,
     },
     rating: {
-      marginLeft: 1.5,
-      marginRight: 2,
       color: theme.color.primary500,
       fontSize: 12,
       fontWeight: 'bold',

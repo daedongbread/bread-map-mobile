@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { BreadRating } from '../Rating';
 import { SplitColumn } from '../SplitSpace';
 import { Text } from '../Text';
+import { Row } from '../View';
 
 type Props = {
   productName: string;
@@ -14,12 +15,13 @@ type Props = {
 
 export const ProductRating = ({ productName, rating, isEnd }: Props) => (
   <>
-    <View style={styles.container}>
-      <Text presets={['caption2', 'bold']} style={styles.text}>
+    <Row style={styles.container}>
+      <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
         {productName}
       </Text>
+      <SplitColumn width={8} />
       <BreadRating rating={rating} type={'review'} />
-    </View>
+    </Row>
     {!isEnd && <SplitColumn width={8} />}
   </>
 );
@@ -27,18 +29,12 @@ export const ProductRating = ({ productName, rating, isEnd }: Props) => (
 const styles = StyleSheet.create(
   resizePixels({
     container: {
-      flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.color.gray100,
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 4,
-    },
-    text: {
-      fontWeight: '700',
-      fontSize: 12,
-      color: theme.color.gray600,
-      marginRight: 0,
+      borderWidth: 1,
+      borderColor: theme.color.gray200,
     },
   })
 );
