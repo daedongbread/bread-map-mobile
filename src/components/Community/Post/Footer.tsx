@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { CommentIcon, IcLike, IcUnLike } from '@/components/Shared/Icons';
+import { CommentIcon, IcLikeHeart, IcUnLikeHeart } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
@@ -22,7 +22,7 @@ export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, on
     <Row style={styles.row}>
       <TouchableOpacity style={styles.row} onPress={onPressLike}>
         <Row style={styles.row}>
-          {isLiked ? <IcLike /> : <IcUnLike />}
+          {isLiked ? <IcLikeHeart /> : <IcUnLikeHeart />}
           <SplitColumn width={4} />
           <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
             {likeCount ? likeCount : '좋아요'}

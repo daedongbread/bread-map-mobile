@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Comment as CommentType } from '@/apis/community/types';
-import { IcLike, ViewMoreIcon } from '@/components/Shared/Icons';
+import { IcLikeHeart, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
@@ -113,7 +113,7 @@ export const Comment = ({
         <Row style={styles.commentFooter}>
           <TouchableOpacity onPress={() => _onPressLike(comment.id)}>
             <Row style={styles.footerLeftContainer}>
-              <IcLike width={16} height={16} fill={likeToggle.isLiked ? '#F66131' : '#BDBDBD'} />
+              <IcLikeHeart width={16} height={16} fill={likeToggle.isLiked ? '#F66131' : '#BDBDBD'} />
               <SplitColumn width={2} />
               <Text color="#9E9E9E" presets={['caption2', 'medium']}>
                 {likeToggle.count}
