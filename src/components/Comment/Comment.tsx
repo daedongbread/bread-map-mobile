@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Comment as CommentType } from '@/apis/community/types';
-import { IcLikeHeart, ViewMoreIcon } from '@/components/Shared/Icons';
+import { CommentIcon, IcLikeHeart, ViewMoreIcon } from '@/components/Shared/Icons';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
@@ -86,7 +86,7 @@ export const Comment = ({
             </Text>
 
             <Row style={styles.commentHeaderRightContainer}>
-              <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+              <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
                 {format(new Date(comment.createdDate), 'yyyy.MM.dd')}
               </Text>
 
@@ -112,10 +112,14 @@ export const Comment = ({
 
         <Row style={styles.commentFooter}>
           <TouchableOpacity onPress={() => _onPressLike(comment.id)}>
-            <Row style={styles.footerLeftContainer}>
-              <IcLikeHeart width={16} height={16} fill={likeToggle.isLiked ? '#F66131' : '#BDBDBD'} />
-              <SplitColumn width={2} />
-              <Text color="#9E9E9E" presets={['caption2', 'medium']}>
+            <Row style={styles.footerItemContainer}>
+              {likeToggle.isLiked ? (
+                <IcLikeHeart width={16} height={16} />
+              ) : (
+                <IcLikeHeart width={16} height={16} fill={theme.color.gray300} />
+              )}
+              <SplitColumn width={4} />
+              <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
                 {likeToggle.count}
               </Text>
             </Row>
@@ -126,9 +130,13 @@ export const Comment = ({
           <SplitColumn width={4} />
 
           <TouchableOpacity onPress={() => onPressReply(comment.id, comment.userId, comment.nickname)}>
-            <Text color="#9E9E9E" presets={['caption2', 'medium']}>
-              댓글달기
-            </Text>
+            <Row style={styles.footerItemContainer}>
+              <CommentIcon width={16} height={16} fill={theme.color.gray300} />
+              <SplitColumn width={4} />
+              <Text color={theme.color.gray500} presets={['caption2', 'medium']}>
+                답글달기
+              </Text>
+            </Row>
           </TouchableOpacity>
         </Row>
       </View>
@@ -167,7 +175,7 @@ const styles = StyleSheet.create({
   commentFooter: {
     alignItems: 'center',
   },
-  footerLeftContainer: {
+  footerItemContainer: {
     alignItems: 'center',
   },
 });

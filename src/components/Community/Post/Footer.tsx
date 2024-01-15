@@ -50,7 +50,7 @@ export const Footer = ({ isLiked, likeCount, commentCount, date, onPressLike, on
     )}
 
     {!!date && (
-      <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
+      <Text color={theme.color.gray500} presets={['caption2', 'regular']}>
         {date}
       </Text>
     )}
