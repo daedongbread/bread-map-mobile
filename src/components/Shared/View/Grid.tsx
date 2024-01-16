@@ -1,5 +1,11 @@
 import styled from '@emotion/native';
 
-export const Row = styled.View({
+const Flex = styled.View({
+  flex: 1,
+});
+
+const Row = styled.View({
   flexDirection: 'row',
 });
+
+export { Flex, Row };
