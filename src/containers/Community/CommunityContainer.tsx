@@ -29,7 +29,7 @@ const menus: ToggleMenu[] = [
   },
   {
     title: '베이킹',
-    postTopic: 'EATEN_BREAD',
+    postTopic: 'BAKING',
   },
   {
     title: '빵집리뷰',
@@ -37,15 +37,15 @@ const menus: ToggleMenu[] = [
   },
   {
     title: '빵 수다',
-    postTopic: 'EVENT',
+    postTopic: 'TALKING',
   },
   {
     title: '원데이 클래스',
-    postTopic: 'FREE_TALK',
+    postTopic: 'ONEDAY',
   },
   {
     title: '빵 공구',
-    postTopic: 'FREE_TALK',
+    postTopic: 'TOGHATER',
   },
   {
     title: '이벤트',
@@ -59,6 +59,7 @@ export const CommunityContainer = () => {
 
   const postTopicParam = route.params.postTopic || 'ALL';
   const [postTopic, setPostTopic] = useState<PostTopic>(postTopicParam);
+  const [isShowWriteMenu, setIsShowWriteMenu] = useState(false);
 
   useEffect(() => {
     setPostTopic(postTopicParam);
@@ -110,11 +111,16 @@ export const CommunityContainer = () => {
     resetPaging();
   }, [resetPaging]);
 
-  const onPressWrite = () => {
+  const onPressNotification = () => {
+    navigation.navigate('Notification');
+  };
+
+  const onPressWrite = (_postTopic: PostTopic) => {
+    onPressWriteFloatingButton();
     navigation.navigate('PostWriteStack', {
       screen: 'PostWrite',
       params: {
-        listToggleTopic: postTopic,
+        listToggleTopic: _postTopic,
       },
     });
   };
@@ -156,6 +162,10 @@ export const CommunityContainer = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onPressWriteFloatingButton = () => {
+    setIsShowWriteMenu(prev => !prev);
+  };
 
   const goNavReviewDetail = (reviewId: number) => {
     navigation.navigate('BakeryReviewDetailStack', {
@@ -200,12 +210,15 @@ export const CommunityContainer = () => {
       isLoading={isLoading}
       menus={menus}
       postTopic={postTopic}
+      isShowWriteMenu={isShowWriteMenu}
       onRefresh={onRefresh}
+      onPressNotification={onPressNotification}
       onPressWrite={onPressWrite}
       onPressToggle={onPressToggle}
       onPressPost={onPressPost}
       onPressLike={onPressLike}
       onPressMenu={onPressMenu}
+      onPressWriteFloatingButton={onPressWriteFloatingButton}
       onScrollEnd={onScrollEnd}
     />
   );

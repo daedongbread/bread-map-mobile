@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import auth from './auth';
 import bakeryMap from './bakeryMap';
+import dimensions from './dimensions';
 import notification from './notification';
 import reviewWrite from './reviewWrite';
 import toast from './toast';
@@ -11,6 +12,7 @@ const reducers = {
   bakeryMap,
   notification,
   toast,
+  dimensions,
 };
 
 const rootReducer = combineReducers(reducers);

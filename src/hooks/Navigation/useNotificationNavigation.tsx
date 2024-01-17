@@ -4,8 +4,10 @@ import { RootStackScreenProps } from '@/pages/Stack';
 import { RequestedScreenInfo } from '@/slices/notification';
 import { useNavigation } from '@react-navigation/native';
 
+type Navigation = RootStackScreenProps<'MainStack'>['navigation'];
+
 export const useNotificationNavigation = () => {
-  const navigation = useNavigation<RootStackScreenProps<'MainStack'>['navigation']>();
+  const navigation = useNavigation<Navigation>();
 
   const goNavRequestedScreen = useCallback((data: RequestedScreenInfo) => {
     const contentId = +data.contentId;
@@ -110,15 +112,9 @@ export const useNotificationNavigation = () => {
   const goNavCuration = useCallback(
     (feedId: number) => {
       navigation.navigate('MainStack', {
-        screen: 'MainTab',
+        screen: 'CurationDetail',
         params: {
-          screen: 'HomeStack',
-          params: {
-            screen: 'CurationDetail',
-            params: {
-              feedId,
-            },
-          },
+          feedId,
         },
       });
     },

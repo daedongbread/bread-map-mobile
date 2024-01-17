@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import { Flex } from '@/components/Shared/View';
 import { useAuth } from '@/hooks/useAuth';
+import { useDimensions } from '@/hooks/useDimensions';
 import { Auth } from '@/pages/Auth';
 import { AuthWebView } from '@/pages/Auth/AuthWebView';
 import { MainStack, MainStackParamList } from '@/pages/MainStack/Stack';
@@ -34,6 +36,8 @@ const RootNavigation = () => {
   const navigationRef = useRef<NavigationContainerRef<RootStackParamList>>(null);
   const routeNameRef = useRef<string>();
 
+  const { setWindowHeight } = useDimensions();
+
   const { isLoggedIn, isNewbie } = useAuth();
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | undefined>(undefined);
 
@@ -63,7 +67,7 @@ const RootNavigation = () => {
     return null;
   }
   return (
-    <>
+    <Flex onLayout={e => setWindowHeight(e.nativeEvent.layout.height)}>
       <StatusBar barStyle={'dark-content'} />
       <NavigationContainer
         ref={navigationRef}
@@ -104,7 +108,7 @@ const RootNavigation = () => {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </Flex>
   );
 };
 

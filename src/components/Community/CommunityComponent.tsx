@@ -1,5 +1,5 @@
 import LottieView from 'lottie-react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native-gesture-handler';
 import { Post, PostTopic } from '@/apis/community/types';
@@ -11,18 +11,22 @@ import { Row, ScrollView } from '../Shared/View';
 import { Header } from './Header';
 import { MenuTab } from './MenuTab';
 import { PostSummary } from './Post';
+import { WriteMenuModal } from './WriteMenuModal';
 
 type Props = {
   posts: Post[];
   isLoading: boolean;
   menus: ToggleMenu[];
   postTopic: PostTopic;
+  isShowWriteMenu: boolean;
   onRefresh: () => void;
-  onPressWrite: () => void;
+  onPressNotification: () => void;
+  onPressWrite: (postTopic: PostTopic) => void;
   onPressToggle: (topic: PostTopic) => void;
   onPressPost: (postTopic: PostTopic, postId: number) => void;
   onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
   onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
+  onPressWriteFloatingButton: () => void;
   onScrollEnd: () => void;
 };
 
@@ -31,17 +35,22 @@ export const CommunityComponent = ({
   isLoading,
   menus,
   postTopic,
+  isShowWriteMenu,
   onRefresh,
+  onPressNotification,
   onPressWrite,
   onPressToggle,
   onPressPost,
   onPressMenu,
   onPressLike,
+  onPressWriteFloatingButton,
   onScrollEnd,
 }: Props) => {
+  const [floatingButtonY, setFloatingButtonY] = useState(0);
+
   return (
     <View style={styles.container}>
-      <Header title="커뮤니티" onPressNotification={onPressWrite} />
+      <Header title="커뮤니티" onPressNotification={onPressNotification} />
 
       <SplitRow height={8} />
 
@@ -89,15 +98,27 @@ export const CommunityComponent = ({
                 })}
               </View>
             </ScrollView>
-
-            <Pressable style={styles.floatingButtonContainer} onPress={onPressWrite}>
-              <View style={styles.floatingButton}>
-                <PencilIcon />
-              </View>
-            </Pressable>
           </>
         )}
       </View>
+
+      <Pressable
+        style={styles.floatingButtonContainer}
+        onLayout={e => setFloatingButtonY(e.nativeEvent.layout.y)}
+        onPress={onPressWriteFloatingButton}
+      >
+        <View style={styles.floatingButton}>
+          <PencilIcon />
+        </View>
+      </Pressable>
+
+      <WriteMenuModal
+        visible={isShowWriteMenu}
+        menus={menus}
+        y={floatingButtonY}
+        onPressWrite={onPressWrite}
+        onPressClose={onPressWriteFloatingButton}
+      />
     </View>
   );
 };
