@@ -38,6 +38,7 @@ export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }
             <FlatList
               keyExtractor={item => item.postTopic}
               data={menus.filter(item => !['ALL', 'REVIEW', 'EVENT'].includes(item.postTopic))}
+              scrollEnabled={false}
               ItemSeparatorComponent={() => <SplitRow height={20} />}
               renderItem={({ item }) => (
                 <Pressable onPress={() => onPressWrite(item.postTopic)}>

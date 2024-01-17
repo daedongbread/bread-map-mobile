@@ -33,5 +33,5 @@ export const useKeyboard = () => {
     }
   }, []);
 
-  return keyboardHeight;
+  return { keyboardHeight };
 };

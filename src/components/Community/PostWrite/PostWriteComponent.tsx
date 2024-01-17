@@ -9,11 +9,12 @@ import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { Row } from '@/components/Shared/View';
 import { PostForm, TopicData } from '@/containers/Community/PostWrite/PostWriteContainer';
+import { useKeyboard } from '@/hooks/useKeyboard';
 import { theme } from '@/styles/theme';
 import { BakeryTagRow } from './BakeryTagRow';
 import { Header } from './Header';
+import { ShortUploadButton } from './ShortUploadButton';
 
-// const { height } = Dimensions.get('screen');
 const { width } = Dimensions.get('window');
 
 type Props = {
@@ -36,64 +37,74 @@ export const PostWriteComponent = ({
   deSelectPhoto,
   onPressConfirm,
 }: Props) => {
+  const { keyboardHeight } = useKeyboard();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title={topicData.title} onPressRightButton={onPressConfirm} />
+    <>
+      <SafeAreaView style={styles.container}>
+        <Header title={topicData.title} onPressRightButton={onPressConfirm} />
 
-      <BakeryTagRow bakeryName="" />
+        <BakeryTagRow bakeryName="" isRequire={topicData.key !== 'TALKING'} />
 
-      <View style={styles.formContainer}>
-        <SplitRow height={20} />
+        <View style={styles.formContainer}>
+          <SplitRow height={20} />
 
-        <TextInput
-          style={styles.titleInput}
-          placeholder="(선택)제목을 입력해주세요."
-          placeholderTextColor={theme.color.gray500}
-          value={form.title}
-          maxLength={40}
-          onChangeText={text => onChange('title', text)}
-        />
-
-        <SplitRow height={20} />
-
-        <View style={styles.contentTextInputContainer}>
           <TextInput
-            style={styles.contentTextInput}
-            placeholder={topicData.contentPlaceholder}
+            style={styles.titleInput}
+            placeholder="(선택)제목을 입력해주세요."
             placeholderTextColor={theme.color.gray500}
-            value={form.content}
-            multiline
-            maxLength={400}
-            onChangeText={text => onChange('content', text)}
+            value={form.title}
+            maxLength={40}
+            onChangeText={text => onChange('title', text)}
           />
+
+          <SplitRow height={20} />
+
+          <View style={styles.contentTextInputContainer}>
+            <TextInput
+              style={styles.contentTextInput}
+              placeholder={topicData.contentPlaceholder}
+              placeholderTextColor={theme.color.gray500}
+              value={form.content}
+              multiline
+              maxLength={400}
+              onChangeText={text => onChange('content', text)}
+            />
+          </View>
         </View>
-      </View>
 
-      <Row>
-        <FlatList
-          data={form.photos}
-          contentContainerStyle={styles.imageListContainer}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          ListHeaderComponent={<UploadButton style={styles.uploadImage} onPress={onPressUploadButton} />}
-          ListHeaderComponentStyle={styles.photoButton}
-          ItemSeparatorComponent={() => <SplitColumn width={8} />}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <Image style={styles.uploadImage} source={{ uri: item.uri }} />
-                <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
-                  <ImageCloseIcon />
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        />
-      </Row>
+        <Row>
+          <FlatList
+            data={form.photos}
+            contentContainerStyle={styles.imageListContainer}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            ListHeaderComponent={<UploadButton style={styles.uploadImage} onPress={onPressUploadButton} />}
+            ListHeaderComponentStyle={styles.photoButton}
+            ItemSeparatorComponent={() => <SplitColumn width={8} />}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Image style={styles.uploadImage} source={{ uri: item.uri }} />
+                  <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
+                    <ImageCloseIcon />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+        </Row>
 
-      <SplitRow height={20} />
-      {isLoading && <Loading />}
-    </SafeAreaView>
+        <SplitRow height={20} />
+        {isLoading && <Loading />}
+      </SafeAreaView>
+
+      {keyboardHeight > 0 && (
+        <View style={{ bottom: keyboardHeight }}>
+          <ShortUploadButton onPress={onPressUploadButton} />
+        </View>
+      )}
+    </>
   );
 };
 

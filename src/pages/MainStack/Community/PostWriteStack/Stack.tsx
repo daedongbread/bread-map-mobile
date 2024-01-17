@@ -11,7 +11,7 @@ export type PostWriteStackParamList = {
     listToggleTopic: PostTopic;
   };
   PostWrite: {
-    listToggleTopic: PostTopic;
+    postTopic: PostTopic;
   };
 };
 

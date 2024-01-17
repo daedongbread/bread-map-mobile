@@ -120,7 +120,7 @@ export const CommunityContainer = () => {
     navigation.navigate('PostWriteStack', {
       screen: 'PostWrite',
       params: {
-        listToggleTopic: _postTopic,
+        postTopic: _postTopic,
       },
     });
   };

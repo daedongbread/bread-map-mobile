@@ -10,9 +10,10 @@ import CancleIcon from '@shared/Icons/CancleIcon.svg';
 
 type Props = {
   bakeryName: string;
+  isRequire: boolean;
 };
 
-export const BakeryTagRow = ({ bakeryName }: Props) => {
+export const BakeryTagRow = ({ bakeryName, isRequire }: Props) => {
   return (
     <Row style={[styles.container, !!bakeryName && styles.activeContainer]}>
       <Row style={styles.alignCenter}>
@@ -40,12 +41,16 @@ export const BakeryTagRow = ({ bakeryName }: Props) => {
           <CancleIcon />
         ) : (
           <>
-            <View style={styles.requireTag}>
-              <Text color={theme.color.primary600} presets={['caption2', 'regular']}>
-                필수
-              </Text>
-            </View>
-            <SplitColumn width={8} />
+            {isRequire && (
+              <>
+                <View style={styles.requireTag}>
+                  <Text color={theme.color.primary600} presets={['caption2', 'regular']}>
+                    필수
+                  </Text>
+                </View>
+                <SplitColumn width={8} />
+              </>
+            )}
             <BigRightArrow />
           </>
         )}

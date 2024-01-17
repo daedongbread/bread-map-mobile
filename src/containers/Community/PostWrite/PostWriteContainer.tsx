@@ -7,7 +7,6 @@ import { usePostImages } from '@/apis/image';
 import { PostWriteComponent } from '@/components/Community/PostWrite';
 import { CameraIcon } from '@/components/Shared/Icons/Camera';
 import { ImageItemBttomSheetButtonType } from '@/containers/Modal/ImageItemBottomSheetContainer';
-import { useAppDispatch } from '@/hooks/redux';
 import { PostWriteStackNavigationProps } from '@/pages/MainStack/Community/PostWriteStack/Stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AlbumIcon from '@shared/Icons/AlbumIcon.svg';
@@ -42,7 +41,7 @@ const topicsData: TopicData[] = [
     contentPlaceholder: '나의 베이킹 레시피나, 베이킹 후기를 작성해주세요.',
   },
   {
-    key: '빵수다',
+    key: 'TALKING',
     title: '빵 수다',
     contentPlaceholder: '알고 계신 빵과 관련된 소식이나 하고 싶은 이야기를 자유롭게 작성해주세요.',
   },
@@ -74,7 +73,6 @@ const topics: TopicForm[] = [
 ];
 
 export type PostForm = {
-  postTopic: PostTopic;
   title: string;
   content: string;
   photos: Asset[];
@@ -94,20 +92,18 @@ type Navigation = PostWriteStackNavigationProps<'PostWrite'>['navigation'];
 type Route = PostWriteStackNavigationProps<'PostWrite'>['route'];
 
 export const PostWriteContainer = () => {
-  const dispatch = useAppDispatch();
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { listToggleTopic } = route.params;
+  const { postTopic } = route.params;
   const [form, setForm] = useState<PostForm>({
-    postTopic: ['BREAD_STORY', 'EATEN_BREAD', 'FREE_TALK'].includes(listToggleTopic) ? listToggleTopic : 'BREAD_STORY',
     title: '',
     content: '',
     photos: [],
   });
   const [formValid, setFormValid] = useState(initialFormValid);
 
-  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(listToggleTopic);
+  const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(postTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isPostSaving || isImageSaving;
 
@@ -203,6 +199,10 @@ export const PostWriteContainer = () => {
       return;
     }
 
+    closePage();
+    goNavSuccessBottomSheet();
+    return;
+
     const imagePaths =
       form.photos.length > 0
         ? await postImages({
@@ -216,7 +216,7 @@ export const PostWriteContainer = () => {
       {
         title: form.title,
         content: form.content,
-        postTopic: form.postTopic,
+        postTopic: postTopic,
         images: imagePaths,
       },
       {
@@ -245,7 +245,7 @@ export const PostWriteContainer = () => {
     navigation.goBack();
   };
 
-  const topicData = topicsData.find(item => item.key === '빵공구');
+  const topicData = topicsData.find(item => item.key === postTopic);
 
   if (!topicData) {
     Alert.alert('잘못된 접근입니다.', '', [
