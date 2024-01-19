@@ -117,12 +117,22 @@ export const CommunityContainer = () => {
 
   const onPressWrite = (_postTopic: PostTopic) => {
     onPressWriteFloatingButton();
-    navigation.navigate('PostWriteStack', {
-      screen: 'PostWrite',
-      params: {
-        postTopic: _postTopic,
-      },
-    });
+
+    if (_postTopic === 'REVIEW') {
+      navigation.navigate('ReviewWriteStack', {
+        screen: 'ReviewTagSelect',
+        params: {
+          bakeryId: 763,
+        },
+      });
+    } else {
+      navigation.navigate('PostWriteStack', {
+        screen: 'PostWrite',
+        params: {
+          postTopic: _postTopic,
+        },
+      });
+    }
   };
 
   const onPressToggle = (_topic: PostTopic) => {
