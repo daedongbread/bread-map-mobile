@@ -6,8 +6,9 @@ import { theme } from '@/styles/theme';
 export const Title = () => {
   return (
     <View style={styles.container}>
-      <Text presets={['heading1', 'bold']} style={styles.titleText}>
-        <Text style={styles.titleStressText}>어떤 빵</Text>을{'\n'}먹었나요?
+      <Text color={theme.color.gray900} presets={['heading2', 'bold']}>
+        이제<Text color={theme.color.primary600}> 빵집</Text>과{'\n'}
+        <Text color={theme.color.primary600}>먹은 빵</Text>에 대해 이야기해주세요.
       </Text>
     </View>
   );
@@ -15,7 +16,6 @@ export const Title = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 12,
     paddingLeft: 20,
   },
   titleText: {

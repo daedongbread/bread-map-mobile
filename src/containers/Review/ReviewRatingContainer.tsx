@@ -20,7 +20,7 @@ export const PHOTO_LIMIT = 10;
 type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
 type Route = ReviewWriteStackNavigationProps<'ReviewRating'>['route'];
 
-export const ReviewRatingContainer: React.FC = () => {
+export const ReviewRatingContainer = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();

@@ -24,17 +24,15 @@ export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }
     <Modal visible={visible} animationType={'fade'} transparent={true}>
       <Pressable style={styles.container} onPress={onPressClose}>
         <View style={[styles.contentContainer, { bottom: height - y - 48 }]}>
-          <View style={[styles.menuContainer, styles.menuTitleContainer]}>
-            <Pressable onPress={() => onPressWrite('REVIEW')}>
-              <Text color={theme.color.gray900} presets={['body2', 'regular']}>
-                빵집 리뷰
-              </Text>
-            </Pressable>
-          </View>
+          <Pressable style={[styles.menuContainer, styles.menuTitleContainer]} onPress={() => onPressWrite('REVIEW')}>
+            <Text color={theme.color.gray900} presets={['body2', 'regular']}>
+              빵집 리뷰
+            </Text>
+          </Pressable>
 
           <SplitRow height={8} />
 
-          <View style={styles.menuContainer}>
+          <Pressable style={styles.menuContainer}>
             <FlatList
               keyExtractor={item => item.postTopic}
               data={menus.filter(item => !['ALL', 'REVIEW', 'EVENT'].includes(item.postTopic))}
@@ -48,7 +46,7 @@ export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }
                 </Pressable>
               )}
             />
-          </View>
+          </Pressable>
 
           <SplitRow height={8} />
 

@@ -3,15 +3,14 @@ import { Dimensions, StyleSheet, TextInput as OriginTextInput, View } from 'reac
 import { ScrollView } from 'react-native-gesture-handler';
 import { Asset } from 'react-native-image-picker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BakeryTagRow } from '@/components/Community/PostWrite';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { Loading } from '@/components/Shared/Loading';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { TextInput } from '@/components/Shared/TextInput';
-import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import { RatedBread, UpdateSeletedBreadRating } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import { useNavigation } from '@react-navigation/native';
 import { PhotoSelect } from './PhotoSelect';
 import { RatingList } from './RatingList';
 import { SubTitle } from './SubTitle';
@@ -31,8 +30,6 @@ type Props = {
   saveReview: () => void;
 };
 
-type Navigation = ReviewWriteStackNavigationProps<'ReviewRating'>['navigation'];
-
 export const ReviewRatingComponent: React.FC<Props> = ({
   selectedBreads,
   detailReview,
@@ -44,17 +41,9 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   deSelectPhoto,
   saveReview,
 }) => {
-  const navigation = useNavigation<Navigation>();
   const insets = useSafeAreaInsets();
 
   const contentInputRef = useRef<OriginTextInput>(null);
-
-  const onPressClose = () => {
-    navigation.navigate('QuestionBottomSheet', {
-      title: '리뷰작성을 그만할까요?',
-      subTitle: '삭제한 리뷰는 되돌릴 수 없으니\n신중히 생각해주세요!',
-    });
-  };
 
   const onPressSave = () => {
     if (detailReview.length < 10) {
@@ -70,10 +59,14 @@ export const ReviewRatingComponent: React.FC<Props> = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'리뷰작성'} onPressClose={onPressClose} isPrevButtonShown isCloseButtonShown />
+      <Header isPrevButtonShown />
+
       <ScrollView style={styles.contentsContainer}>
-        <SplitRow height={12} />
+        <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
+        <SplitRow height={24} />
+
         <Title />
+
         <SplitRow height={28} />
         <View style={styles.formContainer}>
           <SubTitle isRequire>빵 평점</SubTitle>
@@ -93,6 +86,8 @@ export const ReviewRatingComponent: React.FC<Props> = ({
               onChangeText={onChangeDetailReviewText}
             />
           </View>
+
+          <SplitRow height={32} />
 
           <View>
             <SubTitle isRequire={false}>사진 업로드</SubTitle>

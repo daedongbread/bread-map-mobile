@@ -81,6 +81,7 @@ export const ContentsList: React.FC<Props> = ({
 
   return (
     <ScrollView>
+      <SplitRow height={20} />
       {breads.length || manualInputs.length ? (
         <BreadList breads={breads} selectedBreads={selectedBreads} />
       ) : (

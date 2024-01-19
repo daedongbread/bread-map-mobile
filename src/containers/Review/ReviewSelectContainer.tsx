@@ -39,10 +39,6 @@ export const ReviewSelectContainer = () => {
     return Boolean(allBreads.find(bread => bread.name === manualBreadName));
   };
 
-  const closePage = () => {
-    navigation.pop(1);
-  };
-
   const filteredBreads = menus ? menus?.filter(menu => menu.name.includes(searchValue)) : [];
 
   useEffect(() => {
@@ -63,7 +59,6 @@ export const ReviewSelectContainer = () => {
       onChangeSearchValue={onChangeSearchValue}
       onPressConfirmButton={onPressConfirmButton}
       isExistBread={isExistBread}
-      closePage={closePage}
     />
   );
 };

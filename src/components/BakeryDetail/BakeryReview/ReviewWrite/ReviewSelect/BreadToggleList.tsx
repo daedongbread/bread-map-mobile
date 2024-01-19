@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { RatedBread } from '@/slices/reviewWrite';
@@ -30,20 +30,23 @@ export const BreadToggleList: React.FC<Props> = ({ selectedBreads, manualSelecte
   }, [selectedBreads, manualSelectedBreads]);
 
   return (
-    <FlatList
-      ref={ref}
-      data={renderData}
-      contentContainerStyle={styles.container}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => <BreadToggle bread={item} />}
-      keyExtractor={item => item.id.toString()}
-    />
+    <View>
+      <FlatList
+        ref={ref}
+        data={renderData}
+        contentContainerStyle={styles.container}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => <BreadToggle bread={item} />}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: 12,
     paddingHorizontal: 20,
   },
 });

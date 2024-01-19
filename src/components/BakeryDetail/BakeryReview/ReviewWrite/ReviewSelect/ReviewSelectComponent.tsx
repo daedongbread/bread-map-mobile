@@ -1,16 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MenuForReviewEntity } from '@/apis/menu/type';
+import { BakeryTagRow } from '@/components/Community/PostWrite';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
-import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
+import { Text } from '@/components/Shared/Text';
 import { RatedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
-import { useNavigation } from '@react-navigation/native';
 import { BreadToggleList } from './BreadToggleList';
-import { ContentsHeader } from './ContentsHeader';
 import { ContentsList } from './ContentsList';
 import { ReviewSearch } from './ReviewSearch';
 
@@ -24,10 +23,7 @@ type Props = {
   onChangeSearchValue: (searchValue: string) => void;
   onPressConfirmButton: () => void;
   isExistBread: (manualBreadName: string) => boolean;
-  closePage: () => void;
 };
-
-type Navigation = ReviewWriteStackNavigationProps<'ReviewSelect'>['navigation'];
 
 export const ReviewSelectComponent: React.FC<Props> = ({
   breads,
@@ -39,39 +35,34 @@ export const ReviewSelectComponent: React.FC<Props> = ({
   onChangeSearchValue,
   onPressConfirmButton,
   isExistBread,
-  closePage,
 }) => {
-  const navigation = useNavigation<Navigation>();
   const insets = useSafeAreaInsets();
-
-  const onPressHeaderCloseButton = () => {
-    if (selectedBreads.length > 0) {
-      goNavQuestionBottomSheet();
-    } else {
-      closePage();
-    }
-  };
-
-  const goNavQuestionBottomSheet = () => {
-    navigation.navigate('QuestionBottomSheet', {
-      title: '리뷰작성을 그만할까요?',
-      subTitle: '삭제한 리뷰는 되돌릴 수 없으니\n신중히 생각해주세요!',
-    });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Header title={'리뷰작성'} onPressClose={onPressHeaderCloseButton} isCloseButtonShown />
+      <Header isPrevButtonShown />
+
+      <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
+
+      <SplitRow height={24} />
+
+      <Text style={styles.titleContainer} color={theme.color.gray900} presets={['heading2', 'bold']}>
+        <Text color={theme.color.primary600}>빵집</Text>에서{'\n'}어떤 빵을 먹었나요?
+      </Text>
+
+      <SplitRow height={24} />
+
+      <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
+
+      {selectedBreads.length + manualSelectedBreads.length > 0 && (
         <BreadToggleList selectedBreads={selectedBreads} manualSelectedBreads={manualSelectedBreads} />
-        <ReviewSearch searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
-      </View>
+      )}
+
       <KeyboardAvoidingView
         style={styles.contentsContainer}
-        // keyboardVerticalOffset={10}
+        keyboardVerticalOffset={10}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <ContentsHeader title={'메뉴선택'} breadCount={selectedBreads.length + manualSelectedBreads.length} />
         <ContentsList
           breads={breads}
           selectedBreads={selectedBreads}
@@ -98,9 +89,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  titleContainer: {
+    paddingHorizontal: 20,
+  },
   contentsContainer: {
     flex: 1,
-    paddingTop: 12,
   },
   disabledConfirmBtn: {
     paddingHorizontal: 20,

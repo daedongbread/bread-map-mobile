@@ -2,39 +2,31 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BakeryTagRow } from '@/components/Community/PostWrite';
 import { Button } from '@/components/Shared/Button/Button';
 import { Header } from '@/components/Shared/Header';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
+import { resizePixels } from '@/utils';
 
 type Props = {
   onPressSubmit: () => void;
 };
 
-const bakeryToggleList = [
-  '💑 데이트하기 좋아요',
-  '🌇 뷰 맛집이에요',
-  '🛋️ 아늑해요',
-  '👥 모임하기 좋아요',
-  '🎨 컨셉이 독특해요',
-];
-const bakeryAndDrinkToggleList = [
-  '🍞 빵이 맛있어요',
-  '🍹 음료가 맛있어요',
-  '🥐 특별한 빵이 있어요',
-  '💰 가성비가 좋아요',
-  '🥘 양이 많아요',
-];
+const bakeryToggleList = ['데이트 코스로 좋아요', '뷰 맛집이에요', '아늑해요', '모임하기 좋아요', '분위기가 좋아요'];
+const breadToggleList = ['빵이 자주 나와서 좋아요', '빵 종류가 다양해요', '가성비가 좋아요', '"재료에 진심"'];
 
-export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
+export const ReviewTagSelectComponent = ({ onPressSubmit }: Props) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView contentContainerStyle={styles.flex}>
-      <SafeAreaView style={styles.flex}>
+    <SafeAreaView style={styles.flex} mode="padding" edges={['top', 'bottom']}>
+      <ScrollView bounces={false}>
         <Header isPrevButtonShown />
+
+        <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
 
         <View style={styles.container}>
           <SplitRow height={19} />
@@ -44,7 +36,7 @@ export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
           </Text>
 
           <SplitRow height={9} />
-          <Text color={theme.color.black} presets={['caption2', 'bold']}>
+          <Text color={theme.color.gray600} presets={['caption2', 'regular']}>
             총 3개까지 선택할 수 있어요.
           </Text>
 
@@ -58,8 +50,8 @@ export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
           <Row style={styles.toggleListContainer}>
             {bakeryToggleList.map(toggle => {
               return (
-                <View key={toggle} style={styles.toggle}>
-                  <Text color={theme.color.white} presets={['caption1', 'semibold']}>
+                <View key={toggle} style={[styles.toggle, styles.selectedToggle]}>
+                  <Text color={theme.color.white} presets={['body2', 'bold']}>
                     {toggle}
                   </Text>
                 </View>
@@ -70,16 +62,16 @@ export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
           <SplitRow height={38} />
 
           <Text color={theme.color.gray800} presets={['subhead', 'bold']}>
-            빵과 음료는
+            빵은
           </Text>
 
           <SplitRow height={11} />
 
           <Row style={styles.toggleListContainer}>
-            {bakeryAndDrinkToggleList.map(toggle => {
+            {breadToggleList.map(toggle => {
               return (
                 <View key={toggle} style={styles.toggle}>
-                  <Text color={theme.color.white} presets={['caption1', 'semibold']}>
+                  <Text color={theme.color.gray800} presets={['body2', 'regular']}>
                     {toggle}
                   </Text>
                 </View>
@@ -89,39 +81,45 @@ export const PostTagSelectComponent = ({ onPressSubmit }: Props) => {
         </View>
 
         <SplitRow height={50} />
+      </ScrollView>
 
-        <Button style={styles.confirmButton} onPress={onPressSubmit}>
-          {'확인'}
-        </Button>
-        {insets.bottom === 0 && <SplitRow height={16} />}
-      </SafeAreaView>
-    </ScrollView>
+      <Button style={styles.confirmButton} onPress={onPressSubmit}>
+        {'계속'}
+      </Button>
+      {insets.bottom === 0 && <SplitRow height={16} />}
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
-  container: {
-    paddingHorizontal: 20,
-    flex: 1,
-  },
-  confirmBtn: {
-    paddingHorizontal: 20,
-  },
-  toggleListContainer: {
-    flexWrap: 'wrap',
-  },
-  toggle: {
-    backgroundColor: theme.color.primary300,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    borderRadius: 100,
-  },
-  confirmButton: {
-    paddingHorizontal: 20,
-  },
-});
+const styles = StyleSheet.create(
+  resizePixels({
+    flex: {
+      flex: 1,
+    },
+    container: {
+      paddingLeft: 20,
+      paddingRight: 30,
+    },
+    confirmBtn: {
+      paddingHorizontal: 20,
+    },
+    toggleListContainer: {
+      flexWrap: 'wrap',
+    },
+    toggle: {
+      backgroundColor: theme.color.gray200,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      marginRight: 10,
+      marginBottom: 10,
+      borderRadius: 100,
+    },
+    selectedToggle: {
+      backgroundColor: theme.color.primary600,
+    },
+    confirmButton: {
+      paddingHorizontal: 20,
+      justifyContent: 'flex-end',
+    },
+  })
+);

@@ -45,8 +45,8 @@ export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     paddingVertical: 12,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 0.5,

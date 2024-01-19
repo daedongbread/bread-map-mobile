@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ReportBanner } from '@/components/Home';
 import { CommunityLoading } from '@/components/Shared/Loading';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useNavigation } from '@react-navigation/native';
@@ -27,6 +28,7 @@ export const HomeContainer = () => {
           ListHeaderComponent={<SplitRow height={top} />}
           renderItem={() => (
             <>
+              <ReportBanner />
               {/* <Header onPressRightButton={onPressNotification} />
 
               <SplitRow height={8} />

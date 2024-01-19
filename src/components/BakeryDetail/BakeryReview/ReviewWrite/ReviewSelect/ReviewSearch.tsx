@@ -33,9 +33,6 @@ export const ReviewSearch: React.FC<Props> = ({ searchValue, onChangeSearchValue
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.color.gray200,
   },
   searchContainer: {
     backgroundColor: '#F5F5F5',
