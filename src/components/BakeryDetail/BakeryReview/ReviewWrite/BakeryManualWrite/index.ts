@@ -1,0 +1,1 @@
+export { BakeryManualWriteComponent } from './BakeryManualWriteComponent';

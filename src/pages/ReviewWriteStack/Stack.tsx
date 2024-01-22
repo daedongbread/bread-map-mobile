@@ -2,11 +2,13 @@ import React from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
+import { BakeryManualWrite } from './BakeryManualWrite';
 import { ReviewRating } from './ReviewRating';
 import { ReviewSelect } from './ReviewSelect';
 import { ReviewTagSelect } from './ReviewTagSelect';
 
 export type ReviewWriteStackParamList = {
+  BakeryManualWrite: undefined;
   ReviewTagSelect: {
     bakeryId: number;
   };
@@ -27,6 +29,7 @@ const Stack = createStackNavigator<ReviewWriteStackParamList>();
 
 export const ReviewWriteStack = () => (
   <Stack.Navigator initialRouteName="ReviewTagSelect" screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="BakeryManualWrite" component={BakeryManualWrite} />
     <Stack.Screen name="ReviewTagSelect" component={ReviewTagSelect} />
     <Stack.Screen name="ReviewSelect" component={ReviewSelect} />
     <Stack.Screen name="ReviewRating" component={ReviewRating} />

@@ -120,11 +120,11 @@ export const CommunityContainer = () => {
 
     if (_postTopic === 'REVIEW') {
       navigation.navigate('ReviewWriteStack', {
-        screen: 'ReviewTagSelect',
-        params: {
-          // bakeryId: 763,
-          bakeryId: 945,
-        },
+        screen: 'BakeryManualWrite',
+        // params: {
+        //   // bakeryId: 763,
+        //   bakeryId: 945,
+        // },
       });
     } else {
       navigation.navigate('PostWriteStack', {
