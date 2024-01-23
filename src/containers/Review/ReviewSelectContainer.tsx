@@ -28,7 +28,7 @@ export const ReviewSelectContainer = () => {
   const onChangeSearchValue = (value: string) => setSearchValue(value);
   const onPressConfirmButton = () => {
     dispatch(updateAllSeletedBread(selectedBreads));
-    navigation.push('ReviewRating', {
+    navigation.navigate('ReviewRating', {
       bakeryId,
     });
   };

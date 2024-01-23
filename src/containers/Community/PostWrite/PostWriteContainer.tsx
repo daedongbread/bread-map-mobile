@@ -26,12 +26,12 @@ export type TopicData = {
 
 const topicsData: TopicData[] = [
   {
-    key: '빵지순례',
+    key: 'BREAD_STORY',
     title: '빵지순례',
     contentPlaceholder: '함께 빵지순례 할 인원을 모으거나, 빵지순례 후기에 대해 이야기 해주세요.',
   },
   {
-    key: '먹은빵자랑',
+    key: 'EATEN_BREAD',
     title: '먹은 빵 자랑',
     contentPlaceholder: '내가 먹은 빵을 자랑해보세요.',
   },
@@ -41,7 +41,7 @@ const topicsData: TopicData[] = [
     contentPlaceholder: '나의 베이킹 레시피나, 베이킹 후기를 작성해주세요.',
   },
   {
-    key: 'TALKING',
+    key: '빵수다',
     title: '빵 수다',
     contentPlaceholder: '알고 계신 빵과 관련된 소식이나 하고 싶은 이야기를 자유롭게 작성해주세요.',
   },
@@ -57,21 +57,6 @@ const topicsData: TopicData[] = [
   },
 ];
 
-const topics: TopicForm[] = [
-  {
-    postTopic: 'BREAD_STORY',
-    value: '빵 이야기',
-  },
-  {
-    postTopic: 'EATEN_BREAD',
-    value: '먹은 빵 자랑',
-  },
-  {
-    postTopic: 'FREE_TALK',
-    value: '빵터지는 이야기',
-  },
-];
-
 export type PostForm = {
   title: string;
   content: string;
@@ -81,11 +66,6 @@ export type PostForm = {
 export type PostValidFormData = {
   isValidTitle: boolean;
   isValidContent: boolean;
-};
-
-const initialFormValid: PostValidFormData = {
-  isValidTitle: true,
-  isValidContent: true,
 };
 
 type Navigation = PostWriteStackNavigationProps<'PostWrite'>['navigation'];
@@ -101,11 +81,14 @@ export const PostWriteContainer = () => {
     content: '',
     photos: [],
   });
-  const [formValid, setFormValid] = useState(initialFormValid);
 
   const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(postTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isPostSaving || isImageSaving;
+
+  const onPressBakeryTagRow = () => {
+    // navigate tag Bakery View
+  };
 
   const onChange = useCallback(
     (key: keyof PostForm, value: string) => {
@@ -137,13 +120,18 @@ export const PostWriteContainer = () => {
   };
 
   const onPressTakePicture = async () => {
-    console.log('take picture');
-    const { assets } = await launchCamera({
+    const { assets, didCancel } = await launchCamera({
       mediaType: 'photo',
+      quality: 0.9,
     });
 
-    console.log(assets);
-    console.log('end');
+    if (!didCancel && assets) {
+      setForm(prev => {
+        return { ...prev, photos: [...prev.photos, ...assets] };
+      });
+    }
+
+    navigation.pop();
   };
 
   const onSelectPhotos = async () => {
@@ -179,19 +167,16 @@ export const PostWriteContainer = () => {
   );
 
   const validate = useCallback(() => {
-    let _formValid: PostValidFormData = initialFormValid;
-
     if (form.content.trim().length < 10) {
-      _formValid = { ..._formValid, isValidContent: false };
       goNavAlertBottomSheet(
         '본문 10자 이상 작성해주세요!',
         '본문을 최소 10자 이상 작성해주셔야\n글을 등록할 수 있습니다.'
       );
+
+      return false;
     }
 
-    setFormValid(_formValid);
-
-    return _formValid.isValidContent;
+    return true;
   }, [form.content, goNavAlertBottomSheet]);
 
   const onPressConfirm = async () => {
@@ -260,11 +245,10 @@ export const PostWriteContainer = () => {
   return (
     <PostWriteComponent
       form={form}
-      formValid={formValid}
-      topics={topics}
       topicData={topicData}
       isLoading={isLoading}
       onChange={onChange}
+      onPressBakeryTagRow={onPressBakeryTagRow}
       onPressUploadButton={onPressUploadButton}
       deSelectPhoto={deSelectPhoto}
       onPressConfirm={onPressConfirm}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BakeryTagRow } from '@/components/Community/PostWrite';
 import { Button } from '@/components/Shared/Button/Button';
@@ -9,16 +9,19 @@ import { SplitRow } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
 import { Row } from '@/components/Shared/View';
 import { theme } from '@/styles/theme';
-import { resizePixels } from '@/utils';
+import { resizePixel, resizePixels } from '@/utils';
+import { Tag } from './Tag';
 
 type Props = {
+  tags: string[];
+  onPressTag: (tag: string) => void;
   onPressSubmit: () => void;
 };
 
 const bakeryToggleList = ['데이트 코스로 좋아요', '뷰 맛집이에요', '아늑해요', '모임하기 좋아요', '분위기가 좋아요'];
 const breadToggleList = ['빵이 자주 나와서 좋아요', '빵 종류가 다양해요', '가성비가 좋아요', '"재료에 진심"'];
 
-export const ReviewTagSelectComponent = ({ onPressSubmit }: Props) => {
+export const ReviewTagSelectComponent = ({ tags, onPressTag, onPressSubmit }: Props) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -50,11 +53,9 @@ export const ReviewTagSelectComponent = ({ onPressSubmit }: Props) => {
           <Row style={styles.toggleListContainer}>
             {bakeryToggleList.map(toggle => {
               return (
-                <View key={toggle} style={[styles.toggle, styles.selectedToggle]}>
-                  <Text color={theme.color.white} presets={['body2', 'bold']}>
-                    {toggle}
-                  </Text>
-                </View>
+                <TouchableOpacity key={toggle} onPress={() => onPressTag(toggle)}>
+                  <Tag isSelected={tags.includes(toggle)} text={toggle} />
+                </TouchableOpacity>
               );
             })}
           </Row>
@@ -70,11 +71,9 @@ export const ReviewTagSelectComponent = ({ onPressSubmit }: Props) => {
           <Row style={styles.toggleListContainer}>
             {breadToggleList.map(toggle => {
               return (
-                <View key={toggle} style={styles.toggle}>
-                  <Text color={theme.color.gray800} presets={['body2', 'regular']}>
-                    {toggle}
-                  </Text>
-                </View>
+                <TouchableOpacity key={toggle} onPress={() => onPressTag(toggle)}>
+                  <Tag isSelected={tags.includes(toggle)} text={toggle} />
+                </TouchableOpacity>
               );
             })}
           </Row>
@@ -97,25 +96,14 @@ const styles = StyleSheet.create(
       flex: 1,
     },
     container: {
-      paddingLeft: 20,
-      paddingRight: 30,
+      paddingLeft: resizePixel(20),
+      paddingRight: resizePixel(30),
     },
     confirmBtn: {
       paddingHorizontal: 20,
     },
     toggleListContainer: {
       flexWrap: 'wrap',
-    },
-    toggle: {
-      backgroundColor: theme.color.gray200,
-      paddingVertical: 8,
-      paddingHorizontal: 16,
-      marginRight: 10,
-      marginBottom: 10,
-      borderRadius: 100,
-    },
-    selectedToggle: {
-      backgroundColor: theme.color.primary600,
     },
     confirmButton: {
       paddingHorizontal: 20,

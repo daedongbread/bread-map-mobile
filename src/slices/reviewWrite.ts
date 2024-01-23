@@ -10,6 +10,7 @@ export type RatedBread = MenuForReviewEntity & {
 };
 
 type BreadState = {
+  selectedTags: string[];
   selectedBreads: RatedBread[];
   manualSelectedBreads: RatedBread[];
   detailReview: string;
@@ -37,6 +38,7 @@ export type UpdateSeletedBreadRating = {
 };
 
 const initialState: BreadState = {
+  selectedTags: [],
   selectedBreads: [],
   manualSelectedBreads: [],
   detailReview: '',
@@ -47,6 +49,9 @@ const slice = createSlice({
   name: 'reviewWrite',
   initialState,
   reducers: {
+    updateSelectedTags(state, { payload }: PayloadAction<string[]>) {
+      state.selectedTags = payload;
+    },
     updateAllSeletedBread(state, { payload }: PayloadAction<MenuForReviewEntity[]>) {
       const ratedBreads: RatedBread[] = payload.map(bread => {
         return {
@@ -117,6 +122,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 export const {
+  updateSelectedTags,
   updateAllSeletedBread,
   updateSelectedBread,
   updateManualSelectedBread,

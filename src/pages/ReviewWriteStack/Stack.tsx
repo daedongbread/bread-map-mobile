@@ -1,14 +1,14 @@
 import React from 'react';
+import { BakeryManualWriteForm } from '@/containers/Review/BakeryManualWriteContainer';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList, MainStackScreenProps } from '../MainStack/Stack';
-import { BakeryManualWrite } from './BakeryManualWrite';
+import { BakeryManualWrite, BakeryManualWriteDetail } from './BakeryManualWrite';
 import { ReviewRating } from './ReviewRating';
 import { ReviewSelect } from './ReviewSelect';
 import { ReviewTagSelect } from './ReviewTagSelect';
 
 export type ReviewWriteStackParamList = {
-  BakeryManualWrite: undefined;
   ReviewTagSelect: {
     bakeryId: number;
   };
@@ -17,6 +17,10 @@ export type ReviewWriteStackParamList = {
   };
   ReviewRating: {
     bakeryId: number;
+  };
+  BakeryManualWrite: undefined;
+  BakeryManualWriteDetail: {
+    bakeryInfoForm: BakeryManualWriteForm;
   };
 };
 
@@ -29,9 +33,11 @@ const Stack = createStackNavigator<ReviewWriteStackParamList>();
 
 export const ReviewWriteStack = () => (
   <Stack.Navigator initialRouteName="ReviewTagSelect" screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="BakeryManualWrite" component={BakeryManualWrite} />
     <Stack.Screen name="ReviewTagSelect" component={ReviewTagSelect} />
     <Stack.Screen name="ReviewSelect" component={ReviewSelect} />
     <Stack.Screen name="ReviewRating" component={ReviewRating} />
+
+    <Stack.Screen name="BakeryManualWrite" component={BakeryManualWrite} />
+    <Stack.Screen name="BakeryManualWriteDetail" component={BakeryManualWriteDetail} />
   </Stack.Navigator>
 );

@@ -25,7 +25,7 @@ type Props = {
   isLoading: boolean;
   onUpdateBreadRating: ({ id, rating, type }: UpdateSeletedBreadRating) => void;
   onChangeDetailReviewText: (text: string) => void;
-  onSelectPhotos: () => void;
+  onPressUploadButton: () => void;
   deSelectPhoto: (uri?: string) => void;
   saveReview: () => void;
 };
@@ -37,7 +37,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   isLoading,
   onUpdateBreadRating,
   onChangeDetailReviewText,
-  onSelectPhotos,
+  onPressUploadButton,
   deSelectPhoto,
   saveReview,
 }) => {
@@ -59,9 +59,9 @@ export const ReviewRatingComponent: React.FC<Props> = ({
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header isPrevButtonShown />
-
       <ScrollView style={styles.contentsContainer}>
+        <Header isPrevButtonShown />
+
         <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
         <SplitRow height={24} />
 
@@ -93,7 +93,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
             <SubTitle isRequire={false}>사진 업로드</SubTitle>
 
             <View style={styles.photoContainer}>
-              <PhotoSelect images={images} onSelectPhotos={onSelectPhotos} deSelectPhoto={deSelectPhoto} />
+              <PhotoSelect images={images} onSelectPhotos={onPressUploadButton} deSelectPhoto={deSelectPhoto} />
             </View>
           </View>
 

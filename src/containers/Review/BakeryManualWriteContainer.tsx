@@ -1,8 +1,85 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { BakeryManualWriteComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/BakeryManualWrite';
+import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {};
+export type BakeryManualWriteForm = {
+  bakeryName: string;
+  bakeryAddress: string;
+  menuNames: string[];
+};
 
-export const BakeryManualWriteContainer = ({}: Props) => {
-  return <BakeryManualWriteComponent />;
+type Navigation = ReviewWriteStackNavigationProps<'BakeryManualWrite'>['navigation'];
+
+export const BakeryManualWriteContainer = () => {
+  const navigation = useNavigation<Navigation>();
+
+  const [form, setForm] = useState<BakeryManualWriteForm>({
+    bakeryAddress: '',
+    bakeryName: '',
+    menuNames: [''],
+  });
+
+  const onChange = useCallback(
+    (key: keyof BakeryManualWriteForm, value: string, index?: number) => {
+      setForm(prev => {
+        if (key === 'menuNames') {
+          if (index === undefined) {
+            return { ...prev };
+          }
+          const newMenuNames = [...prev.menuNames];
+          newMenuNames[index] = value;
+          return { ...prev, [key]: newMenuNames };
+        } else {
+          return { ...prev, [key]: value };
+        }
+      });
+    },
+    [setForm]
+  );
+
+  const onPressAddRow = () => {
+    // 최대 10까지 추가 가능
+    if (form.menuNames.length === 10) {
+      return;
+    }
+
+    setForm(prev => {
+      const newMenuNames = [...prev.menuNames];
+      newMenuNames.push('');
+
+      return {
+        ...prev,
+        menuNames: newMenuNames,
+      };
+    });
+  };
+
+  const onPressSubtractRow = (index: number) => {
+    setForm(prev => {
+      const newMenuNames = [...prev.menuNames];
+      newMenuNames.splice(index, 1);
+
+      return {
+        ...prev,
+        menuNames: newMenuNames,
+      };
+    });
+  };
+
+  const onPressSubmit = () => {
+    navigation.navigate('BakeryManualWriteDetail', {
+      bakeryInfoForm: form,
+    });
+  };
+
+  return (
+    <BakeryManualWriteComponent
+      form={form}
+      onChange={onChange}
+      onPressAddRow={onPressAddRow}
+      onPressSubtractRow={onPressSubtractRow}
+      onPressSubmit={onPressSubmit}
+    />
+  );
 };

@@ -58,11 +58,7 @@ export const ReviewSelectComponent: React.FC<Props> = ({
         <BreadToggleList selectedBreads={selectedBreads} manualSelectedBreads={manualSelectedBreads} />
       )}
 
-      <KeyboardAvoidingView
-        style={styles.contentsContainer}
-        keyboardVerticalOffset={10}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
+      <KeyboardAvoidingView style={styles.contentsContainer} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ContentsList
           breads={breads}
           selectedBreads={selectedBreads}

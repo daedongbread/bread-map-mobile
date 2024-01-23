@@ -1,8 +1,9 @@
 import React from 'react';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { usePostImages } from '@/apis/image';
 import { usePostReview } from '@/apis/review';
 import { ReviewRatingComponent } from '@/components/BakeryDetail/BakeryReview/ReviewWrite/ReviewRating';
+import { CameraIcon } from '@/components/Shared/Icons/Camera';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { ReviewWriteStackNavigationProps } from '@/pages/ReviewWriteStack/Stack';
 import {
@@ -14,6 +15,8 @@ import {
 } from '@/slices/reviewWrite';
 import { showToast } from '@/slices/toast';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AlbumIcon from '@shared/Icons/AlbumIcon.svg';
+import { ImageItemBttomSheetButtonType } from '../Modal/ImageItemBottomSheetContainer';
 
 export const PHOTO_LIMIT = 10;
 
@@ -30,7 +33,7 @@ export const ReviewRatingContainer = () => {
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isReviewSaving || isImageSaving;
 
-  const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
+  const { selectedTags, selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
   );
 
@@ -44,6 +47,41 @@ export const ReviewRatingContainer = () => {
 
   const onChangeDetailReviewText = (text: string) => {
     dispatch(updateDetailReview({ detailReview: text }));
+  };
+
+  const onPressUploadButton = () => {
+    const buttonList: ImageItemBttomSheetButtonType[] = [
+      {
+        // 보류
+        image: CameraIcon,
+        title: '사진 촬영하기',
+        onPress: () => onPressTakePicture(),
+      },
+      {
+        image: AlbumIcon,
+        title: '앨범에서 선택하기',
+        onPress: () => onSelectPhotos(),
+      },
+    ];
+
+    navigation.navigate('ImageItemBottomSheet', {
+      buttonList,
+    });
+  };
+
+  const onPressTakePicture = async () => {
+    const { assets, didCancel } = await launchCamera({
+      mediaType: 'photo',
+      quality: 0.9,
+    });
+
+    if (!didCancel && assets) {
+      dispatch(updateImages([...images, ...assets]));
+    }
+
+    navigation.navigate('ReviewRating', {
+      bakeryId,
+    });
   };
 
   const onSelectPhotos = async () => {
@@ -64,6 +102,10 @@ export const ReviewRatingContainer = () => {
       }
       dispatch(updateImages([...images, ...assets]));
     }
+
+    navigation.navigate('ReviewRating', {
+      bakeryId,
+    });
   };
 
   const deSelectPhoto = (uri?: string) => {
@@ -134,7 +176,7 @@ export const ReviewRatingContainer = () => {
       isLoading={isLoading}
       onUpdateBreadRating={onUpdateBreadRating}
       onChangeDetailReviewText={onChangeDetailReviewText}
-      onSelectPhotos={onSelectPhotos}
+      onPressUploadButton={onPressUploadButton}
       deSelectPhoto={deSelectPhoto}
       saveReview={saveReview}
     />

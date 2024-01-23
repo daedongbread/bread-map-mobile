@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { MenuForReviewEntity } from '@/apis/menu/type';
 import { CustomCheckBox } from '@/components/Shared/Chcekbox/CustomCheckBox';
+import { CustomImage } from '@/components/Shared/CustomImage';
 import { useAppDispatch } from '@/hooks/redux';
 import { updateSelectedBread } from '@/slices/reviewWrite';
 import { theme } from '@/styles/theme';
@@ -24,7 +25,15 @@ export const Bread: React.FC<Props> = ({ selectedBreads, ...bread }) => {
       </View>
       <View style={styles.rightContainer}>
         {bread.image ? (
-          <Image style={styles.breadImage} source={{ uri: bread.image }} />
+          <CustomImage
+            style={styles.breadImage}
+            source={{ uri: bread.image }}
+            width={styles.breadImage.width}
+            height={styles.breadImage.height}
+            resizedWidth={100}
+            resizedHeight={100}
+            isResizable
+          />
         ) : (
           <View style={styles.breadImage} />
         )}

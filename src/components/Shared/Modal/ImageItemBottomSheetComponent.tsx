@@ -50,7 +50,13 @@ export const ImageItemBottomSheetComponent = React.forwardRef<BottomSheet, Props
           <SplitRow height={16} />
           {buttonList.map(button => {
             return (
-              <TouchableOpacity key={button.title} onPress={button.onPress}>
+              <TouchableOpacity
+                key={button.title}
+                onPress={() => {
+                  // closeBottomSheet();
+                  button.onPress();
+                }}
+              >
                 <Row style={styles.textButtonContainer}>
                   <Row style={styles.textButtonLeftContainer}>
                     <View style={styles.imageContainer}>

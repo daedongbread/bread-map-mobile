@@ -29,7 +29,7 @@ const menus: ToggleMenu[] = [
   },
   {
     title: '베이킹',
-    postTopic: 'BAKING',
+    postTopic: '베이킹',
   },
   {
     title: '빵집리뷰',
@@ -37,15 +37,15 @@ const menus: ToggleMenu[] = [
   },
   {
     title: '빵 수다',
-    postTopic: 'TALKING',
+    postTopic: '빵수다',
   },
   {
     title: '원데이 클래스',
-    postTopic: 'ONEDAY',
+    postTopic: '원데이클래스',
   },
   {
     title: '빵 공구',
-    postTopic: 'TOGHATER',
+    postTopic: '빵공구',
   },
   {
     title: '이벤트',
@@ -120,11 +120,11 @@ export const CommunityContainer = () => {
 
     if (_postTopic === 'REVIEW') {
       navigation.navigate('ReviewWriteStack', {
-        screen: 'BakeryManualWrite',
-        // params: {
-        //   // bakeryId: 763,
-        //   bakeryId: 945,
-        // },
+        screen: 'ReviewTagSelect',
+        params: {
+          // bakeryId: 763,
+          bakeryId: 945,
+        },
       });
     } else {
       navigation.navigate('PostWriteStack', {

@@ -21,6 +21,7 @@ type Props = {
   form: PostForm;
   isLoading: boolean;
   topicData: TopicData;
+  onPressBakeryTagRow: () => void;
   onChange: (key: keyof PostForm, value: string) => void;
   onPressUploadButton: () => void;
   deSelectPhoto: (uri?: string) => void;
@@ -32,6 +33,7 @@ export const PostWriteComponent = ({
   form,
   topicData,
   isLoading,
+  onPressBakeryTagRow,
   onChange,
   onPressUploadButton,
   deSelectPhoto,
@@ -44,7 +46,9 @@ export const PostWriteComponent = ({
       <SafeAreaView style={styles.container}>
         <Header title={topicData.title} onPressRightButton={onPressConfirm} />
 
-        <BakeryTagRow bakeryName="" isRequire={topicData.key !== 'TALKING'} />
+        <TouchableOpacity onPress={onPressBakeryTagRow}>
+          <BakeryTagRow bakeryName="" isRequire={topicData.key !== 'TALKING'} />
+        </TouchableOpacity>
 
         <View style={styles.formContainer}>
           <SplitRow height={20} />
