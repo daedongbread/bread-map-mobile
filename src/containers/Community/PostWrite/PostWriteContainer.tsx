@@ -57,6 +57,11 @@ const topicsData: TopicData[] = [
   },
 ];
 
+export type TaggedBakery = {
+  bakeryId?: number;
+  bakeryName: string;
+};
+
 export type PostForm = {
   title: string;
   content: string;
@@ -76,6 +81,10 @@ export const PostWriteContainer = () => {
   const route = useRoute<Route>();
 
   const { postTopic } = route.params;
+
+  const [taggedBakeryInfo, setTaggedBakeryInfo] = useState<TaggedBakery>({
+    bakeryName: '',
+  });
   const [form, setForm] = useState<PostForm>({
     title: '',
     content: '',
@@ -88,6 +97,14 @@ export const PostWriteContainer = () => {
 
   const onPressBakeryTagRow = () => {
     // navigate tag Bakery View
+    setTaggedBakeryInfo({
+      bakeryId: 0,
+      bakeryName: '아우어 베이커리 논현점',
+    });
+  };
+
+  const onPressCancleBakeryTag = () => {
+    setTaggedBakeryInfo({ bakeryName: '' });
   };
 
   const onChange = useCallback(
@@ -244,11 +261,13 @@ export const PostWriteContainer = () => {
 
   return (
     <PostWriteComponent
+      bakeryName={taggedBakeryInfo.bakeryName}
       form={form}
       topicData={topicData}
       isLoading={isLoading}
-      onChange={onChange}
       onPressBakeryTagRow={onPressBakeryTagRow}
+      onPressCancleBakeryTag={onPressCancleBakeryTag}
+      onChange={onChange}
       onPressUploadButton={onPressUploadButton}
       deSelectPhoto={deSelectPhoto}
       onPressConfirm={onPressConfirm}

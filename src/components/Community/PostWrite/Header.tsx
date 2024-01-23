@@ -8,10 +8,11 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
+  rightButtonDisabled: boolean;
   onPressRightButton: () => void;
 }
 
-export const Header = ({ title, onPressRightButton }: Props) => {
+export const Header = ({ title, rightButtonDisabled, onPressRightButton }: Props) => {
   const navigation = useNavigation();
 
   return (
@@ -30,7 +31,11 @@ export const Header = ({ title, onPressRightButton }: Props) => {
       >
         {title}
       </Text>
-      <TouchableOpacity style={[styles.registButton, styles.activeRegistButton]} onPress={onPressRightButton}>
+      <TouchableOpacity
+        style={[styles.registButton, !rightButtonDisabled && styles.activeRegistButton]}
+        onPress={onPressRightButton}
+        disabled={rightButtonDisabled}
+      >
         <Text color={theme.color.white} presets={['bold']}>
           등록
         </Text>

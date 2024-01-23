@@ -18,10 +18,12 @@ import { ShortUploadButton } from './ShortUploadButton';
 const { width } = Dimensions.get('window');
 
 type Props = {
+  bakeryName: string;
   form: PostForm;
   isLoading: boolean;
   topicData: TopicData;
   onPressBakeryTagRow: () => void;
+  onPressCancleBakeryTag: () => void;
   onChange: (key: keyof PostForm, value: string) => void;
   onPressUploadButton: () => void;
   deSelectPhoto: (uri?: string) => void;
@@ -30,10 +32,12 @@ type Props = {
 };
 
 export const PostWriteComponent = ({
+  bakeryName,
   form,
   topicData,
   isLoading,
   onPressBakeryTagRow,
+  onPressCancleBakeryTag,
   onChange,
   onPressUploadButton,
   deSelectPhoto,
@@ -44,10 +48,18 @@ export const PostWriteComponent = ({
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Header title={topicData.title} onPressRightButton={onPressConfirm} />
+        <Header
+          title={topicData.title}
+          rightButtonDisabled={form.content.length < 10}
+          onPressRightButton={onPressConfirm}
+        />
 
-        <TouchableOpacity onPress={onPressBakeryTagRow}>
-          <BakeryTagRow bakeryName="" isRequire={topicData.key !== 'TALKING'} />
+        <TouchableOpacity onPress={onPressBakeryTagRow} disabled={!!bakeryName}>
+          <BakeryTagRow
+            bakeryName={bakeryName}
+            isRequire={topicData.key !== '빵수다'}
+            onPressCancle={onPressCancleBakeryTag}
+          />
         </TouchableOpacity>
 
         <View style={styles.formContainer}>
@@ -139,6 +151,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentTextInput: {
+    flex: 1,
     color: theme.color.gray800,
     textAlignVertical: 'top',
   },

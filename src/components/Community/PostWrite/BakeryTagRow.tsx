@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LocationMarker } from '@/components/Shared/Icons';
 import { SplitColumn } from '@/components/Shared/SplitSpace';
 import { Text } from '@/components/Shared/Text';
@@ -11,9 +12,10 @@ import CancleIcon from '@shared/Icons/CancleIcon.svg';
 type Props = {
   bakeryName: string;
   isRequire?: boolean;
+  onPressCancle?: () => void;
 };
 
-export const BakeryTagRow = ({ bakeryName, isRequire = false }: Props) => {
+export const BakeryTagRow = ({ bakeryName, isRequire = false, onPressCancle }: Props) => {
   return (
     <Row style={[styles.container, !!bakeryName && styles.activeContainer]}>
       <Row style={styles.alignCenter}>
@@ -38,7 +40,9 @@ export const BakeryTagRow = ({ bakeryName, isRequire = false }: Props) => {
 
       <Row style={styles.alignCenter}>
         {bakeryName ? (
-          <CancleIcon />
+          <TouchableOpacity onPress={onPressCancle} hitSlop={{ right: 20, bottom: 14, top: 14 }}>
+            <CancleIcon />
+          </TouchableOpacity>
         ) : (
           <>
             {isRequire && (
@@ -63,12 +67,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.color.gray100,
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 20,
   },
   activeContainer: {
     backgroundColor: theme.color.primary50,
-    paddingVertical: 16,
+    paddingVertical: 14,
   },
   alignCenter: {
     alignItems: 'center',

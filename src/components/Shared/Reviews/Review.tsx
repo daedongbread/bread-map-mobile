@@ -11,10 +11,11 @@ import { theme } from '@/styles/theme';
 import { resizePixels } from '@/utils';
 import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
-import { SplitRow } from '../SplitSpace';
+import { SplitColumn, SplitRow } from '../SplitSpace';
 import { MoreLineText, Text } from '../Text';
 import { FollowButton } from './FollowButton';
 import { ProductRating } from './ProductRating';
+import { Tag } from './Tag';
 
 const { width } = Dimensions.get('window');
 
@@ -27,6 +28,7 @@ type ReviewProps = {
 
 export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: ReviewProps) => {
   const navigation = useNavigation<MainStackScreenProps<keyof MainStackParamList>['navigation']>();
+  const tags = ['모임하기 좋아요', '빵 종류가 다양해요'];
 
   const [likeToggle, setLikeToggle] = useState({
     isLiked: review.reviewInfo.isLike,
@@ -195,10 +197,22 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
                 thumbnail={review.bakeryInfo.bakeryImage}
               />
             </View>
+            <SplitRow height={16} />
           </>
         )}
 
-        <SplitRow height={20} />
+        {mode === 'detail' && (
+          <FlatList
+            contentContainerStyle={styles.tagsContainer}
+            keyExtractor={item => item}
+            data={tags}
+            renderItem={({ item }) => <Tag text={item} />}
+            ItemSeparatorComponent={() => <SplitColumn width={8} />}
+            horizontal
+          />
+        )}
+
+        <SplitRow height={16} />
 
         <View style={styles.footerContainer}>
           <Footer
@@ -269,6 +283,9 @@ const styles = StyleSheet.create(
       paddingHorizontal: 20,
     },
     bakeryInfoCardContainer: {
+      paddingHorizontal: 20,
+    },
+    tagsContainer: {
       paddingHorizontal: 20,
     },
     footerContainer: {
