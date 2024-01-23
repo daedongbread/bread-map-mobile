@@ -5,6 +5,7 @@ import { PostTopic } from '@/apis/community/types';
 import { ToggleMenu } from '@/containers/Community/CommunityContainer';
 import { useDimensions } from '@/hooks/useDimensions';
 import { theme } from '@/styles/theme';
+import { useNavigation } from '@react-navigation/native';
 import CloseIcon from '@shared/Icons/CloseIcon.svg';
 import { SplitRow } from '../Shared/SplitSpace';
 import { Text } from '../Shared/Text';
@@ -19,6 +20,7 @@ type Props = {
 
 export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }: Props) => {
   const { height } = useDimensions();
+  const navigation = useNavigation();
 
   return (
     <Modal visible={visible} animationType={'fade'} transparent={true}>
@@ -27,6 +29,19 @@ export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }
           <Pressable style={[styles.menuContainer, styles.menuTitleContainer]} onPress={() => onPressWrite('REVIEW')}>
             <Text color={theme.color.gray900} presets={['body2', 'regular']}>
               빵집 리뷰
+            </Text>
+          </Pressable>
+          <Pressable
+            style={[styles.menuContainer, styles.menuTitleContainer]}
+            onPress={() => {
+              onPressClose();
+              navigation.navigate('ReviewWriteStack', {
+                screen: 'BakeryManualWrite',
+              });
+            }}
+          >
+            <Text color={theme.color.gray900} presets={['body2', 'regular']}>
+              리뷰 직접
             </Text>
           </Pressable>
 

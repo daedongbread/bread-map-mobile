@@ -68,8 +68,14 @@ export const BakeryManualWriteContainer = () => {
   };
 
   const onPressSubmit = () => {
+    // 빵이름 공백인 input은 제외
+    const filteredMenuNames = form.menuNames.filter(item => item.trim() !== '');
+
     navigation.navigate('BakeryManualWriteDetail', {
-      bakeryInfoForm: form,
+      bakeryInfoForm: {
+        ...form,
+        menuNames: filteredMenuNames,
+      },
     });
   };
 
