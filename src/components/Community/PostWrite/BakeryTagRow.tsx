@@ -12,10 +12,11 @@ import CancleIcon from '@shared/Icons/CancleIcon.svg';
 type Props = {
   bakeryName: string;
   isRequire?: boolean;
+  isShowDetailButton?: boolean;
   onPressCancle?: () => void;
 };
 
-export const BakeryTagRow = ({ bakeryName, isRequire = false, onPressCancle }: Props) => {
+export const BakeryTagRow = ({ bakeryName, isRequire = false, isShowDetailButton = true, onPressCancle }: Props) => {
   return (
     <Row style={[styles.container, !!bakeryName && styles.activeContainer]}>
       <Row style={styles.alignCenter}>
@@ -39,7 +40,7 @@ export const BakeryTagRow = ({ bakeryName, isRequire = false, onPressCancle }: P
       </Row>
 
       <Row style={styles.alignCenter}>
-        {bakeryName ? (
+        {!!bakeryName && onPressCancle ? (
           <TouchableOpacity onPress={onPressCancle} hitSlop={{ right: 20, bottom: 14, top: 14 }}>
             <CancleIcon />
           </TouchableOpacity>
@@ -55,7 +56,8 @@ export const BakeryTagRow = ({ bakeryName, isRequire = false, onPressCancle }: P
                 <SplitColumn width={8} />
               </>
             )}
-            <BigRightArrow />
+
+            {isShowDetailButton && <BigRightArrow />}
           </>
         )}
       </Row>

@@ -29,7 +29,7 @@ export const ReviewTagSelectComponent = ({ tags, onPressTag, onPressSubmit }: Pr
       <ScrollView bounces={false}>
         <Header isPrevButtonShown />
 
-        <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
+        <BakeryTagRow bakeryName="아우어 베이커리 논현점" isShowDetailButton={false} />
 
         <View style={styles.container}>
           <SplitRow height={19} />

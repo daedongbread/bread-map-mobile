@@ -42,7 +42,7 @@ export const ReviewSelectComponent: React.FC<Props> = ({
     <SafeAreaView style={styles.container}>
       <Header isPrevButtonShown />
 
-      <BakeryTagRow bakeryName="아우어 베이커리 논현점" />
+      <BakeryTagRow bakeryName="아우어 베이커리 논현점" isShowDetailButton={false} />
 
       <SplitRow height={24} />
 
