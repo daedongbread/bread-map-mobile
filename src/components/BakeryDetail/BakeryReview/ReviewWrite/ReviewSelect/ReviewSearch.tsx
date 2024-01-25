@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 0,
     padding: 0,
-    color: '#222222',
+    color: theme.color.gray900,
   },
 });

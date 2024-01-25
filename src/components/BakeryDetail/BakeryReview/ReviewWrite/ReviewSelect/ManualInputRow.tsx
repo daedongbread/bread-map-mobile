@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     flex: 5,
     paddingVertical: 14,
     backgroundColor: theme.color.gray100,
+    color: theme.color.gray900,
     borderRadius: 8,
     paddingHorizontal: 16,
     marginRight: 8,
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
   priceInput: {
     flex: 3,
     paddingVertical: 14,
+    color: theme.color.gray900,
     backgroundColor: theme.color.gray100,
     borderRadius: 8,
     paddingHorizontal: 16,
