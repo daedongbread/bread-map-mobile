@@ -46,7 +46,7 @@ export const DeleteAccount = () => {
     <SafeAreaView style={styles.flex}>
       <Header title={'탈퇴하기'} isPrevButtonShown />
       <View style={[styles.wrapper, styles.flex]}>
-        <Text presets={['body1', 'bold']} style={styles.title}>
+        <Text color={theme.color.black} presets={['subTitle1', 'bold']} style={styles.title}>
           {'잠깐만요! 탈퇴하기 전에 \n읽어보세요.'}
         </Text>
         {labels.map((label, index) => (
@@ -70,7 +70,9 @@ export const List = (props: { label: string }) => {
       <View style={styles.middlePointWrapper}>
         <View style={styles.middlePoint} />
       </View>
-      <Text presets={['body2']}>{props.label}</Text>
+      <Text color={theme.color.gray800} presets={['body2', 'semibold']}>
+        {props.label}
+      </Text>
     </View>
   );
 };
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   gap: {
-    marginBottom: 8,
+    marginBottom: 16,
   },
   middlePointWrapper: {
     height: 20,
