@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
-import { ReportType } from '@/containers/Community/AccuseCommentContainer';
 import { fetcher } from '../fetcher';
+import { ReportType } from './types';
 
 type UsePostAccusePostRequest = {
   reportType: ReportType;
