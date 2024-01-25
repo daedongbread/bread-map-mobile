@@ -10,7 +10,7 @@ type Props = {
   posts: Post[];
   onPressPost: (postTopic: PostTopic, postId: number) => void;
   onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
-  onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
+  onPressMenu: (post: Post) => void;
   onPressMore: () => void;
 };
 
