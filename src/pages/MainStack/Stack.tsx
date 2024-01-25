@@ -90,6 +90,7 @@ export type MainStackParamList = {
   };
   SuccessBottomSheet: {
     content: string;
+    onPressConfirmButton?: () => void;
   };
   QuestionBottomSheet: {
     title: string;

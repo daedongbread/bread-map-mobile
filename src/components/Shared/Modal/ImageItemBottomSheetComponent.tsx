@@ -53,7 +53,7 @@ export const ImageItemBottomSheetComponent = React.forwardRef<BottomSheet, Props
               <TouchableOpacity
                 key={button.title}
                 onPress={() => {
-                  // closeBottomSheet();
+                  onClose();
                   button.onPress();
                 }}
               >

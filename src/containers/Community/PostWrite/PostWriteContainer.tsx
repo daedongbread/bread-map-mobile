@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { Asset, launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { usePostPost } from '@/apis/community';
+import { useGetPost, usePostPost } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { usePostImages } from '@/apis/image';
 import { PostWriteComponent } from '@/components/Community/PostWrite';
@@ -62,7 +62,7 @@ export type TaggedBakery = {
   bakeryName: string;
 };
 
-export type PostForm = {
+export type PostWriteForm = {
   title: string;
   content: string;
   photos: Asset[];
@@ -80,12 +80,13 @@ export const PostWriteContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { postTopic } = route.params;
+  const { postTopic, postId } = route.params;
+  const isModify = !!postId;
 
   const [taggedBakeryInfo, setTaggedBakeryInfo] = useState<TaggedBakery>({
     bakeryName: '',
   });
-  const [form, setForm] = useState<PostForm>({
+  const [form, setForm] = useState<PostWriteForm>({
     title: '',
     content: '',
     photos: [],
@@ -93,7 +94,24 @@ export const PostWriteContainer = () => {
 
   const { mutateAsync: postPost, isLoading: isPostSaving } = usePostPost(postTopic);
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
-  const isLoading = isPostSaving || isImageSaving;
+
+  const { post, isLoading: isPostFetching } = useGetPost({ postTopic, postId });
+
+  const isLoading = isPostSaving || isImageSaving || isPostFetching;
+
+  useEffect(() => {
+    if (post) {
+      const formattedImages: Asset[] = post.images.map(image => {
+        return { uri: image };
+      });
+
+      setForm({
+        title: post.title,
+        content: post.content,
+        photos: formattedImages,
+      });
+    }
+  }, [post]);
 
   const onPressBakeryTagRow = () => {
     // navigate tag Bakery View
@@ -108,7 +126,7 @@ export const PostWriteContainer = () => {
   };
 
   const onChange = useCallback(
-    (key: keyof PostForm, value: string) => {
+    (key: keyof PostWriteForm, value: string) => {
       setForm(prev => {
         return { ...prev, [key]: value };
       });
@@ -147,8 +165,6 @@ export const PostWriteContainer = () => {
         return { ...prev, photos: [...prev.photos, ...assets] };
       });
     }
-
-    navigation.pop();
   };
 
   const onSelectPhotos = async () => {
@@ -162,8 +178,6 @@ export const PostWriteContainer = () => {
         return { ...prev, photos: [...prev.photos, ...assets] };
       });
     }
-
-    navigation.pop();
   };
 
   const deSelectPhoto = (uri?: string) => {
@@ -261,6 +275,7 @@ export const PostWriteContainer = () => {
 
   return (
     <PostWriteComponent
+      isModify={isModify}
       bakeryName={taggedBakeryInfo.bakeryName}
       form={form}
       topicData={topicData}

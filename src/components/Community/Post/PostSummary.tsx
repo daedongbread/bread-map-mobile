@@ -10,6 +10,7 @@ import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { MoreLineText, Text } from '@/components/Shared/Text';
 
 import { Row } from '@/components/Shared/View';
+import { useAppSelector } from '@/hooks/redux';
 import { theme } from '@/styles/theme';
 import { BakeryInfoCard } from './BakeryInfoCard';
 import { Footer } from './Footer';
@@ -18,7 +19,7 @@ type Props = {
   post: Post;
   isFirst: boolean;
   onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
-  onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
+  onPressMenu: (post: Post) => void;
 };
 
 export const topics: any = {
@@ -30,6 +31,9 @@ export const topics: any = {
 };
 
 export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu }: Props) => {
+  const { userId: storedUserId } = useAppSelector(state => state.auth);
+  const isWriter = storedUserId === post.writerInfo.userId;
+
   const [likeToggle, setLikeToggle] = useState({
     isLiked: post.isUserLiked,
     count: post.likeCount,
@@ -157,7 +161,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           likeCount={likeToggle.count}
           commentCount={post.commentCount}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
-          onPressMenu={() => onPressMenu(post.postTopic, post.postId, post.writerInfo.userId)}
+          onPressMenu={post.postTopic === 'REVIEW' && isWriter ? undefined : () => onPressMenu(post)}
         />
       </View>
     </View>

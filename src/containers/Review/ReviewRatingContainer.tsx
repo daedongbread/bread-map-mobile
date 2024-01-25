@@ -78,10 +78,6 @@ export const ReviewRatingContainer = () => {
     if (!didCancel && assets) {
       dispatch(updateImages([...images, ...assets]));
     }
-
-    navigation.navigate('ReviewRating', {
-      bakeryId,
-    });
   };
 
   const onSelectPhotos = async () => {
@@ -102,10 +98,6 @@ export const ReviewRatingContainer = () => {
       }
       dispatch(updateImages([...images, ...assets]));
     }
-
-    navigation.navigate('ReviewRating', {
-      bakeryId,
-    });
   };
 
   const deSelectPhoto = (uri?: string) => {

@@ -7,6 +7,7 @@ import { PostWrite } from './PostWrite';
 
 export type PostWriteStackParamList = {
   PostWrite: {
+    postId?: number;
     postTopic: PostTopic;
   };
 };

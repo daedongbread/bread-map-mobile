@@ -10,7 +10,7 @@ import { resizePixels } from '@/utils';
 
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import happyBread from '@shared/Images/happyBread.png';
 
 type BackdropComponentProps = {
@@ -30,14 +30,14 @@ export const SuccessBottomSheet = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const focused = useIsFocused();
   const ref = useRef<BottomSheet>(null);
   const [snapPoints, setSnapPoints] = useState<[number | string]>(['40%']);
 
-  const { content } = route.params;
+  const { content, onPressConfirmButton } = route.params;
 
   const onLayout: ViewProps['onLayout'] = e => {
     const height = e.nativeEvent.layout.height;
+
     if (height) {
       setSnapPoints([height + 50]);
     }
@@ -48,6 +48,10 @@ export const SuccessBottomSheet = () => {
   };
 
   const onClose = () => {
+    if (onPressConfirmButton) {
+      onPressConfirmButton();
+    }
+
     navigation.goBack();
   };
 

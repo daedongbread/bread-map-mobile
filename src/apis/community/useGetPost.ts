@@ -5,8 +5,8 @@ import { Post, PostTopic } from './types';
 
 type UseGetPostProps = {
   postTopic: PostTopic;
-  postId: number;
-  onErrorCb: (error: AxiosError) => void;
+  postId: number | undefined;
+  onErrorCb?: (error: AxiosError) => void;
 };
 
 type GetPostRes = {
@@ -20,8 +20,9 @@ const requestPost = async (postTopic: PostTopic, postId: number) => {
 };
 
 export const useGetPost = ({ postTopic, postId, onErrorCb }: UseGetPostProps) => {
-  const { data, isLoading, refetch } = useQuery(['useGetPost', { postId }], () => requestPost(postTopic, postId), {
-    onError: error => onErrorCb(error as AxiosError),
+  const { data, isLoading, refetch } = useQuery(['useGetPost', { postId }], () => requestPost(postTopic, postId!), {
+    enabled: !!postId,
+    onError: error => onErrorCb && onErrorCb(error as AxiosError),
   });
 
   return {

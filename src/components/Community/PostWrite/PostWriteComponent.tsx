@@ -8,7 +8,7 @@ import { Loading } from '@/components/Shared/Loading';
 import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { presets } from '@/components/Shared/Text/presets';
 import { Row } from '@/components/Shared/View';
-import { PostForm, TopicData } from '@/containers/Community/PostWrite/PostWriteContainer';
+import { PostWriteForm, TopicData } from '@/containers/Community/PostWrite/PostWriteContainer';
 import { useKeyboard } from '@/hooks/useKeyboard';
 import { theme } from '@/styles/theme';
 import { BakeryTagRow } from './BakeryTagRow';
@@ -18,13 +18,14 @@ import { ShortUploadButton } from './ShortUploadButton';
 const { width } = Dimensions.get('window');
 
 type Props = {
+  isModify: boolean;
   bakeryName: string;
-  form: PostForm;
+  form: PostWriteForm;
   isLoading: boolean;
   topicData: TopicData;
   onPressBakeryTagRow: () => void;
   onPressCancleBakeryTag: () => void;
-  onChange: (key: keyof PostForm, value: string) => void;
+  onChange: (key: keyof PostWriteForm, value: string) => void;
   onPressUploadButton: () => void;
   deSelectPhoto: (uri?: string) => void;
   onPressConfirm: () => void;
@@ -32,6 +33,7 @@ type Props = {
 };
 
 export const PostWriteComponent = ({
+  isModify,
   bakeryName,
   form,
   topicData,
@@ -95,16 +97,20 @@ export const PostWriteComponent = ({
             contentContainerStyle={styles.imageListContainer}
             showsHorizontalScrollIndicator={false}
             horizontal
-            ListHeaderComponent={<UploadButton style={styles.uploadImage} onPress={onPressUploadButton} />}
-            ListHeaderComponentStyle={styles.photoButton}
+            ListHeaderComponent={
+              isModify ? <View /> : <UploadButton style={styles.uploadImage} onPress={onPressUploadButton} />
+            }
+            ListHeaderComponentStyle={!isModify && styles.photoButton}
             ItemSeparatorComponent={() => <SplitColumn width={8} />}
             renderItem={({ item }) => {
               return (
                 <View>
                   <Image style={styles.uploadImage} source={{ uri: item.uri }} />
-                  <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
-                    <ImageCloseIcon />
-                  </TouchableOpacity>
+                  {!isModify && (
+                    <TouchableOpacity style={styles.uploadImageCloseButton} onPress={() => deSelectPhoto(item.uri)}>
+                      <ImageCloseIcon />
+                    </TouchableOpacity>
+                  )}
                 </View>
               );
             }}
@@ -115,7 +121,7 @@ export const PostWriteComponent = ({
         {isLoading && <Loading />}
       </SafeAreaView>
 
-      {keyboardHeight > 0 && (
+      {!isModify && keyboardHeight > 0 && (
         <View style={{ bottom: keyboardHeight }}>
           <ShortUploadButton onPress={onPressUploadButton} />
         </View>

@@ -25,7 +25,7 @@ type Props = {
   onPressToggle: (topic: PostTopic) => void;
   onPressPost: (postTopic: PostTopic, postId: number) => void;
   onPressLike: (postTopic: PostTopic, postId: number, isLiked: boolean) => void;
-  onPressMenu: (postTopic: PostTopic, postId: number, userId: number) => void;
+  onPressMenu: (post: Post) => void;
   onPressWriteFloatingButton: () => void;
   onScrollEnd: () => void;
 };
