@@ -18,6 +18,6 @@ const getBlockList = async () => {
 export const useGetBlockList = () => {
   return useQuery({
     queryFn: getBlockList,
-    queryKey: ['blockList'],
+    queryKey: ['useGetBlockList'],
   });
 };

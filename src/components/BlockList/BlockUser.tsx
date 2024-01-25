@@ -1,47 +1,62 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BlockListEntry } from '@/apis/auth/useBlockList';
 import { theme } from '@/styles/theme';
-import { Button } from '@shared/Button/Button';
 import { Text } from '@shared/Text';
+import { SplitRow } from '../Shared/SplitSpace';
+import { Row } from '../Shared/View';
 
 interface Props extends BlockListEntry {
-  handlePressUnblock: (userId: number) => void;
+  isFirst: boolean;
+  handlePressUnblock: (userId: number, nickName: string) => void;
 }
-export const BlockUser = ({ userId, userImage, nickName, reviewNum, followerNum, handlePressUnblock }: Props) => {
-  const onPressUnblock = () => {
-    handlePressUnblock(userId);
-  };
-
-  return (
-    <View style={styles.wrapper}>
-      <View>
-        {userImage ? <Image source={{ uri: userImage }} style={styles.avatar} /> : <View style={styles.avatar} />}
-      </View>
-
-      <View style={styles.flex}>
-        <Text numberOfLines={1} style={styles.nickName}>
-          {nickName}
-        </Text>
-        <Text style={styles.hint}>{`리뷰 ${reviewNum} | 팔로워 ${followerNum}`}</Text>
-      </View>
-
-      <View>
-        <Button appearance={'terdary'} onPress={onPressUnblock}>
-          차단해제
-        </Button>
-      </View>
+export const BlockUser = ({
+  userId,
+  userImage,
+  nickName,
+  reviewNum,
+  followerNum,
+  isFirst,
+  handlePressUnblock,
+}: Props) => (
+  <Row style={[styles.container, !isFirst && styles.divider]}>
+    <View>
+      {userImage ? <Image source={{ uri: userImage }} style={styles.avatar} /> : <View style={styles.avatar} />}
     </View>
-  );
-};
+
+    <View style={styles.flex}>
+      <Text color={theme.color.black} presets={['body2', 'medium']} numberOfLines={1}>
+        {nickName}
+      </Text>
+      <SplitRow height={4} />
+      <Text
+        color={theme.color.gray400}
+        presets={['caption2', 'medium']}
+      >{`리뷰 ${reviewNum} | 팔로워 ${followerNum}`}</Text>
+    </View>
+
+    <View>
+      <TouchableOpacity style={styles.button} onPress={() => handlePressUnblock(userId, nickName)}>
+        <Text color={theme.color.gray600} presets={['caption2', 'bold']}>
+          차단해제
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </Row>
+);
 
 const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  divider: {
+    borderTopWidth: 1,
+    borderTopColor: theme.color.gray200,
+  },
   flex: {
     flex: 1,
-  },
-  wrapper: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
   },
   avatar: {
     width: 40,
@@ -51,15 +66,11 @@ const styles = StyleSheet.create({
     borderColor: theme.color.gray400,
     marginRight: 8,
   },
-  nickName: {
-    color: 'black',
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  hint: {
-    fontSize: 12,
-    lineHeight: 12,
-    fontWeight: '500',
-    color: theme.color.gray400,
+  button: {
+    borderWidth: 1,
+    borderColor: theme.color.gray300,
+    borderRadius: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
   },
 });
