@@ -14,6 +14,7 @@ import { Tag } from './Tag';
 
 type Props = {
   tags: string[];
+  bakeryName: string;
   onPressTag: (tag: string) => void;
   onPressSubmit: () => void;
 };
@@ -21,7 +22,7 @@ type Props = {
 const bakeryToggleList = ['데이트 코스로 좋아요', '뷰 맛집이에요', '아늑해요', '모임하기 좋아요', '분위기가 좋아요'];
 const breadToggleList = ['빵이 자주 나와서 좋아요', '빵 종류가 다양해요', '가성비가 좋아요', '"재료에 진심"'];
 
-export const ReviewTagSelectComponent = ({ tags, onPressTag, onPressSubmit }: Props) => {
+export const ReviewTagSelectComponent = ({ tags, bakeryName, onPressTag, onPressSubmit }: Props) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -29,7 +30,7 @@ export const ReviewTagSelectComponent = ({ tags, onPressTag, onPressSubmit }: Pr
       <ScrollView bounces={false}>
         <Header isPrevButtonShown />
 
-        <BakeryTagRow bakeryName="아우어 베이커리 논현점" isShowDetailButton={false} />
+        <BakeryTagRow bakeryName={bakeryName} isShowDetailButton={false} />
 
         <View style={styles.container}>
           <SplitRow height={19} />

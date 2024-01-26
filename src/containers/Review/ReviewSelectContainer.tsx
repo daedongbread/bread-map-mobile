@@ -15,7 +15,7 @@ export const ReviewSelectContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { bakeryId } = route.params;
+  const { bakeryId, bakeryName } = route.params;
   const { selectedBreads, manualSelectedBreads } = useAppSelector(selector => selector.reviewWrite);
 
   const [searchValue, setSearchValue] = useState('');
@@ -30,6 +30,7 @@ export const ReviewSelectContainer = () => {
     dispatch(updateAllSeletedBread(selectedBreads));
     navigation.navigate('ReviewRating', {
       bakeryId,
+      bakeryName,
     });
   };
 
@@ -50,6 +51,7 @@ export const ReviewSelectContainer = () => {
 
   return (
     <ReviewSelectComponent
+      bakeryName={bakeryName}
       breads={filteredBreads}
       searchValue={searchValue}
       selectedBreads={selectedBreads}

@@ -9,7 +9,8 @@ import { theme } from '@/styles/theme';
 import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { MainStackScreenProps } from '../Stack';
-import { BakeryHome, BakeryInfo, BakeryMenu } from './Tab';
+import { BakeryHome, BakeryInfo } from './Tab';
+import { BakeryMenu } from './Tab/BakeryMenu';
 import { BakeryReviewStack } from './Tab/BakeryReview/Stack';
 
 export type BakeryDetailTabParamList = {

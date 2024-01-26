@@ -75,10 +75,14 @@ export const BakeryDetailInfoComponent = ({
   };
 
   const onPressReviewWriteBtn = () => {
+    if (!bakery?.bakeryInfo.name) {
+      return;
+    }
     navigation.push('ReviewWriteStack', {
-      screen: 'ReviewSelect',
+      screen: 'ReviewTagSelect',
       params: {
         bakeryId,
+        bakeryName: bakery?.bakeryInfo.name,
       },
     });
   };

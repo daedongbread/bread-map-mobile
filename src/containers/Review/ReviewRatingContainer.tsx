@@ -28,12 +28,12 @@ export const ReviewRatingContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const { bakeryId } = route.params;
+  const { bakeryId, bakeryName } = route.params;
   const { mutateAsync: postReview, isLoading: isReviewSaving } = usePostReview();
   const { mutateAsync: postImages, isLoading: isImageSaving } = usePostImages();
   const isLoading = isReviewSaving || isImageSaving;
 
-  const { selectedTags, selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
+  const { selectedBreads, manualSelectedBreads, detailReview, images } = useAppSelector(
     selector => selector.reviewWrite
   );
 
@@ -162,6 +162,7 @@ export const ReviewRatingContainer = () => {
 
   return (
     <ReviewRatingComponent
+      bakeryName={bakeryName}
       selectedBreads={[...selectedBreads, ...manualSelectedBreads]}
       detailReview={detailReview}
       images={images}

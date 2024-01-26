@@ -14,6 +14,7 @@ import { TabHeader } from '../TabHeader';
 
 type Props = {
   bakeryId: number;
+  bakeryName: string;
   reviews?: ReviewContent[];
   reviewCount?: number;
   activeTab: string;
@@ -36,6 +37,7 @@ const { height } = Dimensions.get('screen');
 
 export const BakeryReviewListComponent = ({
   bakeryId,
+  bakeryName,
   reviews,
   reviewCount,
   activeTab,
@@ -78,9 +80,10 @@ export const BakeryReviewListComponent = ({
 
   const onPressReviewWriteBtn = () => {
     navigation.navigate('ReviewWriteStack', {
-      screen: 'ReviewSelect',
+      screen: 'ReviewTagSelect',
       params: {
-        bakeryId: bakeryId,
+        bakeryId,
+        bakeryName,
       },
     });
   };

@@ -4,10 +4,10 @@ import { BakeryMenuDetailComponent } from '@/components/BakeryDetail/BakeryMenu'
 import { BakeryReviewListComponent } from '@/components/BakeryDetail/BakeryReview';
 import { ScrollView } from '@/components/Shared/View';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
-import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useRoute } from '@react-navigation/native';
 
-type Route = HomeStackScreenProps<'BakeryMenuDetail'>['route'];
+type Route = MainStackScreenProps<'BakeryMenuDetail'>['route'];
 
 export const BakeryMenuDetailContainer = () => {
   const route = useRoute<Route>();
@@ -48,11 +48,11 @@ export const BakeryMenuDetailContainer = () => {
       <BakeryMenuDetailComponent bakeryName={bakeryName} menu={menu} />
       <BakeryReviewListComponent
         bakeryId={bakeryId}
+        bakeryName={bakeryName}
         reviews={flatReviews}
         reviewCount={reviews.length > 0 ? reviews[0].totalElements : 0}
         activeTab={activeTab}
         onPressTab={onPressTab}
-        refetchReview={refetch}
       />
     </ScrollView>
   );

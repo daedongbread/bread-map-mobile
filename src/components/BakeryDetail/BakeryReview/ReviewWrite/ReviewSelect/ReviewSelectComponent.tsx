@@ -14,6 +14,7 @@ import { ContentsList } from './ContentsList';
 import { ReviewSearch } from './ReviewSearch';
 
 type Props = {
+  bakeryName: string;
   breads: MenuForReviewEntity[];
   searchValue: string;
   selectedBreads: MenuForReviewEntity[];
@@ -25,7 +26,8 @@ type Props = {
   isExistBread: (manualBreadName: string) => boolean;
 };
 
-export const ReviewSelectComponent: React.FC<Props> = ({
+export const ReviewSelectComponent = ({
+  bakeryName,
   breads,
   searchValue,
   selectedBreads,
@@ -35,14 +37,14 @@ export const ReviewSelectComponent: React.FC<Props> = ({
   onChangeSearchValue,
   onPressConfirmButton,
   isExistBread,
-}) => {
+}: Props) => {
   const insets = useSafeAreaInsets();
 
   return (
     <SafeAreaView style={styles.container}>
       <Header isPrevButtonShown />
 
-      <BakeryTagRow bakeryName="아우어 베이커리 논현점" isShowDetailButton={false} />
+      <BakeryTagRow bakeryName={bakeryName} isShowDetailButton={false} />
 
       <SplitRow height={24} />
 

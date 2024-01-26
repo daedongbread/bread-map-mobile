@@ -13,7 +13,7 @@ export const BakeryReviewBriefListContainer = () => {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<Route>();
 
-  const bakeryId = route.params.bakeryId;
+  const { bakeryId, bakeryName } = route.params;
   const [activeTab, setActiveTab] = useState<string>('latest');
 
   const { reviews = [], refetch: refetchReview } = useGetInfiniteReviews({ bakeryId });
@@ -33,12 +33,13 @@ export const BakeryReviewBriefListContainer = () => {
   };
 
   const flatReviews = reviews && reviews.map(review => review.contents).flat();
-  const briefReviews = flatReviews?.slice(0, 3) || [];
+  const briefReviews = flatReviews.slice(0, 3) || [];
 
   return (
     <>
       <BakeryReviewListComponent
         bakeryId={bakeryId}
+        bakeryName={bakeryName}
         reviews={briefReviews}
         reviewCount={reviews.length > 0 ? reviews[0].totalElements : 0}
         activeTab={activeTab}

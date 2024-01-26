@@ -11,12 +11,15 @@ import { ReviewTagSelect } from './ReviewTagSelect';
 export type ReviewWriteStackParamList = {
   ReviewTagSelect: {
     bakeryId: number;
+    bakeryName: string;
   };
   ReviewSelect: {
     bakeryId: number;
+    bakeryName: string;
   };
   ReviewRating: {
     bakeryId: number;
+    bakeryName: string;
   };
   BakeryManualWrite: undefined;
   BakeryManualWriteDetail: {

@@ -12,7 +12,7 @@ export const ReviewTagSelectContainer = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
   const { params } = useRoute<Route>();
-  const { bakeryId } = params;
+  const { bakeryId, bakeryName } = params;
 
   const [tags, setTags] = useState<string[]>([]);
 
@@ -42,8 +42,16 @@ export const ReviewTagSelectContainer = () => {
     updateSelectedTag();
     navigation.navigate('ReviewSelect', {
       bakeryId,
+      bakeryName,
     });
   };
 
-  return <ReviewTagSelectComponent tags={tags} onPressTag={onPressTag} onPressSubmit={onPressSubmit} />;
+  return (
+    <ReviewTagSelectComponent
+      tags={tags}
+      bakeryName={bakeryName}
+      onPressTag={onPressTag}
+      onPressSubmit={onPressSubmit}
+    />
+  );
 };

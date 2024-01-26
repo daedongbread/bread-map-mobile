@@ -19,6 +19,7 @@ import { Title } from './Title';
 const { height } = Dimensions.get('screen');
 
 type Props = {
+  bakeryName: string;
   selectedBreads: RatedBread[];
   detailReview: string;
   images: Asset[];
@@ -30,7 +31,8 @@ type Props = {
   saveReview: () => void;
 };
 
-export const ReviewRatingComponent: React.FC<Props> = ({
+export const ReviewRatingComponent = ({
+  bakeryName,
   selectedBreads,
   detailReview,
   images,
@@ -40,7 +42,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
   onPressUploadButton,
   deSelectPhoto,
   saveReview,
-}) => {
+}: Props) => {
   const insets = useSafeAreaInsets();
 
   const contentInputRef = useRef<OriginTextInput>(null);
@@ -62,7 +64,7 @@ export const ReviewRatingComponent: React.FC<Props> = ({
       <ScrollView style={styles.contentsContainer}>
         <Header isPrevButtonShown />
 
-        <BakeryTagRow bakeryName="아우어 베이커리 논현점" isShowDetailButton={false} />
+        <BakeryTagRow bakeryName={bakeryName} isShowDetailButton={false} />
         <SplitRow height={24} />
 
         <Title />
