@@ -4,6 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { PostTopic } from '@/apis/community/types';
 import { ToggleMenu } from '@/containers/Community/CommunityContainer';
 import { useDimensions } from '@/hooks/useDimensions';
+import { CommunityStackScreenProps } from '@/pages/MainStack/Community';
 import { theme } from '@/styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import CloseIcon from '@shared/Icons/CloseIcon.svg';
@@ -18,9 +19,11 @@ type Props = {
   onPressClose: () => void;
 };
 
+type Navigation = CommunityStackScreenProps<'Community'>['navigation'];
+
 export const WriteMenuModal = ({ visible, menus, y, onPressWrite, onPressClose }: Props) => {
   const { height } = useDimensions();
-  const navigation = useNavigation();
+  const navigation = useNavigation<Navigation>();
 
   return (
     <Modal visible={visible} animationType={'fade'} transparent={true}>

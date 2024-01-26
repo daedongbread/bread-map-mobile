@@ -30,7 +30,10 @@ export const PostDetailComponent = ({ post, onPressLike, refetchPost, onPressMen
       refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPost} />}
     >
       <SafeAreaView style={styles.container}>
-        <Header title={`${post.writerInfo.nickname}님의 게시물`} onPressMenu={onPressMenu} />
+        <Header
+          title={`${post.writerInfo.nickname}님의 게시물`}
+          onPressMenu={post.postTopic === 'EVENT' ? undefined : onPressMenu}
+        />
 
         <Post post={post} onPressLike={onPressLike} />
 

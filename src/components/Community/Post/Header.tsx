@@ -10,7 +10,7 @@ import VerticalViewMoreIcon from '@shared/Icons/VerticalViewMoreIcon.svg';
 
 type Props = {
   title: string;
-  onPressMenu: () => void;
+  onPressMenu?: () => void;
 };
 
 export const Header = ({ title, onPressMenu }: Props) => {
@@ -18,7 +18,7 @@ export const Header = ({ title, onPressMenu }: Props) => {
 
   return (
     <Row style={styles.container}>
-      <View style={styles.prevButton}>
+      <View style={styles.button}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={{ top: 10, bottom: 10, left: 20 }}>
           <PrevIcon />
         </Pressable>
@@ -28,9 +28,13 @@ export const Header = ({ title, onPressMenu }: Props) => {
         {title}
       </Text>
 
-      <TouchableOpacity onPress={onPressMenu}>
-        <VerticalViewMoreIcon />
-      </TouchableOpacity>
+      {onPressMenu ? (
+        <TouchableOpacity onPress={onPressMenu}>
+          <VerticalViewMoreIcon />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.button} />
+      )}
     </Row>
   );
 };
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
   },
-  prevButton: {
-    // width: 24,
+  button: {
+    width: 24,
   },
 });

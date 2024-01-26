@@ -59,6 +59,8 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
     }
   };
 
+  const isHideMenuButton = (post.postTopic === 'REVIEW' && isWriter) || post.postTopic === 'EVENT';
+
   return (
     <View style={[styles.container, !isFirst && styles.divider]}>
       <Row style={[styles.tag]}>
@@ -161,7 +163,7 @@ export const PostSummary = React.memo(({ post, isFirst, onPressLike, onPressMenu
           likeCount={likeToggle.count}
           commentCount={post.commentCount}
           onPressLike={() => _onPressLike(post.postTopic, post.postId, likeToggle.isLiked)}
-          onPressMenu={post.postTopic === 'REVIEW' && isWriter ? undefined : () => onPressMenu(post)}
+          onPressMenu={isHideMenuButton ? undefined : () => onPressMenu(post)}
         />
       </View>
     </View>

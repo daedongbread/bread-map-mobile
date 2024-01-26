@@ -4,7 +4,7 @@ import { RefreshControl } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ReviewDetailEntity } from '@/apis/bakery/types';
-import { Header } from '@/components/Shared/Header';
+import { Header } from '@/components/Community/Post';
 import { Review } from '@/components/Shared/Reviews';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { CommentContainer } from '@/containers/Comment';
@@ -14,10 +14,11 @@ import { Divider } from '../../Divider';
 type Props = {
   review: ReviewDetailEntity;
   refetchPage: () => void;
+  onPressMenu: () => void;
   goNavBakeryDetail: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review, refetchPage, goNavBakeryDetail }: Props) => {
+export const BakeryReviewDetailComponent = ({ review, refetchPage, onPressMenu, goNavBakeryDetail }: Props) => {
   const { top, bottom } = useSafeAreaInsets();
 
   return (
@@ -32,7 +33,10 @@ export const BakeryReviewDetailComponent = ({ review, refetchPage, goNavBakeryDe
       refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPage} />}
     >
       <SafeAreaView style={styles.container}>
-        <Header title={`${review.reviewDto.userInfo.nickName}님의 리뷰`} isPrevButtonShown />
+        <Header
+          title={`${review.reviewDto.userInfo.nickName}님의 리뷰`}
+          onPressMenu={review.reviewDto.userInfo.isMe ? undefined : onPressMenu}
+        />
 
         <View style={styles.reviewContainer}>
           <Review mode="detail" review={review.reviewDto} isEnd={true} onPressBakery={goNavBakeryDetail} />
