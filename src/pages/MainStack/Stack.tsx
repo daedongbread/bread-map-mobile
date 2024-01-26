@@ -26,12 +26,12 @@ import { ReviewWriteStack, ReviewWriteStackParamList } from '../ReviewWriteStack
 import { BakeryDetailTabNavigator, BakeryDetailTabParamList } from './BakeryDetail';
 import { BakeryMenuDetail } from './BakeryDetail/Tab';
 import { ReportMenu } from './BakeryDetail/Tab/BakeryMenu/ReportMenu';
-import { BlockUserBottomSheet, ReviewMoreBottomSheet } from './BakeryDetail/Tab/BakeryReview';
+import { BlockUserBottomSheet } from './BakeryDetail/Tab/BakeryReview';
 import {
   BakeryReviewDetailParamList,
   BakeryReviewDetailStack,
 } from './BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
-import { CommentMenuBottomSheet, CommunityStackParamList, PostMenuBottomSheet } from './Community';
+import { CommentMenuBottomSheet, CommunityStackParamList } from './Community';
 import { PostWriteStack } from './Community/PostWriteStack';
 import { PostWriteStackParamList } from './Community/PostWriteStack/Stack';
 import { CurationDetail } from './CurationDetail';
@@ -71,15 +71,6 @@ export type MainStackParamList = {
     menu: MenuEntity;
   };
   ModalStack: NavigatorScreenParams<ModalStackParamList>;
-  ReviewMoreBottomSheet: {
-    reviewId: number;
-    userId: number;
-  };
-  PostMenuBottomSheet: {
-    postId: number;
-    postTopic: PostTopic;
-    userId: number;
-  };
   CommentMenuBottomSheet: {
     commentId: number;
     ownerId: number;
@@ -172,11 +163,9 @@ const MainStack = () => {
 
       <Stack.Group screenOptions={{ headerShown: false, presentation: 'transparentModal' }}>
         <Stack.Screen name="BookmarkBottomSheet" component={BookmarkBottomSheet} />
-        <Stack.Screen name="ReviewMoreBottomSheet" component={ReviewMoreBottomSheet} />
         <Stack.Screen name="BlockUserBottomSheet" component={BlockUserBottomSheet} />
         <Stack.Screen name="SuccessBottomSheet" component={SuccessBottomSheet} />
         <Stack.Screen name="QuestionBottomSheet" component={QuestionBottomSheet} />
-        <Stack.Screen name="PostMenuBottomSheet" component={PostMenuBottomSheet} />
         <Stack.Screen name="CommentMenuBottomSheet" component={CommentMenuBottomSheet} />
 
         <Stack.Screen name="ImageItemBottomSheet" component={ImageItemBottomSheet} />

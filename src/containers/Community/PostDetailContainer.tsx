@@ -42,13 +42,13 @@ export const PostDetailContainer = () => {
   };
 
   const onPressMenu = useCallback(() => {
-    if (post?.writerInfo.userId) {
-      navigation.navigate('PostMenuBottomSheet', {
-        postId,
-        postTopic,
-        userId: post?.writerInfo.userId,
-      });
-    }
+    // if (post?.writerInfo.userId) {
+    //   navigation.navigate('PostMenuBottomSheet', {
+    //     postId,
+    //     postTopic,
+    //     userId: post?.writerInfo.userId,
+    //   });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
 
