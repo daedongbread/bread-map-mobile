@@ -23,16 +23,20 @@ export const BakeryManualWriteContainer = () => {
   const onChange = useCallback(
     (key: keyof BakeryManualWriteForm, value: string, index?: number) => {
       setForm(prev => {
+        let newValue: string | string[] = value;
+
         if (key === 'menuNames') {
           if (index === undefined) {
             return { ...prev };
           }
+
           const newMenuNames = [...prev.menuNames];
           newMenuNames[index] = value;
-          return { ...prev, [key]: newMenuNames };
-        } else {
-          return { ...prev, [key]: value };
+
+          newValue = newMenuNames;
         }
+
+        return { ...prev, [key]: newValue };
       });
     },
     [setForm]

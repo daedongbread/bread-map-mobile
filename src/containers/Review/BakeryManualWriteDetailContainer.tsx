@@ -106,17 +106,19 @@ export const BakeryManualWriteDetailContainer = () => {
   };
 
   const saveReview = () => {
-    console.log({
-      detailReview,
-      images: images,
-      form: bakeryInfoForm,
-    });
+    // console.log({
+    //   detailReview,
+    //   images: images,
+    //   form: bakeryInfoForm,
+    // });
+
     closePage();
     goNavSuccessBottomSheet();
   };
 
   return (
     <BakeryManualWriteDetailComponent
+      bakeryName={bakeryInfoForm.bakeryName}
       detailReview={detailReview}
       images={images}
       isLoading={isLoading}

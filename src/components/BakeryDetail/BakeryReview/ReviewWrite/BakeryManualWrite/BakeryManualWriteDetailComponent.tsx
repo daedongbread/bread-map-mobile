@@ -16,6 +16,7 @@ import { PhotoSelect } from '../ReviewRating/PhotoSelect';
 const { height } = Dimensions.get('screen');
 
 type Props = {
+  bakeryName: string;
   detailReview: string;
   images: Asset[];
   isLoading: boolean;
@@ -27,6 +28,7 @@ type Props = {
 };
 
 export const BakeryManualWriteDetailComponent = ({
+  bakeryName,
   detailReview,
   images,
   isLoading,
@@ -55,7 +57,7 @@ export const BakeryManualWriteDetailComponent = ({
 
       <ScrollView style={[styles.flex, styles.container]}>
         <Text color={theme.color.black} presets={['subTitle1', 'bold']}>
-          <Text color={theme.color.primary500}>{'${빵집명}'}</Text> 에 대해{'\n'}이야기 해주세요.
+          <Text color={theme.color.primary500}>{bakeryName}</Text> 에 대해{'\n'}이야기 해주세요.
         </Text>
 
         <SplitRow height={40} />
@@ -63,7 +65,7 @@ export const BakeryManualWriteDetailComponent = ({
         <SubTitle isRequire>상세한 후기</SubTitle>
         <View style={styles.inputContainer}>
           <TextInput
-            style={[styles.detailReviewTextInput]}
+            style={styles.detailReviewTextInput}
             placeholder="자세한 후기는 다른 빵순이, 빵돌이들에게 많은 도움이 됩니다."
             value={detailReview}
             multiline
