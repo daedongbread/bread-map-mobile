@@ -38,6 +38,8 @@ export const BakeryReviewDetailComponent = ({ review, refetchPage, onPressMenu, 
           onPressMenu={review.reviewDto.userInfo.isMe ? undefined : onPressMenu}
         />
 
+        <SplitRow height={16} />
+
         <View style={styles.reviewContainer}>
           <Review mode="detail" review={review.reviewDto} isEnd={true} onPressBakery={goNavBakeryDetail} />
         </View>

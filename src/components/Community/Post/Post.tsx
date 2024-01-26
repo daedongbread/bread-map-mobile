@@ -63,13 +63,7 @@ export const Post = React.memo(({ post, onPressLike }: Props) => {
         isFollowed={post.writerInfo.isFollowed}
       />
 
-      <SplitRow height={22} />
-
-      <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
-        {post.title}
-      </Text>
-
-      <SplitRow height={20} />
+      <SplitRow height={16} />
 
       {post.images.length > 0 && (
         <FlatList
@@ -99,11 +93,17 @@ export const Post = React.memo(({ post, onPressLike }: Props) => {
 
       <SplitRow height={16} />
 
-      <Text color={theme.color.gray700} presets={['body2', 'medium']}>
+      <Text color={theme.color.gray900} presets={['subhead', 'bold']}>
+        {post.title}
+      </Text>
+
+      <SplitRow height={8} />
+
+      <Text color={theme.color.gray700} presets={['body2', 'regular']}>
         {post.content}
       </Text>
 
-      <SplitRow height={20} />
+      <SplitRow height={16} />
 
       <Footer
         isLiked={likeToggle.isLiked}

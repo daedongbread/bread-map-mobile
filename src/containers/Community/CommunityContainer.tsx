@@ -136,8 +136,8 @@ export const CommunityContainer = () => {
       navigation.navigate('ReviewWriteStack', {
         screen: 'ReviewTagSelect',
         params: {
-          // bakeryId: 763,
-          bakeryId: 945,
+          bakeryId: 763,
+          // bakeryId: 945,
         },
       });
     } else {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ReviewContent } from '@/apis/bakery/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { Divider } from '@/components/BakeryDetail/Divider';
-import { BakeryInfoCard, Footer } from '@/components/Community/Post';
+import { BakeryInfoCard, Footer, ProfileInfo } from '@/components/Community/Post';
 import { useDidMountEffect } from '@/hooks/useDidMountEffect';
 import { MainStackParamList, MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { theme } from '@/styles/theme';
@@ -13,7 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 import { CustomImage } from '../CustomImage';
 import { SplitColumn, SplitRow } from '../SplitSpace';
 import { MoreLineText, Text } from '../Text';
-import { FollowButton } from './FollowButton';
 import { ProductRating } from './ProductRating';
 import { Tag } from './Tag';
 
@@ -58,15 +57,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
     });
   };
 
-  const onPressProfileImage = (userId: number) => {
-    navigation.push('ProfileStack', {
-      screen: 'Profile',
-      params: {
-        userId,
-      },
-    });
-  };
-
   const onPressLikeButton = async (isLiked: boolean, reviewId: number) => {
     try {
       if (isLiked) {
@@ -91,32 +81,15 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
   return (
     <View>
       {mode === 'preview' && <SplitRow height={32} />}
-      <View style={styles.reviewHeader}>
-        <TouchableWithoutFeedback
-          style={styles.reviewerContainer}
-          onPress={() => onPressProfileImage(review.userInfo.userId)}
-        >
-          <Image style={styles.profileImage} source={{ uri: review.userInfo.userImage }} />
-          <View style={styles.userInfoContainer}>
-            <Text presets={['body1', 'bold']} style={styles.userNameText}>
-              {review.userInfo.nickName}
-            </Text>
-            <View style={styles.socialInfo}>
-              <Text presets={['caption2', 'medium']} style={styles.userInfoText}>
-                리뷰 {review.userInfo.reviewNum}
-              </Text>
-              <Text style={styles.divider}> | </Text>
-              <Text presets={['caption2', 'medium']} style={styles.userInfoText}>
-                팔로워 {review.userInfo.followerNum}
-              </Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
 
-        {!review.userInfo.isMe && (
-          <FollowButton isFollow={review.userInfo.isFollow} targetUserId={review.userInfo.userId} />
-        )}
-      </View>
+      <ProfileInfo
+        writerId={review.userInfo.userId}
+        imageUrl={review.userInfo.userImage}
+        nickname={review.userInfo.nickName}
+        reviewCount={review.userInfo.reviewNum}
+        followerCount={review.userInfo.followerNum}
+        isFollowed={review.userInfo.isFollow}
+      />
 
       <TouchableWithoutFeedback style={styles.reviewContainer} onPress={() => onPressReview()}>
         {review.reviewInfo.imageList.length > 0 && (
@@ -151,7 +124,7 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
           </>
         )}
 
-        <SplitRow height={12} />
+        <SplitRow height={16} />
 
         <FlatList
           contentContainerStyle={styles.productRatingStyle}
@@ -168,26 +141,43 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
           horizontal
         />
 
-        <SplitRow height={20} />
+        <SplitRow height={16} />
 
         <View style={styles.reviewTextContainer}>
+          {true && (
+            <>
+              <Text
+                color={theme.color.gray900}
+                presets={['subhead', 'bold']}
+                numberOfLines={mode === 'preview' ? 1 : undefined}
+                ellipsizeMode="tail"
+              >
+                서울 11월 대동빵지도서울 11월 대동빵지도서울 11월 대동빵지도서울 11월 대동빵지도서울 11월 대동빵지도서울
+                11월 대동빵지도서울 11월 대동빵지도
+              </Text>
+
+              <SplitRow height={8} />
+            </>
+          )}
+
           {mode === 'preview' ? (
             <MoreLineText
-              color="#616161"
-              presets={['body2', 'medium']}
+              color={theme.color.gray700}
+              presets={['body2', 'regular']}
               linesToTruncate={2}
               text={review.reviewInfo.content.trim()}
             />
           ) : (
-            <Text color="#616161" presets={['body2', 'medium']}>
+            <Text color={theme.color.gray700} presets={['body2', 'regular']}>
               {review.reviewInfo.content.trim()}
             </Text>
           )}
         </View>
 
+        <SplitRow height={16} />
+
         {mode === 'detail' && onPressBakery && (
           <>
-            <SplitRow height={20} />
             <View style={styles.bakeryInfoCardContainer}>
               <BakeryInfoCard
                 isFlagged={true}
@@ -202,17 +192,18 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
         )}
 
         {mode === 'detail' && (
-          <FlatList
-            contentContainerStyle={styles.tagsContainer}
-            keyExtractor={item => item}
-            data={tags}
-            renderItem={({ item }) => <Tag text={item} />}
-            ItemSeparatorComponent={() => <SplitColumn width={8} />}
-            horizontal
-          />
+          <>
+            <FlatList
+              contentContainerStyle={styles.tagsContainer}
+              keyExtractor={item => item}
+              data={tags}
+              renderItem={({ item }) => <Tag text={item} />}
+              ItemSeparatorComponent={() => <SplitColumn width={8} />}
+              horizontal
+            />
+            <SplitRow height={16} />
+          </>
         )}
-
-        <SplitRow height={16} />
 
         <View style={styles.footerContainer}>
           <Footer
@@ -224,8 +215,9 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
           />
         </View>
 
-        <SplitRow height={25} />
+        <SplitRow height={32} />
       </TouchableWithoutFeedback>
+
       {isEnd || <Divider style={styles.endDivider} />}
     </View>
   );
@@ -233,11 +225,6 @@ export const Review = React.memo(({ mode, review, isEnd, onPressBakery }: Review
 
 const styles = StyleSheet.create(
   resizePixels({
-    reviewHeader: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
     reviewerContainer: {
       flexDirection: 'row',
     },

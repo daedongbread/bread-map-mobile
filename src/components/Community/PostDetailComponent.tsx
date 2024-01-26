@@ -37,7 +37,7 @@ export const PostDetailComponent = ({ post, onPressLike, refetchPost, onPressMen
 
         <Post post={post} onPressLike={onPressLike} />
 
-        <SplitRow height={20} />
+        <SplitRow height={32} />
 
         <Divider />
 
