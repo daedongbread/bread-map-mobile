@@ -1,10 +1,18 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CustomerServiceBanner, ReportBanner } from '@/components/Home';
 import { CommunityLoading } from '@/components/Shared/Loading';
 import { HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
 import { useNavigation } from '@react-navigation/native';
+import { Header } from '../../components/Home/Header';
 import { SplitRow } from '../../components/Shared/SplitSpace';
+import { Spacer } from '../../components/Shared/SplitSpace/Spacer';
+import { CommunityHotPostContainer } from './CommunityHotPostContainer';
+import { CurationBannerContainer } from './CurationBannerContainer';
+import { MenuContainer } from './MenuContainer';
+import { NewBakeryContainer } from './NewBakeryContainer';
+import { SearchContainer } from './SearchContainer';
 
 type Navigation = HomeStackScreenProps<'Home'>['navigation'];
 
@@ -27,7 +35,7 @@ export const HomeContainer = () => {
           ListHeaderComponent={<SplitRow height={top} />}
           renderItem={() => (
             <>
-              {/* <Header onPressRightButton={onPressNotification} />
+              <Header onPressRightButton={onPressNotification} />
 
               <SplitRow height={8} />
 
@@ -56,7 +64,7 @@ export const HomeContainer = () => {
 
               <CustomerServiceBanner />
 
-              <SplitRow height={40} /> */}
+              <SplitRow height={40} />
             </>
           )}
         />
