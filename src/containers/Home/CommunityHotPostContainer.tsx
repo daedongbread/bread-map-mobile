@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react';
 import { useBlockUser } from '@/apis/auth/useBlockUser';
 import { useDeletePost, useGetTopPosts, usePostToggleLike } from '@/apis/community';
-import { Post, PostTopic, ReportType } from '@/apis/community/types';
+import { Post, PostTopic } from '@/apis/community/types';
 import { useLikeReview, useUnLikeReview } from '@/apis/review';
 import { CommunityHotPostComponent } from '@/components/Home/CommunityHotPost';
+import { useCommunityBottomSheetNavigation } from '@/hooks/Navigation';
 import { useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +19,9 @@ type Navigation = MainStackScreenProps<'CommunityStack'>;
 export const CommunityHotPostContainer = () => {
   const navigation = useNavigation<Navigation['navigation']>();
   const { userId: storedUserId } = useAppSelector(selector => selector.auth);
+
+  const { goNavAccuse, goNavBlockUserBottomSheet, goNavDeleteBottomSheet, goNavEdit, goNavSuccessBottomSheet } =
+    useCommunityBottomSheetNavigation();
 
   const { mutateAsync: postToggleLike } = usePostToggleLike();
   const { mutateAsync: likeReview } = useLikeReview();
@@ -80,16 +84,6 @@ export const CommunityHotPostContainer = () => {
     });
   };
 
-  const goNavEdit = (targetPostId: number, targetPostTopic: PostTopic) => {
-    navigation.navigate('PostWriteStack', {
-      screen: 'PostWrite',
-      params: {
-        postId: targetPostId,
-        postTopic: targetPostTopic,
-      },
-    });
-  };
-
   const refresh = () => {};
 
   const deletePost = async (targetPostId: number, targetPostTopic: PostTopic) => {
@@ -97,53 +91,23 @@ export const CommunityHotPostContainer = () => {
       { postId: targetPostId, postTopic: targetPostTopic },
       {
         onSuccess: () => {
-          navigation.navigate('SuccessBottomSheet', {
+          goNavSuccessBottomSheet({
             content: '요청 주신 게시글 삭제가\n완료되었어요!',
-            onPressConfirmButton: () => refresh(),
+            onConfirmCallback: () => refresh(),
           });
         },
       }
     );
   };
 
-  const goNavDeleteBottomSheet = (targetPostId: number, targetPostTopic: PostTopic) => {
-    navigation.navigate('QuestionBottomSheet', {
-      title: '정말 글을 삭제할까요?',
-      subTitle: '삭제한 글은 되돌릴 수 없으니\n신중하게 생각해주세요!',
-      leftButtonText: '삭제',
-      rightButtonText: '취소',
-      onPressLeftButton: () => deletePost(targetPostId, targetPostTopic),
-    });
-  };
-
-  const goNavAccuse = (targetPostId: number, targetPostTopic: ReportType) => {
-    navigation.navigate('ModalStack', {
-      screen: 'AccuseComment',
-      params: {
-        type: targetPostTopic,
-        targetId: targetPostId,
-      },
-    });
-  };
-
   const blockUser = async (targetUserId: number) => {
     await postBlockUser(targetUserId, {
       onSuccess: () => {
-        navigation.navigate('SuccessBottomSheet', {
+        goNavSuccessBottomSheet({
           content: '요청 주신 사용자의 차단이\n완료되었어요!',
-          onPressConfirmButton: () => refresh(),
+          onConfirmCallback: () => refresh(),
         });
       },
-    });
-  };
-
-  const goNavBlockUserBottomSheet = (targetUserId: number) => {
-    navigation.navigate('QuestionBottomSheet', {
-      title: '이 사용자를 차단하시겠어요?',
-      subTitle: '더이상 사용자의 게시물을 볼 수 없으며,\n상대방에게 회원님의 차단 정보는 알리지 않습니다.',
-      leftButtonText: '아니오',
-      rightButtonText: '네',
-      onPressRightButton: () => blockUser(targetUserId),
     });
   };
 
@@ -156,12 +120,19 @@ export const CommunityHotPostContainer = () => {
         {
           image: EditIcon,
           title: '수정하기',
-          onPress: () => goNavEdit(post.postId, post.postTopic),
+          onPress: () =>
+            goNavEdit({
+              targetPostId: post.postId,
+              targetPostTopic: post.postTopic,
+            }),
         },
         {
           image: DeleteIcon,
           title: '삭제하기',
-          onPress: () => goNavDeleteBottomSheet(post.postId, post.postTopic),
+          onPress: () =>
+            goNavDeleteBottomSheet({
+              onPressLeftButton: () => deletePost(post.postId, post.postTopic),
+            }),
         },
       ];
     } else {
@@ -169,12 +140,19 @@ export const CommunityHotPostContainer = () => {
         {
           image: ReportIcon,
           title: '신고하기',
-          onPress: () => goNavAccuse(post.postId, post.postTopic),
+          onPress: () =>
+            goNavAccuse({
+              targetPostId: post.postId,
+              targetPostTopic: post.postTopic,
+            }),
         },
         {
           image: BlockUserIcon,
           title: '이 사용자의 글 보지않기',
-          onPress: () => goNavBlockUserBottomSheet(post.writerInfo.userId),
+          onPress: () =>
+            goNavBlockUserBottomSheet({
+              onPressRightButton: () => blockUser(post.writerInfo.userId),
+            }),
         },
       ];
     }
@@ -189,12 +167,19 @@ export const CommunityHotPostContainer = () => {
       {
         image: ReportIcon,
         title: '신고하기',
-        onPress: () => goNavAccuse(targetReviewId, 'REVIEW'),
+        onPress: () =>
+          goNavAccuse({
+            targetPostId: targetReviewId,
+            targetPostTopic: 'REVIEW',
+          }),
       },
       {
         image: BlockUserIcon,
         title: '이 사용자의 글 보지않기',
-        onPress: () => goNavBlockUserBottomSheet(targetUserId),
+        onPress: () =>
+          goNavBlockUserBottomSheet({
+            onPressRightButton: () => blockUser(targetUserId),
+          }),
       },
     ];
 
