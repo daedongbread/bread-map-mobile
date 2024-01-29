@@ -84,7 +84,9 @@ export const CommunityHotPostContainer = () => {
     });
   };
 
-  const refresh = () => {};
+  const refresh = () => {
+    // refetch data
+  };
 
   const deletePost = async (targetPostId: number, targetPostTopic: PostTopic) => {
     await deletePostApi(
