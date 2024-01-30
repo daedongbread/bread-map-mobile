@@ -1,18 +1,15 @@
 import React, { memo } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/types';
+import { StyleSheet, View } from 'react-native';
 import { Divider } from '@/components/BakeryDetail/Divider';
 import { HistoryItem } from '@/components/Search/HistoryItem';
 import { BreadCry } from '@/components/Shared/Icons/BreadCry';
-import { XCircle } from '@/components/Shared/Icons/XCircle';
 import { SplitRow } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
 import { Text } from '@shared/Text';
 
 type Props = {
-  searchHistory: SearchEntity[];
-  onPressBakery: (searchEntity: SearchEntity) => void;
-  removeSearchHistory: (bakeryId: number) => void;
+  keywords: Array<string>;
+  onPress: (keyword: string) => void;
 };
 
 const Title = () => {
@@ -25,8 +22,8 @@ const Title = () => {
   );
 };
 
-const SearchHistoryList: React.FC<Props> = memo(({ searchHistory, onPressBakery, removeSearchHistory }) => {
-  if (!searchHistory?.length) {
+const SearchHistoryList: React.FC<Props> = memo(({ keywords, onPress }) => {
+  if (!keywords?.length) {
     return (
       <View>
         <Title />
@@ -48,23 +45,22 @@ const SearchHistoryList: React.FC<Props> = memo(({ searchHistory, onPressBakery,
     <View>
       <Title />
 
-      {searchHistory?.map(item => {
-        const { bakeryId, bakeryName } = item;
+      {keywords?.map((keyword, index) => {
         return (
-          <View key={bakeryId}>
+          <View key={index}>
             <View style={styles.row}>
               <View style={styles.flex}>
                 <HistoryItem
-                  name={bakeryName}
+                  name={keyword}
                   onPress={() => {
-                    onPressBakery(item);
+                    onPress(keyword);
                   }}
                 />
               </View>
 
-              <Pressable style={styles.closeIcon} onPress={() => removeSearchHistory(bakeryId)}>
+              {/* <Pressable style={styles.closeIcon} onPress={() => {}}>
                 <XCircle />
-              </Pressable>
+              </Pressable> */}
             </View>
 
             <Divider style={styles.divider} />

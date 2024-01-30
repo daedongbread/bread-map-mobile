@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/types';
 import { useGetRecentKeywords } from '@/apis/search';
 import { useGetPopularKeywords } from '@/apis/search/useGetPopularKeywords';
 import { useGetSuggestions } from '@/apis/search/useGetSuggestions';
@@ -13,14 +12,12 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Header } from '@/pages/MainStack/SearchStack/Header';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
-import { getStorageSearchHistory, setStorageSearchHistory } from '@/utils/storage/searchHistory';
 
 type Props = MainStackScreenProps<'SearchStack'>;
 
 const Search: React.FC<Props> = ({ navigation }) => {
   const { currentPosition, getLocation } = useGeolocation();
   const [searchValue, setSearchValue] = useState('');
-  const [searchHistory, setSearchHistory] = useState<SearchEntity[]>([]);
 
   // 검색 창에 검색어 state, debounce로 delay set state
   const word = useDebounce(searchValue, 300);
@@ -43,52 +40,31 @@ const Search: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const navigateDetail = useCallback(
-    (bakery: SearchEntity) => {
-      navigation.push('MainTab', {
-        screen: 'HomeStack',
-        params: {
-          screen: 'Bakery',
-          params: {
-            screen: 'BakeryDetailHome',
-            params: {
-              bakeryId: bakery.bakeryId,
-              bakeryName: bakery.bakeryName,
-            },
-          },
-        },
-      });
-    },
-    [navigation]
-  );
+  // const navigateDetail = useCallback(
+  //   (bakery: SearchEntity) => {
+  //     navigation.push('MainTab', {
+  //       screen: 'HomeStack',
+  //       params: {
+  //         screen: 'Bakery',
+  //         params: {
+  //           screen: 'BakeryDetailHome',
+  //           params: {
+  //             bakeryId: bakery.bakeryId,
+  //             bakeryName: bakery.bakeryName,
+  //           },
+  //         },
+  //       },
+  //     });
+  //   },
+  //   [navigation]
+  // );
 
-  const appendSearchHistory = useCallback((searchEntity: SearchEntity) => {
-    setSearchHistory(prevState => {
-      const newSearchHistory = [searchEntity, ...prevState.filter(el => el.bakeryId !== searchEntity.bakeryId)];
-
-      setStorageSearchHistory(newSearchHistory);
-
-      return newSearchHistory;
-    });
-  }, []);
-
-  const removeSearchHistory = useCallback((bakeryId: number) => {
-    setSearchHistory(prevState => {
-      const newSearchHistory = prevState.filter(el => el.bakeryId !== bakeryId);
-
-      setStorageSearchHistory(newSearchHistory);
-
-      return newSearchHistory;
-    });
-  }, []);
-
-  const onPressBakery = useCallback(
-    (searchEntity: SearchEntity) => {
-      navigateDetail(searchEntity);
-      appendSearchHistory(searchEntity);
-    },
-    [appendSearchHistory, navigateDetail]
-  );
+  // const onPressBakery = useCallback(
+  //   (searchEntity: SearchEntity) => {
+  //     navigateDetail(searchEntity);
+  //   },
+  //   [navigateDetail]
+  // );
 
   const navigateSearchComplete = (name: string) => {
     navigation.push('SearchStack', {
@@ -100,12 +76,6 @@ const Search: React.FC<Props> = ({ navigation }) => {
       },
     });
   };
-
-  useEffect(() => {
-    getStorageSearchHistory().then(el => {
-      setSearchHistory(el);
-    });
-  }, []);
 
   useEffect(() => {
     getLocation();
@@ -143,11 +113,7 @@ const Search: React.FC<Props> = ({ navigation }) => {
         ) : (
           <>
             {/* 최근 검색 */}
-            <SearchHistoryList
-              searchHistory={searchHistory}
-              onPressBakery={onPressBakery}
-              removeSearchHistory={removeSearchHistory}
-            />
+            <SearchHistoryList keywords={recentKeywords} onPress={navigateSearchComplete} />
 
             <SplitRow height={20} />
 

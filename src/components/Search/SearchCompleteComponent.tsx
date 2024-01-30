@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 type Props = {
   keyword: string;
   bakeries: Array<BakeryDTO>;
+  subwayStationName: string;
   goMap: () => void;
   goHome: () => void;
   onDistanceSortingPress: () => void;
@@ -20,6 +21,7 @@ type Props = {
 export const SearchCompleteComponent = ({
   keyword,
   bakeries,
+  subwayStationName,
   goMap,
   goHome,
   onDistanceSortingPress,

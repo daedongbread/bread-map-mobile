@@ -39,6 +39,7 @@ export const SearchCompleteContainer = () => {
   return (
     <SearchCompleteComponent
       bakeries={data.searchResultDtoList || []}
+      subwayStationName={data.subwayStationName}
       keyword={keyword}
       goMap={goMap}
       goHome={goHome}

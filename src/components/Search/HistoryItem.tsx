@@ -8,7 +8,7 @@ import { Text } from '@shared/Text';
 type Props = {
   name: string;
   onPress: () => void;
-  searchValue: string;
+  searchValue?: string;
 };
 
 const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
