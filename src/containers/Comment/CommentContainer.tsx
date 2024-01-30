@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useGetComments, usePostToggleCommentsLike } from '@/apis/community';
-import { PostTopic } from '@/apis/community/types';
+import { usePostToggleCommentsLike } from '@/apis/community';
+import { Comment, PostTopic } from '@/apis/community/types';
 import { usePostComment } from '@/apis/community/usePostComment';
 import { CommentComponent } from '@/components/Comment';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 type Props = {
   postId: number;
   postTopic: PostTopic;
+  comments: Comment[];
+  refetchComments: (pageNum?: number) => void;
 };
 
 export type CommentParentInfo = {
@@ -25,13 +27,11 @@ const initialParentInfo = {
 
 type Navigation = MainStackScreenProps<'CommentMenuBottomSheet'>['navigation'];
 
-export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
+export const CommentContainer = React.memo(({ postId, postTopic, comments, refetchComments }: Props) => {
   const navigation = useNavigation<Navigation>();
 
   const [comment, setComment] = useState('');
   const [parentInfo, setParentInfo] = useState<CommentParentInfo>(initialParentInfo);
-
-  const { comments = [], refetch } = useGetComments({ postId, postTopic, page: 0 });
 
   const { mutateAsync: postComment } = usePostComment();
   const { mutateAsync: onPressLike } = usePostToggleCommentsLike();
@@ -72,6 +72,11 @@ export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
     setComment(newComment);
   };
 
+  const refetch = () => {
+    // 임시적으로 테스트를 위해 전체 댓글을 refetch 합니다
+    refetchComments();
+  };
+
   const onPressCommentSubmit = async () => {
     await postComment(
       {
@@ -94,7 +99,7 @@ export const CommentContainer = React.memo(({ postId, postTopic }: Props) => {
 
   return (
     <CommentComponent
-      comments={comments.contents}
+      comments={comments}
       comment={comment}
       parentInfo={parentInfo}
       onPressProfile={onPressProfile}

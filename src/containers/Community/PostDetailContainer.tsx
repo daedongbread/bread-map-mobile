@@ -1,14 +1,15 @@
 import { AxiosError } from 'axios';
 import React, { useCallback } from 'react';
-import { Alert } from 'react-native';
+import { Alert, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useBlockUser } from '@/apis/auth/useBlockUser';
-import { useDeletePost, useGetPost, usePostToggleLike } from '@/apis/community';
+import { useDeletePost, useGetInfiniteComments, useGetPost, usePostToggleLike } from '@/apis/community';
 import { PostTopic } from '@/apis/community/types';
 import { PostDetailComponent } from '@/components/Community/PostDetailComponent';
 import { useCommunityBottomSheetNavigation } from '@/hooks/Navigation';
 import { useAppSelector } from '@/hooks/redux';
 import { MainStackScreenProps } from '@/pages/MainStack/Stack';
+import { isCloseToBottom } from '@/utils/scroll/scroll';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import BlockUserIcon from '@shared/Icons/BlockUserIcon.svg';
 import DeleteIcon from '@shared/Icons/DeleteIcon.svg';
@@ -46,6 +47,21 @@ export const PostDetailContainer = () => {
   };
 
   const { post, refetch: refetchPost } = useGetPost({ postTopic, postId, onErrorCb: onError });
+  const {
+    comments = [],
+    hasNextPage,
+    fetchNextPage,
+    refetch: refetchComments,
+  } = useGetInfiniteComments({ postId, postTopic });
+  const flatComments = comments && comments.map(comment => comment.contents).flat();
+
+  const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (isCloseToBottom(event)) {
+      if (hasNextPage) {
+        fetchNextPage();
+      }
+    }
+  };
 
   const refetchAll = () => {
     // 리뷰내용 refetch
@@ -143,6 +159,14 @@ export const PostDetailContainer = () => {
   }
 
   return (
-    <PostDetailComponent post={post} onPressLike={onPressLike} refetchPost={refetchAll} onPressMenu={onPressMenu} />
+    <PostDetailComponent
+      post={post}
+      comments={flatComments}
+      onScrollEndDrag={onScrollEndDrag}
+      onPressLike={onPressLike}
+      refetchPost={refetchAll}
+      refetchComments={refetchComments}
+      onPressMenu={onPressMenu}
+    />
   );
 };

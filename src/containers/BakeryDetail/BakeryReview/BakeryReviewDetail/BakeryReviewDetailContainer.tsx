@@ -1,13 +1,15 @@
 import { AxiosError } from 'axios';
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useQueryClient } from 'react-query';
 import { useBlockUser } from '@/apis/auth/useBlockUser';
+import { useGetInfiniteComments } from '@/apis/community';
 import { useGetReview } from '@/apis/review';
 import { BakeryReviewDetailComponent } from '@/components/BakeryDetail/BakeryReview/BakeryReviewDetail';
 import { useCommunityBottomSheetNavigation } from '@/hooks/Navigation';
 import { BakeryReviewDetailScreenProps } from '@/pages/MainStack/BakeryDetail/Tab/BakeryReview/BakeryReviewDetail/Stack';
 import { HomeStackParamList, HomeStackScreenProps } from '@/pages/MainStack/MainTab/HomeStack/Stack';
+import { isCloseToBottom } from '@/utils/scroll/scroll';
 import { CompositeScreenProps, useNavigation, useRoute } from '@react-navigation/native';
 import BlockUserIcon from '@shared/Icons/BlockUserIcon.svg';
 import ReportIcon from '@shared/Icons/ReportIcon.svg';
@@ -41,6 +43,21 @@ export const BakeryReviewDetailContainer = () => {
   };
 
   const { review, refetch: refetchReview } = useGetReview({ reviewId, onErrorCb: onError });
+  const {
+    comments = [],
+    hasNextPage,
+    fetchNextPage,
+    refetch: refetchComments,
+  } = useGetInfiniteComments({ postId: reviewId, postTopic: 'REVIEW' });
+  const flatComments = comments && comments.map(comment => comment.contents).flat();
+
+  const onScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (isCloseToBottom(event)) {
+      if (hasNextPage) {
+        fetchNextPage();
+      }
+    }
+  };
 
   if (!review) {
     return null;
@@ -105,8 +122,11 @@ export const BakeryReviewDetailContainer = () => {
   return (
     <BakeryReviewDetailComponent
       review={review}
+      comments={flatComments}
+      onScrollEndDrag={onScrollEndDrag}
       onPressMenu={onPressMenu}
       refetchPage={refetchPage}
+      refetchComments={refetchComments}
       goNavBakeryDetail={goNavBakeryDetail}
     />
   );

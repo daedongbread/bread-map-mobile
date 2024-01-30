@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ReviewDetailEntity } from '@/apis/bakery/types';
+import { Comment } from '@/apis/community/types';
 import { Header } from '@/components/Community/Post';
 import { Review } from '@/components/Shared/Reviews';
 import { SplitRow } from '@/components/Shared/SplitSpace';
@@ -13,12 +14,23 @@ import { Divider } from '../../Divider';
 
 type Props = {
   review: ReviewDetailEntity;
+  comments: Comment[];
+  onScrollEndDrag: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   refetchPage: () => void;
+  refetchComments: (pageNum?: number) => void;
   onPressMenu: () => void;
   goNavBakeryDetail: () => void;
 };
 
-export const BakeryReviewDetailComponent = ({ review, refetchPage, onPressMenu, goNavBakeryDetail }: Props) => {
+export const BakeryReviewDetailComponent = ({
+  review,
+  comments,
+  onScrollEndDrag,
+  refetchPage,
+  refetchComments,
+  onPressMenu,
+  goNavBakeryDetail,
+}: Props) => {
   const { top, bottom } = useSafeAreaInsets();
 
   return (
@@ -28,6 +40,7 @@ export const BakeryReviewDetailComponent = ({ review, refetchPage, onPressMenu, 
       enableOnAndroid
       enableAutomaticScroll={true}
       extraHeight={12}
+      onScrollEndDrag={onScrollEndDrag}
       keyboardShouldPersistTaps="handled"
       scrollIndicatorInsets={{ right: 1 }}
       refreshControl={<RefreshControl progressViewOffset={top} refreshing={false} onRefresh={refetchPage} />}
@@ -46,7 +59,12 @@ export const BakeryReviewDetailComponent = ({ review, refetchPage, onPressMenu, 
 
         <Divider />
 
-        <CommentContainer postId={review.reviewDto.reviewInfo.id} postTopic="REVIEW" />
+        <CommentContainer
+          comments={comments}
+          postId={review.reviewDto.reviewInfo.id}
+          postTopic="REVIEW"
+          refetchComments={refetchComments}
+        />
 
         {bottom === 0 && <SplitRow height={12} />}
       </SafeAreaView>
