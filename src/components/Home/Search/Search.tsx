@@ -28,7 +28,7 @@ export const Search = ({ containerStyle, backgroundColor, onPress }: Props) => {
         <SplitColumn width={8} />
 
         <Text presets={'body2'} color={theme.color.gray500}>
-          {'빵 또는 빵집명을 검색해보세요'}
+          {'빵 또는 빵집명을 검색해 보세요🥨'}
         </Text>
       </View>
     </Pressable>

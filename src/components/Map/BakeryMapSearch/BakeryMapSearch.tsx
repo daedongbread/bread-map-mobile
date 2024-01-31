@@ -17,7 +17,7 @@ export const BakeryMapSearch: React.FC<Props> = ({ onPress }) => {
           <SearchIcon />
         </View>
         <Text presets={['body2', 'semibold']} style={styles.text}>
-          빵집을 검색해보세요
+          빵 또는 빵집명을 검색해 보세요🥨
         </Text>
       </View>
     </Pressable>
