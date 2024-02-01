@@ -52,6 +52,7 @@ export const BakeryMapContainer: React.FC = () => {
   const mapView = useRef<MapView>(null);
 
   const { navigate } = useNavigation<HomeStackScreenProps<'Home'>['navigation']>();
+  const navigation = useNavigation();
   const { currentPositionRef, geolocationAuthorization, currentPosition } = useGeolocation();
   const { top: topInsets } = useSafeAreaInsets();
   const [isWatched, setIsWatched] = useState(true);
@@ -92,7 +93,7 @@ export const BakeryMapContainer: React.FC = () => {
   }, []);
 
   const onPressSearch = useCallback(() => {
-    navigate('MainStack', {
+    navigate('SearchStack', {
       screen: 'Search',
     });
   }, [navigate]);
@@ -136,6 +137,12 @@ export const BakeryMapContainer: React.FC = () => {
     },
     [isWatched, searchBakeriesWith, searchMapCameraLocation]
   );
+
+  const navigateReport = useCallback(() => {
+    navigation.push('ReportBakeryStack', {
+      screen: 'ReportBakeryOnboard',
+    });
+  }, [navigation]);
 
   useEffect(() => {
     if (initialRegion) {
@@ -183,6 +190,7 @@ export const BakeryMapContainer: React.FC = () => {
         isFilterSaved={isFilterSaved}
         showSearchButton={showSearchButton}
         onPressSearchButton={onPressSearchButton}
+        navigateReport={navigateReport}
       />
     </View>
   );

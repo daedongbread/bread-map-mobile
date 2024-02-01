@@ -1,32 +1,67 @@
 import React, { memo } from 'react';
 import { ButtonProps, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SearchEntity } from '@/apis/bakery/types';
+import { BakeryDTO } from '@/apis/search';
+import { BreadCircle } from '@/components/Shared/Icons/BreadCircle';
+import { SplitColumn, SplitRow } from '@/components/Shared/SplitSpace';
 import { theme } from '@/styles/theme';
 import { convertDistance } from '@/utils/convert/convert';
-import { BreadCakeIcon } from '@shared/Icons';
+import { StarIcon } from '@shared/Icons';
 import { Text } from '@shared/Text';
 
 type Props = {
-  bakery: SearchEntity;
+  bakery: BakeryDTO;
   onPress: ButtonProps['onPress'];
 };
 
 const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
+  const { address, reviewNum, totalScore, bakeryName, distance } = bakery;
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.iconWrapper}>
-          <BreadCakeIcon width={26} height={26} color={theme.color.primary500} />
+        <View style={styles.body}>
+          <BreadCircle />
+
+          <SplitColumn width={12} />
+
+          <View style={styles.wrapper}>
+            <Text presets={['body2', 'semibold']} color={theme.color.gray900}>
+              {bakeryName}
+            </Text>
+
+            <SplitRow height={4} />
+
+            <Text presets={'caption2'} color={theme.color.gray500}>
+              {address}
+            </Text>
+
+            <SplitRow height={4} />
+
+            <View style={styles.row}>
+              <View style={styles.row}>
+                <StarIcon size={12.5} fillColor={'#FFD540'} />
+
+                <SplitColumn width={4} />
+
+                <Text presets={'caption2'} color={theme.color.gray500}>
+                  {totalScore}
+                </Text>
+              </View>
+
+              <SplitColumn width={4} />
+
+              <View style={styles.verticalBar} />
+
+              <SplitColumn width={4} />
+
+              <Text presets={'caption2'} color={theme.color.gray500}>
+                리뷰 {reviewNum}
+              </Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.wrapper}>
-          <Text presets={['body1', 'medium']} color={theme.color.gray900}>
-            {bakery.bakeryName}
-          </Text>
-          <Text presets={['caption1', 'medium']} style={styles.hint}>
-            리뷰 {bakery.reviewNum}
-          </Text>
-        </View>
-        <Text style={styles.hint}>{convertDistance(bakery.distance)}</Text>
+        <Text presets={'caption2'} color={theme.color.gray500}>
+          {convertDistance(distance)}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -35,8 +70,12 @@ const SearchItem: React.FC<Props> = memo(({ bakery, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 13,
+    padding: 20,
     alignItems: 'center',
+  },
+  body: {
+    flexDirection: 'row',
+    flex: 1,
   },
   iconWrapper: {
     marginRight: 8,
@@ -44,8 +83,14 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
-  hint: {
-    color: theme.color.gray900,
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  verticalBar: {
+    width: 1,
+    height: 8,
+    backgroundColor: theme.color.gray300,
   },
 });
 
