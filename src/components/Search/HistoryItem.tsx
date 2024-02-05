@@ -12,7 +12,8 @@ type Props = {
 };
 
 const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
-  const index = name.indexOf(searchValue);
+  const searchValueSplit = searchValue?.split('');
+  const nameSplit = name?.split('');
 
   return (
     <Pressable onPress={onPress}>
@@ -21,15 +22,11 @@ const HistoryItem: React.FC<Props> = memo(({ name, onPress, searchValue }) => {
 
         <SplitColumn width={12} />
 
-        <Text presets={['body1', 'medium']} color={'gray900'}>
-          {name.substring(0, index)}
-        </Text>
-        <Text presets={['body1', 'medium']} color={'primary500'}>
-          {searchValue}
-        </Text>
-        <Text presets={['body1', 'medium']} color={'gray900'}>
-          {name.substring(index + searchValue?.length ?? 0)}
-        </Text>
+        {nameSplit.map(nameChar => (
+          <Text presets={['body1', 'medium']} color={searchValueSplit?.includes(nameChar) ? 'primary500' : 'gray900'}>
+            {nameChar}
+          </Text>
+        ))}
       </View>
     </Pressable>
   );
