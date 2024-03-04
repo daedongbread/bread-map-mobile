@@ -13,7 +13,7 @@
 #import <React/RCTDevLoadingView.h>
 #endif
 
-#import "ReactNativeConfig.h"
+#import "RNCConfig.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -45,7 +45,7 @@ static void InitializeFlipper(UIApplication *application) {
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }
-  NSString *mapsApiKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY_IOS"];
+  NSString *mapsApiKey = [RNCConfig envFor:@"GOOGLE_MAPS_API_KEY_IOS"];
   [GMSServices provideAPIKey:mapsApiKey];
     #if DEBUG
       #ifdef FB_SONARKIT_ENABLED
